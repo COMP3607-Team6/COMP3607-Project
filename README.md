@@ -1,3 +1,3 @@
 # COMP3607-Project
 
-# Avinash Roopnarine
+# Avinash Roopnarine COMP 3607
