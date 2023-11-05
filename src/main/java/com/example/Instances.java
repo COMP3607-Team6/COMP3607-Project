@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 public class Instances {
+        private ArrayList<Object> a = new ArrayList<>();
+    public void createInstances(){
+        String folderPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2"; // Replace this with the path to your folder containing .java files
 
-    public static void main(String[] args) {
-        String folderPath = "C:\\Users\\Avinash Roopnarine\\Desktop\\OOP 2\\COMP3607-Project\\src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2"; // Replace this with the path to your folder containing .java files
+        
 
         File folder = new File(folderPath);
         File[] javaFiles = folder.listFiles(new FilenameFilter() {
@@ -37,7 +39,8 @@ public class Instances {
                     for (Constructor<?> constructor : constructors) {
                         if(constructor.getParameterCount() == 0){
                            Object obj = constructor.newInstance();
-                           System.out.println(obj.toString());
+                           a.add(obj);
+                        //    System.out.println(obj.toString());
                            //break;
                         }
 
@@ -50,7 +53,8 @@ public class Instances {
                                 parameterValues.add(defaultValue);    
                             }
                             Object instance = constructor.newInstance(parameterValues.toArray());
-                            System.out.println(instance.toString());
+                            a.add(instance);
+                            // System.out.println(instance.toString());
                             //break;
                         }
                     }
@@ -75,7 +79,7 @@ public class Instances {
                   //  }
 
                     // Now 'obj' is an instance of the class specified by the .java file
-                    System.out.println("Object of class " + className + " instantiated.");
+                    // System.out.println("Object of class " + className + " instantiated.");
                 } catch (ClassNotFoundException e) {
                     System.out.println("Class not found: " + className);
                 } catch (Exception e) {
@@ -101,5 +105,13 @@ public class Instances {
         } else {
             return null; // Default value for custom or non-primitive types
         }
+    }
+
+    public String testText(){
+        return "Hello";
+    }
+    public ArrayList<Object> getInstances(){
+        createInstances();
+        return this.a;
     }
 }
