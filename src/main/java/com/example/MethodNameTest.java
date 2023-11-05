@@ -16,9 +16,15 @@ public class MethodNameTest extends NamingConventionTest {
 
     }
 
-    public void test(){
-        methodObject = findMethodInstance(className, methodName);
-        assertTrue(methodObject != null);
+    public String test(){
+        try{
+            methodObject = findMethodInstance(className, methodName);
+            assertTrue(methodObject != null);
+            return "Method: " + methodName + "Found";
+        }
+        catch(AssertionError e){
+            return "Method: " + methodName + " Not Found!";
+        }
 
     }
 

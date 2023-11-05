@@ -7,7 +7,6 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Instances {
         private ArrayList<Object> a = new ArrayList<>();
@@ -58,28 +57,7 @@ public class Instances {
                             //break;
                         }
                     }
-
-                    // List<Object> parameterValues = new ArrayList<>();
-
-                    // Parameter[] parameters = constructor.getParameters();
-                  
-                    // if(parameters.length > 0){
-                        // for (Parameter parameter : parameters) {
-                        //     Class<?> parameterType = parameter.getType();
-                        //     Object defaultValue = getDefaultValueForType(parameterType);
-                        //     System.out.println(defaultValue);
-                        //     parameterValues.add(defaultValue);    
-                        // }
-                    //     Object instance = constructor.newInstance(parameterValues.toArray());
-                    // }
-                    // else{
-                    // // Instantiate the object
-                    // //Constructor<?> constructor = clazz.getDeclaredConstructor();
-                    // //Object obj = constructor.newInstance();
-                  //  }
-
-                    // Now 'obj' is an instance of the class specified by the .java file
-                    // System.out.println("Object of class " + className + " instantiated.");
+                    
                 } catch (ClassNotFoundException e) {
                     System.out.println("Class not found: " + className);
                 } catch (Exception e) {
