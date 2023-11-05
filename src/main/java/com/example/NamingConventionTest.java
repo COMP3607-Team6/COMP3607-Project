@@ -2,19 +2,17 @@ package com.example;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
+import java.lang.reflect.Field;
 
 public abstract class NamingConventionTest implements TestCase {
     private Instances instances;
     private ArrayList<Object> testResult;
 
-    public NamingConventionTest(String name){
+    public NamingConventionTest(){
         instances = new Instances(); // Initialize the instances variable with a new Instances object
         testResult = instances.getInstances();
 
     }
-
-    public abstract void test();
 
     public Object findClassInstance(String name){
 
@@ -36,18 +34,40 @@ public abstract class NamingConventionTest implements TestCase {
             Class<?> clazz = classObject.getClass();
 
             try {
-                // Find the method with the specified name
                 Method method = clazz.getMethod(methodName);
                 
-                // Invoke the method if found
-                Object result = method.invoke(classObject);
+                Object result = method.invoke(classObject); //Note: This method allows you to call the found method, with parameters etc.
                 
+                System.out.println("Method found: " + method.getName());
                 return result;
             } 
             catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace(); // Handle the exceptions according to your use case
+                System.out.println("Method not found: " + methodName);
             }
         }
+        
+        return null;
+    }
+
+    public Object findAttributeInstance(String className,String attributeName){
+        Object classObject = findClassInstance(className);
+        if (classObject != null){
+
+            try {
+                Class<?> clazz = classObject.getClass();
+    
+                // Get the field with the specified name
+                Field field = clazz.getDeclaredField(attributeName);
+    
+                System.out.println("Attribute found: " + field.getName());
+                return field;
+            } 
+            catch (NoSuchFieldException e) {
+                System.out.println("Attribute not found: " + attributeName);
+            }
+        }
+            
         
         return null;
     }

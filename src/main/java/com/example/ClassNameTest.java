@@ -8,13 +8,16 @@ public class ClassNameTest extends NamingConventionTest {
     private String className;
 
     public ClassNameTest(String className){
-        super(className);
+        super();
         this.className = className;
-        this.classObject = findClassInstance(className);
+        
     
 
     }
     public void test(){
+
+        classObject = findClassInstance(className);
+        
         if (classObject == null){
             assertTrue(false);
         }

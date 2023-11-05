@@ -9,17 +9,15 @@ public class MethodNameTest extends NamingConventionTest {
     private String methodName;
 
     public MethodNameTest(String className, String methodName){
-        super(methodName);
+        super();
         this.className = className;
         this.methodName = methodName;
-        methodObject = findMethodInstance(className, methodName);
+        
 
     }
 
     public void test(){
-        if(methodObject != null){
-            System.out.println(methodName + " exists!");
-        }
+        methodObject = findMethodInstance(className, methodName);
         assertTrue(methodObject != null);
 
     }
