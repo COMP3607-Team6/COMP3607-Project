@@ -1,0 +1,78 @@
+Test Case Results:
+
+--------------------------------
+Test Case 1: Addition Function
+--------------------------------
+Description: Test the addition function with two positive numbers.
+Input: 5 + 7
+Expected Output: 12
+Actual Output: 12
+Result: PASSED
+
+--------------------------------
+Test Case 2: Subtraction Function
+--------------------------------
+Description: Test the subtraction function with two positive numbers.
+Input: 10 - 3
+Expected Output: 7
+Actual Output: 7
+Result: PASSED
+
+--------------------------------
+Test Case 3: Multiplication Function
+--------------------------------
+Description: Test the multiplication function with a positive and a negative number.
+Input: 4 * (-2)
+Expected Output: -8
+Actual Output: -8
+Result: PASSED
+
+--------------------------------
+Test Case 4: Division Function
+--------------------------------
+Description: Test the division function with two positive numbers.
+Input: 12 / 4
+Expected Output: 3
+Actual Output: 3
+Result: PASSED
+
+--------------------------------
+Test Case 5: Exponentiation Function
+--------------------------------
+Description: Test the exponentiation function with a positive base and exponent.
+Input: 2^3
+Expected Output: 8
+Actual Output: 8
+Result: PASSED
+
+--------------------------------
+Test Case 6: String Concatenation Function
+--------------------------------
+Description: Test the string concatenation function.
+Input: "Hello, " + "World!"
+Expected Output: "Hello, World!"
+Actual Output: "Hello, World!"
+Result: PASSED
+
+--------------------------------
+Test Case 7: Array Indexing Function
+--------------------------------
+Description: Test the array indexing function with a valid index.
+Input: arr[3]
+Expected Output: Element at index 3
+Actual Output: Element at index 3
+Result: PASSED
+
+--------------------------------
+Test Case 8: File Reading Function
+--------------------------------
+Description: Test the file reading function with a valid file path.
+Input: ReadFile("example.txt")
+Expected Output: Content of the file
+Actual Output: Content of the file
+Result: PASSED
+
+Summary:
+Total Test Cases: 8
+Test Cases Passed: 8
+Test Cases Failed: 0
