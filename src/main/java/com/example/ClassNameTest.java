@@ -14,24 +14,39 @@ public class ClassNameTest extends NamingConventionTest {
     
 
     }
-    public void test(){
+
+
+    public String test(){
 
         classObject = findClassInstance(className);
         
-        if (classObject == null){
-            assertTrue(false);
+        
+
+        try{
+            assertTrue("Class Name Test 1", classObject != null);
+            return "Class Name: " + className + " Found.";
         }
-        else{
-            assertTrue(true);
-            System.out.println(className + " exists!");
+        catch(AssertionError e){
+            return "Class Name:" + className + " not found.";
         }
+
+
+        // if (classObject == null){
+        //     assertTrue(false);
+        // }
+        // else{
+        //     assertTrue(true);
+        //     System.out.println(className + " exists!");
+        // }
 
 
     }
 
     public static void main (String[] args){
         ClassNameTest c  = new ClassNameTest("CeilingFan");
-        c.test();
+        String value = c.test();
+        System.out.println("   -----------------------------");
+        System.out.println(value);
     }
 
 }

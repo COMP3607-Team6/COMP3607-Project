@@ -6,13 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.commons.io.FileUtils;
 
 public class PDFReport {
-    public static void generatePDF(String textFilePath, String outputPDFPath) throws IOException {
+    public void generatePDF(String textFilePath, String outputPDFPath) throws IOException {
         File textFile = new File(textFilePath);
 
         // Create a PDF document
@@ -48,12 +46,12 @@ public class PDFReport {
     
     
 
-    public static void main(String[] args) {
-        try {
-            generatePDF("C:\\Users\\Avinash Roopnarine\\Desktop\\OOP 2\\COMP3607-Project\\src\\main\\java\\com\\example\\TestCases.txt", "C:\\Users\\Avinash Roopnarine\\Desktop\\OOP 2\\COMP3607-Project\\src\\main\\java\\com\\example\\Output.pdf");
-            System.out.println("PDF generated successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    // public static void main(String[] args) {
+    //     try {
+    //         generatePDF("src\\main\\java\\com\\example\\TestCases.txt", "src\\main\\java\\com\\example\\Output.pdf");
+    //         System.out.println("PDF generated successfully.");
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 }

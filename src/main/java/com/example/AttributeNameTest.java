@@ -14,9 +14,15 @@ public class AttributeNameTest extends NamingConventionTest {
         
     }
 
-    public void test(){
+    public String test(){
+        try{
         Object object = findAttributeInstance(className, attributeName);
-        assertTrue("Attribute found: ",object != null);
+        assertTrue(object != null);
+        return "Attribute: " + attributeName + "Found!";
+        }
+        catch(AssertionError e){
+            return "Attribute: " + attributeName + " not Found!";
+        }
     }
     public static void main (String[] args){
         AttributeNameTest a  = new AttributeNameTest("Room", "devices");
