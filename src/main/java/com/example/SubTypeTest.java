@@ -13,13 +13,16 @@ import java.nio.file.Paths;
 public class SubTypeTest extends HierarchyTest {
     private Object classObject;
     private String superClassPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
+    String subClass; String superClass;
 
-    //Needed to add parameters so i created testSubType
-    public String test(){
-        return "HI";
+    public SubTypeTest(String subClass, String superClass)
+    {
+        super();
+        this.subClass = subClass;
+        this.superClass = superClass;
     }
 
-    public String testSubType(String subClass, String superClass) {
+    public String test() {
 
     //Specify folder with java files
     Path superClasspath = Paths.get(superClassPath, superClass+".java");
@@ -74,10 +77,10 @@ public class SubTypeTest extends HierarchyTest {
     public static void main (String[] args)
     {
         // Object hi = getSuperClass("Fan");
-        SubTypeTest t = new SubTypeTest();
+        SubTypeTest t = new SubTypeTest("AC", "Device");
         
         // System.out.println(t.test());
-        System.out.println(t.testSubType("AC", "Device"));
+        System.out.println(t.test());
         // t.test1();
     }
 }

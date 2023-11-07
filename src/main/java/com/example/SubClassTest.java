@@ -3,6 +3,8 @@ package com.example;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import java.lang.reflect.Modifier;
+
 
 // import com.example.Avinash_Roopnarine_816029635_A2.Fan;
 
@@ -14,6 +16,7 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,19 +26,17 @@ public class SubClassTest extends HierarchyTest{
 
     private Object classObject;
     private String superClassPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
+    String subClass; String superClass;
 
-    public SubClassTest()
+    public SubClassTest(String subClass, String superClass)
     {
         super();
+        this.subClass = subClass;
+        this.superClass = superClass;
     }
 
-    //Needed to add parameters so i created testSubClass
-    public String test() {        
-    return "Test";
-}  
-
 // @Test
-  public String testSubClass(String subClass, String superClass) {
+  public String test() {
 
     //Specify folder with java files
     Path superClasspath = Paths.get(superClassPath, superClass+".java");
@@ -86,10 +87,12 @@ public class SubClassTest extends HierarchyTest{
     public static void main (String[] args)
     {
         // Object hi = getSuperClass("Fan");
-        SubClassTest t = new SubClassTest();
+        SubClassTest t = new SubClassTest("StandingFan", "Fan");
         
         // System.out.println(t.test());
-        System.out.println(t.testSubClass("StandingFan", "Fan"));
+        System.out.println(t.test());
         // t.test1();
+
+        
     }
 }
