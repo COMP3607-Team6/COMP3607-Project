@@ -4,5 +4,5 @@ public interface TestCase{
 
     
 
-    public void test();
+    public String test();
 }

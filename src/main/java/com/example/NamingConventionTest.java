@@ -38,12 +38,10 @@ public abstract class NamingConventionTest implements TestCase {
                 
                 Object result = method.invoke(classObject); //Note: This method allows you to call the found method, with parameters etc.
                 
-                System.out.println("Method found: " + method.getName());
                 return result;
             } 
             catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace(); // Handle the exceptions according to your use case
-                System.out.println("Method not found: " + methodName);
             }
         }
         
