@@ -54,7 +54,7 @@ public class SubClassTest extends HierarchyTest{
             String packageName = "com.example.Avinash_Roopnarine_816029635_A2."; //Can be made a parameter
             Class<?> deviceClass = classLoader.loadClass(packageName + superClass);
             // System.out.println(deviceClass1.getClasses());
-    
+            classLoader.close();
             try {
                 assertTrue(deviceClass.isAssignableFrom(classObject.getClass()));
                 return classObject.getClass().getSimpleName() + " is subclassed from " + deviceClass.getSimpleName();
@@ -74,9 +74,11 @@ public class SubClassTest extends HierarchyTest{
                 // fail("ClassNotFoundException: " + e.getMessage());
                 return "ClassNotFoundException: " + e.getMessage();
             }
+            catch(IOException e){
+                return "IOException: " + e.getMessage();
+            }
        }
     }
-
     return "Test Failed";
 }
 

@@ -16,7 +16,6 @@ public abstract class HierarchyTest implements TestCase {
 
         for(Object o : testResult){
             String className = o.getClass().getSimpleName();
-            System.out.println(className);
 
             if(className.equals(name)){
                 return o;

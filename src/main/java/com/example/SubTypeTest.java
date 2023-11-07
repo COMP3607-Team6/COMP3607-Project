@@ -2,6 +2,7 @@ package com.example;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -36,6 +37,7 @@ public class SubTypeTest extends HierarchyTest {
             String packageName = "com.example.Avinash_Roopnarine_816029635_A2."; //Can be made a parameter
             
             Class<?> deviceClass = classLoader.loadClass(packageName + superClass);
+            classLoader.close();
             // System.out.println(deviceClass1.getClasses());
     
             try {
@@ -57,6 +59,10 @@ public class SubTypeTest extends HierarchyTest {
             {
                 // fail("ClassNotFoundException: " + e.getMessage());
                 return "ClassNotFoundException: " + e.getMessage();
+            }
+            catch (IOException e)
+            {
+                return "IOException: " + e.getMessage();
             }
        }
     }
