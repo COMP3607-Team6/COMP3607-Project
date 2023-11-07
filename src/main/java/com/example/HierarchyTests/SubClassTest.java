@@ -1,35 +1,50 @@
-package com.example;
+package com.example.HierarchyTests;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import java.lang.reflect.Modifier;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+// import com.example.Avinash_Roopnarine_816029635_A2.Fan;
+
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 
-public class SubTypeTest extends HierarchyTest {
+import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+
+public class SubClassTest extends HierarchyTest{
+
     private Object classObject;
     private String superClassPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
     String subClass; String superClass;
 
-    public SubTypeTest(String subClass, String superClass)
+    public SubClassTest(String subClass, String superClass)
     {
         super();
         this.subClass = subClass;
         this.superClass = superClass;
     }
 
-    public String test() {
+// @Test
+  public String test() {
 
     //Specify folder with java files
     Path superClasspath = Paths.get(superClassPath, superClass+".java");
 
+
     if (Files.exists(superClasspath)) 
     {
-      classObject = findClassInstance(subClass);
+      classObject = oldFindClassInstance(subClass);
       if (classObject != null)
       {
 
@@ -38,19 +53,16 @@ public class SubTypeTest extends HierarchyTest {
             URLClassLoader classLoader = new URLClassLoader(new URL[]{url});
             
             String packageName = "com.example.Avinash_Roopnarine_816029635_A2."; //Can be made a parameter
-            
             Class<?> deviceClass = classLoader.loadClass(packageName + superClass);
-            classLoader.close();
             // System.out.println(deviceClass1.getClasses());
-    
+            classLoader.close();
             try {
-                // assertTrue(deviceClass.isInterface());
                 assertTrue(deviceClass.isAssignableFrom(classObject.getClass()));
-                return classObject.getClass().getSimpleName() + " implements " + deviceClass.getSimpleName();
+                return classObject.getClass().getSimpleName() + " is subclassed from " + deviceClass.getSimpleName();
             }
             catch (AssertionError e)
             {
-                return classObject.getClass().getSimpleName() + " does not implement " + deviceClass.getSimpleName();
+                return classObject.getClass().getSimpleName() + " is not subclassed from " + deviceClass.getSimpleName();
             }
             } 
             catch (MalformedURLException e) 
@@ -63,13 +75,11 @@ public class SubTypeTest extends HierarchyTest {
                 // fail("ClassNotFoundException: " + e.getMessage());
                 return "ClassNotFoundException: " + e.getMessage();
             }
-            catch (IOException e)
-            {
+            catch(IOException e){
                 return "IOException: " + e.getMessage();
             }
        }
     }
-
     return "Test Failed";
 }
 
@@ -77,10 +87,12 @@ public class SubTypeTest extends HierarchyTest {
     public static void main (String[] args)
     {
         // Object hi = getSuperClass("Fan");
-        SubTypeTest t = new SubTypeTest("AC", "Device");
+        SubClassTest t = new SubClassTest("StandingFan", "Fan");
         
         // System.out.println(t.test());
         System.out.println(t.test());
         // t.test1();
+
+        
     }
 }

@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -173,21 +172,37 @@ public class Instances {
         // System.out.println("Abstract Classes");
         // for (Class<?> j : i.getAbstractClasses()){
         //     System.out.println("Abstract " + j.getSimpleName());
+        //     Field[] fields = j.getDeclaredFields();
+        //     for (Field field : fields) {
+        //         System.out.println("Attribute: " + field.getName());
+        //     }
         // }
 
         // System.out.println("Interface Classes");
         // for (Class<?> j : i.getInterfaceClasses()){
         //     System.out.println("Interface " + j.getSimpleName());
+        //     Field[] fields = j.getDeclaredFields();
+        //     for (Field field : fields) {
+        //         System.out.println("Attribute: " + field.getName());
+        //     }
         // }
 
         // System.out.println("Concrete Classes");
         // for (Class<?> j : i.getConcreteClasses()){
         //     System.out.println("Concrete " + j.getSimpleName());
+        //     Field[] fields = j.getDeclaredFields();
+        //     for (Field field : fields) {
+        //         System.out.println("Attribute: " + field.getName());
+        //     }
         // }
 
         // System.out.println("All Classes");
         // for (Class<?> j : i.getAllClasses()){
         //     System.out.println("All " + j.getSimpleName());
+        //   Field[] fields = j.getDeclaredFields();
+        //     for (Field field : fields) {
+        //         System.out.println("Attribute: " + field.getName());
+        //     }
         // }
     }
 }

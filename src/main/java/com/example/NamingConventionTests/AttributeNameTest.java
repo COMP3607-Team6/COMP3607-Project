@@ -1,6 +1,8 @@
-package com.example;
+package com.example.NamingConventionTests;
 
 import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.Field;
 
 public class AttributeNameTest extends NamingConventionTest {
 
@@ -16,9 +18,9 @@ public class AttributeNameTest extends NamingConventionTest {
 
     public String test(){
         try{
-        Object object = findAttributeInstance(className, attributeName);
-        assertTrue(object != null);
-        return "Attribute: " + attributeName + "Found!";
+        Field f = findAttributeInstance(className, attributeName, allClasses);
+        assertTrue(f!= null);
+        return "Attribute: " + attributeName + " Found!";
         }
         catch(AssertionError e){
             return "Attribute: " + attributeName + " not Found!";
@@ -26,6 +28,6 @@ public class AttributeNameTest extends NamingConventionTest {
     }
     public static void main (String[] args){
         AttributeNameTest a  = new AttributeNameTest("Room", "devices");
-        a.test();
+        System.out.println(a.test());
     }
 }

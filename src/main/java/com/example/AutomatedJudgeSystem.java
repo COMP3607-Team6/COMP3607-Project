@@ -7,6 +7,10 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+import com.example.NamingConventionTests.AttributeNameTest;
+import com.example.NamingConventionTests.ClassNameTest;
+import com.example.NamingConventionTests.MethodNameTest;
+
 public class AutomatedJudgeSystem {
     
 
