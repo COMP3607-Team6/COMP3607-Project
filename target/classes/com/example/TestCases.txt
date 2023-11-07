@@ -1,0 +1,3 @@
+Test Case: Class Name: CeilingFan Found.
+Test Case: Method: toStringFound
+Test Case: Attribute: devicesFound!
