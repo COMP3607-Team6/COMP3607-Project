@@ -3,6 +3,8 @@ package com.example;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import java.lang.reflect.Modifier;
+
 
 // import com.example.Avinash_Roopnarine_816029635_A2.Fan;
 
@@ -14,6 +16,7 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -89,5 +92,7 @@ public class SubClassTest extends HierarchyTest{
         // System.out.println(t.test());
         System.out.println(t.test());
         // t.test1();
+
+        
     }
 }
