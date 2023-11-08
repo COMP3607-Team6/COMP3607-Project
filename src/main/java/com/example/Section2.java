@@ -36,9 +36,9 @@ class Section2 extends JPanel {
         // section2 = new JPanel();
         setLayout(new BorderLayout());
        // setLayout(null);
+        System.out.println("hola");
 
         this.parent = parent; 
-        
         accessComboBox = new JComboBox<>(new String[]{"Public", "Private", "Protected"});
         isAbstractComboBox = new JComboBox<>(new String[]{"Abstract","Concrete"});
         isInterfaceComboBox = new JComboBox<>(new String[]{"Class","Interface"});
