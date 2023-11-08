@@ -27,6 +27,7 @@ class AssignmentSpecPortal extends JFrame {
         // repaint();
     }
 
+    
     private void createSection2() {
         section2 = new Section2(this);
         // getContentPane().add(section2);
