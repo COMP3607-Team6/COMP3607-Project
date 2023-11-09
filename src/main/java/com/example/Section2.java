@@ -15,6 +15,7 @@ class Section2 extends JPanel {
     private AssignmentSpecPortal parent;
     private int classCount = 1;
     private JPanel classPanel;
+    private JPanel subPanel;
     private JComboBox<String> accessComboBox;
     private JComboBox<String> isAbstractComboBox;
     private JComboBox<String> isInterfaceComboBox;
@@ -28,6 +29,7 @@ class Section2 extends JPanel {
     private JList<String> classList;
     private JLabel prompt;
     private JLabel markslabel;
+    private JButton backButton;
     
    
     // private JPanel section2;
@@ -59,12 +61,15 @@ class Section2 extends JPanel {
         classListModel = new DefaultListModel<>();
         classList = new JList<>(classListModel);
         JButton removeButton = new JButton("Remove Selected Class");
+        JButton addAttButton = new JButton("Add Attributes");
         
         JPanel classPanel = new JPanel();
         classPanel.setLayout(new GridLayout(2,1));
 
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
+
+        
       
         inputPanel.add(prompt);
         inputPanel.add(accessComboBox);
@@ -79,9 +84,12 @@ class Section2 extends JPanel {
         inputPanel.add(markField);
         inputPanel.add(addClassButton);
         inputPanel.add(removeButton);
+        inputPanel.add(addAttButton); 
 
 
         classPanel.add(inputPanel);
+        
+        
         classPanel.add(new JScrollPane(classList));
         //add(classPanel);
 
@@ -123,6 +131,16 @@ class Section2 extends JPanel {
             }
         }); 
 
+        backButton = new JButton("Back");
+		
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.switchToSection1();
+            }
+        });
+
       
         addClassButton.addActionListener(new ActionListener() {
             @Override
@@ -142,6 +160,19 @@ class Section2 extends JPanel {
                 }
             }
         });
+
+        addAttButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                int index = classList.getSelectedIndex();
+                if(index != -1){
+                    displayAttributes(index);
+                    
+                }
+            }
+        });
+
+        
        
 
      
@@ -149,7 +180,7 @@ class Section2 extends JPanel {
 
        
 
-        String[] columnNames = {"Access", "Instance Variable", "Type", "Attribute Name", "Marks"};
+     /*    String[] columnNames = {"Access", "Instance Variable", "Type", "Attribute Name", "Marks"};
         Object[][] data = {
             {"private", Boolean.FALSE, "", "", 0},
             {"public", Boolean.FALSE, "", "", 0},
@@ -160,20 +191,26 @@ class Section2 extends JPanel {
         JTable table = new JTable(model);
         customizeTable(table);
 
-        add(new JScrollPane(table), BorderLayout.CENTER);  
+        add(new JScrollPane(table), BorderLayout.CENTER);  */
         setLayout(null);
-        table.setSize(900,90);
+       /*  table.setSize(900,90);
 		table.setLocation(0, 300);
-        add(table);
+        add(table); */
+
+        
         
         classPanel.setSize(900, 200);
 		classPanel.setLocation(0, 10);
         add(classPanel);
+        backButton.setFont(new Font("Arial", Font.PLAIN, 15));
+		backButton.setSize(100, 20);
+		backButton.setLocation(50, 500);
+		add(backButton);
       
        
     }
 
-    private void customizeTable(JTable table) {
+   /*  private void customizeTable(JTable table) {
         table.getColumnModel().getColumn(0).setPreferredWidth(100);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -183,9 +220,9 @@ class Section2 extends JPanel {
         customizeIsInstanceColumn(table.getColumnModel().getColumn(1));
         customizeAccessColumn(table.getColumnModel().getColumn(0));
         customizeMarksColumn(table.getColumnModel().getColumn(4));
-    }
+    }  */
 
-    private void customizeIsInstanceColumn(TableColumn column) {
+  /*   private void customizeIsInstanceColumn(TableColumn column) {
         column.setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -200,9 +237,9 @@ class Section2 extends JPanel {
         });
 
         column.setCellEditor(new DefaultCellEditor(new JCheckBox()));
-    }
+    } */
 
-    private void customizeAccessColumn(TableColumn column) {
+   /*  private void customizeAccessColumn(TableColumn column) {
         JComboBox<String> accessComboBox = new JComboBox<>(new String[]{"private", "public", "protected"});
         column.setCellEditor(new DefaultCellEditor(accessComboBox));
     }
@@ -210,11 +247,11 @@ class Section2 extends JPanel {
     private void customizeMarksColumn(TableColumn column) {
         JTextField marksTextField = new JTextField();
         marksTextField.setDocument(new IntegerDocument());
-        column.setCellEditor(new DefaultCellEditor(marksTextField));
-    }
+        column.setCellEditor(new DefaultCellEditor(marksTextField));   
+    } */
 
     // Restricts input to integers only
-    static class IntegerDocument extends PlainDocument {
+  /*   static class IntegerDocument extends PlainDocument {
         private final Pattern pattern = Pattern.compile("-?\\d*");
 
         @Override
@@ -224,7 +261,94 @@ class Section2 extends JPanel {
                 super.insertString(offs, str, a);
             }
         }
-    }
+    } */
+      private void displayAttributes(int index) {
+            DefaultListModel<String> attributeListModel;
+            JList<String> attributeList;
+            attributeListModel = new DefaultListModel<>();
+            attributeList = new JList<>(attributeListModel);
+        
+            JPanel testPanel = new JPanel();
+            testPanel.setLayout(new GridLayout(2,1));
+
+            JPanel attributePanel = new JPanel();
+            attributePanel.setLayout(new FlowLayout());
+
+            JCheckBox instanceCheckBox = new JCheckBox("Instance Variable");
+            JTextField attributeNameField = new JTextField(20);
+            JTextField objNameField = new JTextField(10);
+            JComboBox<String> attributeTypeComboBox = new JComboBox<>(new String[]{"String","int","double","object"});
+            JComboBox<String> attAccessComboBox = new JComboBox<>(new String[]{"Public", "Private", "Protected"});
+            
+            JButton saveButton = new JButton("Save");
+            saveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String attributeName = attributeNameField.getText();
+                    String attributeType = (String) attributeTypeComboBox.getSelectedItem();
+                    String attAccessType = (String) attAccessComboBox.getSelectedItem();
+                    String attributeInfo = "";
+
+                    if(attributeName.equals("")){
+                        return;
+                    }
+                    else {
+                        attributeInfo = attAccessType+" "+attributeType+" "+attributeName;
+                        attributeListModel.addElement(attributeInfo);
+                    }
+                      attributeNameField.setText("");
+                   // addAttToList();
+                    
+                }
+            });
+            JButton closeButton = new JButton("X");
+            closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                 testPanel.setVisible(false);  
+            }
+          });
+
+            attributePanel.add(attAccessComboBox);
+            attributePanel.add(attributeTypeComboBox);
+            attributePanel.add(objNameField);
+            objNameField.setVisible(false);   
+            attributePanel.add(instanceCheckBox);
+            attributePanel.add(attributeNameField);
+            attributePanel.add(saveButton);
+            attributePanel.add(closeButton);
+            testPanel.add(attributePanel);
+            testPanel.add(new JScrollPane(attributeList));
+            
+            // testPanel.add(attributePanel);
+            setLayout(null);
+            testPanel.setSize(900, 200);
+		    testPanel.setLocation(0, 220);
+            testPanel.setVisible(true);
+
+           /*  attributeTypeComboBox.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if("object".equals(attributeTypeComboBox.getSelectedItem())) {
+                    objNameField.setVisible(true);
+                }
+                else{
+                    objNameField.setVisible(false);     
+                } 
+            }
+           }); */
+            
+
+            add(testPanel); 
+            revalidate();
+            repaint();
+    } 
+
+   /*  private void addAttToList(){
+         String attributeName = attributeNameField.getText();
+         String attributeType = (String) attributeTypeComboBox.getSelectedItem();
+    } */
 
     private void addClassToList(){
         String accessType = (String) accessComboBox.getSelectedItem();
