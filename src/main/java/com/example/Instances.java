@@ -2,14 +2,31 @@ package com.example;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Instances {
         private ArrayList<Object> a = new ArrayList<>();
+        ArrayList<Class<?>> abstractClasses = new ArrayList<>();
+        ArrayList<Class<?>> interfaceClasses = new ArrayList<>();
+        ArrayList<Class<?>> concreteClasses = new ArrayList<>();
+        ArrayList<Class<?>> allClasses = new ArrayList<>();
+
+    public Instances()
+    {
+        this.setClasses();
+    }
+        
     public void createInstances(){
         String folderPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2"; // Replace this with the path to your folder containing .java files
 
@@ -91,5 +108,101 @@ public class Instances {
     public ArrayList<Object> getInstances(){
         createInstances();
         return this.a;
+    }
+
+    public void setClasses()
+    {
+        // Create a URLClassLoader with the folder path
+        try (URLClassLoader classLoader = new URLClassLoader(new URL[]{new File("src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2").toURI().toURL()})) {
+        // Use Files.walk to traverse the folder
+        try (Stream<Path> paths = Files.walk(Paths.get("src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2"))) {
+            paths
+            .filter(Files::isRegularFile)
+            .filter(p -> p.toString().endsWith(".java"))
+            .forEach(p -> {
+                // Get the file name without the extension
+                String fileName = p.getFileName().toString().replace(".java", "");
+                try {
+                // Load the class using the class loader
+                Class<?> clazz = classLoader.loadClass("com.example.Avinash_Roopnarine_816029635_A2." + fileName);
+                allClasses.add(clazz);
+                // Check if the class is abstract
+                if (Modifier.isAbstract(clazz.getModifiers()) && !Modifier.isInterface(clazz.getModifiers())) {
+                    // Print the file name and the abstract modifier
+                    abstractClasses.add(clazz);
+                    // System.out.println(fileName + " is abstract");
+                } 
+                else if (Modifier.isInterface(clazz.getModifiers()))
+                    interfaceClasses.add(clazz);
+                else{
+                    concreteClasses.add(clazz);
+                    
+                }
+                } catch (ClassNotFoundException e) {
+                System.out.println("Class not found: " + fileName);
+                }
+            });
+        }
+        } catch (IOException e) {
+        System.out.println("Error creating class loader: " + e.getMessage());
+        }
+        // return abstractClasses;      
+    }
+
+    public ArrayList<Class<?>> getAbstractClasses(){
+        return this.abstractClasses;
+    }
+
+    public ArrayList<Class<?>> getInterfaceClasses(){
+        return this.interfaceClasses;
+    }
+
+    public ArrayList<Class<?>> getConcreteClasses(){
+        return this.concreteClasses;
+    }
+
+    public ArrayList<Class<?>> getAllClasses(){
+        return this.allClasses;
+    }
+
+    public static void main(String[] args) {
+        // Instances i = new Instances();
+        // i.abstractClasses = i.getAbstractClasses();
+        
+        // System.out.println("Abstract Classes");
+        // for (Class<?> j : i.getAbstractClasses()){
+        //     System.out.println("Abstract " + j.getSimpleName());
+        //     Field[] fields = j.getDeclaredFields();
+        //     for (Field field : fields) {
+        //         System.out.println("Attribute: " + field.getName());
+        //     }
+        // }
+
+        // System.out.println("Interface Classes");
+        // for (Class<?> j : i.getInterfaceClasses()){
+        //     System.out.println("Interface " + j.getSimpleName());
+        //     Field[] fields = j.getDeclaredFields();
+        //     for (Field field : fields) {
+        //         System.out.println("Attribute: " + field.getName());
+        //     }
+        // }
+
+        // System.out.println("Concrete Classes");
+        // for (Class<?> j : i.getConcreteClasses()){
+        //     System.out.println("Concrete " + j.getSimpleName());
+        //     Field[] fields = j.getDeclaredFields();
+        //     for (Field field : fields) {
+        //         System.out.println("Attribute: " + field.getName());
+        //     }
+        // }
+
+        // System.out.println("All Classes");
+        // for (Class<?> j : i.getAllClasses()){
+        //     System.out.println("All " + j.getSimpleName());
+        //   Field[] fields = j.getDeclaredFields();
+        //     for (Field field : fields) {
+        //         System.out.println("Attribute: " + field.getName());
+        //     }
+        // }
     }
 }

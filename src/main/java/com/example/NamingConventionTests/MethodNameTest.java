@@ -1,10 +1,12 @@
-package com.example;
+package com.example.NamingConventionTests;
 
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Method;
+
 public class MethodNameTest extends NamingConventionTest {
 
-    private Object methodObject;
+    private Method methodObject;
     private String className;
     private String methodName;
 
@@ -12,15 +14,13 @@ public class MethodNameTest extends NamingConventionTest {
         super();
         this.className = className;
         this.methodName = methodName;
-        
-
     }
 
     public String test(){
         try{
-            methodObject = findMethodInstance(className, methodName);
+            methodObject = findMethodInstance(className, methodName, allClasses);
             assertTrue(methodObject != null);
-            return "Method: " + methodName + "Found";
+            return "Method: " + methodName + " Found";
         }
         catch(AssertionError e){
             return "Method: " + methodName + " Not Found!";
@@ -30,7 +30,7 @@ public class MethodNameTest extends NamingConventionTest {
 
     public static void main (String[] args){
         MethodNameTest m  = new MethodNameTest("CeilingFan", "toString");
-        m.test();
+        System.out.println(m.test());
     }
     
 }
