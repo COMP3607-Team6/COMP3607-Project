@@ -8,7 +8,7 @@ public class App
         // ZipFileInput z = new ZipFileInput("Enter zip file path here");
         // z.readFiles();
 
-        AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal();
-        assignmentSpecPortal.setVisible(true);
+//         AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal();
+//         assignmentSpecPortal.setVisible(true);
     }
 }
