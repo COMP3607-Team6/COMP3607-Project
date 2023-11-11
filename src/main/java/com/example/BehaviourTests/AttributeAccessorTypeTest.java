@@ -13,8 +13,8 @@ public class AttributeAccessorTypeTest extends AccessorTypeTest {
     private String accessorType;
     private String attributeName;
 
-    public AttributeAccessorTypeTest(String className,String attributeName, String accessortype){
-        super();
+    public AttributeAccessorTypeTest(String className,String attributeName, String accessortype, int allocatedMarks){
+        super(allocatedMarks);
         this.className = className;
         this.accessorType = accessortype;
         this.attributeName = attributeName;
@@ -54,7 +54,7 @@ public class AttributeAccessorTypeTest extends AccessorTypeTest {
     }
     
         public static void main (String[] args){
-            TestCase t = new AttributeAccessorTypeTest("Room","devices" ,"private");
+            TestCase t = new AttributeAccessorTypeTest("Room","devices" ,"private", 1);
             String r = t.test();
             System.out.println(r);
         }

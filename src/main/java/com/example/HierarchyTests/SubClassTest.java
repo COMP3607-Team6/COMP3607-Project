@@ -1,9 +1,6 @@
 package com.example.HierarchyTests;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import java.lang.reflect.Modifier;
 
 
 // import com.example.Avinash_Roopnarine_816029635_A2.Fan;
@@ -12,11 +9,7 @@ import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
-import org.junit.Test;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,9 +21,9 @@ public class SubClassTest extends HierarchyTest{
     private String superClassPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
     String subClass; String superClass;
 
-    public SubClassTest(String subClass, String superClass)
+    public SubClassTest(String subClass, String superClass, int allocatedMarks)
     {
-        super();
+        super(allocatedMarks);
         this.subClass = subClass;
         this.superClass = superClass;
     }
@@ -87,7 +80,7 @@ public class SubClassTest extends HierarchyTest{
     public static void main (String[] args)
     {
         // Object hi = getSuperClass("Fan");
-        SubClassTest t = new SubClassTest("StandingFan", "Fan");
+        SubClassTest t = new SubClassTest("StandingFan", "Fan",1);
         
         // System.out.println(t.test());
         System.out.println(t.test());

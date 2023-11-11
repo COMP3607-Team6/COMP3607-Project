@@ -13,16 +13,22 @@ public abstract class TestCase{
     protected ArrayList<Class<?>> allAbstractClasses;
     protected ArrayList<Class<?>> allInterfaceClasses;
     protected ArrayList<Class<?>> allConcreteClasses;
+    protected Marks testMarks;
 
 
-    public TestCase(){
+    public TestCase(int allocatedMarks){
         instances = new Instances(); // Initialize the instances variable with a new Instances object
         testResult = instances.getInstances();
         allClasses = instances.getAllClasses();
         allAbstractClasses = instances.getAbstractClasses();
         allInterfaceClasses= instances.getInterfaceClasses();
         allConcreteClasses = instances.getInterfaceClasses();
+        this.testMarks = new Marks(allocatedMarks);
 
+    }
+
+    public Marks getTestMarksObject(){
+        return testMarks;
     }
     
     
