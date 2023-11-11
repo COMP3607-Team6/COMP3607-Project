@@ -4,9 +4,9 @@ import com.example.TestCase;
 
 public abstract class HierarchyTest extends TestCase {
 
-    public HierarchyTest()
+    public HierarchyTest(int allocatedMarks)
     {
-        super();
+        super(allocatedMarks);
     }
 
 }

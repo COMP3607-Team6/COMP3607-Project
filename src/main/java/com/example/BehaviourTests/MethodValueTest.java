@@ -15,7 +15,8 @@ public class MethodValueTest extends TestCase{
     private Object expectedValue;
     private Object[] parameters;
 
-    public MethodValueTest(String methodName, String obj, Object expectedValue, Object... parameters) {
+    public MethodValueTest(String methodName, String obj,int allocatedMarks, Object expectedValue, Object... parameters) {
+        super(allocatedMarks);
         this.methodName = methodName;
         this.classObject = oldFindClassInstance(obj);
         this.expectedValue = expectedValue;
@@ -61,7 +62,7 @@ public class MethodValueTest extends TestCase{
         // Assuming you have another class with a method named "add"
 
         // Create a MethodValueTest instance and run the test
-        MethodValueTest test = new MethodValueTest("getStartTemp", "Room", -999);
+        MethodValueTest test = new MethodValueTest("getStartTemp", "Room",1, 0);
         System.out.println(test.test());
     }
 }

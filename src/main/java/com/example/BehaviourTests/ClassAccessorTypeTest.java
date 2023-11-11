@@ -11,8 +11,8 @@ public class ClassAccessorTypeTest extends AccessorTypeTest{
    private String className; 
    private String accessorType;
 
-    public ClassAccessorTypeTest(String className, String accessorType){
-        super();
+    public ClassAccessorTypeTest(String className, String accessorType, int allocatedMarks){
+        super(allocatedMarks);
         this.className = className;
         this.accessorType = accessorType;
     }
@@ -53,7 +53,7 @@ public class ClassAccessorTypeTest extends AccessorTypeTest{
 
 
   public static void main (String[] args){
-    TestCase t = new ClassAccessorTypeTest("CeilingFan", "public");
+    TestCase t = new ClassAccessorTypeTest("CeilingFan", "public",1);
     String r = t.test();
     System.out.println(r);
   }
