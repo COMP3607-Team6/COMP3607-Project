@@ -6,7 +6,7 @@ public class AC implements Device
    protected String id;
    protected boolean breezy;
    protected boolean noisy;
-   protected int coolBy;
+   private int coolBy;
    protected int breeziness;
    protected int noisiness;
    protected boolean isPort;
@@ -50,6 +50,15 @@ public class AC implements Device
    public int coolsBy(){
        return this.coolBy;
    }
+
+   public int coolsBy(int num, CeilingFan f){
+       return this.coolBy + num + f.coolsBy();
+   }
+
+    public int coolsBy(int num, Room r, int num2, TestClass c){
+       return this.coolBy + num +  r.getStartTemp() + num2 + c.num1 + c.num2;
+   }
+   
    
    public int getBreeziness(){
        return this.breeziness;
@@ -57,5 +66,5 @@ public class AC implements Device
    
     public int getNoisiness(){
        return this.noisiness;
-   }
+   } 
 }
