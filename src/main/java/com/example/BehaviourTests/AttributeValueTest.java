@@ -13,8 +13,8 @@ public class AttributeValueTest extends ValueTest {
     private String className;
    
 
-    public AttributeValueTest(String attributeName, String className, Object value) {
-        super();
+    public AttributeValueTest(String attributeName, String className, int allocatedMarks, Object value) {
+        super(allocatedMarks);
         this.attributeName = attributeName;
         this.className = className;
         this.actualValue = value;
@@ -64,7 +64,7 @@ public class AttributeValueTest extends ValueTest {
 
 
     public static void main (String[] args){
-        TestCase t = new AttributeValueTest("coolBy", "AC", 5);
+        TestCase t = new AttributeValueTest("coolBy", "AC",1, 5);
         String r = t.test();
         System.out.println(r);
     }
