@@ -14,8 +14,8 @@ public class MethodAccessorTypeTest extends AccessorTypeTest {
     private String accessorType;
 
 
-    public MethodAccessorTypeTest(String className, String methodName, String accessorType) {
-        super();
+    public MethodAccessorTypeTest(String className, String methodName,int allocatedMarks, String accessorType) {
+        super(allocatedMarks);
         this.className = className;
         this.methodName = methodName;
         this.accessorType = accessorType;
@@ -66,7 +66,7 @@ public class MethodAccessorTypeTest extends AccessorTypeTest {
     } 
 
     public static void main (String[] args){
-        TestCase t = new MethodAccessorTypeTest("AC","getID", "public");
+        TestCase t = new MethodAccessorTypeTest("AC","getID",1, "public");
         String r = t.test();
         System.out.println(r);
     }

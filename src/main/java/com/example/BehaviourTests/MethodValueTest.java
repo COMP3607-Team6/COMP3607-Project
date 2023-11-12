@@ -21,7 +21,8 @@ public class MethodValueTest extends ValueTest {
     private Object actualValue;
     private Method method;
     
-    public MethodValueTest(String methodName, String className, ArrayList<Object> paras, Object expectedValue){
+    public MethodValueTest(String methodName, String className, int allocatedMarks, ArrayList<Object> paras, Object expectedValue){
+        super(allocatedMarks);
         this.methodName = methodName;
         this.className = className;
         this.paras = paras;
@@ -260,7 +261,7 @@ public class MethodValueTest extends ValueTest {
         // paras.add("{5,5}");
         //paras.add((float)3.2 );
 
-        TestCase t = new MethodValueTest("coolsBy", "AC", paras, 13);
+        TestCase t = new MethodValueTest("coolsBy", "AC",1,paras, 13);
         String r = t.test();
         System.out.println(r);
     }
