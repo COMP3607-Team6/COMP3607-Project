@@ -27,7 +27,7 @@ public class ZipFileInput {
                 //Do something with each entry
                 try (ZipInputStream zis = new ZipInputStream(zipFile.getInputStream(entry))) {
                     System.out.println(entry);
-                    ZipFileReader.unzip(entry.getName(), zis, outputFolder);
+                    // ZipFileReader.unzip(entry.getName(), zis, outputFolder);
                 }
             }
         } catch (Exception e) {

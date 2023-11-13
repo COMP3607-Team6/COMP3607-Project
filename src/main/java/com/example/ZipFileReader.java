@@ -5,24 +5,21 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class ZipFileReader {
-    public static void unzip(String zipFilePath, ZipInputStream zis, String outputFolder) {
-        try {
+    public static void unzip(String zipFilePath, String outputFolder) {
+        try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(Paths.get(zipFilePath)))) {
             ZipEntry zipEntry;
             while ((zipEntry = zis.getNextEntry()) != null) {
                 String entryName = zipEntry.getName();
-                if (entryName.equals(entryName) && entryName.endsWith(".java")) {
+                if (entryName.endsWith(".java")) {
                     Path entryPath = Paths.get(outputFolder, entryName);
 
                     if (zipEntry.isDirectory()) {
                         Files.createDirectories(entryPath);
-                        System.out.println("HI");
                     } else {
-                        System.out.println("ON");
                         Files.createDirectories(entryPath.getParent());
 
                         try (BufferedWriter writer = Files.newBufferedWriter(entryPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
                             // Add the package declaration to the beginning of the file
-                            System.out.println("Yes");
                             writer.write("package com.example.Avinash_Roopnarine_816029635_A2;");
                             writer.newLine();
 
@@ -44,10 +41,12 @@ public class ZipFileReader {
     }
 
     public static void main(String[] args) {
-        String zipFilePath = "C:\\Users\\Avinash Roopnarine\\Desktop\\OOP 2\\COMP3607-Project\\src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2.zip";
-        String outputFolder = "C:\\Users\\Avinash Roopnarine\\Desktop\\OOP 2\\COMP3607-Project\\src\\main\\java\\com\\example";
+        // String zipFilePath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2.zip";
+        String outputFolder = "src\\main\\java\\com\\example\\Student-Files";
 
-        // Zunzip(zipFilePath, outputFolder);
+        // unzip(zipFilePath, outputFolder);
+        unzip("src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2.zip", outputFolder);
+        unzip("ZipFolder\\Avinash_Roopnarine_816029635_A2-2.zip.zip", outputFolder);
         System.out.println("Java files unzipped and modified successfully.");
     }
 }
