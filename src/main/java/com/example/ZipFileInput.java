@@ -15,7 +15,7 @@ public class ZipFileInput {
 
     public void readFiles(String outputFolder)
     {
-        System.out.println("H");
+        
         try (ZipFile zipFile = new ZipFile(zipFilePath)) {
 
             Enumeration<? extends ZipEntry> numEntries = zipFile.entries(); //This creates a list of iterable entries
@@ -26,8 +26,12 @@ public class ZipFileInput {
 
                 //Do something with each entry
                 try (ZipInputStream zis = new ZipInputStream(zipFile.getInputStream(entry))) {
-                    System.out.println(entry);
-                    // ZipFileReader.unzip(entry.getName(), zis, outputFolder);
+                    
+                    String s = entry.getName();
+                    s = s.replaceAll("/", "\\\\\\\\");
+                    s += ".zip";
+                    ZipFileReader.unzip(s, outputFolder);
+                    
                 }
             }
         } catch (Exception e) {
@@ -37,7 +41,7 @@ public class ZipFileInput {
 
     public static void main(String[] args) {
         String zipFilePath = "ZipFolder.zip";
-        String outputFolder = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
+        String outputFolder = "src\\main\\java\\com\\example\\Student-Files";
 
         ZipFileInput z = new ZipFileInput(zipFilePath);
 
