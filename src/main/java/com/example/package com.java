@@ -1,25 +1,24 @@
 package com.example;
 
 import javax.swing.*;
-//import javax.swing.table.DefaultTableCellRenderer;
-//import javax.swing.table.DefaultTableModel;
-//import javax.swing.table.TableColumn;
-//import javax.swing.text.AttributeSet;
-//import javax.swing.text.BadLocationException;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
-import java.util.Map;
-//import java.util.regex.Pattern;
+import java.util.regex.Pattern;
 
 class Section2 extends JPanel {
 
     private AssignmentSpecPortal parent;
-    private static int classCount = 0;
+    private int classCount = 1;
 
     //Variables for  Class Input Panel
     private JPanel classPanel;
+    private JPanel subPanel;
     private JPanel inputPanel;
     
 
@@ -47,7 +46,10 @@ class Section2 extends JPanel {
     private JLabel markslabel;
 
     //Variables for  Attribute Input Panel
-   
+    private DefaultListModel<String> attributeListModel;
+
+    private JList<String> attributeList;
+
     private JPanel testPanel;
     private JPanel attributePanel;
 
@@ -61,9 +63,6 @@ class Section2 extends JPanel {
 
     private JButton saveButton;
     private JButton closeButton;
-    private JButton removeAttButton;
-
-    private Map<String, JPanel> attributePanelMap;
 
 
    public Section2(AssignmentSpecPortal parent) {
@@ -71,15 +70,11 @@ class Section2 extends JPanel {
 
         this.parent = parent; 
         
-        attributePanelMap = new HashMap<>();
-        
-        //Setting Up Class/Input Panel
+        //Setting Up Class Input Panel
         classPanel = new JPanel();
         classPanel.setLayout(new GridLayout(2,1));
         inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
-        testPanel = new JPanel();
-        testPanel.setLayout(new GridLayout(2,1));
             
         accessComboBox = new JComboBox<>(new String[]{"Public", "Private", "Protected"});
         isAbstractComboBox = new JComboBox<>(new String[]{"Abstract","Concrete"});
@@ -94,7 +89,7 @@ class Section2 extends JPanel {
         NameField = new JTextField(10);
         NameField.setVisible(false);
 
-        prompt = new JLabel("Enter Assignment Classes Here:");
+        prompt = new JLabel("Enter Assignment Classes Here:                                                                  ");
         prompt.setFont(new Font("Arial", Font.ITALIC, 22));
         markslabel = new JLabel("Marks: \n");
 
@@ -106,9 +101,9 @@ class Section2 extends JPanel {
         backButton = new JButton("Back");
 
         classListModel = new DefaultListModel<>();
-        classList = new JList<>(classListModel); 
-    
-       // inputPanel.add(prompt);
+        classList = new JList<>(classListModel);
+
+        inputPanel.add(prompt);
         inputPanel.add(accessComboBox);
         inputPanel.add(isAbstractComboBox);
         inputPanel.add(isInterfaceComboBox);    
@@ -122,24 +117,14 @@ class Section2 extends JPanel {
         inputPanel.add(removeButton);
         inputPanel.add(addAttButton); 
 
-       // add(prompt);
         classPanel.add(inputPanel);
         classPanel.add(new JScrollPane(classList));
 
         setLayout(null);
         //These go on main page
-        
-        prompt.setSize(400, 200);
-        prompt.setLocation(0, -70);
-        add(prompt);
-        classPanel.setSize(900, 150);
-        classPanel.setLocation(0, 50);
+        classPanel.setSize(900, 200);
+        classPanel.setLocation(0, 10);
         add(classPanel);
-
-        testPanel.setSize(900, 300);
-		testPanel.setLocation(0, 200);
-        testPanel.setVisible(false); 
-        add(testPanel);
 
         backButton.setFont(new Font("Arial", Font.PLAIN, 15));
         backButton.setSize(100, 20);
@@ -206,10 +191,7 @@ class Section2 extends JPanel {
             public void actionPerformed(ActionEvent e){
                 int index = classList.getSelectedIndex();
                 if(index != -1){
-                    String selectedClass = classListModel.getElementAt(index);
                     classListModel.remove(index);
-                    removeAttributePanel(selectedClass);
-                    classCount--;
                 }
             }
         });
@@ -219,140 +201,39 @@ class Section2 extends JPanel {
             public void actionPerformed(ActionEvent e){
                 int index = classList.getSelectedIndex();
                 if(index != -1){
-                   for(int i=0;i<classCount;i++){
-                       String selectedClass = classListModel.getElementAt(i);
-                       JPanel HoldPanel = attributePanelMap.get(selectedClass);
-                       if(HoldPanel != null){
-                          // System.out.println("Holder Panel Removed");
-                           testPanel.remove(HoldPanel);
-                       }
-                   } 
-                  
                     displayAttributes(index);
+                    
                 }
             }
         });
 
-   }
-
-   private void displayAttributes(int index) {
-      
-
-        String selectedClass = classListModel.getElementAt(index);
-
-        JPanel HoldPanel = attributePanelMap.get(selectedClass);
-
-       /*  if(HoldPanel != null){
-            System.out.println("Attribute Panel Exists");
-
-        } */
-        if(HoldPanel == null){
-           // System.out.println("Created New Attribute Panel");
-            HoldPanel = createAttributePanel();
-            attributePanelMap.put(selectedClass, HoldPanel);  
-        }
-        
-        testPanel.add(HoldPanel);
-        testPanel.setVisible(true); 
-        HoldPanel.setVisible(true);
-        revalidate();
-        repaint();
-   }
-
-   private JPanel createAttributePanel() {
-
-        JPanel HoldPanel = new JPanel();
-        HoldPanel.setLayout(new GridLayout(2,1));
-
-        attributePanel = new JPanel();
-        attributePanel.setLayout(new FlowLayout());
-
-        DefaultListModel<String> attributeListModel = new DefaultListModel<>();
-        JList<String> attributeList = new JList<>(attributeListModel);
-
-        instanceCheckBox = new JCheckBox("Instance Variable");
-
-        attributeNameField = new JTextField(20);
-        objNameField = new JTextField(10);
-        attributeNameField.setText("");
-        objNameField.setText("");
-
-        attributeTypeComboBox = new JComboBox<>(new String[]{"String","int","double","boolean","object","char"});
-        attAccessComboBox = new JComboBox<>(new String[]{"Public", "Private", "Protected"});
-        
-        saveButton = new JButton("Save");
-        closeButton = new JButton("X");
-        removeAttButton = new JButton("Remove Selected Attribure");
-
-        attributePanel.add(attAccessComboBox);
-        attributePanel.add(attributeTypeComboBox);
-        attributePanel.add(objNameField);
-        objNameField.setVisible(false);   
-        attributePanel.add(instanceCheckBox);
-        attributePanel.add(attributeNameField);
-        attributePanel.add(saveButton);
-        attributePanel.add(closeButton);
-        attributePanel.add(removeAttButton);
-
-        HoldPanel.add(attributePanel);
-        HoldPanel.add(new JScrollPane(attributeList));
-            
-        setLayout(null);
-        HoldPanel.setSize(900, 200);
-		HoldPanel.setLocation(0, 220);
-        HoldPanel.setVisible(true); 
-
-    
-        //Listeners
-          saveButton.addActionListener(new ActionListener() {
+        saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-        
-                //addAttToList();
                 String attributeName = attributeNameField.getText();
-                String objName = objNameField.getText();
                 String attributeType = (String) attributeTypeComboBox.getSelectedItem();
                 String attAccessType = (String) attAccessComboBox.getSelectedItem();
-                boolean isSelected = instanceCheckBox.isSelected(); 
                 String attributeInfo = "";
 
                 if(attributeName.equals("")){
                     return;
-                }
-                else if(("object".equals(attributeTypeComboBox.getSelectedItem()))&&(objName.equals(""))){
-                    return;
-                }
-                else if("object".equals(attributeTypeComboBox.getSelectedItem())&&(isSelected==true)){
-                    attributeInfo = attAccessType+" static "+objName+" "+attributeName;
-                    attributeListModel.addElement(attributeInfo);
-                }
-                else if("object".equals(attributeTypeComboBox.getSelectedItem())){
-                    attributeInfo = attAccessType+" "+objName+" "+attributeName;
-                    attributeListModel.addElement(attributeInfo);
-                }
-                else if(isSelected==true) {
-                    attributeInfo = attAccessType+" static "+attributeType+" "+attributeName;
-                    attributeListModel.addElement(attributeInfo);
                 }
                 else {
                     attributeInfo = attAccessType+" "+attributeType+" "+attributeName;
                     attributeListModel.addElement(attributeInfo);
                 }
                 attributeNameField.setText("");
-                objNameField.setText("");
-                instanceCheckBox.setSelected(false);
-               
+               // addAttToList();
                 
             }
-        }); 
+        });
 
-         closeButton.addActionListener(new ActionListener() {
+        closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                HoldPanel.setVisible(false);  
-                //remove(HoldPanel);
+                testPanel.setVisible(false);  
             }
-        }); 
+        });
 
         attributeTypeComboBox.addActionListener(new ActionListener() {
             @Override
@@ -365,31 +246,52 @@ class Section2 extends JPanel {
                 } 
             }
         });
-
-         removeAttButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                int index = attributeList.getSelectedIndex();
-                if(index != -1){
-                    attributeListModel.remove(index);
-                }
-            }
-        });
-
-    return HoldPanel;
    }
 
-    private void removeAttributePanel(String className) {
-        JPanel attributePanel = attributePanelMap.remove(className);
+   private void displayAttributes(int index) {
+    
+        attributeListModel = new DefaultListModel<>();
+        attributeList = new JList<>(attributeListModel);
 
-        if(attributePanel != null) {
-            remove(attributePanel);
-            revalidate();
-            repaint();
-        }
-   }  
+        testPanel = new JPanel();
+        testPanel.setLayout(new GridLayout(2,1));
 
-   //Adds Class to Jlist
+        attributePanel = new JPanel();
+        attributePanel.setLayout(new FlowLayout());
+
+        instanceCheckBox = new JCheckBox("Instance Variable");
+
+        attributeNameField = new JTextField(20);
+        objNameField = new JTextField(10);
+
+        attributeTypeComboBox = new JComboBox<>(new String[]{"String","int","double","object"});
+        attAccessComboBox = new JComboBox<>(new String[]{"Public", "Private", "Protected"});
+        
+        saveButton = new JButton("Save");
+        closeButton = new JButton("X");
+
+        attributePanel.add(attAccessComboBox);
+        attributePanel.add(attributeTypeComboBox);
+        attributePanel.add(objNameField);
+        objNameField.setVisible(false);   
+        attributePanel.add(instanceCheckBox);
+        attributePanel.add(attributeNameField);
+        attributePanel.add(saveButton);
+        attributePanel.add(closeButton);
+
+        testPanel.add(attributePanel);
+        testPanel.add(new JScrollPane(attributeList));
+            
+        setLayout(null);
+        testPanel.setSize(900, 200);
+		testPanel.setLocation(0, 220);
+        testPanel.setVisible(true);
+
+        add(testPanel); 
+        revalidate();
+        repaint();
+   }
+
    private void addClassToList(){
     String accessType = (String) accessComboBox.getSelectedItem();
     String isAbstract = (String) isAbstractComboBox.getSelectedItem();
@@ -433,7 +335,6 @@ class Section2 extends JPanel {
     markField.setText("0");
     }  
 
-
     public static void main( String[] args ) {
         System.out.println( "Hello World!!!!!! :)))))" );
         // ZipFileInput z = new ZipFileInput("Enter zip file path here");
@@ -442,8 +343,7 @@ class Section2 extends JPanel {
         AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal();
         assignmentSpecPortal.setVisible(true);
     } 
- 
-}  
 
-
-
+}
+     
+    
