@@ -4,8 +4,10 @@ import com.example.TestCase;
 
 public abstract class NamingConventionTest extends TestCase {
 
-    public NamingConventionTest(){
-        super();
+    
+
+    public NamingConventionTest(int allocatedMarks){
+        super(allocatedMarks);
     }
 
 } 
