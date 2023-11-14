@@ -1,36 +1,31 @@
-package com.example.NamingConventionTests;
-
+package com.example.BasicTest;
 import static org.junit.Assert.assertTrue;
-
 import java.lang.reflect.Field;
 
-public class AttributeNameTest extends NamingConventionTest {
+
+public class AttributeBasicTest extends BasicTests {
 
     private String className;
     private String attributeName;
 
-    public AttributeNameTest(String className,String attributeName, int allocatedMarks){
-        super(allocatedMarks);
+    public AttributeBasicTest(int allocatedMarks,String className, String attributeName,String testType) {
+        super(allocatedMarks,testType);
         this.className = className;
         this.attributeName = attributeName;
-        
     }
 
-    public String test(){
+     public String test() {
         try{
-        System.out.println(toString());
-        Field f = findAttributeInstance(className, attributeName, allClasses);
-        assertTrue(f!= null);
-        testMarks.setTestPassed(true);
-        System.out.println(toString());
-        return "Attribute: " + attributeName + " Found!";
-  
+
+            Field f = findAttributeInstance(className, attributeName, allClasses);
+            assertTrue(testTypeObject.attributeTest(f));
+            testMarks.setTestPassed(true);
+            return "Attribute: " + attributeName + testTypeObject.getSuccessMessage();
         }
         catch(AssertionError e){
-            return "Attribute: " + attributeName + " not Found!";
+            return "Attribute: " + attributeName + testTypeObject.getErrorMessage();
         }
     }
-
     @Override
     public String toString() {
             return "{" +
@@ -41,8 +36,10 @@ public class AttributeNameTest extends NamingConventionTest {
                 ", test Pass='" +  testMarks.getTestPassed() + "'" +
                 "}";
     }
-    public static void main (String[] args){
-        AttributeNameTest a  = new AttributeNameTest("Room", "devices", 2);
+    public static void main(String[] args) {
+        AttributeBasicTest a = new AttributeBasicTest(1,"Fan", "id","static");
         System.out.println(a.test());
     }
+
+    
 }

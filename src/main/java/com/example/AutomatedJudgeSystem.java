@@ -7,9 +7,9 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
-import com.example.NamingConventionTests.AttributeNameTest;
-import com.example.NamingConventionTests.ClassNameTest;
-import com.example.NamingConventionTests.MethodNameTest;
+import com.example.BasicTest.AttributeBasicTest;
+import com.example.BasicTest.ClassBasicTest;
+import com.example.BasicTest.MethodBasicTest;
 
 public class AutomatedJudgeSystem {
     
@@ -24,9 +24,9 @@ public class AutomatedJudgeSystem {
     public static void main (String[] args) throws IOException{
         
 
-        testCases.add(new ClassNameTest("CeilingFan",1));
-        testCases.add(new MethodNameTest("CeilingFan","toString",2));
-        testCases.add(new AttributeNameTest("Room","devices",3));
+        testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
+        testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
+        testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
 
          for(TestCase test: testCases){
                 String assertionResultString = test.test();
