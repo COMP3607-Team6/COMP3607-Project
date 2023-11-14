@@ -17,6 +17,7 @@ public class AutomatedJudgeSystem {
     private static ArrayList<TestCase> testCases = new ArrayList<>();
     private static StringBuilder assertionResults = new StringBuilder();
     private static int totalMarks = 0;
+    private static PDFManager pdfManager = new PDFManager();
 
 
     
@@ -30,21 +31,33 @@ public class AutomatedJudgeSystem {
 
          for(TestCase test: testCases){
                 String assertionResultString = test.test();
-                Marks m = test.getTestMarksObject();
+               // Marks m = test.getTestMarksObject();
 
-                if(m.getTestPassed()){
-                    totalMarks +=m.getTestMarks();
-                }
-                assertionResults.append("Test Case: ").append(assertionResultString).append("\n");
+               // if(m.getTestPassed()){
+                //     totalMarks +=m.getTestMarks();
+                // }
+                // assertionResults.append("Test Case: ").append(assertionResultString).append("\n");
          }
-         assertionResults.append("Total Marks earned: ").append(totalMarks).append("\n");
 
-         writeAssertionResultsToFile("src\\main\\java\\com\\example\\TestCases.txt");
+        AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23");
 
-         PDFReport report = new PDFReport();
-         String textFilePath ="src\\main\\java\\com\\example\\TestCases.txt";
-         String pdfPath = "src\\main\\java\\com\\example\\Output.pdf" ;
-         report.generatePDF(textFilePath, pdfPath);
+
+
+
+
+        pdfManager.notify(testCases, "816029005", specs);
+        pdfManager.notify(testCases, "816029002", specs);
+        pdfManager.notify(testCases, "816029007", specs);
+
+
+        //  assertionResults.append("Total Marks earned: ").append(totalMarks).append("\n");
+
+        //  writeAssertionResultsToFile("src\\main\\java\\com\\example\\TestCases.txt");
+
+        //  StudentReport report = new StudentReport();
+        //  String textFilePath ="src\\main\\java\\com\\example\\TestCases.txt";
+        //  String pdfPath = "src\\main\\java\\com\\example\\Output.pdf" ;
+        //  report.generatePDF(textFilePath, pdfPath);
 
     }
    
