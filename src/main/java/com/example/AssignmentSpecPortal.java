@@ -27,6 +27,12 @@ class AssignmentSpecPortal extends JFrame {
         // repaint();
     }
 
+    public void switchToSection1() {
+        setContentPane(section1);
+        section1.setVisible(true);
+        section2.setVisible(false);   
+    }
+
     
     private void createSection2() {
         section2 = new Section2(this);

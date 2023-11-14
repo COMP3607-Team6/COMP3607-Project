@@ -1,24 +1,22 @@
-package com.example;
+package com.example.NamingConventionTests;
 
 import static org.junit.Assert.assertTrue;
 
 public class ClassNameTest extends NamingConventionTest {
     
-    private Object classObject;
+    private Class<?> classObject;
     private String className;
 
     public ClassNameTest(String className){
         super();
         this.className = className;
-        
-    
 
     }
 
 
     public String test(){
 
-        classObject = findClassInstance(className);
+        classObject = findClassInstance(className,allClasses);
         
         
 
@@ -30,20 +28,10 @@ public class ClassNameTest extends NamingConventionTest {
             return "Class Name:" + className + " not found.";
         }
 
-
-        // if (classObject == null){
-        //     assertTrue(false);
-        // }
-        // else{
-        //     assertTrue(true);
-        //     System.out.println(className + " exists!");
-        // }
-
-
     }
 
     public static void main (String[] args){
-        ClassNameTest c  = new ClassNameTest("CeilingFan");
+        ClassNameTest c  = new ClassNameTest("Device");
         String value = c.test();
         System.out.println("   -----------------------------");
         System.out.println(value);
