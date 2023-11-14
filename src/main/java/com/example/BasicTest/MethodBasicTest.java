@@ -1,38 +1,35 @@
-package com.example.NamingConventionTests;
-
+package com.example.BasicTest;
 import static org.junit.Assert.assertTrue;
-
 import java.lang.reflect.Method;
 
-public class MethodNameTest extends NamingConventionTest {
 
+public class MethodBasicTest extends BasicTests {
+    
     private Method methodObject;
     private String className;
     private String methodName;
-    // private Marks testMarks;
 
-    public MethodNameTest(String className, String methodName, int marksAllocated){
-        super(marksAllocated);
+    public MethodBasicTest(int allocatedMarks,String className, String methodName,String testType){
+        super(allocatedMarks,testType);
         this.className = className;
         this.methodName = methodName;
-       // this.testMarks = new Marks(marksAllocated);
-    }
 
-    public String test(){
+        
+    }
+    public String test() {
         try{
-            System.out.println(toString());
             methodObject = findMethodInstance(className, methodName, allClasses);
-            assertTrue(methodObject != null);
+            assertTrue(testTypeObject.methodTest(methodObject));
             testMarks.setTestPassed(true);
-            System.out.println(toString());
-            return "Method: " + methodName + " Found";
+
+            return "Method: " + methodName + testTypeObject.getSuccessMessage();
+
         }
-        catch(AssertionError e){
-            return "Method: " + methodName + " Not Found!";
+        catch(AssertionError a){
+            return "Method: " + methodName + testTypeObject.getErrorMessage();
         }
 
     }
-
     @Override
     public String toString() {
             return "{" +
@@ -43,10 +40,11 @@ public class MethodNameTest extends NamingConventionTest {
                 ", Test pass='" +  testMarks.getTestPassed() + "'" +
                 "}";
     }
-
-    public static void main (String[] args){
-        MethodNameTest m  = new MethodNameTest("CeilingFan", "toString",1);
+    public static void main(String[] args) {
+        MethodBasicTest m = new MethodBasicTest(1,"AC","coolsBy","final");
         System.out.println(m.test());
+
+        MethodBasicTest p = new MethodBasicTest(1,"AC","getID","public");
+        System.out.println(p.test());
     }
-    
 }

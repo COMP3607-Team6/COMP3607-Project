@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
 
-
 import com.example.TestCase;
+
 
 public class AttributeTypeTest extends TypeTest {
 
