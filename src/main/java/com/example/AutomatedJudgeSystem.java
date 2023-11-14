@@ -7,38 +7,57 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
-import com.example.NamingConventionTests.AttributeNameTest;
-import com.example.NamingConventionTests.ClassNameTest;
-import com.example.NamingConventionTests.MethodNameTest;
+import com.example.BasicTest.AttributeBasicTest;
+import com.example.BasicTest.ClassBasicTest;
+import com.example.BasicTest.MethodBasicTest;
 
 public class AutomatedJudgeSystem {
     
 
     private static ArrayList<TestCase> testCases = new ArrayList<>();
     private static StringBuilder assertionResults = new StringBuilder();
-
+    private static int totalMarks = 0;
+    private static PDFManager pdfManager = new PDFManager();
 
 
     
 
     public static void main (String[] args) throws IOException{
-      
+        
 
-        testCases.add(new ClassNameTest("CeilingFan"));
-        testCases.add(new MethodNameTest("CeilingFan","toString"));
-        testCases.add(new AttributeNameTest("Room","devices"));
+        testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
+        testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
+        testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
 
          for(TestCase test: testCases){
                 String assertionResultString = test.test();
-                assertionResults.append("Test Case: ").append(assertionResultString).append("\n");
+               // Marks m = test.getTestMarksObject();
+
+               // if(m.getTestPassed()){
+                //     totalMarks +=m.getTestMarks();
+                // }
+                // assertionResults.append("Test Case: ").append(assertionResultString).append("\n");
          }
 
-         writeAssertionResultsToFile("src\\main\\java\\com\\example\\TestCases.txt");
+        AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23");
 
-         PDFReport report = new PDFReport();
-         String textFilePath ="src\\main\\java\\com\\example\\TestCases.txt";
-         String pdfPath = "src\\main\\java\\com\\example\\Output.pdf" ;
-         report.generatePDF(textFilePath, pdfPath);
+
+
+
+
+        pdfManager.notify(testCases, "816029005", specs);
+        pdfManager.notify(testCases, "816029002", specs);
+        pdfManager.notify(testCases, "816029007", specs);
+
+
+        //  assertionResults.append("Total Marks earned: ").append(totalMarks).append("\n");
+
+        //  writeAssertionResultsToFile("src\\main\\java\\com\\example\\TestCases.txt");
+
+        //  StudentReport report = new StudentReport();
+        //  String textFilePath ="src\\main\\java\\com\\example\\TestCases.txt";
+        //  String pdfPath = "src\\main\\java\\com\\example\\Output.pdf" ;
+        //  report.generatePDF(textFilePath, pdfPath);
 
     }
    
@@ -47,6 +66,7 @@ public class AutomatedJudgeSystem {
             // Get the assertion results and write them to the file
             String results = getAssertionResults();
             writer.write(results);
+
             System.out.println("Assertion results have been written to the file: " + filePath);
         } catch (IOException e) {
             e.printStackTrace();

@@ -15,9 +15,9 @@ public class SubTypeTest extends HierarchyTest {
     private String superClassPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
     String subClass; String superClass;
 
-    public SubTypeTest(String subClass, String superClass)
+    public SubTypeTest(String subClass, String superClass, int allocatedMarks)
     {
-        super();
+        super(allocatedMarks);
         this.subClass = subClass;
         this.superClass = superClass;
     }
@@ -77,7 +77,7 @@ public class SubTypeTest extends HierarchyTest {
     public static void main (String[] args)
     {
         // Object hi = getSuperClass("Fan");
-        SubTypeTest t = new SubTypeTest("AC", "Device");
+        SubTypeTest t = new SubTypeTest("AC", "Device",1);
         
         // System.out.println(t.test());
         System.out.println(t.test());
