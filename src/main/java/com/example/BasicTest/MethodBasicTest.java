@@ -43,5 +43,8 @@ public class MethodBasicTest extends BasicTests {
     public static void main(String[] args) {
         MethodBasicTest m = new MethodBasicTest(1,"AC","coolsBy","final");
         System.out.println(m.test());
+
+        MethodBasicTest p = new MethodBasicTest(1,"AC","getID","public");
+        System.out.println(p.test());
     }
 }

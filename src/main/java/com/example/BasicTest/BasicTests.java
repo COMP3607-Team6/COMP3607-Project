@@ -21,6 +21,15 @@ public abstract class BasicTests extends TestCase {
         else if(testType == "name"){
             this.testTypeObject = new NamingConventionBasicTestType();
         }
+        else if(testType == "public"){
+            this.testTypeObject = new PublicBasicTestType();
+        }
+        else if(testType == "private"){
+            this.testTypeObject = new PrivateBasicTestType();
+        }
+        else if(testType == "protected"){
+            this.testTypeObject = new ProtectedBasicTestType();
+        }
         
     }
     
