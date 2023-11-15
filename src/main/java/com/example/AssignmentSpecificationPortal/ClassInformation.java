@@ -1,5 +1,7 @@
 package com.example.AssignmentSpecificationPortal;
 
+import java.util.ArrayList;
+
 public class ClassInformation {
     private final String accessType;
     private final String isAbstract;
@@ -10,7 +12,7 @@ public class ClassInformation {
     private final String marks;
 
     // i am thinking this will also have the following:
-    // private ArrayList<AttributeInformation> attributes;
+    private ArrayList<AttributeInformation> attributes;
     // private ArrayList<MethodsInformation> methods;
 
     public ClassInformation(String accessType, String isAbstract, 
@@ -25,6 +27,7 @@ public class ClassInformation {
         this.extendsOrImplements = extendsOrImplements;
         this.extendedOrImplementedClass = extendedOrImplementedClass;
         this.marks = marks;
+        this.attributes = new ArrayList<AttributeInformation>();
     }
 
     public String getAccessType() {
@@ -53,6 +56,17 @@ public class ClassInformation {
 
     public String getMarks() {
         return marks;
+    }
+
+    public ArrayList<AttributeInformation> addAttribute(AttributeInformation attribute) {
+        attributes.add(attribute);
+
+        return attributes;
+    }
+
+    
+    public ArrayList<AttributeInformation> getAttributes() {
+        return attributes;
     }
 
     @Override

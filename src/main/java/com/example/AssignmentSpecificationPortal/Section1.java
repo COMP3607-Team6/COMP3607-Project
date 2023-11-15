@@ -173,7 +173,7 @@ public class Section1 extends JPanel {
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         nextButton.setPreferredSize(new Dimension(100, 30));
-        buttonPanel.add(nextButton);
+        // buttonPanel.add(nextButton);
 
         
         // mainPanel.add(welcomePanel);
@@ -190,7 +190,7 @@ public class Section1 extends JPanel {
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mainPanel.add(filePathPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
-        mainPanel.add(buttonPanel);
+        // mainPanel.add(buttonPanel);
 
 		centerAlignPanel.add(mainPanel);
         add(welcomePanel);
