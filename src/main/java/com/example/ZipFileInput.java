@@ -4,6 +4,8 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+import java.io.File;
+import com.example.ZipFileReader;
 
 public class ZipFileInput {
     public String zipFilePath;
@@ -29,10 +31,14 @@ public class ZipFileInput {
                     
                     String s = entry.getName();
                     s = s.replaceAll("/", "\\\\\\\\");
-                    s += ".zip";
+                    // s = "ZipFolder\\\\" + s;
+                    System.out.println("S " + s);
+
+                    
                     ZipFileReader.unzip(s, outputFolder);
                     
-                }
+                    
+                } //marker
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,7 +47,7 @@ public class ZipFileInput {
 
     public static void main(String[] args) {
         String zipFilePath = "ZipFolder.zip";
-        String outputFolder = "src\\main\\java\\com\\example\\Student-Files";
+        String outputFolder = "src\\main\\java\\com\\example\\StudentFiles";
 
         ZipFileInput z = new ZipFileInput(zipFilePath);
 

@@ -18,7 +18,7 @@ import java.net.URL;
 public class SubClassTest extends HierarchyTest{
 
     private Object classObject;
-    private String superClassPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
+    private String superClassPath = "src\\main\\java\\com\\example\\Student-Files\\Avinash_Roopnarine_816029635_A2-1.zip";
     String subClass; String superClass;
 
     public SubClassTest(String subClass, String superClass, int allocatedMarks)
