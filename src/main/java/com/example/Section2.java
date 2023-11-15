@@ -38,13 +38,14 @@ class Section2 extends JPanel {
     private JButton backButton;
     private JButton removeButton;
     private JButton addAttButton;
+    private JButton nextButton;
 
     private DefaultListModel<String> classListModel;
 
     private JList<String> classList;
 
     private JLabel prompt;
-    private JLabel markslabel;
+   // private JLabel markslabel;
 
     //Variables for  Attribute Input Panel
    
@@ -89,14 +90,14 @@ class Section2 extends JPanel {
 
         classNameField = new JTextField(10);
         classNameField.setText("");
-        markField = new JTextField(6);
-        markField.setText("0");
+        //markField = new JTextField(6);
+        //markField.setText("0");
         NameField = new JTextField(10);
         NameField.setVisible(false);
 
         prompt = new JLabel("Enter Assignment Classes Here:");
         prompt.setFont(new Font("Arial", Font.ITALIC, 22));
-        markslabel = new JLabel("Marks: \n");
+        //markslabel = new JLabel("Marks: \n");
 
         extendsCheckBox = new JCheckBox("Extends/Implements");
 
@@ -104,6 +105,8 @@ class Section2 extends JPanel {
         addAttButton = new JButton("Add Attributes");
         addClassButton = new JButton("+ Class");
         backButton = new JButton("Back");
+        nextButton = new JButton("Next");
+
 
         classListModel = new DefaultListModel<>();
         classList = new JList<>(classListModel); 
@@ -116,11 +119,12 @@ class Section2 extends JPanel {
         inputPanel.add(extendsCheckBox);
         inputPanel.add(EIComboBox);
         inputPanel.add(NameField);
-        inputPanel.add(markslabel);
-        inputPanel.add(markField);
+        //inputPanel.add(markslabel);
+        //inputPanel.add(markField);
         inputPanel.add(addClassButton);
+        inputPanel.add(addAttButton);
         inputPanel.add(removeButton);
-        inputPanel.add(addAttButton); 
+         
 
        // add(prompt);
         classPanel.add(inputPanel);
@@ -130,7 +134,7 @@ class Section2 extends JPanel {
         //These go on main page
         
         prompt.setSize(400, 200);
-        prompt.setLocation(0, -70);
+        prompt.setLocation(10, -70);
         add(prompt);
         classPanel.setSize(900, 150);
         classPanel.setLocation(0, 50);
@@ -146,7 +150,21 @@ class Section2 extends JPanel {
         backButton.setLocation(50, 500);
         add(backButton);
 
+        
+		nextButton.setFont(new Font("Arial", Font.PLAIN, 15));
+		nextButton.setSize(100, 20);
+		nextButton.setLocation(300, 500);
+		add(nextButton);
+
+        
+
         //Listeners
+        nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.switchToSection3(classList);
+            }
+        });
         isInterfaceComboBox.addActionListener(new ActionListener() {
             
             @Override
@@ -397,7 +415,7 @@ class Section2 extends JPanel {
     String isInterface = (String) isInterfaceComboBox.getSelectedItem();
     String className = (String) classNameField.getText();
     String extraName = (String) NameField.getText();
-    String marks = (String) markField.getText();
+   // String marks = (String) markField.getText();
     String classInfo = "";
     boolean isSelected = extendsCheckBox.isSelected();
     
@@ -409,29 +427,33 @@ class Section2 extends JPanel {
         return;
     }
     else if((isInterface=="Interface")&&( isSelected == true)){
-       classInfo = accessType+" "+isInterface+" "+ className + " Extends "+ extraName + " [ " + marks + " marks]" ;
+       classInfo = accessType+" "+isInterface+" "+ className + " Extends "+ extraName ;
        classListModel.addElement(classInfo);
        
     }
     else if(isInterface=="Interface"){
-       classInfo = accessType+" "+isInterface+" "+ className + " [ " + marks + " marks]" ;
+       classInfo = accessType+" "+isInterface+" "+ className;
        classListModel.addElement(classInfo);
     
     }
    else if(isSelected == true){
-       classInfo = accessType+" "+isAbstract+" "+ className +" "+ EIbox+" " + extraName+ " [ " + marks + " marks]";
+       classInfo = accessType+" "+isAbstract+" "+ className +" "+ EIbox+" " + extraName;
        classListModel.addElement(classInfo);
       
     }
     else {
-        classInfo = accessType+" "+isAbstract+" "+isInterface+" "+ className+ " [ " + marks + " marks]";
+        classInfo = accessType+" "+isAbstract+" "+isInterface+" "+ className;
         classListModel.addElement(classInfo);
         
     }
     classNameField.setText("");
     NameField.setText("");
-    markField.setText("0");
+    //markField.setText("0");
     }  
+
+    public JList<String> getClassList(){
+        return classList;
+    }
 
 
     public static void main( String[] args ) {
