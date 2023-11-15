@@ -52,7 +52,7 @@ public class Section3 extends JPanel {
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.next(getParent());
-                getAllAttributes(); // testing
+                // getAllAttributes(); // testing
             }
         });
 

@@ -50,7 +50,7 @@ public class Section2 extends JPanel {
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.next(getParent());
-                getAllClasses(); // just for testing
+                // getAllClasses(); // just for testing
             }
         });
 

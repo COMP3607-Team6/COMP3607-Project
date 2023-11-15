@@ -1,21 +1,31 @@
 package com.example.AssignmentSpecificationPortal;
 
 import javax.swing.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
 
 public class Section1 extends JPanel {
+    private JButton nextButton;
+    private CardLayout cardLayout;
+
 	private JLabel welcomeLabel;
 	private JLabel welcomeMsgLabel;
 
     private JTextField courseCodeField;
-    private JButton nextButton;
-    private CardLayout cardLayout;
-
     private JLabel courseCodeLabel;
+
     private JTextField titleField;
     private JLabel titleLabel;
+
+    private JLabel weightingLabel;
+    private JTextField weightingField;
+    private JLabel weightingPercentageLabel;
     
     private JTextArea descriptionTextArea;
     private JLabel descriptionLabel;
@@ -24,6 +34,7 @@ public class Section1 extends JPanel {
 	private JComboBox date;
 	private JComboBox month;
 	private JComboBox year;
+
     private JLabel filePathLabel;
     private JLabel actualFilePathLabel;
     private JButton browseButton;
@@ -37,7 +48,7 @@ public class Section1 extends JPanel {
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	private String years[]
 		= { "2020", "2021", "2022", "2023", "2024", "2025" };
-
+    
 
     public Section1(CardLayout layout) {
         cardLayout = layout;
@@ -85,6 +96,16 @@ public class Section1 extends JPanel {
         titleLabel.setPreferredSize(new Dimension(120, 20));
         titlePanel.add(titleLabel);
         titlePanel.add(titleField);
+
+        weightingLabel = new JLabel("Weighting:");
+        weightingField = new JTextField(4);
+        weightingField.setDocument(new IntegerDocument());
+        weightingPercentageLabel = new JLabel("%");
+        JPanel weightingPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        weightingLabel.setPreferredSize(new Dimension(120, 20));
+        weightingPanel.add(weightingLabel);
+        weightingPanel.add(weightingField);
+        weightingPanel.add(weightingPercentageLabel);
 
         descriptionLabel = new JLabel("Description:");
         descriptionTextArea = new JTextArea();
@@ -161,6 +182,8 @@ public class Section1 extends JPanel {
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mainPanel.add(titlePanel); 
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        mainPanel.add(weightingPanel); 
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mainPanel.add(descriptionPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mainPanel.add(deadlinePanel);
@@ -175,5 +198,19 @@ public class Section1 extends JPanel {
         // add(buttonPanel);
     }
 
-    
+    // Restricts input to integers only
+    // use like: 
+    //     JTextField marksTextField = new JTextField();
+    //     marksTextField.setDocument(new IntegerDocument());
+    static class IntegerDocument extends PlainDocument {
+        private final Pattern pattern = Pattern.compile("-?\\d*");
+
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            String text = getText(0, getLength()) + str;
+            if (pattern.matcher(text).matches()) {
+                super.insertString(offs, str, a);
+            }
+        }
+    }
 }

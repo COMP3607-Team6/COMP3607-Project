@@ -9,6 +9,10 @@ public class ClassInformation {
     private final String extendedOrImplementedClass;
     private final String marks;
 
+    // i am thinking this will also have the following:
+    // private ArrayList<AttributeInformation> attributes;
+    // private ArrayList<MethodsInformation> methods;
+
     public ClassInformation(String accessType, String isAbstract, 
                             String isInterface, String className,
                             String extendsOrImplements, 
