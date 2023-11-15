@@ -1,5 +1,8 @@
 package com.example;
 
+import java.io.File;
+import java.io.IOException;
+
 public class App 
 {
     public static void main( String[] args )
@@ -11,22 +14,26 @@ public class App
 //         AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal();
 //         assignmentSpecPortal.setVisible(true);
 
-        Composite x = new Composite("ZipFolder.zip");
+       // The path of the outer zip file
+    String zipFilePath = "ZipFolder.zip";
+    // Create a File object from the zip file path
+    File zipFile = new File(zipFilePath);
+    try {
+        // Create a ZipFileComposite object from the File object
+        ZipComponent zipComponent = new ZipFileComposite(zipFile);
+        // Print the info of the zip component
+        // zipComponent.printInfo();
+        // // Cast the zipComponent object to a ZipFileComposite object
+        ZipFileComposite zipFileComposite = (ZipFileComposite) zipComponent;
+        // Iterate over the child components of the zip file composite object
+        for (ZipComponent z : zipFileComposite.getComponents()) {
+            // Print the info of each component
+            z.printInfo();
+        }
 
-        // create a zip folder x1 that contains a Java file and a folder with another Java file
-    // Composite x1 = new Composite("src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2.zip");
-    Leaf java1 = new Leaf("src\\main\\java\\com\\example\\PDFReport.java");
-
-
-    // x1.add(java1);
-
-
-    // add the zip folders x1 and x2 to the main zip folder
-    x.add(java1);
-
-
-    // open the main zip folder and extract the Java files only to a folder y
-    String folderY = "src\\main\\java\\com\\example\\StudentFiles";
-    x.copy(folderY);
-  }
+    } catch (IOException e) {
+        // Handle the exception
+        e.printStackTrace();
     }
+    }
+}
