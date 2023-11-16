@@ -12,7 +12,7 @@ public class ZipFileReader {
 
             while ((zipEntry = zis.getNextEntry()) != null) {
                 String entryName = zipEntry.getName();
-                System.out.println("NAme " + entryName);
+
                 if (entryName.endsWith(".java")) {
                     Path entryPath = Paths.get(outputFolder, entryName);
 

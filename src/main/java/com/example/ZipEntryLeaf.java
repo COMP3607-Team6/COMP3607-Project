@@ -28,8 +28,8 @@ public class ZipEntryLeaf implements ZipComponent {
     @Override
     public void printInfo() {
         // Print the name and size of the zip entry
-        System.out.println("Zip entry name: " + zipEntry.getName());
-        System.out.println("Zip entry size: " + zipEntry.getSize() + " bytes");
+        // System.out.println("Zip entry name: " + zipEntry.getName());
+        // System.out.println("Zip entry size: " + zipEntry.getSize() + " bytes");
     }
 
     @Override
