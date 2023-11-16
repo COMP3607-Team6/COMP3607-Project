@@ -1,16 +1,16 @@
 package com.example;
 
-public class Marks {
+public class TestResult {
     
     private int testMarks;
     private boolean testPassed;
     private String testComment;
 
 
-    public Marks(int marks){
+    public TestResult(int marks){
         this.testMarks = marks;
         this.testPassed = false;
-        this.testComment = "hello";
+        this.testComment = "";
     }
     
     public String getTestComment() {

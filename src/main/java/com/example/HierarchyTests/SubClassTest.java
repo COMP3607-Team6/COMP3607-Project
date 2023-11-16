@@ -51,10 +51,13 @@ public class SubClassTest extends HierarchyTest{
             classLoader.close();
             try {
                 assertTrue(deviceClass.isAssignableFrom(classObject.getClass()));
+                testMarks.setTestPassed(true);
+                testMarks.setTestComment(classObject.getClass().getSimpleName() + " is subclassed from " + deviceClass.getSimpleName());
                 return classObject.getClass().getSimpleName() + " is subclassed from " + deviceClass.getSimpleName();
             }
             catch (AssertionError e)
-            {
+            {   
+                testMarks.setTestComment(classObject.getClass().getSimpleName() + " is not subclassed from " + deviceClass.getSimpleName());
                 return classObject.getClass().getSimpleName() + " is not subclassed from " + deviceClass.getSimpleName();
             }
             } 

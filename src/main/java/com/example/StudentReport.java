@@ -62,7 +62,7 @@ public class StudentReport implements PDFReport{
 
         for(TestCase test: cases){
             assertionResultString = test.getTestMarksObject().getTestComment();
-            Marks m = test.getTestMarksObject();
+            TestResult m = test.getTestMarksObject();
 
                 if(m.getTestPassed()){
                     totalMarks +=m.getTestMarks();

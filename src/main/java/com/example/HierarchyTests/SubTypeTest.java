@@ -46,10 +46,13 @@ public class SubTypeTest extends HierarchyTest {
             try {
                 // assertTrue(deviceClass.isInterface());
                 assertTrue(deviceClass.isAssignableFrom(classObject.getClass()));
+                testMarks.setTestPassed(true);
+                testMarks.setTestComment(classObject.getClass().getSimpleName() + " implements " + deviceClass.getSimpleName());
                 return classObject.getClass().getSimpleName() + " implements " + deviceClass.getSimpleName();
             }
             catch (AssertionError e)
-            {
+            {   
+                testMarks.setTestComment(classObject.getClass().getSimpleName() + " does not implement " + deviceClass.getSimpleName());
                 return classObject.getClass().getSimpleName() + " does not implement " + deviceClass.getSimpleName();
             }
             } 

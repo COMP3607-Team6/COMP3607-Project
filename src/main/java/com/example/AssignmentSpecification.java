@@ -7,14 +7,16 @@ public class AssignmentSpecification {
     private String description;
     private String folderPath;
     private String deadlineDate;
+    private float assignmentWeighting;
 
-    public AssignmentSpecification(String courseCode, String title, String description,String folderPath, String deadlineDate) {
+    public AssignmentSpecification(String courseCode, String title, String description,String folderPath, String deadlineDate, float assignmentWeighting) {
 
         this.courseCode = courseCode;
         this.title = title;
         this.description = description;
         this.folderPath  = folderPath;
         this.deadlineDate = deadlineDate;
+        this.assignmentWeighting = assignmentWeighting;
     }
     
 
@@ -45,6 +47,9 @@ public class AssignmentSpecification {
     public String getFolderPath() {
         return this.folderPath;
     }
+    public float getAssignmentWeighting() {
+        return this.assignmentWeighting;
+    }
 
     public void setFolderPath(String filePath) {
         this.folderPath = filePath;
@@ -56,6 +61,10 @@ public class AssignmentSpecification {
 
     public void setDeadlineDate(String deadlineDate) {
         this.deadlineDate = deadlineDate;
+    }
+
+    public void setAssignmentWeighting(float assignmentWeighting){
+        this.assignmentWeighting = assignmentWeighting;
     }
         
 }

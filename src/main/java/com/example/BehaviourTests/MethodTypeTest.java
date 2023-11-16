@@ -23,20 +23,26 @@ public class MethodTypeTest extends TypeTest {
     }
 
     public String test(){
-        actualValue = getType();
-        // System.out.println(actualValue);
-        // System.out.println(expectedValue);
         try{
+            actualValue = getType();
             assertEquals(actualValue, expectedValue);
-            return "Method Type Test Passed !!";
+            testMarks.setTestComment("Method " + methodName + "is of the correct type" + actualValue + ".");
+            return "Method " + methodName + " is of the correct return type "+ actualValue + ".";
+     
         }
         catch(AssertionError e){
-            return "Method Type Test Failed !!";
+            testMarks.setTestComment("Method " + methodName + " was expected to be of returntype " + expectedValue + " but was of return type " + actualValue);
+            return "Method " + methodName + " was expected to be of return type " + expectedValue + " but was of return type " + actualValue;
+    
+        }
+        catch(Exception e){
+            testMarks.setTestComment("Method " + methodName + " does not exist in class "+ className + ".");
+            return "Method " + methodName + " does not exist in class "+ className + ".";
         }
     }
        
     
-
+    //Check NoMethodException for this method.
     public Object getType(){
         method = findMethodInstance(className, methodName, allClasses);
         return method.getReturnType();
