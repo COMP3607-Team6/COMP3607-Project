@@ -75,6 +75,12 @@ public class Section2C_Methods extends JPanel {
 
                 if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
                     ClassInformation selectedClass = classes.get(selectedClassIndex);
+
+                    // attributeListModel.clear();
+
+                    // for (AttributeInformation attribute : selectedClass.getAttributes()) {
+                    //     attributeListModel.addElement(attribute.toString());
+                    // }
                     
                 } else {
                     System.out.println("Invalid selected index or class not found.");

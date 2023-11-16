@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -8,10 +7,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -19,13 +14,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 // import org.w3c.dom.events.MouseEvent;
 
@@ -71,10 +64,7 @@ public class Section2B_Attributes extends JPanel {
         // selectedClassComboBox = new JComboBox<String>(new String[]{"choose class"});
         selectedClassComboBox = new JComboBox<String>();
 
-        for (ClassInformation c : classes) {
-            String className = c.getClassName();
-            selectedClassComboBox.addItem(className);
-        }
+        updateSelectedClassComboBox();
 
         selectedClassPanel.add(selectedClassLabel);
         selectedClassPanel.add(selectedClassComboBox);
@@ -97,8 +87,8 @@ public class Section2B_Attributes extends JPanel {
         attributePanel = new JPanel();
         attributePanel.setLayout(new FlowLayout());
 
-        DefaultListModel<String> attributeListModel = new DefaultListModel<>();
-        JList<String> attributeList = new JList<>(attributeListModel);
+        attributeListModel = new DefaultListModel<>();
+        attributeList = new JList<>(attributeListModel);
 
         instanceCheckBox = new JCheckBox("Instance Variable");
 

@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 // import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 
-public class NamingConventionTest extends JPanel {
+public class AccessorTypeTest extends JPanel {
 
     private ArrayList<ClassInformation> classes;
     private JLabel testDescription;
@@ -25,12 +25,12 @@ public class NamingConventionTest extends JPanel {
     private JButton loadClassesButton;
     private JComboBox<String> selectedClassComboBox;
 
-    public NamingConventionTest(ArrayList<ClassInformation> classes) {
+    public AccessorTypeTest(ArrayList<ClassInformation> classes) {
         this.classes = classes;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        testDescription = new JLabel("naming convention test description. short one line description of test");
+        testDescription = new JLabel("accessor type test description. short one line description of test");
         testDescription.setFont(new Font("Arial", Font.ITALIC, 22));
         testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
 

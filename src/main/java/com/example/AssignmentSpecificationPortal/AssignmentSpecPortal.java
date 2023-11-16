@@ -21,7 +21,6 @@ public class AssignmentSpecPortal {
     private JButton nextButton;
     private Section3_TestSelection section3;
     private Section4_Tests section4;
-    private JTabbedPane section4TabbedPane;
 
 public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
         frame = new JFrame("Assignment Specification Portal");
@@ -29,7 +28,6 @@ public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
         cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
         section2TabbedPane = new JTabbedPane();
-        section4TabbedPane = new JTabbedPane();
 
         section1 = new Section1(cardLayout);
         section2a = new Section2A_Classes(cardLayout, classes);
@@ -56,6 +54,8 @@ public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
 
         backButton = new JButton("Back");
         nextButton = new JButton("Next");
+        backButton.setPreferredSize(new Dimension(100, 30));
+        nextButton.setPreferredSize(new Dimension(100, 30));
 
         // ActionListener for the back button
         backButton.addActionListener(new ActionListener() {
