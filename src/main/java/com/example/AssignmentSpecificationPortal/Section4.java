@@ -92,7 +92,7 @@ public class Section4 extends JPanel {
         methodParameters = new ArrayList<>();
         objTypeMethodParameters = new ArrayList<>();
         JPanel fullPanel = new JPanel();
-        fullPanel.setLayout(new GridLayout(4,1));
+        fullPanel.setLayout(new GridLayout(2,1));
 
 
         JPanel add_remove_panel = new JPanel();
@@ -177,8 +177,8 @@ public class Section4 extends JPanel {
 
         //adds methodpanel to fullpanel
         fullPanel.add(methodPanel);
-        fullPanel.add(parameter_panel);
-        fullPanel.add(add_remove_panel);
+        // fullPanel.add(parameter_panel);
+        // fullPanel.add(add_remove_panel);
         fullPanel.add(new JScrollPane(methodList));
 
 

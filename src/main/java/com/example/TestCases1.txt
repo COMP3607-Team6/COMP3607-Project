@@ -1,0 +1,7 @@
+Student ID: 816029005
+Total Marks earned: 6
+Student ID: 816029002
+Total Marks earned: 6
+Student ID: 816029007
+Total Marks earned: 6
+Total Students : 3	 Class Average Mark : 6.0

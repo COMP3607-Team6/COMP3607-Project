@@ -10,7 +10,7 @@ import java.awt.event.*;
 import java.util.*;
 import java.util.regex.Pattern;
 
-public class Section2 extends JPanel {
+public class Section2A_Classes extends JPanel {
     private DefaultListModel<String> classListModel;
     private JList<String> classList;
     private JTextField classNameField;
@@ -25,34 +25,36 @@ public class Section2 extends JPanel {
     private JButton removeButton;
     // private JButton addAttButton;
     private CardLayout cardLayout;
-    private JButton backButton;
+    // private JButton backButton;
     private JPanel classPanel;
     private JPanel inputPanel;
     private JPanel testPanel;
     private JLabel prompt;
     private JLabel markslabel;
     private int classCount;
-    private JButton nextButton;
-    ArrayList<ClassInformation> allClasses;
+    // private JButton nextButton;
+    // ArrayList<ClassInformation> allClasses;
+    private ArrayList<ClassInformation> classes;
 
-    public Section2(CardLayout layout) {
-        cardLayout = layout;
-        backButton = new JButton("Back");
-        nextButton = new JButton("Next");
-        allClasses = new ArrayList<ClassInformation>();
+    public Section2A_Classes(CardLayout layout, ArrayList<ClassInformation> classes) {
+        this.cardLayout = layout;
+        this.classes = classes;
+        // backButton = new JButton("Back");
+        // nextButton = new JButton("Next");
+        // allClasses = new ArrayList<ClassInformation>();
 
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                layout.previous(getParent());
-            }
-        });
+        // backButton.addActionListener(new ActionListener() {
+        //     public void actionPerformed(ActionEvent e) {
+        //         layout.previous(getParent());
+        //     }
+        // });
 
-        nextButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.next(getParent());
-                // getAllClasses(); // just for testing
-            }
-        });
+        // nextButton.addActionListener(new ActionListener() {
+        //     public void actionPerformed(ActionEvent e) {
+        //         cardLayout.next(getParent());
+        //         // getAllClasses(); // just for testing
+        //     }
+        // });
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -78,8 +80,9 @@ public class Section2 extends JPanel {
         NameField = new JTextField(10);
         NameField.setVisible(false);
 
-        prompt = new JLabel("Enter Assignment Classes Here:");
+        prompt = new JLabel("Classes");
         prompt.setFont(new Font("Arial", Font.ITALIC, 22));
+        prompt.setAlignmentX(Component.CENTER_ALIGNMENT);
         markslabel = new JLabel("Marks: \n");
 
         extendsCheckBox = new JCheckBox("extends/implements");
@@ -112,8 +115,8 @@ public class Section2 extends JPanel {
         add(prompt);
         add(classPanel);
         add(testPanel);
-        add(backButton);
-        add(nextButton);
+        // add(backButton);
+        // add(nextButton);
 
         isInterfaceComboBox.addActionListener(new ActionListener() {
 
@@ -156,7 +159,7 @@ public class Section2 extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 classCount++;
                 addClassToList();
-
+                // getAllClasses();
             }
         });
 
@@ -165,9 +168,10 @@ public class Section2 extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int index = classList.getSelectedIndex();
                 if (index != -1) {
-                    String selectedClass = classListModel.getElementAt(index);
+                    // String selectedClass = classListModel.getElementAt(index);
                     classListModel.remove(index);
-                    allClasses.remove(index);
+                    // allClasses.remove(index);
+                    classes.remove(index);
                     // removeAttributePanel(selectedClass);
                     classCount--;
                 }
@@ -199,7 +203,9 @@ public class Section2 extends JPanel {
 
         classListModel.addElement(classInfo.toString());
 
-        allClasses.add(classInfo);
+        // allClasses.add(classInfo);
+        classes.add(classInfo);
+
 
         classNameField.setText("");
         NameField.setText("");
@@ -207,12 +213,12 @@ public class Section2 extends JPanel {
     }
 
     private ArrayList<ClassInformation> getAllClasses() {
-        for (ClassInformation classInfo : allClasses) {
+        for (ClassInformation classInfo : classes) {
             System.out.println(classInfo.toString());
             System.out.println("-----------------------------------------");
         }
     
-        return allClasses;
+        return classes;
     }
 
     // Restricts input to integers only
