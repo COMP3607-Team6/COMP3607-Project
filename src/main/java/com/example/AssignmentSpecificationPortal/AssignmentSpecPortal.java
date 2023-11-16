@@ -16,29 +16,36 @@ public class AssignmentSpecPortal {
     private Section2A_Classes section2a;
     private Section2B_Attributes section2b;
     private Section2C_Methods section2c;
-    private JTabbedPane tabbedPane;
+    private JTabbedPane section2TabbedPane;
     private JButton backButton;
     private JButton nextButton;
+    private Section3_TestSelection section3;
+    private Section4_Tests section4;
+    private JTabbedPane section4TabbedPane;
 
 public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
         frame = new JFrame("Assignment Specification Portal");
         cardPanel = new JPanel();
         cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
-        tabbedPane = new JTabbedPane();
+        section2TabbedPane = new JTabbedPane();
+        section4TabbedPane = new JTabbedPane();
 
         section1 = new Section1(cardLayout);
         section2a = new Section2A_Classes(cardLayout, classes);
         section2b = new Section2B_Attributes(cardLayout, classes);
         section2c = new Section2C_Methods(cardLayout, classes);
-        
-        tabbedPane.addTab("Classes", section2a);
-        tabbedPane.addTab("Attributes", section2b);
-        tabbedPane.addTab("Methods", section2c);
+        section4 = new Section4_Tests(cardLayout, classes);
+        section3 = new Section3_TestSelection(cardLayout, classes, section4);
+
+        section2TabbedPane.addTab("Classes", section2a);
+        section2TabbedPane.addTab("Attributes", section2b);
+        section2TabbedPane.addTab("Methods", section2c);
 
         cardPanel.add(section1, "Section 1");
-        cardPanel.add(tabbedPane, "Section 2");
-        // cardPanel.add(section2, "Section 2");
+        cardPanel.add(section2TabbedPane, "Section 2");
+        cardPanel.add(section3, "Section 3");
+        cardPanel.add(section4, "Section 4");
         // cardPanel.add(section3, "Section 3");
 
         // Add padding around the contents of the frame
@@ -47,8 +54,8 @@ public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
         frame.add(cardPanel);
 
 
-        JButton backButton = new JButton("Back");
-        JButton nextButton = new JButton("Next");
+        backButton = new JButton("Back");
+        nextButton = new JButton("Next");
 
         // ActionListener for the back button
         backButton.addActionListener(new ActionListener() {
