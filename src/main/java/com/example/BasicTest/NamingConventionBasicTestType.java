@@ -22,7 +22,7 @@ public class NamingConventionBasicTestType implements BasicTestTypes {
 
     @Override
     public String getSuccessMessage() {
-            return " Found!";
+            return " found";
         }
 
     @Override

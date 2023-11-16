@@ -80,7 +80,7 @@ public class ClassReport implements PDFReport{
         String assertionResultString;
 
         for(TestCase test: cases){
-            Marks m = test.getTestMarksObject();
+            TestResult m = test.getTestMarksObject();
 
                 if(m.getTestPassed()){
                     totalMarks +=m.getTestMarks();

@@ -10,35 +10,41 @@ import com.example.TestCase;
 public class AttributeTypeTest extends TypeTest {
 
     private String className;
-    private String methodName;
+    private String attributeName;
     private Field field;
     private Object expectedValue;
     private Object actualValue;
     
-    public AttributeTypeTest(int allocatedMarks, String className, String methodName, Object expectedValue){
+    public AttributeTypeTest(int allocatedMarks, String className, String attributeName, Object expectedValue){
         super(allocatedMarks);
-        this.methodName = methodName;
+        this.attributeName = attributeName;
         this.className = className;  
         this.expectedValue = expectedValue;
     }
 
     public String test(){
-        actualValue = getType();
-        // System.out.println(actualValue);
-        // System.out.println(expectedValue);
         try{
+            actualValue = getType();
             assertEquals(actualValue, expectedValue);
-            return "Attribute Type Test Passed !!";
+            testMarks.setTestPassed(true);
+            
+            testMarks.setTestComment("Attribute " + attributeName + "is of the correct type" + actualValue + ".");
+            return "Attribute " + attributeName + " is of the correct type "+ actualValue + ".";
         }
         catch(AssertionError e){
-            return "Attribute Type Test Failed !!";
+            testMarks.setTestComment("Attribute " + attributeName + " was expected to be of type " + expectedValue + " but was of type " + actualValue);
+            return "Attribute " + attributeName + " was expected to be of type " + expectedValue + " but was of type " + actualValue;
+        }
+        catch(Exception e){
+            testMarks.setTestComment("Attribute " + attributeName + " does not exist in class "+ className + ".");
+            return "Attribute " + attributeName + " does not exist in class "+ className + ".";
         }
     }
        
     
 
     public Object getType(){
-        field = findAttributeInstance(className, methodName, allClasses);
+        field = findAttributeInstance(className, attributeName, allClasses);
         return field.getType();
     }
 

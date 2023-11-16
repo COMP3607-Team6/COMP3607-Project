@@ -1,7 +1,5 @@
 package com.example;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 
@@ -13,11 +11,17 @@ import com.example.BasicTest.MethodBasicTest;
 
 public class AutomatedJudgeSystem {
     
-
+    //Contains all tests to be executed for the assignment
     private static ArrayList<TestCase> testCases = new ArrayList<>();
+
+    //No longer used and should be removed eventually
     private static StringBuilder assertionResults = new StringBuilder();
-    private static int totalMarks = 0;
+    
+    //Instance of PDFManager to activate PDF observer
     private static PDFManager pdfManager = new PDFManager();
+
+    // Demo of Assignment Specification, data suppposed to be entered from frontend
+    private static AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
 
 
     
@@ -29,53 +33,42 @@ public class AutomatedJudgeSystem {
         testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
         testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
 
-         for(TestCase test: testCases){
-                String assertionResultString = test.test();
-               // Marks m = test.getTestMarksObject();
-
-               // if(m.getTestPassed()){
-                //     totalMarks +=m.getTestMarks();
-                // }
-                // assertionResults.append("Test Case: ").append(assertionResultString).append("\n");
-         }
-
-        AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23");
-
-
-
-
+        //runs all the tests that are added to testcases array
+        executeAssignmentTest();
 
         pdfManager.notify(testCases, "816029005", specs);
         pdfManager.notify(testCases, "816029002", specs);
         pdfManager.notify(testCases, "816029007", specs);
 
+    }
 
-        //  assertionResults.append("Total Marks earned: ").append(totalMarks).append("\n");
+     // method which calls helper methods to execute the whole process of marking a student assignment
+    public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
 
-        //  writeAssertionResultsToFile("src\\main\\java\\com\\example\\TestCases.txt");
+        // 1) some method to read the data from the frontend and create all tests for it based on the spec
 
-        //  StudentReport report = new StudentReport();
-        //  String textFilePath ="src\\main\\java\\com\\example\\TestCases.txt";
-        //  String pdfPath = "src\\main\\java\\com\\example\\Output.pdf" ;
-        //  report.generatePDF(textFilePath, pdfPath);
+        //LOOP for every Assignment:
+
+            //2) method to retrieve student zip file from folder and unzip that assignment
+                //Retrieve studentID and possibly Name??
+                // If file not following naming convention then A flagged folder is generated where that report is saved??
+            
+            //3) some method to run the test and generate associated comments for each test
+                executeAssignmentTest();
+
+            //4) method to generate pdf output for a student assignment
+                pdfManager.notify(testCases, studentId, specs);
 
     }
+
+
+    public static void executeAssignmentTest(){
+
+        for(TestCase test: testCases){
+            String assertionResultString = test.test();
+         }
+    }
+
    
-    public static void writeAssertionResultsToFile(String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Get the assertion results and write them to the file
-            String results = getAssertionResults();
-            writer.write(results);
-
-            System.out.println("Assertion results have been written to the file: " + filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String getAssertionResults() {
-        return assertionResults.toString();
-    }
-
 
 }

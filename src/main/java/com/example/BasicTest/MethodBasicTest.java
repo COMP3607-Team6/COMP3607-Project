@@ -21,12 +21,13 @@ public class MethodBasicTest extends BasicTests {
             methodObject = findMethodInstance(className, methodName, allClasses);
             assertTrue(testTypeObject.methodTest(methodObject));
             testMarks.setTestPassed(true);
-
-            return "Method: " + methodName + testTypeObject.getSuccessMessage();
+            testMarks.setTestComment("Method " + methodName + testTypeObject.getSuccessMessage()+ " in " + className+ ".java");
+            return "Method: " + methodName + testTypeObject.getSuccessMessage() + " in " + className;
 
         }
         catch(AssertionError a){
-            return "Method: " + methodName + testTypeObject.getErrorMessage();
+            testMarks.setTestComment("Method " + methodName + testTypeObject.getErrorMessage()+ " in " + className+ ".java");
+            return "Method: " + methodName + testTypeObject.getErrorMessage() + " in " + className;
         }
 
     }
