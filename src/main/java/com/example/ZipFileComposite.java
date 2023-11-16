@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import com.example.ZipComponent;
 
@@ -37,11 +38,16 @@ public class ZipFileComposite implements ZipComponent {
             ZipEntry entry = entries.nextElement();
             // Check if the entry is another zip file
             if (entry.getName().endsWith(".zip")) {
-                // Create a temporary file from the input stream of the entry
-                ZipFileReader.unzip(entry.getName(), "src\\main\\java\\com\\example\\StudentFiles" );
+                ZipFileReader z = new ZipFileReader();
+
+                String path = z.unzip(entry.getName(), "src\\main\\java\\com\\example\\StudentFiles" );
+                
+                    
                 Path tempFile = Files.createTempFile(null, null);
                 Files.copy(zipFile.getInputStream(entry), tempFile, StandardCopyOption.REPLACE_EXISTING);
                 // Create a ZipFileComposite object from the temporary file and add it to the list of child components
+                // if (path.length() != 0)
+                    // components.add(new ZipFileComposite(Paths.get(path).toFile()));
                 components.add(new ZipFileComposite(tempFile.toFile()));
             } else {
                 // Create a ZipEntryLeaf object from the entry and add it to the list of child components
@@ -54,7 +60,7 @@ public class ZipFileComposite implements ZipComponent {
     @Override
     public void printInfo() {
         // Print the name and size of the zip file
-        System.out.println("Zip file name: " + zipFile.getName());
+        System.out.println("Outer file name: " + zipFile.getName());
         System.out.println("Zip file size: " + zipFile.size() + " bytes");
         // Print the info of the child components
         for (ZipComponent component : components) {
@@ -68,19 +74,19 @@ public class ZipFileComposite implements ZipComponent {
         return Files.newInputStream(Path.of(zipFile.getName()));
     }
 
-    @Override
+    // @Override
     public void add(ZipComponent component) {
         // Add a child component to the list of child components
         components.add(component);
     }
 
-    @Override
+    // @Override
     public void remove(ZipComponent component) {
         // Remove a child component from the list of child components
         components.remove(component);
     }
 
-    @Override
+    // @Override
     public ZipComponent getChild(int index) {
         // Return a child component at a given index
         return components.get(index);

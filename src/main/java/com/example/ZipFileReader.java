@@ -5,10 +5,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class ZipFileReader {
-    public static void unzip(String zipFilePath, String outputFolder) {
-        // System.out.println(zipFilePath + " " + outputFolder);
+    public String unzip(String zipFilePath, String outputFolder) {
         try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(Paths.get(zipFilePath)))) {
             ZipEntry zipEntry;
+            String assignmentFolderPath = "";
 
             while ((zipEntry = zis.getNextEntry()) != null) {
                 String entryName = zipEntry.getName();
@@ -23,32 +23,30 @@ public class ZipFileReader {
 
                         try (BufferedWriter writer = Files.newBufferedWriter(entryPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
                             // Add the package declaration to the beginning of the file
-                            // writer.write("package com.example.StudentFiles." + "file1;");
 
-                            // // Get the folder name from the entry name
-                            // String folderName = entryName.substring(0, entryName.indexOf("/"));
-                            // // Write the package name with the folder name
-                            // System.out.println(folderName);
-                            // writer.write("package com.example.StudentFiles." + folderName + ";");
+                            Path sourcePath = Paths.get(outputFolder);
+                            // Create a Path object for the file folder
+                            Path filePath = Paths.get(outputFolder, entryName);
+                            // Get the relative path of the file from the source folder
+                            Path relativePath = sourcePath.relativize(filePath);
 
-                            // Create a Path object for the source folder
-Path sourcePath = Paths.get(outputFolder);
-// Create a Path object for the file folder
-Path filePath = Paths.get(outputFolder, entryName);
-// Get the relative path of the file from the source folder
-Path relativePath = sourcePath.relativize(filePath);
-// Convert the relative path to a String and replace the slashes with dots
-String packageName = relativePath.toString().replace("/", ".");
-packageName = relativePath.toString().replace("\\", ".");
-// Remove the file extension from the package name
-packageName = packageName.substring(0, packageName.lastIndexOf("."));
-packageName = packageName.substring(0, packageName.lastIndexOf("."));
-// Write the package name to the file
-writer.write("package com.example." + packageName + ";");
+                            // Find the index of the last \ in the string
+                            int lastIndex = filePath.toString().lastIndexOf("\\");
+
+                            // Get the substring that starts from the beginning and stops before the last \ in the string
+                            assignmentFolderPath = filePath.toString().substring(0, lastIndex);
+
+                            String packageName = relativePath.toString().replace("/", ".");
+                            packageName = relativePath.toString().replace("\\", ".");
+                            // Remove the file extension from the package name
+                            packageName = packageName.substring(0, packageName.lastIndexOf("."));
+                            packageName = packageName.substring(0, packageName.lastIndexOf("."));
+                            // Write the package name to the file
+                            writer.write("package com.example.StudentFiles." + packageName + ";");
 
 
                             writer.newLine();
-// System.out.println(outputFolder + " " + entryName);
+
                             // Copy the contents of the Java file
                             byte[] buffer = new byte[1024];
                             int len;
@@ -62,10 +60,12 @@ writer.write("package com.example." + packageName + ";");
 
                 zis.closeEntry();
             }
+            return assignmentFolderPath;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+        return "";
     }
 
     // A custom method to delete a folder recursively
@@ -108,17 +108,33 @@ public static void deleteFolder(File folder) {
     folder.delete();
 }
 
-
-    public static void main(String[] args) {
-        // String zipFilePath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2.zip";
-        String outputFolder = "src\\main\\java\\com\\example\\StudentFiles";
-
-        // unzip("ZipFolder/assignment.zip", outputFolder);
-        // unzip("src\\main\\java\\com\\example\\assignment.zip", outputFolder);
-        // unzip("src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2.zip", outputFolder);
-        // File f = new File ("src\\main\\java\\com\\example\\assignment.zip");
-        // unzip("ZipFolder\\Avinash_Roopnarine_816029635_A2-2.zip.zip", outputFolder);
-        System.out.println("Java files unzipped and modified successfully.");
-
+// A custom method to delete all the files within a folder but not the folder itself
+public static void deleteFilesInFolder(String folderPath) {
+    // Create a File object for the folder
+    File folder = new File(folderPath);
+    // Get all the files and subfolders in the folder
+    File[] files = folder.listFiles();
+    // If the folder is not empty, delete each file/subfolder
+    if (files != null) {
+        for (File file : files) {
+            // Delete the file or subfolder
+            file.delete();
+        }
     }
+}
+
+// A custom method to delete all the files within a folder but not the folder itself
+public static void deleteFilesInFolder(File folder) {
+    
+    // Get all the files and subfolders in the folder
+    File[] files = folder.listFiles();
+    // If the folder is not empty, delete each file/subfolder
+    if (files != null) {
+        for (File file : files) {
+            // Delete the file or subfolder
+            file.delete();
+        }
+    }
+}
+
 }

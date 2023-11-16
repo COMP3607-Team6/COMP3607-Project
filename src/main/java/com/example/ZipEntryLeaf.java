@@ -1,14 +1,5 @@
 package com.example;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.zip.ZipOutputStream;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import java.io.InputStream;
 
 // This is the ZipEntryLeaf class that represents a zip entry
@@ -27,9 +18,7 @@ public class ZipEntryLeaf implements ZipComponent {
 
     @Override
     public void printInfo() {
-        // Print the name and size of the zip entry
-        // System.out.println("Zip entry name: " + zipEntry.getName());
-        // System.out.println("Zip entry size: " + zipEntry.getSize() + " bytes");
+        System.out.println("Java entry name: " + zipEntry.getName());
     }
 
     @Override
@@ -38,19 +27,4 @@ public class ZipEntryLeaf implements ZipComponent {
         return inputStream;
     }
 
-    @Override
-    public void add(ZipComponent component) {
-        // Do nothing, as a leaf has no children
-    }
-
-    @Override
-    public void remove(ZipComponent component) {
-        // Do nothing, as a leaf has no children
-    }
-
-    @Override
-    public ZipComponent getChild(int index) {
-        // Return null, as a leaf has no children
-        return null;
-    }
 }

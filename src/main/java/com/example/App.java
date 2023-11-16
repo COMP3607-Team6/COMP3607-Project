@@ -27,13 +27,13 @@ public class App
         // Iterate over the child components of the zip file composite object
         for (ZipComponent z : zipFileComposite.getComponents()) {
             // Print the info of each component
-// System.out.println(z.getClass());
+// System.out.println(z.toString());
             z.printInfo();
         }
 
     } catch (IOException e) {
         // Handle the exception
-        e.printStackTrace();
+        System.out.println("Unable to read folder. " + e.getMessage());
     }
     }
 }

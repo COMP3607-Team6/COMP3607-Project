@@ -39,7 +39,8 @@ public class ZipReader {
                 // Print the name of the entry
                 // System.out.println("Entry name: " + name);
                 // Check if the entry is another zip file
-                ZipFileReader.unzip(name,"src\\main\\java\\com\\example\\StudentFiles");
+                ZipFileReader z = new ZipFileReader();
+                String path = z.unzip(name,"src\\main\\java\\com\\example\\StudentFiles");
                 if (name.endsWith(".zip")) {
                     // Get the input stream of the entry
                     InputStream is = zip.getInputStream(entry);
