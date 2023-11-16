@@ -10,7 +10,7 @@ public class ClassInformation {
     private final String extendsOrImplements;
     private final String extendedOrImplementedClass;
     private final String marks;
-
+    private ArrayList<MethodInformation> methods;
     // i am thinking this will also have the following:
     private ArrayList<AttributeInformation> attributes;
     // private ArrayList<MethodsInformation> methods;
@@ -27,6 +27,7 @@ public class ClassInformation {
         this.extendsOrImplements = extendsOrImplements;
         this.extendedOrImplementedClass = extendedOrImplementedClass;
         this.marks = marks;
+        this.methods = new ArrayList<MethodInformation>();
         this.attributes = new ArrayList<AttributeInformation>();
     }
 
@@ -67,6 +68,15 @@ public class ClassInformation {
     
     public ArrayList<AttributeInformation> getAttributes() {
         return attributes;
+    }
+
+    public ArrayList<MethodInformation> addMethod(MethodInformation method) {
+        methods.add(method);
+
+        return methods;
+    }
+    public ArrayList<MethodInformation> getMethods() {
+        return methods;
     }
 
     @Override
