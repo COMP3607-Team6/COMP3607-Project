@@ -41,14 +41,15 @@ public class ZipFileComposite implements ZipComponent {
                 ZipFileReader z = new ZipFileReader();
 
                 String path = z.unzip(entry.getName(), "src\\main\\java\\com\\example\\StudentFiles" );
-                
                     
                 Path tempFile = Files.createTempFile(null, null);
                 Files.copy(zipFile.getInputStream(entry), tempFile, StandardCopyOption.REPLACE_EXISTING);
                 // Create a ZipFileComposite object from the temporary file and add it to the list of child components
                 // if (path.length() != 0)
-                    // components.add(new ZipFileComposite(Paths.get(path).toFile()));
+                //     components.add(new ZipFileComposite(Paths.get(path).toFile()));
+                System.out.println("TEMP : " + tempFile.toString());
                 components.add(new ZipFileComposite(tempFile.toFile()));
+                // components.add(new ZipFileComposite(zipFile));
             } else {
                 // Create a ZipEntryLeaf object from the entry and add it to the list of child components
                 if (entry.getName().endsWith(".java"))
@@ -61,7 +62,6 @@ public class ZipFileComposite implements ZipComponent {
     public void printInfo() {
         // Print the name and size of the zip file
         System.out.println("Outer file name: " + zipFile.getName());
-        System.out.println("Zip file size: " + zipFile.size() + " bytes");
         // Print the info of the child components
         for (ZipComponent component : components) {
             component.printInfo();

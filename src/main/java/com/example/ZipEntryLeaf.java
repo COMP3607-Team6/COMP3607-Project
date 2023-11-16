@@ -8,17 +8,20 @@ public class ZipEntryLeaf implements ZipComponent {
     private ZipEntry zipEntry;
     // This is the input stream of the zip entry
     private InputStream inputStream;
+    private String storedFilePath;
+
 
     // This is the constructor that takes a ZipEntry object and an input stream as parameters
     public ZipEntryLeaf(ZipEntry zipEntry, InputStream inputStream) {
         // Assign the ZipEntry object and the input stream to the fields
         this.zipEntry = zipEntry;
         this.inputStream = inputStream;
+        storedFilePath = ("src\\main\\java\\com\\example\\StudentFiles\\" + zipEntry.getName()).toString().replace("/", "\\");;
     }
 
     @Override
     public void printInfo() {
-        System.out.println("Java entry name: " + zipEntry.getName());
+        System.out.println("Java entry name Leaf: " + storedFilePath);
     }
 
     @Override
