@@ -21,8 +21,7 @@ public class App
     try {
         // Create a ZipFileComposite object from the File object
         ZipComponent zipComponent = new ZipFileComposite(zipFile);
-        // Print the info of the zip component
-        // zipComponent.printInfo();
+    
         // // Cast the zipComponent object to a ZipFileComposite object
         ZipFileComposite zipFileComposite = (ZipFileComposite) zipComponent;
         // Iterate over the child components of the zip file composite object

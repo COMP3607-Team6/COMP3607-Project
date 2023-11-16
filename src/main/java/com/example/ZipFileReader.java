@@ -25,10 +25,27 @@ public class ZipFileReader {
                             // Add the package declaration to the beginning of the file
                             // writer.write("package com.example.StudentFiles." + "file1;");
 
-                            // Get the folder name from the entry name
-                            String folderName = entryName.substring(0, entryName.indexOf("/"));
-                            // Write the package name with the folder name
-                            writer.write("package com.example.StudentFiles." + folderName + ";");
+                            // // Get the folder name from the entry name
+                            // String folderName = entryName.substring(0, entryName.indexOf("/"));
+                            // // Write the package name with the folder name
+                            // System.out.println(folderName);
+                            // writer.write("package com.example.StudentFiles." + folderName + ";");
+
+                            // Create a Path object for the source folder
+Path sourcePath = Paths.get(outputFolder);
+// Create a Path object for the file folder
+Path filePath = Paths.get(outputFolder, entryName);
+// Get the relative path of the file from the source folder
+Path relativePath = sourcePath.relativize(filePath);
+// Convert the relative path to a String and replace the slashes with dots
+String packageName = relativePath.toString().replace("/", ".");
+packageName = relativePath.toString().replace("\\", ".");
+// Remove the file extension from the package name
+packageName = packageName.substring(0, packageName.lastIndexOf("."));
+packageName = packageName.substring(0, packageName.lastIndexOf("."));
+// Write the package name to the file
+writer.write("package com.example." + packageName + ";");
+
 
                             writer.newLine();
 // System.out.println(outputFolder + " " + entryName);
@@ -102,10 +119,6 @@ public static void deleteFolder(File folder) {
         // File f = new File ("src\\main\\java\\com\\example\\assignment.zip");
         // unzip("ZipFolder\\Avinash_Roopnarine_816029635_A2-2.zip.zip", outputFolder);
         System.out.println("Java files unzipped and modified successfully.");
-
-        
-        // File f = new File ("src\\main\\java\\com\\example\\StudentFiles\\vinash_Roopnarine_816029635_A2");
-        // ZipFileReader.deleteFolder("src\\main\\java\\com\\example\\StudentFiles\\Avinash_Roopnarine_816029635_A2");
 
     }
 }
