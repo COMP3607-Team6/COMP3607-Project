@@ -26,10 +26,13 @@ public class AttributeValueTest extends ValueTest {
         
         try{
             assertEquals("Attribute Value Test", value, actualValue);
-            return "Value Attribute Test Passed !!";
+            testMarks.setTestPassed(true);
+            testMarks.setTestComment("Attribute " + attributeName + " is of the correct value "+ actualValue + ".");
+            return "Attribute " + attributeName + " is of the correct value  "+ actualValue + ".";
         }
         catch(AssertionError e){
-            return "Value Attribute Test Failed !!";
+            testMarks.setTestComment("Attribute " + attributeName + " was expected to be " + value + " but was " + actualValue);
+            return "Attribute " + attributeName + " was expected to be " + value + " but was " + actualValue;
         }
     }
 
