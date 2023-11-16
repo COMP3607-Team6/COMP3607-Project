@@ -268,7 +268,7 @@ public class Section2C_Methods extends JPanel {
 
                 methodPars = "";
                 methodParameters.clear();
-
+                //idk
 
                 methodName.setText("");
                 objMethodType.setText("");
