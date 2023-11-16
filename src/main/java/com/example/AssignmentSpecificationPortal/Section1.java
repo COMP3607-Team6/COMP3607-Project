@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
 
 public class Section1 extends JPanel {
-    private JButton nextButton;
+    // private JButton nextButton;
     private CardLayout cardLayout;
 
 	private JLabel welcomeLabel;
@@ -52,13 +52,13 @@ public class Section1 extends JPanel {
 
     public Section1(CardLayout layout) {
         cardLayout = layout;
-        nextButton = new JButton("Next");
+        // nextButton = new JButton("Next");
 
-        nextButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.next(getParent());
-            }
-        });
+        // nextButton.addActionListener(new ActionListener() {
+        //     public void actionPerformed(ActionEvent e) {
+        //         cardLayout.next(getParent());
+        //     }
+        // });
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -171,8 +171,8 @@ public class Section1 extends JPanel {
         filePathPanel.add(actualFilePathLabel);
 
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        nextButton.setPreferredSize(new Dimension(100, 30));
+        // JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        // nextButton.setPreferredSize(new Dimension(100, 30));
         // buttonPanel.add(nextButton);
 
         

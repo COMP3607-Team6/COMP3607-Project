@@ -39,7 +39,7 @@ public class MethodInformation {
 
     @Override
     public String toString(){
-        String methodSignature = getAccessType() + " " + getIsAbstract() + " " + getMethodType() + " " + getMethodName() + getMethodParameters();
+        String methodSignature = getAccessType() + " " + getIsAbstract() + " " + getMethodType() + " " + getMethodName() + "("+ getMethodParameters() + ")";
 
         return methodSignature;
     }

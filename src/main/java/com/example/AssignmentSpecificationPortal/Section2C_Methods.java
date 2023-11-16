@@ -69,6 +69,12 @@ public class Section2C_Methods extends JPanel {
     private ArrayList<String> methodParameters;
     private ArrayList<MethodInformation> allMethods;
     private ArrayList<String> ObjParameters;
+
+
+    // private ArrayList<String> insertedParameterType;
+    // private ArrayList<String> insertedParameterInput;
+
+    private JButton test;
     
 
     public Section2C_Methods(CardLayout layout, ArrayList<ClassInformation> classes) {
@@ -143,6 +149,9 @@ public class Section2C_Methods extends JPanel {
         methodParameters = new ArrayList<>();
         ObjParameters = new ArrayList<>();
 
+        // insertedParameterType = new ArrayList<>();
+        // insertedParameterInput = new ArrayList<>();
+
 
         JPanel fullPanel = new JPanel();
         fullPanel.setLayout(new GridLayout(5,1));
@@ -167,6 +176,9 @@ public class Section2C_Methods extends JPanel {
         methodName = new JTextField(15);
         methodName.setText("");
 
+        test = new JButton("view all classes");
+
+        methodPanel.add(test);
         methodPanel.add(accessTypeCB);
         methodPanel.add(isAbstract);
         methodPanel.add(methodType);
@@ -223,7 +235,6 @@ public class Section2C_Methods extends JPanel {
         addMethod.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //addMethodToList();
                 String methodInfo = "";
                 String accessType = (String) accessTypeCB.getSelectedItem();
                 String isAbstractS = (String) isAbstract.getSelectedItem();
@@ -231,7 +242,7 @@ public class Section2C_Methods extends JPanel {
                     isAbstractS = "";
                 }
                 String returnType = (String) methodType.getSelectedItem();
-                //HERE i have to somehow access arraylist with other par
+                
                 if(returnType.equals("object")){
                     returnType = (String) objMethodType.getText();
                 }
@@ -292,6 +303,12 @@ public class Section2C_Methods extends JPanel {
                 }
             }
         });
+        test.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                getAllMethods();
+            }
+        });
 
         // ALLOWS OBJECT TYPE TO BE INPUTTED
         methodType.addActionListener(new ActionListener() {
@@ -314,6 +331,21 @@ public class Section2C_Methods extends JPanel {
                 if(parType.equals("object")){
                     String parInput = (String) parameterInput.getText();
                     parType = (String) objParameterType.getText();
+
+                    // //array to add type
+                    // insertedParameterType.add(parType);
+                    // //array to add input
+                    // String objPars = "";
+                    // for(String element : ObjParameters){
+                    //     objPars += element + ",";
+                    // }
+                    // if(objPars.length() > 0){
+                    //     objPars = objPars.substring(0, objPars.length() - 1);
+                    // }
+
+                    // String allTogether = parType + " {" + objPars + "}";
+
+
                     String allTogether = combineObjPars(parType, ObjParameters);
                     methodParameters.add(allTogether);
                     ObjParameters.clear();
@@ -321,6 +353,10 @@ public class Section2C_Methods extends JPanel {
                 } else {
                     String parInput = (String) parameterInput.getText();
                     String type_input = parType + " " + parInput;
+
+                    //array to add type
+                    //array to add input
+
                     methodParameters.add(type_input); 
                     System.out.println(methodParameters);
                     parameterInput.setText("");
@@ -413,53 +449,6 @@ public class Section2C_Methods extends JPanel {
         }
 
         return classes;
-    }
-
-    private void addMethodToList(){
-        
-
-        // String accessType = (String) accessTypeCB.getSelectedItem();
-        // String isAbstractS = (String) isAbstract.getSelectedItem();
-        // String returnType = (String) methodType.getSelectedItem();
-        // if(returnType.equals("object")){
-        //     returnType = (String) objMethodType.getText();
-        // }
-        // String methodNameS = (String) methodName.getText();
-        // // String marks = (String) markFieldM.getText();
-        // String methodInfo = "";
-
-        // String tested = "";
-        // for(String element: methodParameters){
-        //     tested += element + ",";
-        // }
-
-        // if(tested.length() > 0){
-        //     tested = tested.substring(0, tested.length() - 1);
-        // }
-
-        // if(methodName.equals("")){
-        //     return;
-        // }
-        // if(returnType.equals("")){
-        //     return;
-        // }
-
-        // if(isAbstractS.equals("Abstract")){
-        //     methodInfo = accessType + " " + isAbstractS + " " + returnType + " " + methodNameS + "(" + tested + ");" + " [ " + " marks]";
-        //     methodListModel.addElement(methodInfo);
-        //     tested = "";
-        //     methodParameters.clear();
-        // }
-        // if(isAbstractS.equals("Concrete")){
-        //     methodInfo = accessType + " " + returnType + " " + methodNameS + "(" + tested + ")" + " [ " + " marks]";
-        //     methodListModel.addElement(methodInfo);
-        //     System.out.println(methodInfo);
-        //     tested = "";
-        //     methodParameters.clear();
-        // }
-        // methodName.setText("");
-        // objMethodType.setText("");
-        // // markFieldM.setText("");
     }
 }
 

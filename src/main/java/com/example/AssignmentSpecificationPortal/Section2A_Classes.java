@@ -36,8 +36,8 @@ public class Section2A_Classes extends JPanel {
     // ArrayList<ClassInformation> allClasses;
     private ArrayList<ClassInformation> classes;
 
-    public Section2A_Classes(CardLayout layout, ArrayList<ClassInformation> classes) {
-        this.cardLayout = layout;
+    public Section2A_Classes(CardLayout cardLayout, ArrayList<ClassInformation> classes) {
+        this.cardLayout = cardLayout;
         this.classes = classes;
         // backButton = new JButton("Back");
         // nextButton = new JButton("Next");
