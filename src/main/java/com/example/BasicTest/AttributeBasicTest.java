@@ -20,10 +20,12 @@ public class AttributeBasicTest extends BasicTests {
             Field f = findAttributeInstance(className, attributeName, allClasses);
             assertTrue(testTypeObject.attributeTest(f));
             testMarks.setTestPassed(true);
-            return "Attribute: " + attributeName + testTypeObject.getSuccessMessage();
+            testMarks.setTestComment("Attribute name " + attributeName + testTypeObject.getSuccessMessage()+ " in " + className + ".java");
+            return "Attribute: " + attributeName + testTypeObject.getSuccessMessage() + " in " + className;
         }
         catch(AssertionError e){
-            return "Attribute: " + attributeName + testTypeObject.getErrorMessage();
+            testMarks.setTestComment("Attribute name " + attributeName + testTypeObject.getErrorMessage()+ " in " + className+ ".java");
+            return "Attribute: " + attributeName + testTypeObject.getErrorMessage()+ " in " + className;
         }
     }
     @Override

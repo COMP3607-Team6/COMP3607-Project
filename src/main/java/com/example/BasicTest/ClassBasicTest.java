@@ -19,9 +19,11 @@ public class ClassBasicTest extends BasicTests {
         try{
             assertTrue( testTypeObject.classTest(classObject));
             testMarks.setTestPassed(true);
+            testMarks.setTestComment("Class " + className + testTypeObject.getSuccessMessage());
             return "Class Name: " + className + testTypeObject.getSuccessMessage();
         }
         catch(AssertionError e){
+            testMarks.setTestComment("Class " + className + testTypeObject.getErrorMessage());
             return "Class Name:" + className + testTypeObject.getErrorMessage();
         }
 
