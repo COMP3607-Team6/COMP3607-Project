@@ -32,4 +32,25 @@ public class AttributeInformation {
             }
         }
     }
+
+    public String getAccessType() {
+        return accessType;
+    }
+
+    public String getIsStatic() {
+        return isStatic;
+    }
+
+    public String getAttributeType() {
+        return attributeType;
+    }
+
+    public String getAttributeName() {
+        return attributeName;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
 }

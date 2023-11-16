@@ -51,7 +51,6 @@ public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
 
         frame.add(cardPanel);
 
-
         backButton = new JButton("Back");
         nextButton = new JButton("Next");
         backButton.setPreferredSize(new Dimension(100, 30));
