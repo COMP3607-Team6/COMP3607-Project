@@ -48,6 +48,8 @@ public class Section2C_Methods extends JPanel {
     private JComboBox<String> isAbstract;
     private JComboBox<String> methodType;
     private JTextField objMethodType;
+    private JLabel objMethodTypeLabel;
+    private JLabel methodNameLabel;
     private JTextField methodName;
 
 
@@ -60,8 +62,11 @@ public class Section2C_Methods extends JPanel {
 
     private JComboBox<String> parameterTypeObj;
     private JLabel parameterInputLObj;
+
     private JTextField parameterInputObj;
     private JButton addMethodParameterObj;
+    private JLabel objParameterTypeLabel;
+    private JLabel objExpectedInputLabel;
 
     private JButton addMethod;
     private JButton removeMethod;
@@ -70,9 +75,6 @@ public class Section2C_Methods extends JPanel {
     private ArrayList<MethodInformation> allMethods;
     private ArrayList<String> ObjParameters;
 
-
-    // private ArrayList<String> insertedParameterType;
-    // private ArrayList<String> insertedParameterInput;
 
     private JButton test;
     
@@ -149,10 +151,6 @@ public class Section2C_Methods extends JPanel {
         methodParameters = new ArrayList<>();
         ObjParameters = new ArrayList<>();
 
-        // insertedParameterType = new ArrayList<>();
-        // insertedParameterInput = new ArrayList<>();
-
-
         JPanel fullPanel = new JPanel();
         fullPanel.setLayout(new GridLayout(5,1));
 
@@ -168,11 +166,14 @@ public class Section2C_Methods extends JPanel {
 
         //METHOD PANEL
         accessTypeCB = new JComboBox<>(new String[]{"public", "private", "protected"});
-        isAbstract = new JComboBox<>(new String[]{"abstract", "concrete"});
+        isAbstract = new JComboBox<>(new String[]{"concrete", "abstract"});
         methodType = new JComboBox<>(new String[]{"String", "int", "double","float", "boolean", "char", "void", "object"});
         objMethodType = new JTextField(10);
         objMethodType.setText("");
         objMethodType.setVisible(false);
+        objMethodTypeLabel = new JLabel("Object Name:");
+        objMethodTypeLabel.setVisible(false);
+        methodNameLabel = new JLabel("Method Name:");
         methodName = new JTextField(15);
         methodName.setText("");
 
@@ -182,7 +183,9 @@ public class Section2C_Methods extends JPanel {
         methodPanel.add(accessTypeCB);
         methodPanel.add(isAbstract);
         methodPanel.add(methodType);
+        methodPanel.add(objMethodTypeLabel);
         methodPanel.add(objMethodType);
+        methodPanel.add(methodNameLabel);
         methodPanel.add(methodName);
 
         //PARAMTER PANEL
@@ -190,11 +193,15 @@ public class Section2C_Methods extends JPanel {
         objParameterType = new JTextField(10);
         objParameterType.setText("");
         objParameterType.setVisible(false);
+        objParameterTypeLabel = new JLabel("Object Name:");
+        objParameterTypeLabel.setVisible(false);
         parameterInputL = new JLabel("Expected Input:");
         parameterInput = new JTextField(5);
         addMethodParameter = new JButton("Add parameter to method");
+        
 
         parameter_panel.add(parameterType);
+        parameter_panel.add(objParameterTypeLabel);
         parameter_panel.add(objParameterType);
         parameter_panel.add(parameterInputL);
         parameter_panel.add(parameterInput);
@@ -204,12 +211,14 @@ public class Section2C_Methods extends JPanel {
         //OBJECT PARAMETER PANEL
         parameterInputLObj = new JLabel("input parameter for object:");
         parameterTypeObj = new JComboBox<>(new String[]{"String", "int", "double","float", "boolean", "char"});
+        objExpectedInputLabel = new JLabel("Expected Input:");
         parameterInputObj = new JTextField(5);
         addMethodParameterObj = new JButton("add parameter to object");
         
         show_hide_objPar_Panel.setVisible(false);
         show_hide_objPar_Panel.add(parameterInputLObj);
         show_hide_objPar_Panel.add(parameterTypeObj);
+        show_hide_objPar_Panel.add(objExpectedInputLabel);
         show_hide_objPar_Panel.add(parameterInputObj);
         show_hide_objPar_Panel.add(addMethodParameterObj);
         
@@ -316,9 +325,11 @@ public class Section2C_Methods extends JPanel {
             public void actionPerformed(ActionEvent e){
                 if("object".equals(methodType.getSelectedItem())){
                     objMethodType.setVisible(true);
+                    objMethodTypeLabel.setVisible(true);
                 } else {
                     objMethodType.setText("");
                     objMethodType.setVisible(false);
+                    objMethodTypeLabel.setVisible(false);
                 }
             }
         });
@@ -332,31 +343,14 @@ public class Section2C_Methods extends JPanel {
                     String parInput = (String) parameterInput.getText();
                     parType = (String) objParameterType.getText();
 
-                    // //array to add type
-                    // insertedParameterType.add(parType);
-                    // //array to add input
-                    // String objPars = "";
-                    // for(String element : ObjParameters){
-                    //     objPars += element + ",";
-                    // }
-                    // if(objPars.length() > 0){
-                    //     objPars = objPars.substring(0, objPars.length() - 1);
-                    // }
-
-                    // String allTogether = parType + " {" + objPars + "}";
-
-
                     String allTogether = combineObjPars(parType, ObjParameters);
                     methodParameters.add(allTogether);
                     ObjParameters.clear();
+                    objParameterType.setText("");
                     
                 } else {
                     String parInput = (String) parameterInput.getText();
                     String type_input = parType + " " + parInput;
-
-                    //array to add type
-                    //array to add input
-
                     methodParameters.add(type_input); 
                     System.out.println(methodParameters);
                     parameterInput.setText("");
@@ -375,6 +369,7 @@ public class Section2C_Methods extends JPanel {
                 ObjParameters.add(type_input);
                 System.out.println(ObjParameters);
                 parameterInputObj.setText("");
+                
             }
         });
         
@@ -384,17 +379,17 @@ public class Section2C_Methods extends JPanel {
             public void actionPerformed(ActionEvent e){
                 if("object".equals(parameterType.getSelectedItem())){
                     objParameterType.setVisible(true);
+                    objParameterTypeLabel.setVisible(true);
                     parameterInputL.setVisible(false);
                     parameterInput.setVisible(false);
-
                     show_hide_objPar_Panel.setVisible(true);
 
                 } else {
                     objParameterType.setText("");
+                    objParameterTypeLabel.setVisible(false);
                     objParameterType.setVisible(false);
                     parameterInputL.setVisible(true);
                     parameterInput.setVisible(true);
-
                     show_hide_objPar_Panel.setVisible(false);
                 }
             }
