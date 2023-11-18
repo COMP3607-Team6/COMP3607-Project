@@ -29,6 +29,7 @@ public class Section2B_Attributes extends JPanel {
     private JTextField objNameField;
     private JComboBox<String> attributeTypeComboBox;
     private JComboBox<String> attAccessComboBox;
+   // private JComboBox<String> isFinalComboBox;
     private JButton saveButton;
     // private JButton closeButton;
     private CardLayout cardLayout;
@@ -36,6 +37,7 @@ public class Section2B_Attributes extends JPanel {
     private JButton nextButton;
     private JPanel attributePanel;
     private JCheckBox instanceCheckBox;
+    private JCheckBox finalCheckBox;
     private JButton removeAttButton;
     private ArrayList<AttributeInformation> allAttributes;
     private JLabel prompt;
@@ -91,6 +93,7 @@ public class Section2B_Attributes extends JPanel {
         attributeList = new JList<>(attributeListModel);
 
         instanceCheckBox = new JCheckBox("Instance Variable");
+        finalCheckBox = new JCheckBox("final");
 
         attributeNameField = new JTextField(20);
         objNameField = new JTextField(10);
@@ -100,12 +103,14 @@ public class Section2B_Attributes extends JPanel {
         attributeTypeComboBox = new JComboBox<>(
                 new String[] { "String", "int", "double", "boolean", "object", "char" });
         attAccessComboBox = new JComboBox<>(new String[] { "public", "private", "protected" });
+      //  isFinalComboBox = new JComboBox<>(new String[] { "final", "-"});
 
         saveButton = new JButton("Save");
         removeAttButton = new JButton("Remove Selected Attribute");
 
         // attributePanel.add(selectedClassComboBox);
         attributePanel.add(attAccessComboBox);
+        attributePanel.add(finalCheckBox);
         attributePanel.add(attributeTypeComboBox);
         attributePanel.add(objNameField);
         objNameField.setVisible(false);
@@ -124,6 +129,8 @@ public class Section2B_Attributes extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String attributeName = attributeNameField.getText();
                 String objName = objNameField.getText();
+                //String finalv = (String) isFinalComboBox.getSelectedItem();
+                boolean finalv = finalCheckBox.isSelected();
                 String attributeType = (String) attributeTypeComboBox.getSelectedItem();
                 String attAccessType = (String) attAccessComboBox.getSelectedItem();
                 boolean isSelected = instanceCheckBox.isSelected();
@@ -133,21 +140,49 @@ public class Section2B_Attributes extends JPanel {
                     return;
                 } else if ("object".equals(attributeType) && objName.isEmpty()) {
                     return;
-                } else if ("object".equals(attributeType) && isSelected) {
-                    attributeInfo = attAccessType + " static " + objName + " " + attributeName;
-                } else if ("object".equals(attributeType)) {
-                    attributeInfo = attAccessType + " " + objName + " " + attributeName;
-                } else if (isSelected) {
-                    attributeInfo = attAccessType + " static " + attributeType + " " + attributeName;
-                } else {
-                    attributeInfo = attAccessType + " " + attributeType + " " + attributeName;
+                } 
+                
+                if(finalv==false){
+                    if(isSelected==true){
+                        if ("object".equals(attributeType)) {
+                            attributeInfo = attAccessType +" " +objName + " " + attributeName;
+                        } else {
+                            attributeInfo = attAccessType + " " + attributeType + " " + attributeName;
+                        } 
+                    }
+                    else{
+                        if ("object".equals(attributeType)) {
+                            attributeInfo = attAccessType + " static " + objName + " " + attributeName;
+                        }else {
+                            attributeInfo = attAccessType + " static " + attributeType + " " + attributeName;  
+                        }
+                    }
                 }
 
+                else{
+                    if(isSelected==true){
+                        if ("object".equals(attributeType)) {
+                            attributeInfo = attAccessType +" final " +objName + " " + attributeName;
+                        } else {
+                            attributeInfo = attAccessType + " final " + attributeType + " " + attributeName;
+                        } 
+                    }
+                    else{
+                        if ("object".equals(attributeType)) {
+                            attributeInfo = attAccessType + " final static " + objName + " " + attributeName;
+                        }else {
+                            attributeInfo = attAccessType + "  final static " + attributeType + " " + attributeName;  
+                        }
+                    }
+                }
+             
                 attributeListModel.addElement(attributeInfo);
 
                 // Create an instance of AttributeInformation and add it to the ArrayList
-                AttributeInformation attribute = new AttributeInformation(attAccessType, isSelected ? "static" : "",
-                        attributeType, attributeName, objName);
+
+
+                
+                AttributeInformation attribute = new AttributeInformation(attAccessType, isSelected ? "static" : "",finalv ? "final" : "",attributeType, attributeName, objName);
                 allAttributes.add(attribute);
                 classes.get(selectedClassIndex).addAttribute(attribute);
 

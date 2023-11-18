@@ -8,8 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -27,7 +25,7 @@ import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 
-public class AccessorTypeTest extends JPanel {
+public class StaticTest extends JPanel {
 
     private ArrayList<ClassInformation> classes;
     private JLabel testDescription;
@@ -39,7 +37,6 @@ public class AccessorTypeTest extends JPanel {
     private JPanel attributePanel;
     private JPanel methodPanel;
     private JPanel testPanel;
-     private Map<String, String> classLink = new HashMap<>();
 
     private JLabel selectedClassLabel;
     private JButton loadClassesButton;
@@ -51,12 +48,12 @@ public class AccessorTypeTest extends JPanel {
     private JTextField marksTextField1;
     private JTextArea nameTests;
 
-    public AccessorTypeTest(ArrayList<ClassInformation> classes) {
+    public StaticTest(ArrayList<ClassInformation> classes) {
         this.classes = classes;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        testDescription = new JLabel("Accessor Type test description. short one line description of test");
+        testDescription = new JLabel("static test description. short one line description of test");
         testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
         testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -71,9 +68,7 @@ public class AccessorTypeTest extends JPanel {
 
         for (ClassInformation c : classes) {
             String className = c.getClassName();
-            String classType = c.getAccessType();
             selectedClassComboBox.addItem(className);
-            classLink.put(className, classType);
         }
         selectedClassPanel.add(selectedClassLabel);
         selectedClassPanel.add(selectedClassComboBox);
@@ -87,8 +82,7 @@ public class AccessorTypeTest extends JPanel {
         selectedClassPanel2.setLayout(new FlowLayout());
         //selectedClassPanel2.setPreferredSize(new Dimension(100, 60));
         String ans = (String) selectedClassComboBox.getSelectedItem();
-        String type = classLink.get(ans);
-        classCheckB = new JCheckBox("Class - "+type+" "+ans);
+        classCheckB = new JCheckBox("Class - "+ans);
     
         classCheckB.setFont(new Font("Arial", Font.PLAIN, 15));
         JLabel markslab1 = new JLabel("Marks:");
@@ -195,9 +189,7 @@ public class AccessorTypeTest extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                String ans =(String) selectedClassComboBox.getSelectedItem();
-               String type = classLink.get(ans);
-
-                classCheckB.setText("Class - "+type+" "+ans);// fix
+                classCheckB.setText("Class - "+ans);
                 updateAttributeList(ans);
                 attributePanel.revalidate();
                 attributePanel.repaint();
@@ -266,11 +258,10 @@ public class AccessorTypeTest extends JPanel {
     public void printTest() {
         String nameCon=(String) selectedClassComboBox.getSelectedItem();
         String marks = (String) marksTextField1.getText();
-        String type = classLink.get(nameCon);
 
         if(classCheckB.isSelected()==true){
         
-            nameCon = nameCon + "\n" +"-Access Type: "+ type +" [" + marks +" mark]\n";
+            nameCon = nameCon + "\n" +"-Class [" + marks +" mark]\n";
             
         }
         if(attCheckB.isSelected()==true){

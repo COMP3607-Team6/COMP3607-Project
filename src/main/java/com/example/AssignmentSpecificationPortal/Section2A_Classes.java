@@ -19,7 +19,7 @@ public class Section2A_Classes extends JPanel {
     private JComboBox<String> isInterfaceComboBox;
     private JComboBox<String> EIComboBox;
     private JTextField NameField;
-    private JTextField markField;
+   // private JTextField markField;
     private JCheckBox extendsCheckBox;
     private JButton addClassButton;
     private JButton removeButton;
@@ -30,7 +30,7 @@ public class Section2A_Classes extends JPanel {
     private JPanel inputPanel;
     private JPanel testPanel;
     private JLabel prompt;
-    private JLabel markslabel;
+   // private JLabel markslabel;
     private int classCount;
     // private JButton nextButton;
     // ArrayList<ClassInformation> allClasses;
@@ -67,34 +67,32 @@ public class Section2A_Classes extends JPanel {
         testPanel.setLayout(new GridLayout(2, 1));
 
         accessComboBox = new JComboBox<>(new String[] { "public", "private", "protected" });
-        isAbstractComboBox = new JComboBox<>(new String[] { "abstract", "concrete" });
+        isAbstractComboBox = new JComboBox<>(new String[] { "abstract", "concrete","final" });
         isInterfaceComboBox = new JComboBox<>(new String[] { "class", "interface" });
         EIComboBox = new JComboBox<>(new String[] { "extends", "implements" });
         EIComboBox.setVisible(false);
 
         classNameField = new JTextField(10);
         classNameField.setText("");
-        markField = new JTextField(6);
-        markField.setDocument(new IntegerDocument());
-        markField.setText("0");
+       // markField = new JTextField(6);
+       // markField.setDocument(new IntegerDocument());
+       // markField.setText("0");
         NameField = new JTextField(10);
         NameField.setVisible(false);
 
         prompt = new JLabel("Classes");
         prompt.setFont(new Font("Arial", Font.ITALIC, 22));
         prompt.setAlignmentX(Component.CENTER_ALIGNMENT);
-        markslabel = new JLabel("Marks: \n");
+       // markslabel = new JLabel("Marks: \n");
 
         extendsCheckBox = new JCheckBox("extends/implements");
 
         removeButton = new JButton("Remove Selected Class");
-        // addAttButton = new JButton("Add Attributes");
         addClassButton = new JButton("+ Class");
 
         classListModel = new DefaultListModel<>();
         classList = new JList<>(classListModel);
 
-        // inputPanel.add(prompt);
         inputPanel.add(accessComboBox);
         inputPanel.add(isAbstractComboBox);
         inputPanel.add(isInterfaceComboBox);
@@ -102,22 +100,18 @@ public class Section2A_Classes extends JPanel {
         inputPanel.add(extendsCheckBox);
         inputPanel.add(EIComboBox);
         inputPanel.add(NameField);
-        inputPanel.add(markslabel);
-        inputPanel.add(markField);
+       // inputPanel.add(markslabel);
+       // inputPanel.add(markField);
         inputPanel.add(addClassButton);
         inputPanel.add(removeButton);
-        // inputPanel.add(addAttButton);
-
-        // add(prompt);
+    
         classPanel.add(inputPanel);
         classPanel.add(new JScrollPane(classList));
 
         add(prompt);
         add(classPanel);
         add(testPanel);
-        // add(backButton);
-        // add(nextButton);
-
+      
         isInterfaceComboBox.addActionListener(new ActionListener() {
 
             @Override
@@ -188,7 +182,7 @@ public class Section2A_Classes extends JPanel {
         String className = (String) classNameField.getText();
         String extendsOrImplements = (String) EIComboBox.getSelectedItem();
         String extendedOrImplementedClass = (String) NameField.getText();
-        String marks = (String) markField.getText();
+       // String marks = (String) markField.getText();
         boolean extendsOrImplementedIsChecked = extendsCheckBox.isSelected();
 
         if (className.equals("")) {
@@ -197,9 +191,12 @@ public class Section2A_Classes extends JPanel {
         if ((extendedOrImplementedClass.equals("")) && (extendsOrImplementedIsChecked == true)) {
             return;
         } 
+        if(isInterface.equals("interface")){
+            isAbstract="";
+        }
 
         ClassInformation classInfo = new ClassInformation(accessType, isAbstract, isInterface, className,
-                                                      extendsOrImplements, extendedOrImplementedClass, marks);
+                                                      extendsOrImplements, extendedOrImplementedClass);
 
         classListModel.addElement(classInfo.toString());
 
@@ -209,7 +206,7 @@ public class Section2A_Classes extends JPanel {
 
         classNameField.setText("");
         NameField.setText("");
-        markField.setText("0");
+        //markField.setText("0");
     }
 
     private ArrayList<ClassInformation> getAllClasses() {
