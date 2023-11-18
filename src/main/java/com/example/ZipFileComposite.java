@@ -10,7 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,27 +38,52 @@ public class ZipFileComposite implements ZipComponent {
         while (entries.hasMoreElements()) {
             // Get the next entry
             ZipEntry entry = entries.nextElement();
+            // Unzip the entry into a file
+            File entryFile = unzipEntry(entry, zipFile.getInputStream(entry), "src\\main\\java\\com\\example\\StudentFiles" );
             // Check if the entry is another zip file
             if (entry.getName().endsWith(".zip")) {
-                ZipFileReader z = new ZipFileReader();
-
-                String path = z.unzip(entry.getName(), "src\\main\\java\\com\\example\\StudentFiles" );
-                    
-                Path tempFile = Files.createTempFile(null, null);
-                Files.copy(zipFile.getInputStream(entry), tempFile, StandardCopyOption.REPLACE_EXISTING);
-                // Create a ZipFileComposite object from the temporary file and add it to the list of child components
-                // if (path.length() != 0)
-                //     components.add(new ZipFileComposite(Paths.get(path).toFile()));
-                System.out.println("TEMP : " + tempFile.toString());
-                components.add(new ZipFileComposite(tempFile.toFile()));
-                // components.add(new ZipFileComposite(zipFile));
+                // Create a ZipFileComposite object from the file and add it to the list of child components
+                components.add(new ZipFileComposite(entryFile));
+                // Delete the temporary file
+                entryFile.delete();
             } else {
-                // Create a ZipEntryLeaf object from the entry and add it to the list of child components
+                // Create a ZipEntryLeaf object from the entry and the file and add it to the list of child components
                 if (entry.getName().endsWith(".java"))
-                    components.add(new ZipEntryLeaf(entry, zipFile.getInputStream(entry)));
+                    components.add(new ZipEntryLeaf(entry, new FileInputStream(entryFile)));
             }
         }
     }
+
+    // This is a private static method that unzips a zip entry into a file
+    private static File unzipEntry(ZipEntry entry, InputStream input, String outputFolder) throws IOException {
+        // Create a file in the destination directory with the same name as the zip entry
+        File file = new File("src\\main\\java\\com\\example\\StudentFiles", entry.getName());
+        // Check if the entry is a directory
+        if (entry.isDirectory()) {
+            // Create the directory
+            file.mkdirs();
+        } else {
+            // Create the parent directories if they do not exist
+            file.getParentFile().mkdirs();
+            // Create an output stream to write the file
+            OutputStream output = new FileOutputStream(file);
+            // Copy the input stream to the output stream
+ 
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = input.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+            // Close the output stream
+            output.close();
+        }
+        // Return the file
+        return file;
+    }
+
+    // The rest of the ZipFileComposite class remains the same as before
+
+
 
     @Override
     public void printInfo() {
