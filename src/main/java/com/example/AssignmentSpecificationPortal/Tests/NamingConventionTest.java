@@ -21,15 +21,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.example.TestCase;
+import com.example.TestCaseManager;
 import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
+import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
+
 public class NamingConventionTest extends JPanel {
 
-    private ArrayList<ClassInformation> classes;
+    // private ArrayList<ClassInformation> classes;
     private JLabel testDescription;
 
     private JPanel selectedClassPanel;
@@ -53,9 +57,15 @@ public class NamingConventionTest extends JPanel {
     private ArrayList<ClassBasicTest> classTests;
     private ArrayList<MethodBasicTest> methodTests;
     private ArrayList<AttributeBasicTest> attributeTests;
+    private ArrayList<TestCase> testCases;
 
-    public NamingConventionTest(ArrayList<ClassInformation> classes) {
-        this.classes = classes;
+    public NamingConventionTest() {
+        // this.classes = classes;
+
+        classTests = new ArrayList<ClassBasicTest>();
+        methodTests = new ArrayList<MethodBasicTest>();
+        attributeTests = new ArrayList<AttributeBasicTest>();
+        testCases = new ArrayList<TestCase>();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -72,7 +82,7 @@ public class NamingConventionTest extends JPanel {
         // selectedClassComboBox = new JComboBox<String>(new String[]{"choose class"});
         selectedClassComboBox = new JComboBox<String>();
 
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
@@ -212,8 +222,8 @@ public class NamingConventionTest extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 selectedClassIndex = selectedClassComboBox.getSelectedIndex();
 
-                if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
-                    ClassInformation selectedClass = classes.get(selectedClassIndex);
+                if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
+                    ClassInformation selectedClass = ClassesManager.getClass(selectedClassIndex);
                     // attributeListModel.clear();
 
                     // for (AttributeInformation attribute : selectedClass.getAttributes()) {
@@ -228,14 +238,14 @@ public class NamingConventionTest extends JPanel {
 
     private void updateSelectedClassComboBox() {
         selectedClassComboBox.removeAllItems();
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
     }
 
     private void updateAttributeList(String ans) {
-        for(ClassInformation c:classes){
+        for(ClassInformation c : ClassesManager.getClasses()){
                     if(c.getClassName().equals(ans)){
                         attributePanel.removeAll();
                         ArrayList<AttributeInformation> attributes = c.getAttributes();
@@ -249,7 +259,7 @@ public class NamingConventionTest extends JPanel {
     }
 
     private void updateMethodList(String ans) {
-        for(ClassInformation c:classes){
+        for(ClassInformation c : ClassesManager.getClasses()){
                     if(c.getClassName().equals(ans)){
                         methodPanel.removeAll();
                         ArrayList<MethodInformation> methods = c.getMethods();
@@ -265,6 +275,10 @@ public class NamingConventionTest extends JPanel {
 
     public void printTest() {
         
+        TestCaseManager.getTestCases().removeAll(classTests);
+        TestCaseManager.getTestCases().removeAll(attributeTests);
+        TestCaseManager.getTestCases().removeAll(methodTests);
+
         classTests.clear();
         methodTests.clear();
         attributeTests.clear();
@@ -291,17 +305,38 @@ public class NamingConventionTest extends JPanel {
         }
         nameCon = nameCon +"---------------------------\n";
         nameTests.append(nameCon);
+
+        // System.out.println("class: ");
+        // System.out.println(classTests);
+        // System.out.println("atts: ");
+        // System.out.println(attributeTests);
+        // System.out.println("meths: ");
+        // System.out.println(methodTests);
+
+        testCases.addAll(classTests);
+        testCases.addAll(attributeTests);
+        testCases.addAll(methodTests);
+
+        TestCaseManager.getTestCases().addAll(classTests);
+        TestCaseManager.getTestCases().addAll(attributeTests);
+        TestCaseManager.getTestCases().addAll(methodTests);
+
+        
+        // System.out.println("tcr:");
+        // System.out.println(TestCaseManager.getTestCases());
     }
 
     public String checkAttributeCheckboxes(JPanel Panel,String name,String className) {
         Component[] components = Panel.getComponents();
         for (Component component : components) {
+            System.out.println("component: " + component.getName());
             if (component instanceof JCheckBox) {
                 JCheckBox checkBox = (JCheckBox) component;
                 String checkBoxText = checkBox.getText();
 
                 if (checkBox.isSelected()) {
                     name = name + checkBoxText + ", ";
+                    // System.out.println("att added");
                     attributeTests.add(new AttributeBasicTest(0,className, checkBoxText, "name"));
                 } 
             }

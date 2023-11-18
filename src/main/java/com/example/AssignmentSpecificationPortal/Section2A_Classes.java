@@ -34,11 +34,10 @@ public class Section2A_Classes extends JPanel {
     private int classCount;
     // private JButton nextButton;
     // ArrayList<ClassInformation> allClasses;
-    private ArrayList<ClassInformation> classes;
+    // private ArrayList<ClassInformation> classes;
 
-    public Section2A_Classes(CardLayout cardLayout, ArrayList<ClassInformation> classes) {
+    public Section2A_Classes(CardLayout cardLayout) {
         this.cardLayout = cardLayout;
-        this.classes = classes;
         // backButton = new JButton("Back");
         // nextButton = new JButton("Next");
         // allClasses = new ArrayList<ClassInformation>();
@@ -153,7 +152,7 @@ public class Section2A_Classes extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 classCount++;
                 addClassToList();
-                // getAllClasses();
+                getAllClasses();
             }
         });
 
@@ -165,7 +164,8 @@ public class Section2A_Classes extends JPanel {
                     // String selectedClass = classListModel.getElementAt(index);
                     classListModel.remove(index);
                     // allClasses.remove(index);
-                    classes.remove(index);
+                    // classes.remove(index);
+                    ClassesManager.removeClass(index);
                     // removeAttributePanel(selectedClass);
                     classCount--;
                 }
@@ -201,7 +201,8 @@ public class Section2A_Classes extends JPanel {
         classListModel.addElement(classInfo.toString());
 
         // allClasses.add(classInfo);
-        classes.add(classInfo);
+        // classes.add(classInfo);
+        ClassesManager.addClass(classInfo);
 
 
         classNameField.setText("");
@@ -210,12 +211,15 @@ public class Section2A_Classes extends JPanel {
     }
 
     private ArrayList<ClassInformation> getAllClasses() {
-        for (ClassInformation classInfo : classes) {
-            System.out.println(classInfo.toString());
-            System.out.println("-----------------------------------------");
-        }
+        System.out.println(ClassesManager.getClasses());
+        return ClassesManager.getClasses();
+
+        // for (ClassInformation classInfo : classes) {
+        //     System.out.println(classInfo.toString());
+        //     System.out.println("-----------------------------------------");
+        // }
     
-        return classes;
+        // return classes;
     }
 
     // Restricts input to integers only

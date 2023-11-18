@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -19,8 +18,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
-// import org.w3c.dom.events.MouseEvent;
 
 public class Section2B_Attributes extends JPanel {
     private DefaultListModel<String> attributeListModel;
@@ -39,19 +36,15 @@ public class Section2B_Attributes extends JPanel {
     private JCheckBox instanceCheckBox;
     private JCheckBox finalCheckBox;
     private JButton removeAttButton;
-    private ArrayList<AttributeInformation> allAttributes;
     private JLabel prompt;
     private JComboBox selectedClassComboBox;
-    private ArrayList<ClassInformation> classes;
     private JPanel selectedClassPanel;
     private JLabel selectedClassLabel;
     private int selectedClassIndex;
     private JButton loadClassesButton;
 
-    public Section2B_Attributes(CardLayout layout, ArrayList<ClassInformation> classes) {
+    public Section2B_Attributes(CardLayout layout) {
         this.cardLayout = layout;
-        this.classes = classes;
-        allAttributes = new ArrayList<>();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -63,7 +56,6 @@ public class Section2B_Attributes extends JPanel {
         selectedClassPanel.setLayout(new FlowLayout());
         selectedClassLabel = new JLabel("Class:");
         loadClassesButton = new JButton("Load classes");
-        // selectedClassComboBox = new JComboBox<String>(new String[]{"choose class"});
         selectedClassComboBox = new JComboBox<String>();
 
         updateSelectedClassComboBox();
@@ -117,7 +109,6 @@ public class Section2B_Attributes extends JPanel {
         attributePanel.add(instanceCheckBox);
         attributePanel.add(attributeNameField);
         attributePanel.add(saveButton);
-        // attributePanel.add(closeButton);
         attributePanel.add(removeAttButton);
 
         HoldPanel.add(attributePanel);
@@ -177,21 +168,13 @@ public class Section2B_Attributes extends JPanel {
                 }
              
                 attributeListModel.addElement(attributeInfo);
-
-                // Create an instance of AttributeInformation and add it to the ArrayList
-
-
                 
                 AttributeInformation attribute = new AttributeInformation(attAccessType, isSelected ? "static" : "",finalv ? "final" : "",attributeType, attributeName, objName);
-                allAttributes.add(attribute);
-                classes.get(selectedClassIndex).addAttribute(attribute);
+                ClassesManager.getClass(selectedClassIndex).addAttribute(attribute);
 
                 attributeNameField.setText("");
                 objNameField.setText("");
                 instanceCheckBox.setSelected(false);
-
-                // getAllClasses();
-                // getAllAttributes();
             }
         });
 
@@ -210,11 +193,10 @@ public class Section2B_Attributes extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int index = attributeList.getSelectedIndex();
-                if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
-                    ClassInformation selectedClass = classes.get(selectedClassIndex);
+                if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
+                    ClassInformation selectedClass = ClassesManager.getClass(selectedClassIndex);
                     if (index != -1) {
                         attributeListModel.remove(index);
-                        allAttributes.remove(index);
                         selectedClass.getAttributes().remove(index);
                     }
                 } else {
@@ -229,6 +211,8 @@ public class Section2B_Attributes extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 updateSelectedClassComboBox();
                 selectedClassComboBox.setVisible(true);
+                getAllClasses();
+                getAllAttributes();
             }
         });
 
@@ -237,8 +221,8 @@ public class Section2B_Attributes extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 selectedClassIndex = selectedClassComboBox.getSelectedIndex();
 
-                if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
-                    ClassInformation selectedClass = classes.get(selectedClassIndex);
+                if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
+                    ClassInformation selectedClass = ClassesManager.getClass(selectedClassIndex);
                     attributeListModel.clear();
 
                     for (AttributeInformation attribute : selectedClass.getAttributes()) {
@@ -255,14 +239,14 @@ public class Section2B_Attributes extends JPanel {
 
     private void updateSelectedClassComboBox() {
         selectedClassComboBox.removeAllItems();
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
     }
 
-    private ArrayList<AttributeInformation> getAllAttributes() {
-        for (ClassInformation classInfo : classes) {
+    private void getAllAttributes() {
+        for (ClassInformation classInfo : ClassesManager.getClasses()) {
             System.out.println(classInfo.toString());
             System.out.println("Attributes:");
 
@@ -271,16 +255,10 @@ public class Section2B_Attributes extends JPanel {
                 System.out.println("-----------------------------------------");
             }
         }
-
-        return allAttributes;
     }
 
-    private ArrayList<ClassInformation> getAllClasses() {
-        for (ClassInformation classInfo : classes) {
-            System.out.println(classInfo.toString());
-            System.out.println("-----------------------------------------");
-        }
-
-        return classes;
+    private void getAllClasses() {
+        System.out.println(ClassesManager.getClasses());
     }
+
 }

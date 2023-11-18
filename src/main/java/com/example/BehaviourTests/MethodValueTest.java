@@ -28,6 +28,8 @@ public class MethodValueTest extends ValueTest {
         this.paras = paras;
         methodparas = new ArrayList<>();
         this.expectedValue = expectedValue;
+         this.testName = "Method Value Test for " + methodName + " belonging to class: " + className;
+
     }
     
 
@@ -35,7 +37,15 @@ public class MethodValueTest extends ValueTest {
     public String test(){
 
         actualValue = getValue();
-        System.out.println(actualValue);
+       // System.out.println(actualValue);
+
+        if(actualValue.equals(className + " class not found !!")){
+            return className + " class not found !!";
+        }
+
+         if(actualValue.equals(methodName + " method not found in " + className + " !!")){
+            return methodName + " method not found in " + className + " !!";
+        }
         
         try{
             assertEquals(expectedValue, actualValue);
@@ -59,13 +69,25 @@ public class MethodValueTest extends ValueTest {
     
     public Object getValue(){
 
+
+       
         Class<?> clazz = findClassInstance(className,allClasses);
+      
+        
+        if(clazz == null){
+            return className + " class not found !!";
+        }
+
         Method[] methods = clazz.getDeclaredMethods();
 
         for(Method m: methods){
             if(m.getName() == methodName && m.getParameterCount() == paras.size() ){
                 method = m;
             }
+        }
+
+        if(method == null){
+            return  methodName + " method not found in " + className + " !!";
         }
 
        // Method method = findMethodInstance(className, methodName, allClasses);
@@ -272,7 +294,7 @@ public class MethodValueTest extends ValueTest {
         // paras.add("{5,5}");
         //paras.add((float)3.2 );
 
-        TestCase t = new MethodValueTest("coolsBy", "AC",1,paras, 13);
+        TestCase t = new MethodValueTest("coolsBy", "A",1,paras, 13);
         String r = t.test();
         System.out.println(r);
     }

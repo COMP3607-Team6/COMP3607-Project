@@ -10,5 +10,8 @@ public interface BasicTestTypes {
     public boolean attributeTest(Field fieldObject);
     public String getSuccessMessage();
     public String getErrorMessage();
+    public String classTestNameSwap();
+    public String methodTestNameSwap();
+    public String attributeTestNameSwap();
     
 }

@@ -33,4 +33,17 @@ public class PrivateBasicTestType implements BasicTestTypes {
     public String getErrorMessage() {
         return " is not of the private accessor type";
     }
+
+    public String classTestNameSwap(){
+
+        return "Private Class Test for class ";
+    }
+    public String methodTestNameSwap(){
+
+        return "Private Method Test for method ";
+    }
+    public String attributeTestNameSwap(){
+
+        return "Private Attribute Test for attribute ";
+    }
 }

@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 public class Section3_TestSelection extends JPanel {
 
     private CardLayout cardLayout;
-    private ArrayList<ClassInformation> classes;
     private JLabel prompt1;
     private JLabel prompt2;
     private Section4_Tests section4;
@@ -25,9 +24,8 @@ public class Section3_TestSelection extends JPanel {
     private static ArrayList<String> selectedTests;
     private static JPanel checkBoxPanel;
 
-    public Section3_TestSelection(CardLayout layout, ArrayList<ClassInformation> classes, Section4_Tests section4) {
+    public Section3_TestSelection(CardLayout layout, Section4_Tests section4) {
         this.cardLayout = layout;
-        this.classes = classes;
         this.section4 = section4;
         selectedTests = new ArrayList<String>();
 

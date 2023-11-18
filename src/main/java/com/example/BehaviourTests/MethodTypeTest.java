@@ -20,12 +20,28 @@ public class MethodTypeTest extends TypeTest {
         this.methodName = methodName;
         this.className = className;  
         this.expectedValue = expectedValue;
+        this.testName = "Method Type Test for " + methodName + " belonging to class: " + className;
+
     }
 
     public String test(){
+
+        actualValue = getType();
+
+        if(actualValue.equals(className + " class not found !!")){
+            testMarks.setTestComment( className + " class not found !!");
+            return className + " class not found !!";
+        }
+
+        if(actualValue.equals(methodName + " method not found in " + className + " !!")){
+            testMarks.setTestComment( methodName + " method not found in " + className + " !!");
+            return methodName + " method not found in " + className + " !!";
+        }
+
         try{
-            actualValue = getType();
+          
             assertEquals(actualValue, expectedValue);
+            testMarks.setTestPassed(true);
             testMarks.setTestComment("Method " + methodName + "is of the correct type" + actualValue + ".");
             return "Method " + methodName + " is of the correct return type "+ actualValue + ".";
      
@@ -44,8 +60,22 @@ public class MethodTypeTest extends TypeTest {
     
     //Check NoMethodException for this method.
     public Object getType(){
+
+        Class<?> clazz = findClassInstance(className,allClasses);
+        
+        if(clazz == null){
+            return className + " class not found !!";
+        }
+
         method = findMethodInstance(className, methodName, allClasses);
+
+        if(method == null){
+            return  methodName + " method not found in " + className + " !!";
+        }
+        
+
         return method.getReturnType();
+        
     }
 
 
