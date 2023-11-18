@@ -41,6 +41,10 @@ public class Section4_Tests extends JPanel{
                 section4TabbedPane.addTab(test, new HierarchyTest(classes));
             } else if (test == "AccessorType Test") {
                 section4TabbedPane.addTab(test, new AccessorTypeTest(classes));
+            } else if (test == "Final Test") {
+                section4TabbedPane.addTab(test, new FinalTest(classes));
+            } else if (test == "Static Test") {
+                section4TabbedPane.addTab(test, new StaticTest(classes));
             } else { // default for now
                 section4TabbedPane.addTab(test, new NamingConventionTest(classes));
             }
