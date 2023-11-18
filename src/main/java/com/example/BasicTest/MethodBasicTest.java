@@ -13,6 +13,7 @@ public class MethodBasicTest extends BasicTests {
         super(allocatedMarks,testType);
         this.className = className;
         this.methodName = methodName;
+        this.testName = testTypeObject.methodTestNameSwap() + methodName + " belonging to " + className;
 
         
     }

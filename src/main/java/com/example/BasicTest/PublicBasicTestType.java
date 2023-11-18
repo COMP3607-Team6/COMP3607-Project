@@ -34,5 +34,18 @@ public class PublicBasicTestType implements BasicTestTypes {
     public String getErrorMessage() {
         return " is not of the public accessor type";
     }
+
+    public String classTestNameSwap(){
+
+        return "Public Class Test for class ";
+    }
+    public String methodTestNameSwap(){
+
+        return "Public Method Test for method ";
+    }
+    public String attributeTestNameSwap(){
+
+        return "Public Attribute Test for attribute ";
+    }
     
 }

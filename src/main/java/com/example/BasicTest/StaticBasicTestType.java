@@ -33,5 +33,17 @@ public class StaticBasicTestType implements BasicTestTypes {
     public String getErrorMessage() {
         return " is not of the static type";
     }
+    public String classTestNameSwap(){
+
+        return "Static Type Class Test for class ";
+    }
+    public String methodTestNameSwap(){
+
+        return "Static Type Method Test for method ";
+    }
+    public String attributeTestNameSwap(){
+
+        return "Static Type Attribute Test for attribute ";
+    }
     
 }

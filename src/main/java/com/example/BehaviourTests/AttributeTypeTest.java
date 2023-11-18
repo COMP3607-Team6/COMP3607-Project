@@ -20,6 +20,7 @@ public class AttributeTypeTest extends TypeTest {
         this.attributeName = attributeName;
         this.className = className;  
         this.expectedValue = expectedValue;
+        this.testName = "Attribute Type Test for " + attributeName + " belonging to class: " + className;
     }
 
     public String test(){

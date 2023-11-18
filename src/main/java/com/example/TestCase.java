@@ -14,6 +14,7 @@ public abstract class TestCase{
     protected ArrayList<Class<?>> allInterfaceClasses;
     protected ArrayList<Class<?>> allConcreteClasses;
     protected TestResult testMarks;
+    protected String testName;
 
 
     public TestCase(int allocatedMarks){
@@ -25,6 +26,10 @@ public abstract class TestCase{
         allConcreteClasses = instances.getInterfaceClasses();
         this.testMarks = new TestResult(allocatedMarks);
 
+    }
+
+    public String getTestName(){
+        return testName;
     }
 
     public TestResult getTestMarksObject(){
@@ -72,7 +77,8 @@ public abstract class TestCase{
                 return method;
             } 
             catch (NoSuchMethodException e) {
-                e.printStackTrace(); // Handle the exceptions according to your use case
+                return null;
+               // e.printStackTrace(); // Handle the exceptions according to your use case
             }
         }
         
