@@ -13,7 +13,7 @@ public abstract class TestCase{
     protected ArrayList<Class<?>> allAbstractClasses;
     protected ArrayList<Class<?>> allInterfaceClasses;
     protected ArrayList<Class<?>> allConcreteClasses;
-    protected Marks testMarks;
+    protected TestResult testMarks;
 
 
     public TestCase(int allocatedMarks){
@@ -23,11 +23,11 @@ public abstract class TestCase{
         allAbstractClasses = instances.getAbstractClasses();
         allInterfaceClasses= instances.getInterfaceClasses();
         allConcreteClasses = instances.getInterfaceClasses();
-        this.testMarks = new Marks(allocatedMarks);
+        this.testMarks = new TestResult(allocatedMarks);
 
     }
 
-    public Marks getTestMarksObject(){
+    public TestResult getTestMarksObject(){
         return testMarks;
     }
     

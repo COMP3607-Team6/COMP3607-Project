@@ -1,34 +1,30 @@
-package com.example.NamingConventionTests;
-
+package com.example.BasicTest;
 import static org.junit.Assert.assertTrue;
 
-public class ClassNameTest extends NamingConventionTest {
-    
+
+public class ClassBasicTest extends BasicTests {
+
     private Class<?> classObject;
     private String className;
 
-    public ClassNameTest(String className, int allocatedMarks){
-        super(allocatedMarks);
+    public ClassBasicTest(int allocatedMarks,String className, String testType) {
+        super(allocatedMarks, testType);
         this.className = className;
-
     }
-
 
     public String test(){
 
         classObject = findClassInstance(className,allClasses);
         
-        
-
         try{
-            System.out.println(toString());
-            assertTrue("Class Name Test 1", classObject != null);
+            assertTrue( testTypeObject.classTest(classObject));
             testMarks.setTestPassed(true);
-            System.out.println(toString());
-            return "Class Name: " + className + " Found.";
+            testMarks.setTestComment("Class " + className + testTypeObject.getSuccessMessage());
+            return "Class Name: " + className + testTypeObject.getSuccessMessage();
         }
         catch(AssertionError e){
-            return "Class Name:" + className + " not found.";
+            testMarks.setTestComment("Class " + className + testTypeObject.getErrorMessage());
+            return "Class Name:" + className + testTypeObject.getErrorMessage();
         }
 
 
@@ -44,12 +40,11 @@ public class ClassNameTest extends NamingConventionTest {
                 ", case passed='" +  testMarks.getTestPassed() + "'" +
                 "}";
         }
-
-    public static void main (String[] args){
-        ClassNameTest c  = new ClassNameTest("Device",3);
+    
+    public static void main(String[] args) {
+        ClassBasicTest c  = new ClassBasicTest(3,"Device","naming convention");
         String value = c.test();
         System.out.println("   -----------------------------");
         System.out.println(value);
     }
-
 }
