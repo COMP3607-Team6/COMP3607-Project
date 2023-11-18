@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import javax.swing.border.EmptyBorder;
 
+import com.example.AutomatedJudgeSystem;
+import com.example.TestCaseManager;
+
 public class AssignmentSpecPortal {
     private JFrame frame;
     private CardLayout cardLayout;
@@ -21,8 +24,13 @@ public class AssignmentSpecPortal {
     private JButton nextButton;
     private Section3_TestSelection section3;
     private Section4_Tests section4;
+    private AutomatedJudgeSystem system;
+    private ArrayList<ClassInformation> classes;
+    private Section5_TestRun section5;
 
-public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
+public AssignmentSpecPortal(AutomatedJudgeSystem system, ArrayList<ClassInformation> classes) {
+        this.classes = classes;
+        this.system = system;
         frame = new JFrame("Assignment Specification Portal");
         cardPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -35,6 +43,7 @@ public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
         section2c = new Section2C_Methods(cardLayout, classes);
         section4 = new Section4_Tests(cardLayout, classes);
         section3 = new Section3_TestSelection(cardLayout, classes, section4);
+        section5 = new Section5_TestRun(cardLayout, system);
 
         section2TabbedPane.addTab("Classes", section2a);
         section2TabbedPane.addTab("Attributes", section2b);
@@ -44,6 +53,7 @@ public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
         cardPanel.add(section2TabbedPane, "Section 2");
         cardPanel.add(section3, "Section 3");
         cardPanel.add(section4, "Section 4");
+        cardPanel.add(section5, "Section 5");
         // cardPanel.add(section3, "Section 3");
 
         // Add padding around the contents of the frame
@@ -67,6 +77,8 @@ public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.next(cardPanel);
+                // System.out.println("tc manager:");
+                // System.out.println(TestCaseManager.getTestCases());
             }
         });
 
@@ -90,12 +102,12 @@ public AssignmentSpecPortal(ArrayList<ClassInformation> classes) {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
-                AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal(classes);
-            }
-        });
-    }
+    // public static void main(String[] args) {
+    //     SwingUtilities.invokeLater(new Runnable() {
+    //         public void run() {
+    //             ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
+    //             AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal(classes);
+    //         }
+    //     });
+    // }
 }
