@@ -1,14 +1,22 @@
 package com.example;
 
-public class Marks {
+public class TestResult {
     
     private int testMarks;
     private boolean testPassed;
+    private String testComment;
 
-    public Marks(int marks){
+
+    public TestResult(int marks){
         this.testMarks = marks;
         this.testPassed = false;
+        this.testComment = "";
     }
+    
+    public String getTestComment() {
+        return this.testComment;
+    }
+
 
     public int getTestMarks() {
         return this.testMarks;
@@ -25,5 +33,11 @@ public class Marks {
     public void setTestPassed(boolean testPassed) {
         this.testPassed = testPassed;
     }
+
+    public void setTestComment(String testComment) {
+        this.testComment = testComment;
+    }
+
+
 
 }

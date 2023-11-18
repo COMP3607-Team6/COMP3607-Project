@@ -30,6 +30,8 @@ public class MethodValueTest extends ValueTest {
         this.expectedValue = expectedValue;
     }
     
+
+    // Needs more error handling code
     public String test(){
 
         actualValue = getValue();
@@ -37,10 +39,19 @@ public class MethodValueTest extends ValueTest {
         
         try{
             assertEquals(expectedValue, actualValue);
-            return "Method Value Test Passed !!";
+            testMarks.setTestPassed(true);
+            testMarks.setTestComment("Method " + methodName + " returns the correct return value "+ actualValue + ".");
+            return "Method " + methodName + " returns the correct return value "+ actualValue + ".";
+      
         }
         catch(AssertionError e){
-            return "Method Value Test Failed !!";
+            testMarks.setTestComment("Method " + methodName + " was expected to return " + expectedValue + " but returned " + actualValue);
+            return "Method " + methodName + " was expected to return " + expectedValue + " but returned " + actualValue;
+   
+        }
+        catch(Exception e){
+             return "Method " + methodName + " not found in  " + className;
+   
         }
 
     }
