@@ -134,7 +134,7 @@ public class Section2C_Methods extends JPanel {
                 if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
                     ClassInformation selectedClass = classes.get(selectedClassIndex);
 
-                    // attributeListModel.clear();
+                    methodListModel.clear();
 
                     // for (AttributeInformation attribute : selectedClass.getAttributes()) {
                     //     attributeListModel.addElement(attribute.toString());

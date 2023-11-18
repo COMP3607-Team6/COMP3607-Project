@@ -3,6 +3,7 @@ package com.example.AssignmentSpecificationPortal.Tests;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 // import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
@@ -24,6 +26,11 @@ public class HierarchyTest extends JPanel {
     private JLabel selectedClassLabel;
     private JButton loadClassesButton;
     private JComboBox<String> selectedClassComboBox;
+    private int selectedClassIndex;
+
+    private JPanel test;
+    private String idkbruh;
+
 
     public HierarchyTest(ArrayList<ClassInformation> classes) {
         this.classes = classes;
@@ -66,7 +73,7 @@ public class HierarchyTest extends JPanel {
         });
 
         selectedClassComboBox.addActionListener(new ActionListener() {
-            private int selectedClassIndex;
+            // private int selectedClassIndex;
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,6 +81,13 @@ public class HierarchyTest extends JPanel {
 
                 if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
                     ClassInformation selectedClass = classes.get(selectedClassIndex);
+
+
+                    // System.out.println(selectedClassIndex);
+                    idkbruh = classes.get(selectedClassIndex).getExtendsOrImplements();
+                    // System.out.println(idkbruh);
+                    // String idk1 = classes.get(selectedClassIndex).getClassName();
+                    // System.out.println(idk1);
                     // attributeListModel.clear();
 
                     // for (AttributeInformation attribute : selectedClass.getAttributes()) {
@@ -84,6 +98,32 @@ public class HierarchyTest extends JPanel {
                 }
             }
         });
+
+
+
+        //new panel
+        test = new JPanel();
+
+        //get info from selected class
+        // String idk = selectedClass.getExtendsOrImplements();
+
+
+
+        JLabel testTitle1 = new JLabel("Inheritance Test:");
+        JPanel extendsPanel = new JPanel();
+        JLabel subClassLabel = new JLabel("class name");
+        JLabel extendsLabel = new JLabel(" extends ");
+
+        
+        test.add(testTitle1);
+        
+        test.add(extendsLabel);
+        System.out.println(selectedClassIndex);
+
+        add(test);
+
+
+        
     }
 
     private void updateSelectedClassComboBox() {
