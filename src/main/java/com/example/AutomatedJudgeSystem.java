@@ -70,20 +70,6 @@ public class AutomatedJudgeSystem {
                ZipFileComposite c = (ZipFileComposite)z;
                Path submission_location = c.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
                ZipFileReader.deleteFilesInFolder(c.getPath());
-
-
-
-                 
-                testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
-                testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
-                testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
-                testCases.add(new SubClassTest("StandingFan", "Fan",1));
-                testCases.add(new SubTypeTest("AC", "Device",1));
-                testCases.add(new MethodTypeTest(1, "AC", "coolzBy", int.class ));
-                ArrayList<Object> paras = new ArrayList<>();
-                paras.add(5);
-                paras.add("{}");
-                testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 13));
                 
 
                 
@@ -163,13 +149,26 @@ public class AutomatedJudgeSystem {
 
 
                         }
-    }
-                //   ZipFileReader.deleteFilesInFolder(outputFolder);
-                //   ZipFileReader.deleteSubFolders(outputFolder);
+    } //End of java file iteration
+                 
+                   
+                testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
+                testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
+                testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
+                testCases.add(new SubClassTest("StandingFan", "Fan",1));
+                testCases.add(new SubTypeTest("AC", "Device",1));
+                testCases.add(new MethodTypeTest(1, "AC", "coolzBy", int.class ));
+                ArrayList<Object> paras = new ArrayList<>();
+                paras.add(5);
+                paras.add("{}");
+                testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 13));
 
+                
+
+                System.out.println("HIHI");
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest();
-                // pdfManager.notify(testCases, "816029005", specs);
+                pdfManager.notify(testCases, "816029005" + num, specs);
                 num++;
                   System.out.println(num);
                 
@@ -177,12 +176,10 @@ public class AutomatedJudgeSystem {
                   paras.clear();
 
                   ZipFileReader.deleteFilesInFolder(outputFolder);
-                //   ZipFileReader.deleteSubFolders(outputFolder);
+                  
+            } //End of student for loop
 
-                System.out.println("HIHI");
-            }
-
-            // pdfManager.endOfAssignmentCheck(testCases,specs,true);
+            pdfManager.endOfAssignmentCheck(testCases,specs,true);
             
         }
         catch (IOException e) {
