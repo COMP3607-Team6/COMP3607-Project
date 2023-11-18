@@ -9,6 +9,10 @@ import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.MethodBasicTest;
+import com.example.BehaviourTests.MethodTypeTest;
+import com.example.BehaviourTests.MethodValueTest;
+import com.example.HierarchyTests.SubClassTest;
+import com.example.HierarchyTests.SubTypeTest;
 
 public class AutomatedJudgeSystem {
     
@@ -23,8 +27,8 @@ public class AutomatedJudgeSystem {
 
     // Demo of Assignment Specification, data suppposed to be entered from frontend
     private static AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
-
     private static AssignmentSpecPortal assignmentSpecPortal;
+
     
 
     public static void main (String[] args) throws IOException{
@@ -33,6 +37,14 @@ public class AutomatedJudgeSystem {
         testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
         testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
         testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
+        testCases.add(new SubClassTest("StandingFan", "Fan",1));
+        testCases.add(new SubTypeTest("AC", "Device",1));
+        testCases.add(new MethodTypeTest(1, "AC", "coolzBy", int.class ));
+        ArrayList<Object> paras = new ArrayList<>();
+        paras.add(5);
+        paras.add("{}");
+        testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 13));
+        
 
         //runs all the tests that are added to testcases array
         executeAssignmentTest();
@@ -41,7 +53,12 @@ public class AutomatedJudgeSystem {
         pdfManager.notify(testCases, "816029002", specs);
         pdfManager.notify(testCases, "816029007", specs);
 
+
+        pdfManager.endOfAssignmentCheck(testCases,specs,true);
+
     }
+
+    
 
      // method which calls helper methods to execute the whole process of marking a student assignment
     public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){

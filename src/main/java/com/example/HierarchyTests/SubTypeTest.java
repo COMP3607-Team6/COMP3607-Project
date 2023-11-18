@@ -20,6 +20,8 @@ public class SubTypeTest extends HierarchyTest {
         super(allocatedMarks);
         this.subClass = subClass;
         this.superClass = superClass;
+        this.testName = "SubType Test for relationship between subtype class: "+ subClass + " and superclass " + superClass ;
+  
     }
 
     public String test() {

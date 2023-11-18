@@ -10,6 +10,7 @@ public class ClassBasicTest extends BasicTests {
     public ClassBasicTest(int allocatedMarks,String className, String testType) {
         super(allocatedMarks, testType);
         this.className = className;
+        this.testName = testTypeObject.classTestNameSwap() + className;
     }
 
     public String test(){

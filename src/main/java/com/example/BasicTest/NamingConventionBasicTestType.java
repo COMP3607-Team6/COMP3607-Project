@@ -29,5 +29,18 @@ public class NamingConventionBasicTestType implements BasicTestTypes {
     public String getErrorMessage() {
         return " not found.";
     }
+
+    public String classTestNameSwap(){
+
+        return "Naming Convention Class Test for class ";
+    }
+    public String methodTestNameSwap(){
+
+        return "Naming Convention Method Test for method ";
+    }
+    public String attributeTestNameSwap(){
+
+        return "Naming Convention Attribute Test for attribute ";
+    }
     
 }

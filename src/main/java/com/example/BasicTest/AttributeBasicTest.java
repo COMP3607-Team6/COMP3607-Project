@@ -12,6 +12,10 @@ public class AttributeBasicTest extends BasicTests {
         super(allocatedMarks,testType);
         this.className = className;
         this.attributeName = attributeName;
+        this.testName = testTypeObject.attributeTestNameSwap() + attributeName + " belonging to class " + className;
+
+       
+        
     }
 
      public String test() {
