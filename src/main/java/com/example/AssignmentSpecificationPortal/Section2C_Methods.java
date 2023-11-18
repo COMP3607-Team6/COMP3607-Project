@@ -34,7 +34,7 @@ public class Section2C_Methods extends JPanel {
     private JLabel selectedClassLabel;
     private JButton loadClassesButton;
     private JComboBox<String> selectedClassComboBox;
-    private ArrayList<ClassInformation> classes;
+    // private ArrayList<ClassInformation> classes;
     private int selectedClassIndex;
 
 
@@ -72,17 +72,16 @@ public class Section2C_Methods extends JPanel {
     private JButton removeMethod;
 
     private ArrayList<String> methodParameters;
-    private ArrayList<MethodInformation> allMethods;
+    // private ArrayList<MethodInformation> allMethods;
     private ArrayList<String> ObjParameters;
 
 
     private JButton test;
     
 
-    public Section2C_Methods(CardLayout layout, ArrayList<ClassInformation> classes) {
+    public Section2C_Methods(CardLayout layout) {
         this.cardLayout = layout;
-        this.classes = classes;
-        allMethods = new ArrayList<>();
+        // allMethods = new ArrayList<>();
         
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -95,10 +94,9 @@ public class Section2C_Methods extends JPanel {
         selectedClassPanel.setLayout(new FlowLayout());
         selectedClassLabel = new JLabel("Class:");
         loadClassesButton = new JButton("Load classes");
-        // selectedClassComboBox = new JComboBox<String>(new String[]{"choose class"});
         selectedClassComboBox = new JComboBox<String>();
 
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
@@ -121,6 +119,8 @@ public class Section2C_Methods extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 updateSelectedClassComboBox();
                 selectedClassComboBox.setVisible(true);
+                getAllClasses();
+                getAllMethods();
             }
         });
 
@@ -131,14 +131,13 @@ public class Section2C_Methods extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 selectedClassIndex = selectedClassComboBox.getSelectedIndex();
 
-                if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
-                    ClassInformation selectedClass = classes.get(selectedClassIndex);
+                if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
+                    ClassInformation selectedClass = ClassesManager.getClass(selectedClassIndex);
+                    methodListModel.clear();
 
-                    // attributeListModel.clear();
-
-                    // for (AttributeInformation attribute : selectedClass.getAttributes()) {
-                    //     attributeListModel.addElement(attribute.toString());
-                    // }
+                    for (MethodInformation method : selectedClass.getMethods()) {
+                        methodListModel.addElement(method.toString());
+                    }
                     
                 } else {
                     System.out.println("Invalid selected index or class not found.");
@@ -283,8 +282,7 @@ public class Section2C_Methods extends JPanel {
                 methodListModel.addElement(methodInfo);
 
                 MethodInformation method = new MethodInformation(accessType, isAbstractS, returnType, methodNameS, methodPars, "markPH");
-                allMethods.add(method);
-                classes.get(selectedClassIndex).addMethod(method);
+                ClassesManager.getClass(selectedClassIndex).addMethod(method);
 
                 methodPars = "";
                 methodParameters.clear();
@@ -300,11 +298,10 @@ public class Section2C_Methods extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e){
                 int index = methodList.getSelectedIndex();
-                if(selectedClassIndex >= 0 && selectedClassIndex < classes.size()){
-                    ClassInformation selectedClass = classes.get(selectedClassIndex);
+                if(selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()){
+                    ClassInformation selectedClass = ClassesManager.getClass(selectedClassIndex);
                     if(index != -1){
                         methodListModel.remove(index);
-                        allMethods.remove(index);
                         selectedClass.getMethods().remove(index);
                     }
                 } else {
@@ -417,14 +414,14 @@ public class Section2C_Methods extends JPanel {
 
     private void updateSelectedClassComboBox() {
         selectedClassComboBox.removeAllItems();
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
     }
 
-    private ArrayList<MethodInformation> getAllMethods(){
-        for(ClassInformation classInfo: classes){
+    private void getAllMethods(){
+        for(ClassInformation classInfo: ClassesManager.getClasses()){
             System.out.println(classInfo.toString());
             System.out.println("Methods:");
 
@@ -433,17 +430,10 @@ public class Section2C_Methods extends JPanel {
                 System.out.println("-----------------------------------------");
             }
         }
-
-        return allMethods;
     }
 
-    private ArrayList<ClassInformation> getAllClasses() {
-        for (ClassInformation classInfo : classes) {
-            System.out.println(classInfo.toString());
-            System.out.println("-----------------------------------------");
-        }
-
-        return classes;
+    private void getAllClasses() {
+        System.out.println(ClassesManager.getClasses());
     }
 }
 

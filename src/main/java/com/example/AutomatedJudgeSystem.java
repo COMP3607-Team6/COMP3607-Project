@@ -24,13 +24,11 @@ public class AutomatedJudgeSystem {
     // Demo of Assignment Specification, data suppposed to be entered from frontend
     private static AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
 
-    
-    private static ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
     private static AssignmentSpecPortal assignmentSpecPortal;
     
 
     public static void main (String[] args) throws IOException{
-        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), classes);
+        initializeAssignmentSpecPortal(new AutomatedJudgeSystem());
 
         testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
         testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
@@ -72,45 +70,22 @@ public class AutomatedJudgeSystem {
          }
     }
 
-
-
-    ////
-
+    
+    // the following 2 initializeAssignmentSpecPortal methods were made to get around error: Cannot use this in a static context
     public void initializeAssignmentSpecPortal() {
-        assignmentSpecPortal = new AssignmentSpecPortal(this, classes);
+        assignmentSpecPortal = new AssignmentSpecPortal(this);
     }
 
-    public static void initializeAssignmentSpecPortal(AutomatedJudgeSystem instance, ArrayList<ClassInformation> classes) {
-        assignmentSpecPortal = new AssignmentSpecPortal(instance, classes);
+    public static void initializeAssignmentSpecPortal(AutomatedJudgeSystem instance) {
+        assignmentSpecPortal = new AssignmentSpecPortal(instance);
     }
 
+    // on the last frame of the gui, there is a run tests button. when that is pressed it calls back to this method
+    // TestCaseManager stores an arraylist of test cases and some methods to add and remove from the arraylist
     public static void onGUIRunTestsButtonPressed() {
         System.out.println("Run tests button in section 5 pressed; AJS notified.");
         System.out.println("Num of test cases: " + TestCaseManager.getTestCases().size());
         System.out.println("Test cases: ");
         System.out.println(TestCaseManager.getTestCases());
     }
-
-    
-    // method which calls helper methods to execute the whole process of marking a student assignment
-    // public static void runTest(String studentId, AssignmentSpecification specs){
-
-    //     // 1) some method to read the data from the frontend and create all tests for it based on the spec
-
-    //     //LOOP for every Assignment:
-
-    //         //2) method to retrieve student zip file from folder and unzip that assignment
-    //             //Retrieve studentID and possibly Name??
-    //             // If file not following naming convention then A flagged folder is generated where that report is saved??
-            
-    //         //3) some method to run the test and generate associated comments for each test
-    //             executeAssignmentTest();
-
-    //         //4) method to generate pdf output for a student assignment
-    //             pdfManager.notify(testCases, studentId, specs);
-
-    // }
-
-   
-
 }

@@ -25,11 +25,9 @@ public class AssignmentSpecPortal {
     private Section3_TestSelection section3;
     private Section4_Tests section4;
     private AutomatedJudgeSystem system;
-    private ArrayList<ClassInformation> classes;
     private Section5_TestRun section5;
 
-public AssignmentSpecPortal(AutomatedJudgeSystem system, ArrayList<ClassInformation> classes) {
-        this.classes = classes;
+public AssignmentSpecPortal(AutomatedJudgeSystem system) {
         this.system = system;
         frame = new JFrame("Assignment Specification Portal");
         cardPanel = new JPanel();
@@ -38,11 +36,11 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system, ArrayList<ClassInformat
         section2TabbedPane = new JTabbedPane();
 
         section1 = new Section1(cardLayout);
-        section2a = new Section2A_Classes(cardLayout, classes);
-        section2b = new Section2B_Attributes(cardLayout, classes);
-        section2c = new Section2C_Methods(cardLayout, classes);
-        section4 = new Section4_Tests(cardLayout, classes);
-        section3 = new Section3_TestSelection(cardLayout, classes, section4);
+        section2a = new Section2A_Classes(cardLayout);
+        section2b = new Section2B_Attributes(cardLayout);
+        section2c = new Section2C_Methods(cardLayout);
+        section4 = new Section4_Tests(cardLayout);
+        section3 = new Section3_TestSelection(cardLayout, section4);
         section5 = new Section5_TestRun(cardLayout, system);
 
         section2TabbedPane.addTab("Classes", section2a);

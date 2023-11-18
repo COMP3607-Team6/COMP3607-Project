@@ -26,12 +26,14 @@ import com.example.TestCaseManager;
 import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
+import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
+
 public class NamingConventionTest extends JPanel {
 
-    private ArrayList<ClassInformation> classes;
+    // private ArrayList<ClassInformation> classes;
     private JLabel testDescription;
 
     private JPanel selectedClassPanel;
@@ -56,10 +58,9 @@ public class NamingConventionTest extends JPanel {
     private ArrayList<MethodBasicTest> methodTests;
     private ArrayList<AttributeBasicTest> attributeTests;
     private ArrayList<TestCase> testCases;
-    private TestCaseManager TestCaseManager;
 
-    public NamingConventionTest(ArrayList<ClassInformation> classes) {
-        this.classes = classes;
+    public NamingConventionTest() {
+        // this.classes = classes;
 
         classTests = new ArrayList<ClassBasicTest>();
         methodTests = new ArrayList<MethodBasicTest>();
@@ -81,7 +82,7 @@ public class NamingConventionTest extends JPanel {
         // selectedClassComboBox = new JComboBox<String>(new String[]{"choose class"});
         selectedClassComboBox = new JComboBox<String>();
 
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
@@ -221,8 +222,8 @@ public class NamingConventionTest extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 selectedClassIndex = selectedClassComboBox.getSelectedIndex();
 
-                if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
-                    ClassInformation selectedClass = classes.get(selectedClassIndex);
+                if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
+                    ClassInformation selectedClass = ClassesManager.getClass(selectedClassIndex);
                     // attributeListModel.clear();
 
                     // for (AttributeInformation attribute : selectedClass.getAttributes()) {
@@ -237,14 +238,14 @@ public class NamingConventionTest extends JPanel {
 
     private void updateSelectedClassComboBox() {
         selectedClassComboBox.removeAllItems();
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
     }
 
     private void updateAttributeList(String ans) {
-        for(ClassInformation c:classes){
+        for(ClassInformation c : ClassesManager.getClasses()){
                     if(c.getClassName().equals(ans)){
                         attributePanel.removeAll();
                         ArrayList<AttributeInformation> attributes = c.getAttributes();
@@ -258,7 +259,7 @@ public class NamingConventionTest extends JPanel {
     }
 
     private void updateMethodList(String ans) {
-        for(ClassInformation c:classes){
+        for(ClassInformation c : ClassesManager.getClasses()){
                     if(c.getClassName().equals(ans)){
                         methodPanel.removeAll();
                         ArrayList<MethodInformation> methods = c.getMethods();
