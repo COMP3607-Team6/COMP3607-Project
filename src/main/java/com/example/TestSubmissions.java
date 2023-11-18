@@ -113,8 +113,6 @@ public class TestSubmissions {
                 {
                     
                     ZipFileComposite w = (ZipFileComposite)z;
-                    // System.out.println(w.getPath());
-                    // copyZipFolder(w.getPath(), "src\\main\\java\\com\\example\\StudentFile");
 
                     // Create a Path object for the source file
          // Create a Path object for the source file
@@ -174,11 +172,7 @@ public class TestSubmissions {
 
                             try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
                                     // Add the package declaration to the beginning of the file
-        
-                                    // Path sourcePath = Paths.get(outputFolder);
-                                    // Create a Path object for the file folder
-                                    // Path filePath = Paths.get(outputFolder, entryName);
-                                    // Get the relative path of the file from the source folder
+
                                     Path relativePath = sourcePath.relativize(filePath);
         
                                     // Find the index of the last \ in the string
@@ -216,50 +210,7 @@ public class TestSubmissions {
                             // Handle the exception
                             e.printStackTrace();
                             }
-                                // Assume dest is a Path object for the destination file
-                                // path = 
-                                // File newFile = new File(entryPath.toString());
-                                // Files.createFile (destinationFile.toPath());
-                                // Write some content to the file using a BufferedWriter
-
-
-                                // Files.createDirectories(outputFolder);
-
-                                // try (BufferedWriter writer = Files.newBufferedWriter(entryPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
-                                //     // Add the package declaration to the beginning of the file
-        
-                                //     Path sourcePath = Paths.get(outputFolder);
-                                //     // Create a Path object for the file folder
-                                //     Path filePath = Paths.get(outputFolder, entryName);
-                                //     // Get the relative path of the file from the source folder
-                                //     Path relativePath = sourcePath.relativize(filePath);
-        
-                                //     // Find the index of the last \ in the string
-                                //     int lastIndex = filePath.toString().lastIndexOf("\\");
-        
-                                //     // Get the substring that starts from the beginning and stops before the last \ in the string
-                                //     String assignmentFolderPath = filePath.toString().substring(0, lastIndex);
-        
-                                //     String packageName = relativePath.toString().replace("/", ".");
-                                //     packageName = relativePath.toString().replace("\\", ".");
-                                //     // Remove the file extension from the package name
-                                //     packageName = packageName.substring(0, packageName.lastIndexOf("."));
-                                //     packageName = packageName.substring(0, packageName.lastIndexOf("."));
-                                //     // Write the package name to the file
-                                //     writer.write("package com.example.StudentFiles." + packageName + ";");
-        
-        
-                                //     writer.newLine();
-        
-                                //     // Copy the contents of the Java file
-                                //     byte[] buffer = new byte[1024];
-                                //     int len;
-
-                                //     FileInputStream zis = new FileInputStream(entryName);
-                                //     while ((len = zis.read(buffer)) > 0) {
-                                //         writer.write(new String(buffer, 0, len));
-                                //     }
-                                // }
+                                
                                 
                             }
 
