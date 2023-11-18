@@ -8,6 +8,7 @@ public interface ZipComponent {
     void printInfo();
     // This method returns the input stream of the component
     InputStream getInputStream() throws IOException;
+    String getPath();
 
     // // This method adds a child component to the component
     // void add(ZipComponent component);

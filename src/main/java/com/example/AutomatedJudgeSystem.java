@@ -1,6 +1,14 @@
 package com.example;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.rmi.server.Operation;
 import java.util.ArrayList;
 
@@ -36,7 +44,125 @@ public class AutomatedJudgeSystem {
     
 
     public static void main (String[] args) throws IOException{
-        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), classes);
+        // initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), classes);
+
+        String zipFilePath = "ZipFolder.zip";
+        // Create a File object from the zip file path
+        File zipFile = new File(zipFilePath);
+        try {
+            
+            // Create a ZipFileComposite object from the File object
+            ZipComponent zipComponent = new ZipFileComposite(zipFile); 
+            ZipFileComposite zipFileComposite = (ZipFileComposite) zipComponent;
+
+            for (ZipComponent z : zipFileComposite.getComponents())
+            {
+                System.out.println("PATH   " + z.getPath());
+                String outputFolder = "";
+                ZipFileComposite c = (ZipFileComposite)z;
+                Path submission_location = c.copySubmission(z);
+                ZipFileReader.deleteFilesInFolder(c.getPath());
+
+                try {
+                    Thread.sleep (5000); // 5000 milliseconds = 5 seconds
+                  } catch (InterruptedException e) {
+                    e.printStackTrace ();
+                  }
+                
+                for (ZipComponent i : c.getComponents())
+                    {
+                        if (i instanceof ZipEntryLeaf)
+                        // System.out.println(((ZipEntryLeaf)i).getPath());
+                        {
+                            ZipEntryLeaf f = (ZipEntryLeaf)i;
+                            // OutputStream output = new FileOutputStream("src\\main\\java\\com\\example\\StudentFile");
+
+                            Path path = Paths.get(f.getPath());
+                            InputStream input = Files.newInputStream(path, StandardOpenOption.READ);
+                            
+                            outputFolder = "src\\main\\java\\com\\example\\StudentFile";
+                            String entryName = f.getPath();
+                            System.out.println(entryName);
+                            if (entryName.endsWith(".java"))
+                            {
+                                Path sourcePath = Paths.get(entryName);
+                                System.out.println("Source: " + sourcePath);
+
+                                Path dest = Paths.get(outputFolder);
+                                System.out.println("Dest " + dest);
+
+                                File sourceFile = new File(entryName);
+                                File destinationFile = new File("src\\main\\java\\com\\example\\StudentFile\\" + f.get_rel_path());
+                                System.out.println("Dest File " + destinationFile);
+ 
+                                Path entryPath = Paths.get(outputFolder, entryName);
+                                System.out.println("EntryPath " + entryPath.getFileName());
+                                
+                                String p = "src" + File.separator +"main" + File.separator + "java" + File.separator + 
+                                "com"  + File.separator + "example" + File.separator + "StudentFile" + File.separator + f.get_rel_path();
+                                System.out.println(p);
+                                p = "src\\main\\java\\com\\example\\StudentFile\\" + f.get_rel_path();
+                                Path filePath = Paths.get(p);
+                                Files.createDirectories(filePath.getParent());
+                            try {
+                            // Create the file using the Files.createFile (Path) method
+                            Files.createFile(filePath);
+
+                            try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+                                    // Add the package declaration to the beginning of the file
+
+                                    Path relativePath = sourcePath.relativize(filePath);
+        
+                                    // Find the index of the last \ in the string
+                                    int lastIndex = filePath.toString().lastIndexOf("\\");
+        
+                                    // Get the substring that starts from the beginning and stops before the last \ in the string
+                                    String assignmentFolderPath = filePath.toString().substring(0, lastIndex);
+        
+                                    String packageName = relativePath.toString().replace("/", ".");
+                                    packageName = relativePath.toString().replace("\\", ".");
+                                    // Remove the file extension from the package name
+                                    packageName = packageName.substring(0, packageName.lastIndexOf("."));
+                                    packageName = packageName.substring(0, packageName.lastIndexOf("."));
+                                    // Write the package name to the file
+                                    packageName = packageName.replaceAll("^\\.+|", "");
+                                    System.out.println(packageName);
+                                    writer.write("package com.example." + packageName + ";");
+        
+        
+                                    writer.newLine();
+        
+                                    // Copy the contents of the Java file
+                                    byte[] buffer = new byte[1024];
+                                    int len;
+
+                                    FileInputStream zis = new FileInputStream(entryName);
+                                    while ((len = zis.read(buffer)) > 0) {
+                                        writer.write(new String(buffer, 0, len));
+                                    }
+                                }
+        
+                            // Print a success message
+                            System.out.println("File created successfully: " + filePath);
+                            } catch (IOException e) {
+                            // Handle the exception
+                            e.printStackTrace();
+                            }
+                                
+                                
+                            }
+
+
+                        }
+    }
+                //   ZipFileReader.deleteFilesInFolder(outputFolder);
+                //   ZipFileReader.deleteSubFolders(outputFolder);
+            }
+        }
+        catch (IOException e) {
+            // Handle the exception
+            System.out.println("Unable to read folder. " + e.getMessage());
+        }
 
         testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
         testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
