@@ -28,7 +28,7 @@ public class Instances {
     }
         
     public void createInstances(){
-        String folderPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2"; // Replace this with the path to your folder containing .java files
+        String folderPath = "src\\main\\java\\com\\example\\StudentFile"; // Replace this with the path to your folder containing .java files
 
         
 
@@ -45,7 +45,7 @@ public class Instances {
                 String className = javaFile.getName().replace(".java", "");
                 try {
                     // Load the class using reflection
-                    Class<?> clazz = Class.forName("com.example.Avinash_Roopnarine_816029635_A2." + className);
+                    Class<?> clazz = Class.forName("com.example.StudentFile." + className);
 
                     // Get the constructor of the class (assuming it has a default constructor)
                     //Constructor<?> constructor = clazz.getDeclaredConstructor();
@@ -113,9 +113,9 @@ public class Instances {
     public void setClasses()
     {
         // Create a URLClassLoader with the folder path
-        try (URLClassLoader classLoader = new URLClassLoader(new URL[]{new File("src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2").toURI().toURL()})) {
+        try (URLClassLoader classLoader = new URLClassLoader(new URL[]{new File("src\\main\\java\\com\\example\\StudentFile").toURI().toURL()})) {
         // Use Files.walk to traverse the folder
-        try (Stream<Path> paths = Files.walk(Paths.get("src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2"))) {
+        try (Stream<Path> paths = Files.walk(Paths.get("src\\main\\java\\com\\example\\StudentFile"))) {
             paths
             .filter(Files::isRegularFile)
             .filter(p -> p.toString().endsWith(".java"))
@@ -124,7 +124,7 @@ public class Instances {
                 String fileName = p.getFileName().toString().replace(".java", "");
                 try {
                 // Load the class using the class loader
-                Class<?> clazz = classLoader.loadClass("com.example.Avinash_Roopnarine_816029635_A2." + fileName);
+                Class<?> clazz = classLoader.loadClass("com.example.StudentFile." + fileName);
                 allClasses.add(clazz);
                 // Check if the class is abstract
                 if (Modifier.isAbstract(clazz.getModifiers()) && !Modifier.isInterface(clazz.getModifiers())) {
