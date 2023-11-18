@@ -18,6 +18,10 @@ public class App
       
         // ZipFileInput z = new ZipFileInput("Enter zip file path here");
         // z.readFiles();
+        // ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
+        // AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal(classes);
+    }
+
 
         //ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
 

@@ -9,7 +9,7 @@ public class ClassInformation {
     private final String className;
     private final String extendsOrImplements;
     private final String extendedOrImplementedClass;
-    private final String marks;
+   // private final String marks;
     private ArrayList<MethodInformation> methods;
     // i am thinking this will also have the following:
     private ArrayList<AttributeInformation> attributes;
@@ -18,15 +18,14 @@ public class ClassInformation {
     public ClassInformation(String accessType, String isAbstract, 
                             String isInterface, String className,
                             String extendsOrImplements, 
-                            String extendedOrImplementedClass, 
-                            String marks) {
+                            String extendedOrImplementedClass) {
         this.accessType = accessType;
         this.isAbstract = isAbstract;
         this.isInterface = isInterface;
         this.className = className;
         this.extendsOrImplements = extendsOrImplements;
         this.extendedOrImplementedClass = extendedOrImplementedClass;
-        this.marks = marks;
+        //this.marks = marks;
         this.methods = new ArrayList<MethodInformation>();
         this.attributes = new ArrayList<AttributeInformation>();
     }
@@ -55,9 +54,9 @@ public class ClassInformation {
         return extendedOrImplementedClass;
     }
 
-    public String getMarks() {
+   /*  public String getMarks() {
         return marks;
-    }
+    } */
 
     public ArrayList<AttributeInformation> addAttribute(AttributeInformation attribute) {
         attributes.add(attribute);
@@ -81,6 +80,7 @@ public class ClassInformation {
 
     @Override
     public String toString() {
+        
         String result = accessType + " " + isAbstract + " " + isInterface + " " + className;
 
         if (extendsOrImplements != null && !extendsOrImplements.isEmpty() &&
@@ -88,7 +88,7 @@ public class ClassInformation {
             result += " " + extendsOrImplements + " " + extendedOrImplementedClass;
         }
 
-        result += " [ " + marks + " marks]";
+       // result += " [ " + marks + " marks]";
         return result;
     }
 }
