@@ -30,7 +30,7 @@ public class Instances {
     public void createInstances(){
         String folderPath = "src\\main\\java\\com\\example\\StudentFile"; // Replace this with the path to your folder containing .java files
 
-        
+        System.out.println(folderPath);
 
         File folder = new File(folderPath);
         File[] javaFiles = folder.listFiles(new FilenameFilter() {
@@ -45,8 +45,10 @@ public class Instances {
                 String className = javaFile.getName().replace(".java", "");
                 try {
                     // Load the class using reflection
+                    // System.out.println("HIHIHIdvdsvrd: " + className);
                     Class<?> clazz = Class.forName("com.example.StudentFile." + className);
-
+                    System.out.println("JIJIJIVYVIUV::::::" + clazz.getSimpleName());
+                    
                     // Get the constructor of the class (assuming it has a default constructor)
                     //Constructor<?> constructor = clazz.getDeclaredConstructor();
 
@@ -56,7 +58,7 @@ public class Instances {
                         if(constructor.getParameterCount() == 0){
                            Object obj = constructor.newInstance();
                            a.add(obj);
-                        //    System.out.println(obj.toString());
+                          // System.out.println(obj.toString());
                            //break;
                         }
 

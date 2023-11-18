@@ -24,8 +24,8 @@ import com.example.HierarchyTests.SubTypeTest;
 
 public class AutomatedJudgeSystem {
     
-    //Contains all tests to be executed for the assignment
-    private static ArrayList<TestCase> testCases = new ArrayList<>();
+    // //Contains all tests to be executed for the assignment
+    // private static ArrayList<TestCase> testCases = new ArrayList<>();
 
     //No longer used and should be removed eventually
     private static StringBuilder assertionResults = new StringBuilder();
@@ -44,7 +44,7 @@ public class AutomatedJudgeSystem {
     
 
     public static void main (String[] args) throws IOException{
-        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), classes);
+        // initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), classes);
         int num = 1;
 
        
@@ -76,7 +76,7 @@ public class AutomatedJudgeSystem {
                 //Iterate student files
                 for (ZipComponent i : c.getComponents())
                     {
-                        ZipFileReader.deleteFilesInFolder(outputFolder);
+                        // ZipFileReader.deleteFilesInFolder(outputFolder); This makes only STandingFan show
                         // ZipFileReader.deleteSubFolders(outputFolder);
                         if (i instanceof ZipEntryLeaf)
                         {
@@ -151,7 +151,8 @@ public class AutomatedJudgeSystem {
                         }
     } //End of java file iteration
                  
-                   
+                //Contains all tests to be executed for the assignment
+                ArrayList<TestCase> testCases = new ArrayList<>();
                 testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
                 testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
                 testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
@@ -167,7 +168,7 @@ public class AutomatedJudgeSystem {
 
                 System.out.println("HIHI");
                 //runs all the tests that are added to testcases array
-                executeAssignmentTest();
+                executeAssignmentTest(testCases);
                 pdfManager.notify(testCases, "816029005" + num, specs);
                 num++;
                   System.out.println(num);
@@ -175,11 +176,11 @@ public class AutomatedJudgeSystem {
                   testCases.clear();
                   paras.clear();
 
-                  ZipFileReader.deleteFilesInFolder(outputFolder);
+                //   ZipFileReader.deleteFilesInFolder(outputFolder);
                   
             } //End of student for loop
 
-            pdfManager.endOfAssignmentCheck(testCases,specs,true);
+            // pdfManager.endOfAssignmentCheck(testCases,specs,true);
             
         }
         catch (IOException e) {
@@ -203,30 +204,31 @@ public class AutomatedJudgeSystem {
 
     
 
-     // method which calls helper methods to execute the whole process of marking a student assignment
-    public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
+    //  // method which calls helper methods to execute the whole process of marking a student assignment
+    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
 
-        // 1) some method to read the data from the frontend and create all tests for it based on the spec
+    //     // 1) some method to read the data from the frontend and create all tests for it based on the spec
 
-        //LOOP for every Assignment:
+    //     //LOOP for every Assignment:
 
-            //2) method to retrieve student zip file from folder and unzip that assignment
-                //Retrieve studentID and possibly Name??
-                // If file not following naming convention then A flagged folder is generated where that report is saved??
+    //         //2) method to retrieve student zip file from folder and unzip that assignment
+    //             //Retrieve studentID and possibly Name??
+    //             // If file not following naming convention then A flagged folder is generated where that report is saved??
             
-            //3) some method to run the test and generate associated comments for each test
-                executeAssignmentTest();
+    //         //3) some method to run the test and generate associated comments for each test
+    //             executeAssignmentTest();
 
-            //4) method to generate pdf output for a student assignment
-                pdfManager.notify(testCases, studentId, specs);
+    //         //4) method to generate pdf output for a student assignment
+    //             pdfManager.notify(testCases, studentId, specs);
 
-    }
+    // }
 
 
-    public static void executeAssignmentTest(){
+    public static void executeAssignmentTest(ArrayList<TestCase> testCases){
 
         for(TestCase test: testCases){
             String assertionResultString = test.test();
+            System.out.println("In execute assignment test");
          }
     }
 
