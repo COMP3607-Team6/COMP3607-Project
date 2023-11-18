@@ -24,7 +24,9 @@ import javax.swing.JTextField;
 import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
-
+import com.example.BasicTest.ClassBasicTest;
+import com.example.BasicTest.AttributeBasicTest;
+import com.example.BasicTest.MethodBasicTest;
 public class NamingConventionTest extends JPanel {
 
     private ArrayList<ClassInformation> classes;
@@ -47,6 +49,10 @@ public class NamingConventionTest extends JPanel {
 
     private JTextField marksTextField1;
     private JTextArea nameTests;
+
+    private ArrayList<ClassBasicTest> classTests;
+    private ArrayList<MethodBasicTest> methodTests;
+    private ArrayList<AttributeBasicTest> attributeTests;
 
     public NamingConventionTest(ArrayList<ClassInformation> classes) {
         this.classes = classes;
@@ -234,7 +240,8 @@ public class NamingConventionTest extends JPanel {
                         attributePanel.removeAll();
                         ArrayList<AttributeInformation> attributes = c.getAttributes();
                         for(AttributeInformation a:attributes){
-                            JCheckBox aCheckBox = new JCheckBox(a.getAttributeType()+ " "+ a.getAttributeName());
+                           // JCheckBox aCheckBox = new JCheckBox(a.getAttributeType()+ " "+ a.getAttributeName());
+                           JCheckBox aCheckBox = new JCheckBox(a.getAttributeName());
                             attributePanel.add(aCheckBox);
                         }    
                     }
@@ -248,7 +255,8 @@ public class NamingConventionTest extends JPanel {
                         ArrayList<MethodInformation> methods = c.getMethods();
                 
                          for(MethodInformation m:methods){
-                            JCheckBox mCheckBox = new JCheckBox(m.getMethodType()+ " "+ m.getMethodName());
+                          //  JCheckBox mCheckBox = new JCheckBox(m.getMethodType()+ " "+ m.getMethodName());
+                            JCheckBox mCheckBox = new JCheckBox(m.getMethodName());
                             methodPanel.add(mCheckBox);
                         }    
                     } 
@@ -256,28 +264,36 @@ public class NamingConventionTest extends JPanel {
     }
 
     public void printTest() {
-        String nameCon=(String) selectedClassComboBox.getSelectedItem();
-        String marks = (String) marksTextField1.getText();
-
-        if(classCheckB.isSelected()==true){
         
+        classTests.clear();
+        methodTests.clear();
+        attributeTests.clear();
+
+        String nameCon=(String) selectedClassComboBox.getSelectedItem();
+        String cName=(String) selectedClassComboBox.getSelectedItem();
+        String marks = (String) marksTextField1.getText();
+        String testType ="name";
+
+        if(classCheckB.isSelected()==true){      
+            classTests.add(new ClassBasicTest(0,cName, testType));
             nameCon = nameCon + "\n" +"-Class [" + marks +" mark]\n";
-            
         }
         if(attCheckB.isSelected()==true){
             nameCon = nameCon+"-Attributes ";
-            nameCon= checkSelectedCheckboxes(attributePanel,nameCon);
+            nameCon= checkAttributeCheckboxes(attributePanel,nameCon,cName);
+           // updateAttributeTests();
 
         }
         if(methCheckB.isSelected()==true){
             nameCon = nameCon+"-Methods ";
-            nameCon= checkSelectedCheckboxes(methodPanel,nameCon);
+            nameCon= checkMethodCheckboxes(methodPanel,nameCon,cName);
+            
         }
         nameCon = nameCon +"---------------------------\n";
         nameTests.append(nameCon);
     }
 
-    public String checkSelectedCheckboxes(JPanel Panel,String name) {
+    public String checkAttributeCheckboxes(JPanel Panel,String name,String className) {
         Component[] components = Panel.getComponents();
         for (Component component : components) {
             if (component instanceof JCheckBox) {
@@ -286,12 +302,32 @@ public class NamingConventionTest extends JPanel {
 
                 if (checkBox.isSelected()) {
                     name = name + checkBoxText + ", ";
+                    attributeTests.add(new AttributeBasicTest(0,className, checkBoxText, "name"));
                 } 
             }
         }
         name = name + "\n";
         return name;
     }
+
+    public String checkMethodCheckboxes(JPanel Panel,String name,String className) {
+        Component[] components = Panel.getComponents();
+        for (Component component : components) {
+            if (component instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) component;
+                String checkBoxText = checkBox.getText();
+
+                if (checkBox.isSelected()) {
+                    name = name + checkBoxText + ", ";
+                    methodTests.add(new MethodBasicTest(0,className, checkBoxText, "name"));
+                } 
+            }
+        }
+        name = name + "\n";
+        return name;
+    }
+
+    
 }
 
   
