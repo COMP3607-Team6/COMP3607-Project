@@ -12,6 +12,10 @@ import com.example.AssignmentSpecificationPortal.ClassInformation;
 public class App 
 {
     
+    
+    /** 
+     * @param args
+     */
     public static void main( String[] args )
     {
         System.out.println( "Hello World!!!!!! :)))))" );
@@ -20,7 +24,7 @@ public class App
         // z.readFiles();
         // ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
         // AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal(classes);
-    }
+    
 
 
         //ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
@@ -49,6 +53,6 @@ public class App
             // Handle the exception
             System.out.println("Unable to read folder. " + e.getMessage());
         }
-        }
+}
 }
 
