@@ -14,6 +14,8 @@ public class ClassTypeTest extends BehaviourTest {
         super(allocatedMarks);
         this.className = className;
         this.classType = classType;
+        this.testName = "Class Type Test for " + className;
+
     
     }
 
