@@ -26,6 +26,7 @@ public class SubClassTest extends HierarchyTest{
         super(allocatedMarks);
         this.subClass = subClass;
         this.superClass = superClass;
+        this.testName = "Subclass Test for relationship between subclass: "+ subClass + " and superclass " + superClass ;
     }
 
 // @Test

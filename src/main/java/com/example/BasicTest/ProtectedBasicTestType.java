@@ -33,4 +33,17 @@ public class ProtectedBasicTestType implements BasicTestTypes {
     public String getErrorMessage() {
         return " is not of the protected accessor type";
     }
+
+    public String classTestNameSwap(){
+
+        return "Protected Class Test for class ";
+    }
+    public String methodTestNameSwap(){
+
+        return "Protected Method Test for method ";
+    }
+    public String attributeTestNameSwap(){
+
+        return "Protected Attribute Test for attribute ";
+    }
 }

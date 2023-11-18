@@ -34,5 +34,18 @@ public class FinalBasicTestType implements BasicTestTypes {
     public String getErrorMessage() {
         return " is not of the final Type";
     }
+
+    public String classTestNameSwap(){
+
+        return "Final Type Test for class ";
+    }
+    public String methodTestNameSwap(){
+
+        return "Final Type Method Test for method ";
+    }
+    public String attributeTestNameSwap(){
+
+        return "Final Type Attribute Test for attribute ";
+    }
     
 }
