@@ -27,7 +27,18 @@ public class App
 
             // Iterate over the child components of the zip file composite object
             for (ZipComponent z : zipFileComposite.getComponents()) {
-                z.printInfo();
+                // z.printInfo();
+                if (z instanceof ZipFileComposite)
+                {
+                    
+                    ZipFileComposite w = (ZipFileComposite)z;
+                    System.out.println(w.getPath());
+                    for (ZipComponent i : w.getComponents())
+                    {
+                        if (i instanceof ZipEntryLeaf)
+                        System.out.println(((ZipEntryLeaf)i).getPath());
+                    }
+                }
             }
 
         } catch (IOException e) {

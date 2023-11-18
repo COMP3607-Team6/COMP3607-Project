@@ -122,4 +122,9 @@ public class ZipFileComposite implements ZipComponent {
     public List<ZipComponent> getComponents(){
         return this.components;
     }
+
+    public String getPath()
+    {
+        return this.zipFile.getName();
+    }
 }
