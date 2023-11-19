@@ -83,9 +83,9 @@ String zipFilePath = "ZipFolder.zip";
                 // System.out.println("VYVIVUVAIUXVIUVSXIPVSCIYVSPVCUPYVWSCPYVWSCPYVWSYVCPYWVC*UVW(UGC(UW(UCV(WUVCU(W)))))");
                String outputFolder = "src\\main\\java\\com\\example\\StudentFile";
                ZipFileComposite c = (ZipFileComposite)z;
-               Path submission_location = c.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
+               Path submission_location = SubmissionCopier.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
             //    System.out.println("JIJINISIISJSIJSIJSIJIPSJSPJPSIS " + c.getPath());
-               ZipFileReader.deleteFolder(c.getPath());
+               Delete.deleteFolder(c.getPath());
                 
 
                 
@@ -203,7 +203,7 @@ String zipFilePath = "ZipFolder.zip";
                   
                 
                   try {
-                    ZipFileReader.deleteFilesInFolder(outputFolder);
+                    Delete.deleteFilesInFolder(outputFolder);
                   }
                   catch (Exception e)
                   {
@@ -245,7 +245,7 @@ String zipFilePath = "ZipFolder.zip";
             a.printInfo();
         }
 
-        ZipFileReader.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
+        Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
 
         try {
                     // Pause for 5 seconds
