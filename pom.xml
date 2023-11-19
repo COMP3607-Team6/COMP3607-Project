@@ -92,6 +92,9 @@
             <configuration>
                 <source>1.8</source>
                 <target>1.8</target>
+                <excludes>
+                  <exclude>**/com/example/StudentFiles/**</exclude>
+                </excludes>
             </configuration>
         </plugin>
         <plugin>

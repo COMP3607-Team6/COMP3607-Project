@@ -18,7 +18,7 @@ import java.net.URL;
 public class SubClassTest extends HierarchyTest{
 
     private Object classObject;
-    private String superClassPath = "src\\main\\java\\com\\example\\Student-Files\\Avinash_Roopnarine_816029635_A2-1.zip";
+    private String superClassPath = "src\\main\\java\\com\\example\\StudentFile";
     String subClass; String superClass;
 
     public SubClassTest(String subClass, String superClass, int allocatedMarks)
@@ -35,6 +35,7 @@ public class SubClassTest extends HierarchyTest{
     //Specify folder with java files
     Path superClasspath = Paths.get(superClassPath, superClass+".java");
 
+    System.out.println(superClassPath);
 
     if (Files.exists(superClasspath)) 
     {
@@ -46,7 +47,7 @@ public class SubClassTest extends HierarchyTest{
             URL url = superClasspath.toUri().toURL();
             URLClassLoader classLoader = new URLClassLoader(new URL[]{url});
             
-            String packageName = "com.example.Avinash_Roopnarine_816029635_A2."; //Can be made a parameter
+            String packageName = "com.example.StudentFile."; //Can be made a parameter
             Class<?> deviceClass = classLoader.loadClass(packageName + superClass);
             // System.out.println(deviceClass1.getClasses());
             classLoader.close();
