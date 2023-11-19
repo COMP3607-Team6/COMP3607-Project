@@ -66,10 +66,12 @@ public class AutomatedJudgeSystem {
             for (ZipComponent z : zipFileComposite.getComponents()) 
             {
 
+                // System.out.println("VYVIVUVAIUXVIUVSXIPVSCIYVSPVCUPYVWSCPYVWSCPYVWSYVCPYWVC*UVW(UGC(UW(UCV(WUVCU(W)))))");
                String outputFolder = "src\\main\\java\\com\\example\\StudentFile";
                ZipFileComposite c = (ZipFileComposite)z;
                Path submission_location = c.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
-               ZipFileReader.deleteFilesInFolder(c.getPath());
+               System.out.println("JIJINISIISJSIJSIJSIJIPSJSPJPSIS " + c.getPath());
+            //    ZipFileReader.deleteFilesInFolder(c.getPath());
                 
 
                 
@@ -151,8 +153,16 @@ public class AutomatedJudgeSystem {
                         }
     } //End of java file iteration
                  
-                //Contains all tests to be executed for the assignment
+                //Needed so files have time to be created and recognized
+                try {
+                    // Pause for 5 seconds
+                    Thread.sleep (2000);
+                } catch (InterruptedException e) {
+                    // Handle the interruption
+                    e.printStackTrace ();
+                }
                
+                //Contains all tests to be executed for the assignment
                 testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
                 testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
                 testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
@@ -173,10 +183,13 @@ public class AutomatedJudgeSystem {
                 num++;
                   System.out.println(num);
                 
+                  
                   testCases.clear();
                   paras.clear();
 
-                //   ZipFileReader.deleteFilesInFolder(outputFolder);
+                  
+                
+                  ZipFileReader.deleteFilesInFolder(outputFolder);
                   
             } //End of student for loop
 
