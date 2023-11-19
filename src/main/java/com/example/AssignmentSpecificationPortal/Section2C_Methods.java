@@ -3,6 +3,7 @@ package com.example.AssignmentSpecificationPortal;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -14,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -77,6 +79,7 @@ public class Section2C_Methods extends JPanel {
 
 
     private JButton test;
+    private JPanel promptPanel;
     
 
     public Section2C_Methods(CardLayout layout) {
@@ -85,10 +88,11 @@ public class Section2C_Methods extends JPanel {
         
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        prompt = new JLabel("Methods");
-        prompt.setFont(new Font("Arial", Font.ITALIC, 22));
-        prompt.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+        prompt = new JLabel("  Add methods (for inputted classes) to be tested here.");
+        promptPanel = new JPanel();
+        promptPanel.setLayout(new BoxLayout(promptPanel, BoxLayout.X_AXIS));
+        promptPanel.add(prompt);
+        promptPanel.add(Box.createHorizontalGlue());
 
         selectedClassPanel = new JPanel();
         selectedClassPanel.setLayout(new FlowLayout());
@@ -96,21 +100,18 @@ public class Section2C_Methods extends JPanel {
         loadClassesButton = new JButton("Load classes");
         selectedClassComboBox = new JComboBox<String>();
 
-        for (ClassInformation c : ClassesManager.getClasses()) {
-            String className = c.getClassName();
-            selectedClassComboBox.addItem(className);
-        }
+        updateSelectedClassComboBox();
 
         selectedClassPanel.add(selectedClassLabel);
         selectedClassPanel.add(selectedClassComboBox);
         selectedClassPanel.add(loadClassesButton);
 
-
         if (selectedClassComboBox.getItemCount() == 0) {
             selectedClassComboBox.setVisible(false);
         }
 
-        add(prompt);
+        add(promptPanel);
+        add(Box.createRigidArea(new Dimension(0, 10)));
         add(selectedClassPanel);
         add(createMethodPanel());
 
@@ -151,7 +152,8 @@ public class Section2C_Methods extends JPanel {
         ObjParameters = new ArrayList<>();
 
         JPanel fullPanel = new JPanel();
-        fullPanel.setLayout(new GridLayout(5,1));
+        // fullPanel.setLayout(new GridLayout(5,1));
+        fullPanel.setLayout(new BoxLayout(fullPanel, BoxLayout.Y_AXIS));
 
         methodPanel = new JPanel();//layer1
         methodPanel.setLayout(new FlowLayout());
