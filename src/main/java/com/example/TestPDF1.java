@@ -83,6 +83,8 @@ public class TestPDF1 implements PDFReport {
 
         int countTestcases = 0;
 
+        if(StudentID != null){
+
          try {
             writer = new PdfWriter(StudentID +".pdf");
         } catch (FileNotFoundException e) {
@@ -141,6 +143,8 @@ public class TestPDF1 implements PDFReport {
         //System.out.println(StudentID);
 
         System.out.println("Student PDF has been created successfully.");
+
+        }
 
     }
 

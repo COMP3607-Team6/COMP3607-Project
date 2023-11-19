@@ -11,7 +11,7 @@ import com.example.AssignmentSpecificationPortal.ClassInformation;
 
 public class App 
 {
-    
+   
     public static void main( String[] args )
     {
         System.out.println( "Hello World!!!!!! :)))))" );
@@ -20,7 +20,7 @@ public class App
         // z.readFiles();
         // ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
         // AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal(classes);
-    }
+    
 
 
         //ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
@@ -42,13 +42,24 @@ public class App
 
             // Iterate over the child components of the zip file composite object
             for (ZipComponent z : zipFileComposite.getComponents()) {
-                z.printInfo();
+                // z.printInfo();
+                if (z instanceof ZipFileComposite)
+                {
+                    
+                    ZipFileComposite w = (ZipFileComposite)z;
+                    System.out.println(w.getPath());
+                    for (ZipComponent i : w.getComponents())
+                    {
+                        if (i instanceof ZipEntryLeaf)
+                        System.out.println(((ZipEntryLeaf)i).getPath());
+                    }
+                }
             }
 
         } catch (IOException e) {
             // Handle the exception
             System.out.println("Unable to read folder. " + e.getMessage());
         }
-        }
+}
 }
 

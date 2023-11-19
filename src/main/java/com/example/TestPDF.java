@@ -132,7 +132,7 @@ public class TestPDF implements PDFReport {
             
             table.addCell(createCell((Integer.toString(totalMarks)), TextAlignment.CENTER));
 
-            percentage = (totalMarks/totalMarksForTests) *  spec.getAssignmentWeighting();
+            percentage = ((float) totalMarks/totalMarksForTests) *  spec.getAssignmentWeighting(); 
 
             table.addCell(createCell((Double.toString(percentage)), TextAlignment.CENTER));
         }

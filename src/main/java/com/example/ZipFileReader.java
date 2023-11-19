@@ -3,6 +3,9 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import org.apache.commons.io.FileUtils;
+import java.io.File;
+import java.io.IOException;
 
 public class ZipFileReader {
     public String unzip(String zipFilePath, String outputFolder) {
@@ -134,6 +137,25 @@ public static void deleteFilesInFolder(File folder) {
             // Delete the file or subfolder
             file.delete();
         }
+    }
+}
+
+public static void deleteSubFolders(String folderName)
+{
+    File parentFolder = new File(folderName);
+    // Get the list of sub folders in the parent folder
+    File[] subFolders = parentFolder.listFiles(File::isDirectory);
+    // Loop through the sub folders and delete them
+    for (File subFolder : subFolders) {
+      try {
+        // Delete the sub folder using the FileUtils.deleteDirectory() method
+        FileUtils.deleteDirectory(subFolder);
+        // Print a success message
+        System.out.println("Sub folder deleted successfully: " + subFolder);
+      } catch (IOException e) {
+        // Handle the exception
+        e.printStackTrace();
+      }
     }
 }
 
