@@ -37,13 +37,16 @@ public class AutomatedJudgeSystem {
     private static ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
     private static AssignmentSpecPortal assignmentSpecPortal;
 
-    
+     public static void main (String[] args){
+        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), classes);
+     }
 
-    public static void main (String[] args) throws IOException{
-        // initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), classes);
+    public static void doTest () throws IOException{
+        
         int num = 1;
 
         ArrayList<TestCase> testCases = new ArrayList<>();
+
         String zipFilePath = "ZipFolder.zip";
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
@@ -68,6 +71,8 @@ public class AutomatedJudgeSystem {
             // Iterate student submissions
             for (ZipComponent z : zipFileComposite.getComponents()) 
             {
+                 
+                
 
                 // System.out.println("VYVIVUVAIUXVIUVSXIPVSCIYVSPVCUPYVWSCPYVWSCPYVWSYVCPYWVC*UVW(UGC(UW(UCV(WUVCU(W)))))");
                String outputFolder = "src\\main\\java\\com\\example\\StudentFile";
@@ -104,16 +109,20 @@ public class AutomatedJudgeSystem {
                 }
                
                 //Contains all tests to be executed for the assignment
-                testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
-                testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
-                testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
-                testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
-                testCases.add(new SubTypeTest("AC", "Device", 1)); //5
-                testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
-                ArrayList<Object> paras = new ArrayList<>();
-                // paras.add(5);
-                // paras.add("{}");
-                testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
+                // testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
+                // testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
+                // testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
+                // testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
+                // testCases.add(new SubTypeTest("AC", "Device", 1)); //5
+                // testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
+                // ArrayList<Object> paras = new ArrayList<>();
+                // // paras.add(5);
+                // // paras.add("{}");
+                // testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
+
+                for(TestCase t: testCases){
+                    t.init();
+                }
 
                 
 
@@ -124,7 +133,7 @@ public class AutomatedJudgeSystem {
                 num++;
                   System.out.println(num);
                 
-                  
+                 
                   testCases.clear();
                 //   paras.clear();
                   
@@ -215,7 +224,16 @@ public class AutomatedJudgeSystem {
         System.out.println("Run tests button in section 5 pressed; AJS notified.");
         System.out.println("Num of test cases: " + TestCaseManager.getTestCases().size());
         System.out.println("Test cases: ");
+      
+
         System.out.println(TestCaseManager.getTestCases());
+        try {
+            doTest();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //return TestCaseManager.getTestCases();
     }
 
     

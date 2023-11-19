@@ -196,6 +196,7 @@ public class NamingConventionTest extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 nameTests.setText("");
+
             }
         });
 
@@ -278,18 +279,20 @@ public class NamingConventionTest extends JPanel {
         TestCaseManager.getTestCases().removeAll(attributeTests);
         TestCaseManager.getTestCases().removeAll(methodTests);
 
-        classTests.clear();
-        methodTests.clear();
-        attributeTests.clear();
+        // classTests.clear();
+        // methodTests.clear();
+        // attributeTests.clear();
 
         String nameCon=(String) selectedClassComboBox.getSelectedItem();
         String cName=(String) selectedClassComboBox.getSelectedItem();
         String marks = (String) marksTextField1.getText();
         String testType ="name";
 
+
         if(classCheckB.isSelected()==true){      
-            classTests.add(new ClassBasicTest(0,cName, testType));
+            classTests.add(new ClassBasicTest(Integer.parseInt(marks),cName, testType));
             nameCon = nameCon + "\n" +"-Class [" + marks +" mark]\n";
+            System.out.println("kwsejfbweiubfwefwefwefewfwfdsvsasdvawrebwarbaerbaerbaerbaerbraeb");
         }
         if(attCheckB.isSelected()==true){
             nameCon = nameCon+"-Attributes ";
