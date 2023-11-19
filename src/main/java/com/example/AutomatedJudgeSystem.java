@@ -47,7 +47,7 @@ public class AutomatedJudgeSystem {
         // initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), classes);
         int num = 1;
 
-       
+        ArrayList<TestCase> testCases = new ArrayList<>();
 
         
         String zipFilePath = "ZipFolder.zip";
@@ -152,7 +152,7 @@ public class AutomatedJudgeSystem {
     } //End of java file iteration
                  
                 //Contains all tests to be executed for the assignment
-                ArrayList<TestCase> testCases = new ArrayList<>();
+               
                 testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
                 testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
                 testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
@@ -198,7 +198,7 @@ public class AutomatedJudgeSystem {
         // pdfManager.notify(testCases, "816029007", specs);
 
 
-        // pdfManager.endOfAssignmentCheck(testCases,specs,true);
+        pdfManager.endOfAssignmentCheck(testCases,specs,true);
 
     }
 
