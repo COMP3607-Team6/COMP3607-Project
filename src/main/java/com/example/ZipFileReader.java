@@ -4,8 +4,11 @@ import java.nio.file.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import org.apache.commons.io.FileUtils;
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
+import java.lang.ProcessHandle;
+import java.lang.StringBuilder;
+
+
 
 public class ZipFileReader {
     public String unzip(String zipFilePath, String outputFolder) {
@@ -73,24 +76,40 @@ public class ZipFileReader {
 
     // A custom method to delete a folder recursively
 public static void deleteFolder(String folderPath) {
-    // Create a File object for the folder
+    
+    System.out.println("dfubiweufbweufb :" + folderPath);
+
     File folder = new File(folderPath);
     // Get all the files and subfolders in the folder
-    File[] files = folder.listFiles();
-    // If the folder is not empty, delete each file/subfolder
-    if (files != null) {
-        for (File file : files) {
-            // If the file is a directory, call the method recursively
-            if (file.isDirectory()) {
-                deleteFolder(file.getPath());
+        File[] files = folder.listFiles();
+        // Check if the array is not null
+        if (files != null) {
+            // Loop over the files and subfolders and delete them
+            for (File file : files) {
+                System.out.println("advsdvsdvs " + file.getName());
+                // If the file is a directory, call the method recursively
+                if (file.isDirectory()) {
+                    System.out.println("IHUHU " + file.toString());
+                    deleteFolder(file.toString());
+                }
+                // Delete the file or the empty directory
+                // Create a Path object for the file to be deleted
+
+                 file.setReadOnly();
+                 file.deleteOnExit();
+                 file.setReadable(true);
+                 file.delete();
+                
+                if(file.exists()){
+                    System.out.println("Didn't remove file");
+                }
+                System.out.println("AFTERRRRRRRRRRRRRRRRRRRRRRRRRR");
             }
-            // Delete the file
-            file.delete();
         }
+        // Delete the folder itself
+        folder.delete();
     }
-    // Delete the folder
-    folder.delete();
-}
+
 
 // A custom method to delete a folder recursively
 public static void deleteFolder(File folder) {
@@ -104,6 +123,8 @@ public static void deleteFolder(File folder) {
                 deleteFolder(file);
             }
             // Delete the file
+
+
             file.delete();
         }
     }

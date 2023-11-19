@@ -3,7 +3,6 @@ package com.example;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.zip.ZipOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.io.FileNotFoundException;
@@ -17,11 +16,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import com.example.ZipComponent;
+
 
 
 // This is the ZipFileComposite class that represents a zip file
-public class ZipFileComposite implements ZipComponent {
+public class ZipFileComposite implements ZipComponent, AutoCloseable {
     // This is the ZipFile object that wraps the actual zip file
     private ZipFile zipFile;
     // This is the list of child components
@@ -38,19 +37,41 @@ public class ZipFileComposite implements ZipComponent {
         while (entries.hasMoreElements()) {
             // Get the next entry
             ZipEntry entry = entries.nextElement();
+            System.out.println("ENTRYYY " + entry.getName());
             // Unzip the entry into a file
-            File entryFile = unzipEntry(entry, zipFile.getInputStream(entry), "src\\main\\java\\com\\example\\StudentFiles" );
+            try (InputStream is = zipFile.getInputStream(entry)) {
+                File entryFile = unzipEntry(entry, is, "src\\main\\java\\com\\example\\StudentFiles");
+                // rest of your code
+            
+            
             // Check if the entry is another zip file
             if (entry.getName().endsWith(".zip")) {
                 // Create a ZipFileComposite object from the file and add it to the list of child components
-                components.add(new ZipFileComposite(entryFile));
-                // Delete the temporary file
-                entryFile.delete();
+                try (ZipFileComposite zfc = new ZipFileComposite(entryFile)) {
+                    components.add(zfc);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    // Delete the temporary file
+                    // entryFile.delete();
+                }
+                
             } else {
                 // Create a ZipEntryLeaf object from the entry and the file and add it to the list of child components
                 if (entry.getName().endsWith(".java"))
-                    components.add(new ZipEntryLeaf(entry, new FileInputStream(entryFile)));
+                {
+                    try (FileInputStream fis = new FileInputStream(entryFile)) {
+                        components.add(new ZipEntryLeaf(entry, fis));
+                    }
+                    
+                }
+                    
             }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         }
     }
 
@@ -101,6 +122,13 @@ public class ZipFileComposite implements ZipComponent {
         return Files.newInputStream(Path.of(zipFile.getName()));
     }
 
+    @Override
+    public void close() throws Exception {
+        if (zipFile != null) {
+            zipFile.close();
+        }
+    }
+
     // @Override
     public void add(ZipComponent component) {
         // Add a child component to the list of child components
@@ -143,8 +171,9 @@ public class ZipFileComposite implements ZipComponent {
 
         try {
             Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+            
             System.out.println("File copied successfully");
-        } catch (IOException e) {
+        } catch (Exception e) {
             // Handle the exception
             e.printStackTrace();
         }

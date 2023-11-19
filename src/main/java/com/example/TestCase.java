@@ -26,9 +26,6 @@ public abstract class TestCase{
         allConcreteClasses = instances.getInterfaceClasses();
         this.testMarks = new TestResult(allocatedMarks);
 
-        System.out.println("Instances " + instances.toString());
-        System.out.println("NUMMMM " + testResult.size());
-
     }
 
     public String getTestName(){
