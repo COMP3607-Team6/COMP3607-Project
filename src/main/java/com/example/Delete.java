@@ -11,8 +11,6 @@ public class Delete {
 
         // A custom method to delete a folder recursively
 public static void deleteFolder(String folderPath) {
-    
-    System.out.println("dfubiweufbweufb :" + folderPath);
 
     File folder = new File(folderPath);
     // Get all the files and subfolders in the folder
@@ -30,9 +28,9 @@ public static void deleteFolder(String folderPath) {
                 // Delete the file or the empty directory
                 // Create a Path object for the file to be deleted
 
-                 file.setReadOnly();
-                 file.deleteOnExit();
-                 file.setReadable(true);
+                //  file.setReadOnly();
+                //  file.deleteOnExit();
+                //  file.setReadable(true);
                  file.delete();
                 
                 if(file.exists()){
