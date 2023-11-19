@@ -41,11 +41,10 @@ import com.example.BasicTest.MethodBasicTest;
 
 public class FinalTest extends BaseTest {
 
-
     public FinalTest() {
         super(); 
-        testDescription = new JLabel("Final test description. short one line description of test");
-        testType = "final";
+        this.testDescription.setText("Final test description. short one line description of test");
+        this.testType = "final";
     }
 }
      

@@ -40,8 +40,8 @@ public class StaticTest extends BaseTest {
 
     public StaticTest() {
         super(); 
-        testDescription = new JLabel("static test description. short one line description of test");
-        testType = "static";
+        this.testDescription.setText("static test description. short one line description of test");
+        this.testType = "static";
     }
 
    

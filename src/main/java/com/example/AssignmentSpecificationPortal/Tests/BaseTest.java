@@ -74,7 +74,7 @@ public class BaseTest extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        testDescription = new JLabel("naming convention test description. short one line description of test");
+        testDescription = new JLabel(" description. short one line description of test");
         testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
         testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -173,9 +173,11 @@ public class BaseTest extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String ans = (String) selectedClassComboBox.getSelectedItem();
                 classCheckB.setText("Class - " + ans);
+                
                 updateAttributeList(ans);
                 attributePanel.revalidate();
                 attributePanel.repaint();
+
                 updateMethodList(ans);
                 methodPanel.revalidate();
                 methodPanel.repaint();
