@@ -160,7 +160,7 @@ public class AutomatedJudgeSystem {
                 //Needed so files have time to be created and recognized
                 try {
                     // Pause for 5 seconds
-                    Thread.sleep (2000);
+                    Thread.sleep (3000);
                 } catch (InterruptedException e) {
                     // Handle the interruption
                     e.printStackTrace ();
