@@ -88,7 +88,7 @@ public class AutomatedJudgeSystem {
 
                             String entryName = f.getPath();
 
-                            JavaFileCopier.javaFileCopier(entryName, f);
+                            JavaFileCopier.javaFileCopierToLeaf (entryName, f);
 
 
                         }
