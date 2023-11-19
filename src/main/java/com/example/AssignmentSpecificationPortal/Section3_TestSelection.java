@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,19 +18,20 @@ import javax.swing.JPanel;
 public class Section3_TestSelection extends JPanel {
 
     private CardLayout cardLayout;
-    private ArrayList<ClassInformation> classes;
     private JLabel prompt1;
     private JLabel prompt2;
     private Section4_Tests section4;
     private JButton addTestsButton;
-    private static ArrayList<String> selectedTests;
+    private TestInfo tests;
+    // private static ArrayList<String> selectedTests;
+    private static TestInfo selectedTests;
     private static JPanel checkBoxPanel;
 
-    public Section3_TestSelection(CardLayout layout, ArrayList<ClassInformation> classes, Section4_Tests section4) {
+    public Section3_TestSelection(CardLayout layout, Section4_Tests section4) {
         this.cardLayout = layout;
-        this.classes = classes;
         this.section4 = section4;
-        selectedTests = new ArrayList<String>();
+        // selectedTests = new ArrayList<String>();
+        selectedTests = new TestInfo();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -54,7 +56,7 @@ public class Section3_TestSelection extends JPanel {
         promptPanel.add(prompt1);
         promptPanel.add(prompt2);
 
-        String[] testNames = {
+        ArrayList<String> testNames = new ArrayList<>(Arrays.asList(
                 "Naming Convention Test",
                 "Hierarchy Test",
                 "AccessorType Test",
@@ -62,45 +64,47 @@ public class Section3_TestSelection extends JPanel {
                 "Type Test",
                 "Final Test",
                 "Static Test"
-        };
+        ));
 
-        String[] testDescriptions = {
-                "insert Naming Convention Test description here",
-                "insert Hierarchy Test description here",
-                "insert AccessorType Test description here",
-                "insert Value Test description here",
-                "insert Type Test description here",
-                "insert Final Test description here",
-                "insert Static Test description here"
-        };
+        ArrayList<String> testDescriptions = new ArrayList<>(Arrays.asList(
+                "This test ensures that the tested code adheres to the naming convention specified by the test suite.",
+                "This test accepts a class and checks the type of relationship it shares with a parent class.",
+                "This test is used to validate the proper use of access modifiers within components of code.",
+                "This test compares the actual result of a method/attributes with an expected result to ensure that components work properly.",
+                "This test validates if the actual type of components corresponds with the expected type.",
+                "This test checks if the final keyword is used in a component of the code.",
+                "This test checks if the static keyword is used in a component of the code."
+        ));
 
+        
+        tests = new TestInfo(testNames, testDescriptions);
         ArrayList<JPanel> panels = new ArrayList<>();
 
         mainPanel.add(promptPanel);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         checkBoxPanel = new JPanel();
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.Y_AXIS));
 
-        for (int i = 0; i < testNames.length; i++) {
-            JPanel panel = createPanelWithCheckboxAndLabel(testNames[i], testDescriptions[i]);
+        for (int i = 0; i < tests.getTestNames().size(); i++) {
+            JPanel panel = createPanelWithCheckboxAndLabel(tests.getTestName(i), tests.getTestDescription(i));
             panels.add(panel);
             checkBoxPanel.add(panel);
         }
 
         mainPanel.add(checkBoxPanel);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         addTestsButton = new JButton("Add Tests");
         addTestsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         addTestsButton.addActionListener(e -> {
-            ArrayList<String> testsSelected = getCheckedCheckboxes(checkBoxPanel.getComponents());
+            TestInfo testsSelected = getCheckedCheckboxes(checkBoxPanel.getComponents());
+            testsSelected.print();
             // System.out.println("Checked Checkboxes:");
-            selectedTests.clear();
-            for (String test : testsSelected) {
-                // System.out.println(test);
-                selectedTests.add(test);
-            }
+            selectedTests.clearTests();
+            selectedTests.addTests(testsSelected);
+            // getSelectedTests();
+            
             if (section4 != null) {
                 section4.updateSelectedTests(selectedTests);
             }
@@ -116,7 +120,8 @@ public class Section3_TestSelection extends JPanel {
         checkBox.setPreferredSize(new Dimension(300, 20));
         checkBox.setFont(new Font("Arial", Font.PLAIN, 16));
 
-        JLabel label = new JLabel(testDescription);
+        JLabel label = new JLabel("<html>" + testDescription + "</html>");
+        label.setPreferredSize(new Dimension(400, 35));
 
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -126,28 +131,45 @@ public class Section3_TestSelection extends JPanel {
         return panel;
     }
 
-    private static ArrayList<String> getCheckedCheckboxes(Component[] components) {
-        ArrayList<String> checkedCheckboxes = new ArrayList<>();
+    private static TestInfo getCheckedCheckboxes(Component[] components) {
+        // ArrayList<String> addedTestNames = new ArrayList<>();
+        TestInfo addedTests = new TestInfo();
+        String name = "";
+        String description = "";
         for (Component component : components) { // loop through panels
             if (component instanceof JPanel) {
                 // System.out.println("cb panel reached");
+                name = "";
                 for (Component innerComponent : ((JPanel) component).getComponents()) { // loop through panel's kids -
                                                                                         // checkbox and label
                     if (innerComponent instanceof JCheckBox) {
                         // System.out.println("cb reached");
                         JCheckBox checkBox = (JCheckBox) innerComponent;
                         if (checkBox.isSelected()) {
-                            checkedCheckboxes.add(checkBox.getText());
+                            name = checkBox.getText();
+                            System.out.println("name:" + name);
                         }
                     }
+
+                    if (innerComponent instanceof JLabel && name != "") {
+                        // System.out.println("lb reached");
+                        JLabel label = (JLabel) innerComponent;
+                        description = label.getText();
+                        System.out.println("desc:" + description);
+                    }
+                }
+                
+                if (!name.isEmpty() && !description.isEmpty()) {
+                    addedTests.addTest(name, description);
                 }
             }
         }
-        return checkedCheckboxes;
+        return addedTests;
     }
 
-    public static ArrayList<String> getSelectedTests() {
-        return selectedTests;
+    public void getSelectedTests() {
+        selectedTests.print();
+        // return selectedTests;
     }
     
 }
