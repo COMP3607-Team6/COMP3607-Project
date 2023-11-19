@@ -7,27 +7,38 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.NumberFormatter;
 
+import com.example.TestCase;
+import com.example.TestCaseManager;
 import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
+import com.example.AssignmentSpecificationPortal.ClassesManager;
+import com.example.BasicTest.ClassBasicTest;
+import com.example.BasicTest.AttributeBasicTest;
+import com.example.BasicTest.MethodBasicTest;
 
 public class FinalTest extends JPanel {
 
-    private ArrayList<ClassInformation> classes;
+    // private ArrayList<ClassInformation> classes;
     private JLabel testDescription;
 
     private JPanel selectedClassPanel;
@@ -48,8 +59,18 @@ public class FinalTest extends JPanel {
     private JTextField marksTextField1;
     private JTextArea nameTests;
 
-    public FinalTest(ArrayList<ClassInformation> classes) {
-        this.classes = classes;
+    private ArrayList<ClassBasicTest> classTests;
+    private ArrayList<MethodBasicTest> methodTests;
+    private ArrayList<AttributeBasicTest> attributeTests;
+    private ArrayList<TestCase> testCases;
+
+    public FinalTest() {
+        // this.classes = classes;
+
+        classTests = new ArrayList<ClassBasicTest>();
+        methodTests = new ArrayList<MethodBasicTest>();
+        attributeTests = new ArrayList<AttributeBasicTest>();
+        testCases = new ArrayList<TestCase>();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -66,7 +87,7 @@ public class FinalTest extends JPanel {
         // selectedClassComboBox = new JComboBox<String>(new String[]{"choose class"});
         selectedClassComboBox = new JComboBox<String>();
 
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
@@ -101,18 +122,17 @@ public class FinalTest extends JPanel {
         
         attCheckB = new JCheckBox("Attributes");
         attCheckB.setFont(new Font("Arial", Font.PLAIN, 15));
-        JLabel markslab2 = new JLabel("Marks:");
-        markslab1.setFont(new Font("Arial", Font.PLAIN, 10));
-		JTextField marksTextField2 = new JTextField(3);
-		marksTextField2.setFont(new Font("Arial", Font.PLAIN, 15));
+        //JLabel markslab2 = new JLabel("Marks:");
+        //markslab1.setFont(new Font("Arial", Font.PLAIN, 10));
+		//JTextField marksTextField2 = new JTextField(3);
+		//marksTextField2.setFont(new Font("Arial", Font.PLAIN, 15));
 			
 		selectedClassPanel3.add(attCheckB);
-        selectedClassPanel3.add(markslab2);
-		selectedClassPanel3.add(marksTextField2);	
+        //selectedClassPanel3.add(markslab2);
+		//selectedClassPanel3.add(marksTextField2);	
 
         attributePanel = new JPanel();
         attributePanel.setLayout(new GridLayout(3, 3));
-       // attributePanel.setPreferredSize(new Dimension(10, 10));
         updateAttributeList(ans);
 
         methodPanel = new JPanel();
@@ -126,14 +146,14 @@ public class FinalTest extends JPanel {
         
         methCheckB = new JCheckBox("Methods");
         methCheckB.setFont(new Font("Arial", Font.PLAIN, 15));
-        JLabel markslab3 = new JLabel("Marks:");
-        markslab3.setFont(new Font("Arial", Font.PLAIN, 10));
-		JTextField marksTextField3 = new JTextField(3);
-		marksTextField3.setFont(new Font("Arial", Font.PLAIN, 15));
+      //  JLabel markslab3 = new JLabel("Marks:");
+        //markslab3.setFont(new Font("Arial", Font.PLAIN, 10));
+		//JTextField marksTextField3 = new JTextField(3);
+		//marksTextField3.setFont(new Font("Arial", Font.PLAIN, 15));
 			
 		selectedClassPanel4.add(methCheckB);
-        selectedClassPanel4.add(markslab3);
-		selectedClassPanel4.add(marksTextField3);	
+        //selectedClassPanel4.add(markslab3);
+		//selectedClassPanel4.add(marksTextField3);	
 
         testPanel = new JPanel();
         testPanel.setLayout(new FlowLayout());
@@ -206,8 +226,8 @@ public class FinalTest extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 selectedClassIndex = selectedClassComboBox.getSelectedIndex();
 
-                if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
-                    ClassInformation selectedClass = classes.get(selectedClassIndex);
+                if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
+                    ClassInformation selectedClass = ClassesManager.getClass(selectedClassIndex);
                     // attributeListModel.clear();
 
                     // for (AttributeInformation attribute : selectedClass.getAttributes()) {
@@ -222,74 +242,174 @@ public class FinalTest extends JPanel {
 
     private void updateSelectedClassComboBox() {
         selectedClassComboBox.removeAllItems();
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
     }
 
     private void updateAttributeList(String ans) {
-        for(ClassInformation c:classes){
+        for(ClassInformation c : ClassesManager.getClasses()){
                     if(c.getClassName().equals(ans)){
                         attributePanel.removeAll();
                         ArrayList<AttributeInformation> attributes = c.getAttributes();
                         for(AttributeInformation a:attributes){
-                            JCheckBox aCheckBox = new JCheckBox(a.getAttributeType()+ " "+ a.getAttributeName());
-                            attributePanel.add(aCheckBox);
+                   
+                            JPanel panel = new JPanel();
+                            JCheckBox aCheckBox = new JCheckBox(a.getAttributeName());
+                            panel.add(aCheckBox);
+                            
+                            NumberFormat format = NumberFormat.getIntegerInstance();
+                            NumberFormatter formatter = new NumberFormatter(format);
+                            formatter.setValueClass(Integer.class);
+                            formatter.setMinimum(0); 
+                            JFormattedTextField integerTextField = new JFormattedTextField(formatter); 
+                            integerTextField.setColumns(3);
+                          
+                            panel.add(integerTextField);
+                            attributePanel.add(panel);
                         }    
                     }
         }  
     }
 
+
     private void updateMethodList(String ans) {
-        for(ClassInformation c:classes){
+        for(ClassInformation c : ClassesManager.getClasses()){
                     if(c.getClassName().equals(ans)){
                         methodPanel.removeAll();
                         ArrayList<MethodInformation> methods = c.getMethods();
-                
-                         for(MethodInformation m:methods){
-                            JCheckBox mCheckBox = new JCheckBox(m.getMethodType()+ " "+ m.getMethodName());
-                            methodPanel.add(mCheckBox);
+                        for(MethodInformation m:methods){
+              
+                            JPanel panel = new JPanel();
+                            JCheckBox mCheckBox = new JCheckBox(m.getMethodName());
+                            panel.add(mCheckBox);
+                            
+                            NumberFormat format = NumberFormat.getIntegerInstance();
+                            NumberFormatter formatter = new NumberFormatter(format);
+                            formatter.setValueClass(Integer.class);
+                            formatter.setMinimum(0); // Set minimum value as needed
+                            JFormattedTextField integerTextField = new JFormattedTextField(formatter); 
+                            integerTextField.setColumns(3);
+                           
+                            panel.add(integerTextField);
+                            methodPanel.add(panel);
                         }    
-                    } 
+                    }
         }  
     }
 
     public void printTest() {
-        String nameCon=(String) selectedClassComboBox.getSelectedItem();
-        String marks = (String) marksTextField1.getText();
-
-        if(classCheckB.isSelected()==true){
         
+        TestCaseManager.getTestCases().removeAll(classTests);
+        TestCaseManager.getTestCases().removeAll(attributeTests);
+        TestCaseManager.getTestCases().removeAll(methodTests);
+
+        classTests.clear();
+        methodTests.clear();
+        attributeTests.clear();
+
+        String nameCon=(String) selectedClassComboBox.getSelectedItem();
+        String cName=(String) selectedClassComboBox.getSelectedItem();
+        String marks = (String) marksTextField1.getText();
+        String testType ="final";
+
+        if(classCheckB.isSelected()==true){      
+            classTests.add(new ClassBasicTest(0,cName, testType));
             nameCon = nameCon + "\n" +"-Class [" + marks +" mark]\n";
-            
         }
         if(attCheckB.isSelected()==true){
             nameCon = nameCon+"-Attributes ";
-            nameCon= checkSelectedCheckboxes(attributePanel,nameCon);
-
+            Component[] components = attributePanel.getComponents();
+            for (Component component : components) {
+                if (component instanceof JPanel) {
+                    JPanel Panel1 = (JPanel) component;
+                    nameCon= checkAttributeCheckboxes(Panel1,nameCon,cName);
+                }
+            }
         }
         if(methCheckB.isSelected()==true){
             nameCon = nameCon+"-Methods ";
-            nameCon= checkSelectedCheckboxes(methodPanel,nameCon);
+           // nameCon= checkMethodCheckboxes(methodPanel,nameCon,cName);
+            Component[] components = methodPanel.getComponents();
+            for (Component component : components) {
+                if (component instanceof JPanel) {
+                    JPanel Panel1 = (JPanel) component;
+                    nameCon= checkMethodCheckboxes(Panel1,nameCon,cName);
+                }
+            }
+            
         }
         nameCon = nameCon +"---------------------------\n";
         nameTests.append(nameCon);
+
+        testCases.addAll(classTests);
+        testCases.addAll(attributeTests);
+        testCases.addAll(methodTests);
+
+        TestCaseManager.getTestCases().addAll(classTests);
+        TestCaseManager.getTestCases().addAll(attributeTests);
+        TestCaseManager.getTestCases().addAll(methodTests);
+
     }
 
-    public String checkSelectedCheckboxes(JPanel Panel,String name) {
+    public String checkAttributeCheckboxes(JPanel Panel,String name,String className) {
         Component[] components = Panel.getComponents();
-        for (Component component : components) {
-            if (component instanceof JCheckBox) {
-                JCheckBox checkBox = (JCheckBox) component;
-                String checkBoxText = checkBox.getText();
+        Iterator<Component> iterator = Arrays.asList(components).iterator();
+        int marks = 0;
 
-                if (checkBox.isSelected()) {
-                    name = name + checkBoxText + ", ";
-                } 
-            }
+        while (iterator.hasNext()) {
+            Component currentComponent = iterator.next();
+
+             if (currentComponent instanceof JCheckBox) {
+                  JCheckBox checkBox = (JCheckBox) currentComponent;
+                  String checkBoxText = checkBox.getText();
+                   if (checkBox.isSelected()) {
+                        name = name + checkBoxText + ", ";
+                        if (iterator.hasNext()) {
+                            if (iterator.next() instanceof JFormattedTextField) {
+                                JFormattedTextField textfield =(JFormattedTextField) iterator.next();
+                                marks = Integer.parseInt(textfield.getText());
+                            }
+                        }
+                        attributeTests.add(new AttributeBasicTest(marks,className, checkBoxText, "final"));
+                        marks=0;
+                   } 
+             }
         }
         name = name + "\n";
-        return name;
+        return name; 
     }
-} 
+
+
+    public String checkMethodCheckboxes(JPanel Panel,String name,String className) {
+        Component[] components = Panel.getComponents();
+        Iterator<Component> iterator = Arrays.asList(components).iterator();
+        int marks = 0;
+
+        while (iterator.hasNext()) {
+            Component currentComponent = iterator.next();
+
+             if (currentComponent instanceof JCheckBox) {
+                  JCheckBox checkBox = (JCheckBox) currentComponent;
+                  String checkBoxText = checkBox.getText();
+                   if (checkBox.isSelected()) {
+                        name = name + checkBoxText + ", ";
+                        if (iterator.hasNext()) {
+                            if (iterator.next() instanceof JFormattedTextField) {
+                                JFormattedTextField textfield =(JFormattedTextField) iterator.next();
+                                marks = Integer.parseInt(textfield.getText());
+                            }
+                        }
+                        
+                        methodTests.add(new MethodBasicTest(marks,className, checkBoxText, "final"));
+                        marks=0;
+                   } 
+             }
+        }
+        name = name + "\n";
+        return name; 
+    }
+
+    
+}
