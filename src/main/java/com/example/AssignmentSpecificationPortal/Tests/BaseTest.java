@@ -166,8 +166,15 @@ public class BaseTest extends JPanel {
 
         saveTestsButton.addActionListener(e -> printTest());
 
-        clearTestsButton.addActionListener(e -> nameTests.setText(""));
+        clearTestsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nameTests.setText("");
+                clearTestCases();
+            }
+        });
 
+        
         selectedClassComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -232,8 +239,6 @@ public class BaseTest extends JPanel {
                     }
         }  
     }
-
-    // Other common methods...
 
     protected void clearTestCases() {
         TestCaseManager.getTestCases().removeAll(classTests);
