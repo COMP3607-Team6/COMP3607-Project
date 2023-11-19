@@ -20,7 +20,7 @@ import java.nio.file.StandardCopyOption;
 
 
 // This is the ZipFileComposite class that represents a zip file
-public class ZipFileComposite implements ZipComponent, AutoCloseable {
+public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite {
     // This is the ZipFile object that wraps the actual zip file
     private ZipFile zipFile;
     // This is the list of child components
@@ -86,9 +86,9 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable {
         } else {
             // Create the parent directories if they do not exist
             file.getParentFile().mkdirs();
-            // Create an output stream to write the file
+
+            // Create an output stream to write the file and copy the input stream to the output stream
             OutputStream output = new FileOutputStream(file);
-            // Copy the input stream to the output stream
  
             byte[] buffer = new byte[1024];
             int length;
@@ -98,13 +98,9 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable {
             // Close the output stream
             output.close();
         }
-        // Return the file
+    
         return file;
     }
-
-    // The rest of the ZipFileComposite class remains the same as before
-
-
 
     @Override
     public void printInfo() {
@@ -129,34 +125,35 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable {
         }
     }
 
-    // @Override
+    @Override
     public void add(ZipComponent component) {
         // Add a child component to the list of child components
         components.add(component);
     }
 
-    // @Override
+    @Override
     public void remove(ZipComponent component) {
         // Remove a child component from the list of child components
         components.remove(component);
     }
 
+    @Override
     public void removeAll()
     {
         for (ZipComponent component : components) {
             if (component instanceof ZipFileComposite)
-                ((ZipFileComposite)component).removeAll();
+                ((Composite)component).removeAll();
         }
         components.clear();
     }
     
-
-    // @Override
+    @Override
     public ZipComponent getChild(int index) {
         // Return a child component at a given index
         return components.get(index);
     }
 
+    @Override
     public List<ZipComponent> getComponents(){
         return this.components;
     }

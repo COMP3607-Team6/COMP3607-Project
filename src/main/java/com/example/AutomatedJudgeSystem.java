@@ -58,13 +58,13 @@ public class AutomatedJudgeSystem {
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
-        ZipFileComposite zipFileComposite = null;
+        Composite zipFileComposite = null;
         try 
         {
             // Create a ZipFileComposite object from the File object
             //Adds all student assignments in student files
             zipComponent = new ZipFileComposite(zipFile); 
-            zipFileComposite = (ZipFileComposite) zipComponent;
+            zipFileComposite = (Composite) zipComponent;
         }
         catch(Exception e)
         {

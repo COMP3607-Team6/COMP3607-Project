@@ -104,7 +104,7 @@ public class TestSubmissions {
             // Create a ZipFileComposite object from the File object
             ZipComponent zipComponent = new ZipFileComposite(zipFile);
     
-            ZipFileComposite zipFileComposite = (ZipFileComposite) zipComponent;
+            com.example.Composite zipFileComposite = (com.example.Composite) zipComponent;
 
             // Iterate over the child components of the zip file composite object
             for (ZipComponent z : zipFileComposite.getComponents()) {

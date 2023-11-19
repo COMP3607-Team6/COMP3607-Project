@@ -38,7 +38,7 @@ public class App
             // Create a ZipFileComposite object from the File object
             ZipComponent zipComponent = new ZipFileComposite(zipFile);
     
-            ZipFileComposite zipFileComposite = (ZipFileComposite) zipComponent;
+            Composite zipFileComposite = (Composite) zipComponent;
 
             // Iterate over the child components of the zip file composite object
             for (ZipComponent z : zipFileComposite.getComponents()) {
