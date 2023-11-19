@@ -38,7 +38,7 @@ import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 
 public class NamingConventionTest extends JPanel {
-
+    private String description;
     private ArrayList<ClassBasicTest> classTests;
     private ArrayList<MethodBasicTest> methodTests;
     private ArrayList<AttributeBasicTest> attributeTests;
@@ -69,7 +69,8 @@ public class NamingConventionTest extends JPanel {
     private JTextField marksTextField2;
     private JLabel markslab3;
 
-    public NamingConventionTest() {
+    public NamingConventionTest(String description) {
+        this.description = description;
 
         classTests = new ArrayList<ClassBasicTest>();
         methodTests = new ArrayList<MethodBasicTest>();
@@ -78,7 +79,7 @@ public class NamingConventionTest extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        testDescription = new JLabel("naming convention test description. short one line description of test");
+        testDescription = new JLabel(description);
         testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
         testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
 
