@@ -8,8 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -23,13 +21,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.example.TestCase;
+import com.example.TestCaseManager;
 import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
+import com.example.AssignmentSpecificationPortal.ClassesManager;
+import com.example.BasicTest.ClassBasicTest;
+import com.example.BasicTest.AttributeBasicTest;
+import com.example.BasicTest.MethodBasicTest;
 
 public class AccessorTypeTest extends JPanel {
 
-    private ArrayList<ClassInformation> classes;
+    // private ArrayList<ClassInformation> classes;
     private JLabel testDescription;
 
     private JPanel selectedClassPanel;
@@ -39,7 +43,6 @@ public class AccessorTypeTest extends JPanel {
     private JPanel attributePanel;
     private JPanel methodPanel;
     private JPanel testPanel;
-     private Map<String, String> classLink = new HashMap<>();
 
     private JLabel selectedClassLabel;
     private JButton loadClassesButton;
@@ -51,12 +54,22 @@ public class AccessorTypeTest extends JPanel {
     private JTextField marksTextField1;
     private JTextArea nameTests;
 
-    public AccessorTypeTest(ArrayList<ClassInformation> classes) {
-        this.classes = classes;
+    private ArrayList<ClassBasicTest> classTests;
+    private ArrayList<MethodBasicTest> methodTests;
+    private ArrayList<AttributeBasicTest> attributeTests;
+    private ArrayList<TestCase> testCases;
+
+    public AccessorTypeTest() {
+        // this.classes = classes;
+
+        classTests = new ArrayList<ClassBasicTest>();
+        methodTests = new ArrayList<MethodBasicTest>();
+        attributeTests = new ArrayList<AttributeBasicTest>();
+        testCases = new ArrayList<TestCase>();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        testDescription = new JLabel("Accessor Type test description. short one line description of test");
+        testDescription = new JLabel("naming convention test description. short one line description of test");
         testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
         testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -69,11 +82,9 @@ public class AccessorTypeTest extends JPanel {
         // selectedClassComboBox = new JComboBox<String>(new String[]{"choose class"});
         selectedClassComboBox = new JComboBox<String>();
 
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
-            String classType = c.getAccessType();
             selectedClassComboBox.addItem(className);
-            classLink.put(className, classType);
         }
         selectedClassPanel.add(selectedClassLabel);
         selectedClassPanel.add(selectedClassComboBox);
@@ -87,8 +98,7 @@ public class AccessorTypeTest extends JPanel {
         selectedClassPanel2.setLayout(new FlowLayout());
         //selectedClassPanel2.setPreferredSize(new Dimension(100, 60));
         String ans = (String) selectedClassComboBox.getSelectedItem();
-        String type = classLink.get(ans);
-        classCheckB = new JCheckBox("Class - "+type+" "+ans);
+        classCheckB = new JCheckBox("Class - "+ans);
     
         classCheckB.setFont(new Font("Arial", Font.PLAIN, 15));
         JLabel markslab1 = new JLabel("Marks:");
@@ -195,9 +205,7 @@ public class AccessorTypeTest extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                String ans =(String) selectedClassComboBox.getSelectedItem();
-               String type = classLink.get(ans);
-
-                classCheckB.setText("Class - "+type+" "+ans);// fix
+                classCheckB.setText("Class - "+ans);
                 updateAttributeList(ans);
                 attributePanel.revalidate();
                 attributePanel.repaint();
@@ -214,8 +222,8 @@ public class AccessorTypeTest extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 selectedClassIndex = selectedClassComboBox.getSelectedIndex();
 
-                if (selectedClassIndex >= 0 && selectedClassIndex < classes.size()) {
-                    ClassInformation selectedClass = classes.get(selectedClassIndex);
+                if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
+                    ClassInformation selectedClass = ClassesManager.getClass(selectedClassIndex);
                     // attributeListModel.clear();
 
                     // for (AttributeInformation attribute : selectedClass.getAttributes()) {
@@ -230,19 +238,20 @@ public class AccessorTypeTest extends JPanel {
 
     private void updateSelectedClassComboBox() {
         selectedClassComboBox.removeAllItems();
-        for (ClassInformation c : classes) {
+        for (ClassInformation c : ClassesManager.getClasses()) {
             String className = c.getClassName();
             selectedClassComboBox.addItem(className);
         }
     }
 
     private void updateAttributeList(String ans) {
-        for(ClassInformation c:classes){
+        for(ClassInformation c : ClassesManager.getClasses()){
                     if(c.getClassName().equals(ans)){
                         attributePanel.removeAll();
                         ArrayList<AttributeInformation> attributes = c.getAttributes();
                         for(AttributeInformation a:attributes){
-                            JCheckBox aCheckBox = new JCheckBox(a.getAttributeType()+ " "+ a.getAttributeName());
+                           // JCheckBox aCheckBox = new JCheckBox(a.getAttributeType()+ " "+ a.getAttributeName());
+                           JCheckBox aCheckBox = new JCheckBox(a.getAccessType() + " " + a.getAttributeName());
                             attributePanel.add(aCheckBox);
                         }    
                     }
@@ -250,13 +259,14 @@ public class AccessorTypeTest extends JPanel {
     }
 
     private void updateMethodList(String ans) {
-        for(ClassInformation c:classes){
+        for(ClassInformation c : ClassesManager.getClasses()){
                     if(c.getClassName().equals(ans)){
                         methodPanel.removeAll();
                         ArrayList<MethodInformation> methods = c.getMethods();
                 
                          for(MethodInformation m:methods){
-                            JCheckBox mCheckBox = new JCheckBox(m.getMethodType()+ " "+ m.getMethodName());
+                          //  JCheckBox mCheckBox = new JCheckBox(m.getMethodType()+ " "+ m.getMethodName());
+                            JCheckBox mCheckBox = new JCheckBox(m.getAccessType() + " " + m.getMethodName());
                             methodPanel.add(mCheckBox);
                         }    
                     } 
@@ -264,29 +274,78 @@ public class AccessorTypeTest extends JPanel {
     }
 
     public void printTest() {
-        String nameCon=(String) selectedClassComboBox.getSelectedItem();
-        String marks = (String) marksTextField1.getText();
-        String type = classLink.get(nameCon);
-
-        if(classCheckB.isSelected()==true){
         
-            nameCon = nameCon + "\n" +"-Access Type: "+ type +" [" + marks +" mark]\n";
-            
+        TestCaseManager.getTestCases().removeAll(classTests);
+        TestCaseManager.getTestCases().removeAll(attributeTests);
+        TestCaseManager.getTestCases().removeAll(methodTests);
+
+        classTests.clear();
+        methodTests.clear();
+        attributeTests.clear();
+
+        String nameCon=(String) selectedClassComboBox.getSelectedItem();
+        String cName=(String) selectedClassComboBox.getSelectedItem();
+        String marks = (String) marksTextField1.getText();
+        String testType ="name";
+
+        if(classCheckB.isSelected()==true){      
+            classTests.add(new ClassBasicTest(0,cName, testType));
+            nameCon = nameCon + "\n" +"-Class [" + marks +" mark]\n";
         }
         if(attCheckB.isSelected()==true){
             nameCon = nameCon+"-Attributes ";
-            nameCon= checkSelectedCheckboxes(attributePanel,nameCon);
+            nameCon= checkAttributeCheckboxes(attributePanel,nameCon,cName);
+           // updateAttributeTests();
 
         }
         if(methCheckB.isSelected()==true){
             nameCon = nameCon+"-Methods ";
-            nameCon= checkSelectedCheckboxes(methodPanel,nameCon);
+            nameCon= checkMethodCheckboxes(methodPanel,nameCon,cName);
+            
         }
         nameCon = nameCon +"---------------------------\n";
         nameTests.append(nameCon);
+
+        // System.out.println("class: ");
+        // System.out.println(classTests);
+        // System.out.println("atts: ");
+        // System.out.println(attributeTests);
+        // System.out.println("meths: ");
+        // System.out.println(methodTests);
+
+        testCases.addAll(classTests);
+        testCases.addAll(attributeTests);
+        testCases.addAll(methodTests);
+
+        TestCaseManager.getTestCases().addAll(classTests);
+        TestCaseManager.getTestCases().addAll(attributeTests);
+        TestCaseManager.getTestCases().addAll(methodTests);
+
+        
+        // System.out.println("tcr:");
+        // System.out.println(TestCaseManager.getTestCases());
     }
 
-    public String checkSelectedCheckboxes(JPanel Panel,String name) {
+    public String checkAttributeCheckboxes(JPanel Panel,String name,String className) {
+        Component[] components = Panel.getComponents();
+        for (Component component : components) {
+            System.out.println("component: " + component.getName());
+            if (component instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) component;
+                String checkBoxText = checkBox.getText();
+
+                if (checkBox.isSelected()) {
+                    name = name + checkBoxText + ", ";
+                    // System.out.println("att added");
+                    attributeTests.add(new AttributeBasicTest(0,className, checkBoxText, "name"));
+                } 
+            }
+        }
+        name = name + "\n";
+        return name;
+    }
+
+    public String checkMethodCheckboxes(JPanel Panel,String name,String className) {
         Component[] components = Panel.getComponents();
         for (Component component : components) {
             if (component instanceof JCheckBox) {
@@ -295,10 +354,15 @@ public class AccessorTypeTest extends JPanel {
 
                 if (checkBox.isSelected()) {
                     name = name + checkBoxText + ", ";
+                    methodTests.add(new MethodBasicTest(0,className, checkBoxText, "name"));
                 } 
             }
         }
         name = name + "\n";
         return name;
     }
+
+    
 }
+
+  

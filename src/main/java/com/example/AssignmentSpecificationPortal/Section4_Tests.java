@@ -37,8 +37,8 @@ public class Section4_Tests extends JPanel{
                 section4TabbedPane.addTab(test, new NamingConventionTest());
             // } else if (test == "Hierarchy Test") {
             //     section4TabbedPane.addTab(test, new HierarchyTest());
-            // } else if (test == "AccessorType Test") {
-            //     section4TabbedPane.addTab(test, new AccessorTypeTest());
+            } else if (test == "AccessorType Test") {
+                section4TabbedPane.addTab(test, new AccessorTypeTest());
             // } else if (test == "Final Test") {
             //     section4TabbedPane.addTab(test, new FinalTest());
             // } else if (test == "Static Test") {
