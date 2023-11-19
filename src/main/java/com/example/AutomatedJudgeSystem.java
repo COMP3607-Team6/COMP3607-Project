@@ -170,7 +170,7 @@ String zipFilePath = "ZipFolder.zip";
                 //Needed so files have time to be created and recognized
                 try {
                     // Pause for 5 seconds
-                    Thread.sleep (2000);
+                    Thread.sleep (3000);
                 } catch (InterruptedException e) {
                     // Handle the interruption
                     e.printStackTrace ();
@@ -200,7 +200,6 @@ String zipFilePath = "ZipFolder.zip";
                   
                   testCases.clear();
                 //   paras.clear();
-
                   
                 
                   try {
@@ -214,8 +213,6 @@ String zipFilePath = "ZipFolder.zip";
                  
                   
             } //End of student for loop
-
-            // pdfManager.endOfAssignmentCheck(testCases,specs,true);
             
         }
         catch (IOException e) {
@@ -234,29 +231,21 @@ String zipFilePath = "ZipFolder.zip";
 
 
         pdfManager.endOfAssignmentCheck(testCases,specs,true);
+           
+      
+        // for (ZipComponent a : zipFileComposite.getComponents())
+        // {
+        //     // a.printInfo();
+        // }
 
-        try {
-                    // Pause for 5 seconds
-                    Thread.sleep (5000);
-                } catch (InterruptedException e) {
-                    // Handle the interruption
-                    e.printStackTrace ();
-                }
-                
+        zipFileComposite.removeAll();
 
         for (ZipComponent a : zipFileComposite.getComponents())
         {
             a.printInfo();
         }
 
-        for (ZipComponent a : zipFileComposite.getComponents())
-        {
-            
-        }
-
         ZipFileReader.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
-        // ZipFileReader.deleteSubFolders("src\\main\\java\\com\\example\\StudentFiles");
-        // FileUtils.deleteDirectory(new File("src\\main\\java\\com\\example\\StudentFiles")); // delete the directory
 
         try {
                     // Pause for 5 seconds

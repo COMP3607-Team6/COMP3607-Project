@@ -141,6 +141,16 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable {
         components.remove(component);
     }
 
+    public void removeAll()
+    {
+        for (ZipComponent component : components) {
+            if (component instanceof ZipFileComposite)
+                ((ZipFileComposite)component).removeAll();
+        }
+        components.clear();
+    }
+    
+
     // @Override
     public ZipComponent getChild(int index) {
         // Return a child component at a given index
@@ -164,7 +174,7 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable {
         System.out.println(w.getPath());
 
         int index = w.getPath().lastIndexOf("\\");
-// Get the substring after the last \ character
+        // Get the substring after the last \ character
         String output = w.getPath().substring(index + 1);
         Path target = Paths.get("src\\main\\java\\com\\example\\StudentFile\\" + output);
         // Copy the source file to the target file, replacing the existing file if any
