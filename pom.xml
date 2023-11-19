@@ -92,7 +92,20 @@
             <configuration>
                 <source>1.8</source>
                 <target>1.8</target>
+                <excludes>
+                  <exclude>**/com/example/StudentFiles/**</exclude>
+                </excludes>
             </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.2.0</version> <!-- Specify the correct version -->
+          <configuration>
+              <source>1.8</source> <!-- Set the appropriate source version -->
+              <target>1.8</target> <!-- Set the appropriate target version -->
+              <!-- Other configuration settings as needed -->
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>

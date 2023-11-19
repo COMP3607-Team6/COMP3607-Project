@@ -1,23 +1,20 @@
 package com.example;
 
+import java.io.File;
 import java.io.IOException;
-import java.rmi.server.Operation;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
-import com.example.BasicTest.AttributeBasicTest;
-import com.example.BasicTest.ClassBasicTest;
-import com.example.BasicTest.MethodBasicTest;
-import com.example.BehaviourTests.MethodTypeTest;
-import com.example.BehaviourTests.MethodValueTest;
-import com.example.HierarchyTests.SubClassTest;
-import com.example.HierarchyTests.SubTypeTest;
+
+
+
 
 public class AutomatedJudgeSystem {
     
-    //Contains all tests to be executed for the assignment
-    private static ArrayList<TestCase> testCases = new ArrayList<>();
+    // //Contains all tests to be executed for the assignment
+    // private static ArrayList<TestCase> testCases = new ArrayList<>();
 
     //No longer used and should be removed eventually
     private static StringBuilder assertionResults = new StringBuilder();
@@ -33,54 +30,172 @@ public class AutomatedJudgeSystem {
 
     public static void main (String[] args) throws IOException{
         initializeAssignmentSpecPortal(new AutomatedJudgeSystem());
+    }
 
-        testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
-        testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
-        testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
-        testCases.add(new SubClassTest("StandingFan", "Fan",1));
-        testCases.add(new SubTypeTest("AC", "Device",1));
-        testCases.add(new MethodTypeTest(1, "AC", "coolzBy", int.class ));
-        ArrayList<Object> paras = new ArrayList<>();
-        paras.add(5);
-        paras.add("{}");
-        testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 13));
+    public static void doTest () throws IOException{
         
+        int num = 1;
 
-        //runs all the tests that are added to testcases array
-        executeAssignmentTest();
+        ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
 
-        pdfManager.notify(testCases, "816029005", specs);
-        pdfManager.notify(testCases, "816029002", specs);
-        pdfManager.notify(testCases, "816029007", specs);
 
+        String zipFilePath = "ZipFolder.zip";
+        // Create a File object from the zip file path
+        File zipFile = new File(zipFilePath);
+        ZipComponent zipComponent = null;
+        Composite zipFileComposite = null;
+        try 
+        {
+            // Create a ZipFileComposite object from the File object
+            //Adds all student assignments in student files
+            zipComponent = new ZipFileComposite(zipFile); 
+            zipFileComposite = (Composite) zipComponent;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return;
+        }
+        
+        
+        try {
+      
+            // Iterate student submissions
+            for (ZipComponent z : zipFileComposite.getComponents()) 
+            {
+                 
+                
+
+                // System.out.println("VYVIVUVAIUXVIUVSXIPVSCIYVSPVCUPYVWSCPYVWSCPYVWSYVCPYWVC*UVW(UGC(UW(UCV(WUVCU(W)))))");
+               String outputFolder = "src\\main\\java\\com\\example\\StudentFile";
+               ZipFileComposite c = (ZipFileComposite)z;
+               Path submission_location = SubmissionCopier.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
+            //    System.out.println("JIJINISIISJSIJSIJSIJIPSJSPJPSIS " + c.getPath());
+               Delete.deleteFolder(c.getPath());
+                
+
+                
+                //Iterate student files
+                for (ZipComponent i : c.getComponents())
+                    {
+                        if (i instanceof ZipEntryLeaf)
+                        {
+                            ZipEntryLeaf f = (ZipEntryLeaf)i;
+                            
+
+                            String entryName = f.getPath();
+
+                            JavaFileCopier.javaFileCopier(entryName, f);
+
+
+                        }
+    } //End of java file iteration
+                 
+                //Needed so files have time to be created and recognized
+                try {
+                    // Pause for 5 seconds
+                    Thread.sleep (3000);
+                } catch (InterruptedException e) {
+                    // Handle the interruption
+                    e.printStackTrace ();
+                }
+               
+                //Contains all tests to be executed for the assignment
+                // testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
+                // testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
+                // testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
+                // testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
+                // testCases.add(new SubTypeTest("AC", "Device", 1)); //5
+                // testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
+                // ArrayList<Object> paras = new ArrayList<>();
+                // // paras.add(5);
+                // // paras.add("{}");
+                // testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
+
+                for(TestCase t: testCases){
+                    t.init();
+                }
+
+                
+
+                System.out.println("HIHI");
+                //runs all the tests that are added to testcases array
+                executeAssignmentTest(testCases);
+                pdfManager.notify(testCases, "816029005" + num, specs);
+                num++;
+                  System.out.println(num);
+                
+                 
+                 // testCases.clear();
+                //   paras.clear();
+
+                for(TestCase t: testCases){
+                    t.reset();
+                }
+                  
+                
+                  try {
+                    Delete.deleteFilesInFolder(outputFolder);
+                  }
+                  catch (Exception e)
+                  {
+                    e.printStackTrace();
+                  }
+
+                 
+                  
+            } //End of student for loop
+            
+        }
+        catch (Exception e) {
+            // Handle the exception
+            System.out.println("Unable to read folder. " + e.getMessage());
+        }
 
         pdfManager.endOfAssignmentCheck(testCases,specs,true);
+
+        zipFileComposite.removeAll();
+
+        for (ZipComponent a : zipFileComposite.getComponents())
+        {
+            a.printInfo();
+        }
+
+        Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
+
+        try {
+                    // Pause for 5 seconds
+                    Thread.sleep (5000);
+                } catch (Exception e) {
+                    // Handle the interruption
+                    e.printStackTrace ();
+                }
 
     }
 
     
 
-     // method which calls helper methods to execute the whole process of marking a student assignment
-    public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
+    //  // method which calls helper methods to execute the whole process of marking a student assignment
+    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
 
-        // 1) some method to read the data from the frontend and create all tests for it based on the spec
+    //     // 1) some method to read the data from the frontend and create all tests for it based on the spec
 
-        //LOOP for every Assignment:
+    //     //LOOP for every Assignment:
 
-            //2) method to retrieve student zip file from folder and unzip that assignment
-                //Retrieve studentID and possibly Name??
-                // If file not following naming convention then A flagged folder is generated where that report is saved??
+    //         //2) method to retrieve student zip file from folder and unzip that assignment
+    //             //Retrieve studentID and possibly Name??
+    //             // If file not following naming convention then A flagged folder is generated where that report is saved??
             
-            //3) some method to run the test and generate associated comments for each test
-                executeAssignmentTest();
+    //         //3) some method to run the test and generate associated comments for each test
+    //             executeAssignmentTest();
 
-            //4) method to generate pdf output for a student assignment
-                pdfManager.notify(testCases, studentId, specs);
+    //         //4) method to generate pdf output for a student assignment
+    //             pdfManager.notify(testCases, studentId, specs);
 
-    }
+    // }
 
 
-    public static void executeAssignmentTest(){
+    public static void executeAssignmentTest(ArrayList<TestCase> testCases){
 
         for(TestCase test: testCases){
             String assertionResultString = test.test();
@@ -103,6 +218,15 @@ public class AutomatedJudgeSystem {
         System.out.println("Run tests button in section 5 pressed; AJS notified.");
         System.out.println("Num of test cases: " + TestCaseManager.getTestCases().size());
         System.out.println("Test cases: ");
+      
+
         System.out.println(TestCaseManager.getTestCases());
+        try {
+            doTest();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //return TestCaseManager.getTestCases();
     }
 }

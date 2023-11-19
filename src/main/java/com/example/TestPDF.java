@@ -1,5 +1,4 @@
 package com.example;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -132,7 +131,7 @@ public class TestPDF implements PDFReport {
             
             table.addCell(createCell((Integer.toString(totalMarks)), TextAlignment.CENTER));
 
-            percentage = (totalMarks/totalMarksForTests) *  spec.getAssignmentWeighting();
+            percentage = ((float) totalMarks/totalMarksForTests) *  spec.getAssignmentWeighting(); 
 
             table.addCell(createCell((Double.toString(percentage)), TextAlignment.CENTER));
         }
