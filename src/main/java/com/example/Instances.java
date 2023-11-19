@@ -72,7 +72,7 @@ public class Instances {
                             }
                             Object instance = constructor.newInstance(parameterValues.toArray());
                             a.add(instance);
-                            // System.out.println(instance.toString());
+                            System.out.println(instance.toString());
                             //break;
                         }
                     }

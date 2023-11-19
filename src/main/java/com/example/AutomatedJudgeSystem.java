@@ -156,13 +156,13 @@ public class AutomatedJudgeSystem {
                 testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
                 testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
                 testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
-                testCases.add(new SubClassTest("StandingFan", "Fan",1));
-                testCases.add(new SubTypeTest("AC", "Device",1));
-                testCases.add(new MethodTypeTest(1, "AC", "coolzBy", int.class ));
+                testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
+                testCases.add(new SubTypeTest("AC", "Device", 1)); //5
+                testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
                 ArrayList<Object> paras = new ArrayList<>();
-                paras.add(5);
-                paras.add("{}");
-                testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 13));
+                // paras.add(5);
+                // paras.add("{}");
+                testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
 
                 
 
