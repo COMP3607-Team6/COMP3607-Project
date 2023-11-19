@@ -22,8 +22,14 @@ public class TestInfo {
     }
 
     public void addTests(TestInfo tests) {
+        // System.out.println("add tests method before: ");
+        // System.out.println(testNames);
+        // System.out.println(testDescriptions);
         testNames.addAll(tests.getTestNames());
         testDescriptions.addAll(tests.getTestDescriptions());
+        // System.out.println("add tests method after: ");
+        // System.out.println(testNames);
+        // System.out.println(testDescriptions);
     }
 
     public ArrayList<String> getTestNames() {
@@ -49,5 +55,11 @@ public class TestInfo {
     public void clearTests() {
         testNames.clear();
         testDescriptions.clear();
+    }
+
+    public void print() {
+        System.out.println("TEST INFO toString(): ");
+        System.out.println(testNames);
+        // System.out.println(testDescriptions);
     }
 }

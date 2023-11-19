@@ -99,9 +99,11 @@ public class Section3_TestSelection extends JPanel {
         addTestsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         addTestsButton.addActionListener(e -> {
             TestInfo testsSelected = getCheckedCheckboxes(checkBoxPanel.getComponents());
+            testsSelected.print();
             // System.out.println("Checked Checkboxes:");
             selectedTests.clearTests();
             selectedTests.addTests(testsSelected);
+            // getSelectedTests();
             
             if (section4 != null) {
                 section4.updateSelectedTests(selectedTests);
@@ -145,6 +147,7 @@ public class Section3_TestSelection extends JPanel {
                         JCheckBox checkBox = (JCheckBox) innerComponent;
                         if (checkBox.isSelected()) {
                             name = checkBox.getText();
+                            System.out.println("name:" + name);
                         }
                     }
 
@@ -152,19 +155,21 @@ public class Section3_TestSelection extends JPanel {
                         // System.out.println("lb reached");
                         JLabel label = (JLabel) innerComponent;
                         description = label.getText();
+                        System.out.println("desc:" + description);
                     }
-
-                    if (name != "" && description != "") {
-                        addedTests.addTest(name, description);
-                    }
+                }
+                
+                if (!name.isEmpty() && !description.isEmpty()) {
+                    addedTests.addTest(name, description);
                 }
             }
         }
         return addedTests;
     }
 
-    public static TestInfo getSelectedTests() {
-        return selectedTests;
+    public void getSelectedTests() {
+        selectedTests.print();
+        // return selectedTests;
     }
     
 }

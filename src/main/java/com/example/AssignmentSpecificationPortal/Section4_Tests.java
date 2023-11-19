@@ -29,6 +29,10 @@ public class Section4_Tests extends JPanel{
         }
 
         section4TabbedPane = new JTabbedPane();
+
+        /*private Section2A_Classes section2a;
+        section2a = new Section2A_Classes(cardLayout);
+        section2TabbedPane.addTab("Classes", section2a); */
         
         for (int i = 0; i < selectedTests.getSize(); i++) {
             String name = selectedTests.getTestName(i);
@@ -38,12 +42,12 @@ public class Section4_Tests extends JPanel{
                 section4TabbedPane.addTab(name, new NamingConventionTest(description));
             // } else if (name == "Hierarchy Test") {
             //     section4TabbedPane.addTab(name, new HierarchyTest(description));
-            // } else if (name == "AccessorType Test") {
-            //     section4TabbedPane.addTab(name, new AccessorTypeTest(description));
-            // } else if (name == "Final Test") {
-            //     section4TabbedPane.addTab(name, new FinalTest(description));
-            // } else if (name == "Static Test") {
-            //     section4TabbedPane.addTab(name, new StaticTest(description));
+            } else if (name == "AccessorType Test") {
+                section4TabbedPane.addTab(name, new AccessorTypeTest(description));
+            } else if (name == "Final Test") {
+                section4TabbedPane.addTab(name, new FinalTest(description));
+            } else if (name == "Static Test") {
+                section4TabbedPane.addTab(name, new StaticTest(description));
             } else { // default for now
                 section4TabbedPane.addTab(name, new NamingConventionTest(description));
             }
