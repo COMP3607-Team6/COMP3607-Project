@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.border.EmptyBorder;
 
+import com.example.AssignmentSpecification;
 import com.example.AutomatedJudgeSystem;
 import com.example.TestCaseManager;
 
@@ -22,12 +23,14 @@ public class AssignmentSpecPortal {
     private JTabbedPane section2TabbedPane;
     private JButton backButton;
     private JButton nextButton;
+    
     private Section3_TestSelection section3;
     private Section4_Tests section4;
     private AutomatedJudgeSystem system;
     private Section5_TestRun section5;
 
-public AssignmentSpecPortal(AutomatedJudgeSystem system) {
+public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification asSpec) {
+    
         this.system = system;
         frame = new JFrame("Assignment Specification Portal");
         cardPanel = new JPanel();
@@ -35,7 +38,9 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system) {
         cardPanel.setLayout(cardLayout);
         section2TabbedPane = new JTabbedPane();
 
-        section1 = new Section1(cardLayout);
+        
+        section1 = new Section1(cardLayout,asSpec,system);
+        
         section2a = new Section2A_Classes(cardLayout);
         section2b = new Section2B_Attributes(cardLayout);
         section2c = new Section2C_Methods(cardLayout);
@@ -61,8 +66,11 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system) {
 
         backButton = new JButton("Back");
         nextButton = new JButton("Next");
+       
         backButton.setPreferredSize(new Dimension(100, 30));
         nextButton.setPreferredSize(new Dimension(100, 30));
+
+        
 
         // ActionListener for the back button
         backButton.addActionListener(new ActionListener() {
@@ -79,6 +87,8 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system) {
                 // System.out.println(TestCaseManager.getTestCases());
             }
         });
+
+        
 
         // Panel to hold the buttons
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -100,12 +110,4 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system) {
         frame.setVisible(true);
     }
 
-    // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(new Runnable() {
-    //         public void run() {
-    //             ArrayList<ClassInformation> classes = new ArrayList<ClassInformation>();
-    //             AssignmentSpecPortal assignmentSpecPortal = new AssignmentSpecPortal(classes);
-    //         }
-    //     });
-    // }
 }

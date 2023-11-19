@@ -19,6 +19,8 @@ public class AutomatedJudgeSystem {
     //Contains all tests to be executed for the assignment
     private static ArrayList<TestCase> testCases = new ArrayList<>();
 
+    //private static AssignmentSpecification asSpec;
+
     //No longer used and should be removed eventually
     private static StringBuilder assertionResults = new StringBuilder();
     
@@ -26,14 +28,15 @@ public class AutomatedJudgeSystem {
     private static PDFManager pdfManager = new PDFManager();
 
     // Demo of Assignment Specification, data suppposed to be entered from frontend
-    private static AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
+    private static AssignmentSpecification asSpec = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
     private static AssignmentSpecPortal assignmentSpecPortal;
 
     
 
     public static void main (String[] args) throws IOException{
+       // System.out.println("HI1");
         initializeAssignmentSpecPortal(new AutomatedJudgeSystem());
-
+        //System.out.println("HI");
         testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
         testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
         testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
@@ -49,19 +52,19 @@ public class AutomatedJudgeSystem {
         //runs all the tests that are added to testcases array
         executeAssignmentTest();
 
-        pdfManager.notify(testCases, "816029005", specs);
-        pdfManager.notify(testCases, "816029002", specs);
-        pdfManager.notify(testCases, "816029007", specs);
+        pdfManager.notify(testCases, "816029005", asSpec);
+        pdfManager.notify(testCases, "816029002", asSpec);
+        pdfManager.notify(testCases, "816029007", asSpec);
 
 
-        pdfManager.endOfAssignmentCheck(testCases,specs,true);
+        pdfManager.endOfAssignmentCheck(testCases,asSpec,true);
 
     }
 
     
 
      // method which calls helper methods to execute the whole process of marking a student assignment
-    public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
+    public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification asSpec){
 
         // 1) some method to read the data from the frontend and create all tests for it based on the spec
 
@@ -75,7 +78,7 @@ public class AutomatedJudgeSystem {
                 executeAssignmentTest();
 
             //4) method to generate pdf output for a student assignment
-                pdfManager.notify(testCases, studentId, specs);
+                pdfManager.notify(testCases, studentId, asSpec);
 
     }
 
@@ -90,11 +93,15 @@ public class AutomatedJudgeSystem {
     
     // the following 2 initializeAssignmentSpecPortal methods were made to get around error: Cannot use this in a static context
     public void initializeAssignmentSpecPortal() {
-        assignmentSpecPortal = new AssignmentSpecPortal(this);
+        
+        assignmentSpecPortal = new AssignmentSpecPortal(this,asSpec);
+        
     }
 
     public static void initializeAssignmentSpecPortal(AutomatedJudgeSystem instance) {
-        assignmentSpecPortal = new AssignmentSpecPortal(instance);
+        
+        assignmentSpecPortal = new AssignmentSpecPortal(instance,asSpec);
+    
     }
 
     // on the last frame of the gui, there is a run tests button. when that is pressed it calls back to this method
