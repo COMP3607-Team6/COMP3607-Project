@@ -10,10 +10,4 @@ public interface ZipComponent {
     InputStream getInputStream() throws IOException;
     String getPath();
 
-    // // This method adds a child component to the component
-    // void add(ZipComponent component);
-    // // This method removes a child component from the component
-    // void remove(ZipComponent component);
-    // // This method returns a child component at a given index
-    // ZipComponent getChild(int index);
 }

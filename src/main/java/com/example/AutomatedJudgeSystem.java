@@ -1,15 +1,8 @@
 package com.example;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.rmi.server.Operation;
 import java.util.ArrayList;
 
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
@@ -21,6 +14,9 @@ import com.example.BehaviourTests.MethodTypeTest;
 import com.example.BehaviourTests.MethodValueTest;
 import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
+
+
+
 
 public class AutomatedJudgeSystem {
     
@@ -49,21 +45,29 @@ public class AutomatedJudgeSystem {
         
         int num = 1;
 
-        ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
+        ArrayList<TestCase> testCases = new ArrayList<>();
 
-        
         String zipFilePath = "ZipFolder.zip";
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
-        try {
-
-             
-        
+        ZipComponent zipComponent = null;
+        Composite zipFileComposite = null;
+        try 
+        {
             // Create a ZipFileComposite object from the File object
             //Adds all student assignments in student files
-            ZipComponent zipComponent = new ZipFileComposite(zipFile); 
-            ZipFileComposite zipFileComposite = (ZipFileComposite) zipComponent;
-
+            zipComponent = new ZipFileComposite(zipFile); 
+            zipFileComposite = (Composite) zipComponent;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return;
+        }
+        
+        
+        try {
+      
             // Iterate student submissions
             for (ZipComponent z : zipFileComposite.getComponents()) 
             {
@@ -73,85 +77,23 @@ public class AutomatedJudgeSystem {
                 // System.out.println("VYVIVUVAIUXVIUVSXIPVSCIYVSPVCUPYVWSCPYVWSCPYVWSYVCPYWVC*UVW(UGC(UW(UCV(WUVCU(W)))))");
                String outputFolder = "src\\main\\java\\com\\example\\StudentFile";
                ZipFileComposite c = (ZipFileComposite)z;
-               Path submission_location = c.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
-               System.out.println("JIJINISIISJSIJSIJSIJIPSJSPJPSIS " + c.getPath());
-            //    ZipFileReader.deleteFilesInFolder(c.getPath());
+               Path submission_location = SubmissionCopier.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
+            //    System.out.println("JIJINISIISJSIJSIJSIJIPSJSPJPSIS " + c.getPath());
+               Delete.deleteFolder(c.getPath());
                 
 
                 
                 //Iterate student files
                 for (ZipComponent i : c.getComponents())
                     {
-                        // ZipFileReader.deleteFilesInFolder(outputFolder); This makes only STandingFan show
-                        // ZipFileReader.deleteSubFolders(outputFolder);
                         if (i instanceof ZipEntryLeaf)
                         {
                             ZipEntryLeaf f = (ZipEntryLeaf)i;
-
-                            Path path = Paths.get(f.getPath());
-                            InputStream input = Files.newInputStream(path, StandardOpenOption.READ);
                             
 
                             String entryName = f.getPath();
 
-                            if (entryName.endsWith(".java"))
-                            {
-                                Path sourcePath = Paths.get(entryName);
-
-                                Path dest = Paths.get(outputFolder);
- 
-                                Path entryPath = Paths.get(outputFolder, entryName);
-                                
-                                int index = f.get_rel_path().lastIndexOf("\\");
-                                // Get the substring after the last \ character
-                                String output = f.get_rel_path().substring(index + 1);   
-                                File destinationFile = new File("src\\main\\java\\com\\example\\StudentFile\\" + output);      
-                                String studentJavaFileName = "src\\main\\java\\com\\example\\StudentFile\\" + output;
-                                Path filePath = Paths.get(studentJavaFileName);
-                                Files.createDirectories(filePath.getParent());
-                            try {
-                            // Create the file using the Files.createFile (Path) method
-                                Files.createFile(filePath);
-
-                                try (BufferedWriter writer = Files.newBufferedWriter(destinationFile.toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
-                                        // Add the package declaration to the beginning of the file
-
-                                        Path relativePath = sourcePath.relativize(filePath);
-            
-
-            
-                                        String packageName = relativePath.toString().replace("/", ".");
-                                        packageName = relativePath.toString().replace("\\", ".");
-                                        // Remove the file extension from the package name
-                                        packageName = packageName.substring(0, packageName.lastIndexOf("."));
-                                        packageName = packageName.substring(0, packageName.lastIndexOf("."));
-                                        // Write the package name to the file
-                                        packageName = packageName.replaceAll("^\\.+|", "");
-        
-                                        writer.write("package com.example." + packageName + ";");
-            
-            
-                                        writer.newLine();
-            
-                                        // Copy the contents of the Java file
-                                        byte[] buffer = new byte[1024];
-                                        int len;
-
-                                        FileInputStream zis = new FileInputStream(entryName);
-                                        while ((len = zis.read(buffer)) > 0) {
-                                            writer.write(new String(buffer, 0, len));
-                                        }
-                                    }
-            
-                                // Print a success message
-                                System.out.println("File created successfully: " + filePath);
-                            } catch (IOException e) {
-                            // Handle the exception
-                               e.printStackTrace();
-                            }
-                                
-                                
-                            }
+                            JavaFileCopier.javaFileCopier(entryName, f);
 
 
                         }
@@ -191,37 +133,47 @@ public class AutomatedJudgeSystem {
                 num++;
                   System.out.println(num);
                 
+                 
+                  testCases.clear();
+                //   paras.clear();
                   
-                 // testCases.clear();
-                  //paras.clear();
-
-                for(TestCase t: testCases){
-                    t.reset();
-                }
                 
-                  ZipFileReader.deleteFilesInFolder(outputFolder);
+                  try {
+                    Delete.deleteFilesInFolder(outputFolder);
+                  }
+                  catch (Exception e)
+                  {
+                    e.printStackTrace();
+                  }
+
+                 
                   
             } //End of student for loop
-
-            // pdfManager.endOfAssignmentCheck(testCases,specs,true);
             
         }
-        catch (IOException e) {
+        catch (Exception e) {
             // Handle the exception
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        
-        
-
-        
-
-        // pdfManager.notify(testCases, "816029005", specs);
-        // pdfManager.notify(testCases, "816029002", specs);
-        // pdfManager.notify(testCases, "816029007", specs);
-
-
         pdfManager.endOfAssignmentCheck(testCases,specs,true);
+
+        zipFileComposite.removeAll();
+
+        for (ZipComponent a : zipFileComposite.getComponents())
+        {
+            a.printInfo();
+        }
+
+        Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
+
+        try {
+                    // Pause for 5 seconds
+                    Thread.sleep (5000);
+                } catch (Exception e) {
+                    // Handle the interruption
+                    e.printStackTrace ();
+                }
 
     }
 
@@ -251,9 +203,10 @@ public class AutomatedJudgeSystem {
 
         for(TestCase test: testCases){
             String assertionResultString = test.test();
-            System.out.println("In execute assignment test");
          }
     }
+
+
 
 
 
