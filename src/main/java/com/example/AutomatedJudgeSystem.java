@@ -7,13 +7,6 @@ import java.util.ArrayList;
 
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
-import com.example.BasicTest.AttributeBasicTest;
-import com.example.BasicTest.ClassBasicTest;
-import com.example.BasicTest.MethodBasicTest;
-import com.example.BehaviourTests.MethodTypeTest;
-import com.example.BehaviourTests.MethodValueTest;
-import com.example.HierarchyTests.SubClassTest;
-import com.example.HierarchyTests.SubTypeTest;
 
 
 
@@ -45,7 +38,8 @@ public class AutomatedJudgeSystem {
         
         int num = 1;
 
-        ArrayList<TestCase> testCases = new ArrayList<>();
+        ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
+
 
         String zipFilePath = "ZipFolder.zip";
         // Create a File object from the zip file path
@@ -134,8 +128,12 @@ public class AutomatedJudgeSystem {
                   System.out.println(num);
                 
                  
-                  testCases.clear();
+                 // testCases.clear();
                 //   paras.clear();
+
+                for(TestCase t: testCases){
+                    t.reset();
+                }
                   
                 
                   try {
