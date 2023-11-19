@@ -288,7 +288,7 @@ public class NamingConventionTest extends JPanel {
         String testType ="name";
 
         if(classCheckB.isSelected()==true){      
-            classTests.add(new ClassBasicTest(0,cName, testType));
+            classTests.add(new ClassBasicTest(Integer.parseInt(marks),cName, testType));
             nameCon = nameCon + "\n" +"-Class [" + marks +" mark]\n";
         }
         if(attCheckB.isSelected()==true){
