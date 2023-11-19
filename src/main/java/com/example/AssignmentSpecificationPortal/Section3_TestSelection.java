@@ -21,6 +21,7 @@ public class Section3_TestSelection extends JPanel {
     private JLabel prompt2;
     private Section4_Tests section4;
     private JButton addTestsButton;
+    private TestInfo tests;
     private static ArrayList<String> selectedTests;
     private static JPanel checkBoxPanel;
 
@@ -63,19 +64,21 @@ public class Section3_TestSelection extends JPanel {
         };
 
         String[] testDescriptions = {
-                "insert Naming Convention Test description here",
-                "insert Hierarchy Test description here",
-                "insert AccessorType Test description here",
-                "insert Value Test description here",
-                "insert Type Test description here",
-                "insert Final Test description here",
-                "insert Static Test description here"
+                "This test ensures that the tested code adheres to the naming convention specified by test suite.",
+                "This test accepts a class and check the type of relationship it shares  with a parent class.",
+                "This test is used to validate the proper use of access modifiers within components of code.",
+                "This test compares the actual result of a method/attributes with an expected result to ensure that components work properly.",
+                "This test validates if the actual type of components corresponds with the expected type.",
+                "This test checks if the final keyword is used in a component of code.",
+                "This test checks if the static keyword is used in a component of code."
         };
 
+        
+        // tests = new TestInfo(testNames, testDescriptions);
         ArrayList<JPanel> panels = new ArrayList<>();
 
         mainPanel.add(promptPanel);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         checkBoxPanel = new JPanel();
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.Y_AXIS));
@@ -87,7 +90,7 @@ public class Section3_TestSelection extends JPanel {
         }
 
         mainPanel.add(checkBoxPanel);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         addTestsButton = new JButton("Add Tests");
         addTestsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -114,7 +117,8 @@ public class Section3_TestSelection extends JPanel {
         checkBox.setPreferredSize(new Dimension(300, 20));
         checkBox.setFont(new Font("Arial", Font.PLAIN, 16));
 
-        JLabel label = new JLabel(testDescription);
+        JLabel label = new JLabel("<html>" + testDescription + "</html>");
+        label.setPreferredSize(new Dimension(400, 35));
 
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
