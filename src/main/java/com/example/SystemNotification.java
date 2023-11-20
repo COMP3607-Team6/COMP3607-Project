@@ -1,8 +1,23 @@
 package com.example;
-import java.awt.*;
+import java.awt.AWTException;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 
 public class SystemNotification {
-    public static void main(String[] args) {
+
+    public String message;
+
+    public SystemNotification(String message){
+        this.message = message;
+        callNotification();
+    }
+
+    public void callNotification(){
+
         if (SystemTray.isSupported()) {
             SystemTray tray = SystemTray.getSystemTray();
             Image icon = Toolkit.getDefaultToolkit().getImage("path_to_icon/icon.png"); // Replace with your icon path
@@ -21,7 +36,7 @@ public class SystemNotification {
                 System.out.println("TrayIcon could not be added.");
             }
 
-            trayIcon.displayMessage("Title", "Your waste of time assignment corrections is done!!!", TrayIcon.MessageType.INFO);
+            trayIcon.displayMessage("Title", message, TrayIcon.MessageType.INFO);
         } else {
             System.out.println("SystemTray is not supported");
         }
