@@ -9,4 +9,15 @@ public abstract class HierarchyTest extends TestCase {
         super(allocatedMarks);
     }
 
+    public Class<?> findExtensibleSuperClass(String superClass){
+
+        Class<?> superClassObj = findClassInstance(superClass,allAbstractClasses);
+
+        if (superClassObj == null){
+            superClassObj =  findClassInstance(superClass, allConcreteClasses);
+        }
+
+        return superClassObj;
+    }
+
 }

@@ -26,63 +26,32 @@ public class SubTypeTest extends HierarchyTest {
 
     public String test() {
 
-    //Specify folder with java files
-    Path superClasspath = Paths.get(superClassPath, superClass+".java");
+              Class<?> subclassObj = findClassInstance(subClass, allClasses);
+              Class<?> superClassObj = findClassInstance(superClass, allInterfaceClasses);
 
-    if (Files.exists(superClasspath)) 
-    {
-      classObject = oldFindClassInstance(subClass);
-      if (classObject != null)
-      {
-
-        try {
-            URL url = superClasspath.toUri().toURL();
-            URLClassLoader classLoader = new URLClassLoader(new URL[]{url});
-            
-            String packageName = "com.example.StudentFile."; //Can be made a parameter
-            
-            Class<?> deviceClass = classLoader.loadClass(packageName + superClass);
-            classLoader.close();
-            // System.out.println(deviceClass1.getClasses());
-    
             try {
-                // assertTrue(deviceClass.isInterface());
-                assertTrue(deviceClass.isAssignableFrom(classObject.getClass()));
+                
+                if (subclassObj == null || subclassObj == null){
+                throw new NullPointerException();
+                }
+   
+
+                assertTrue(superClassObj.isAssignableFrom(subclassObj));
                 testMarks.setTestPassed(true);
-                testMarks.setTestComment(classObject.getClass().getSimpleName() + " implements " + deviceClass.getSimpleName());
-                return classObject.getClass().getSimpleName() + " implements " + deviceClass.getSimpleName();
+                testMarks.setTestComment(subclassObj.getSimpleName() + " implements " + superClassObj.getSimpleName());
+                return subclassObj.getSimpleName() + " implements " + superClassObj.getSimpleName();
             }
-            catch (AssertionError e)
-            {   
-                testMarks.setTestComment(classObject.getClass().getSimpleName() + " does not implement " + deviceClass.getSimpleName());
-                return classObject.getClass().getSimpleName() + " does not implement " + deviceClass.getSimpleName();
-            }
-            } 
-            catch (MalformedURLException e) 
+            catch (AssertionError| NullPointerException  e)
             {
-                // fail("MalformedURLException: " + e.getMessage());
-                return "MalformedURLException: " + e.getMessage();
-            } 
-            catch (ClassNotFoundException e) 
-            {
-                // fail("ClassNotFoundException: " + e.getMessage());
-                return "ClassNotFoundException: " + e.getMessage();
-            }
-            catch (IOException e)
-            {
-                return "IOException: " + e.getMessage();
+                testMarks.setTestComment(subClass + " does not implement " + superClass);
+                return subClass + " does not implement " + superClass;
             }
        }
-    }
-
-    return "Test Failed";
-}
-
     
     public static void main (String[] args)
     {
         // Object hi = getSuperClass("Fan");
-        SubTypeTest t = new SubTypeTest("AC", "Device",1);
+        SubTypeTest t = new SubTypeTest("CeilingFan", "Fan",1);
         
         // System.out.println(t.test());
         System.out.println(t.test());

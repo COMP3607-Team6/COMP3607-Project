@@ -29,63 +29,35 @@ public class SubClassTest extends HierarchyTest{
         this.testName = "Subclass Test for relationship between subclass: "+ subClass + " and superclass " + superClass ;
     }
 
-// @Test
-  public String test() {
+public String test() {
 
-    //Specify folder with java files
-    Path superClasspath = Paths.get(superClassPath, superClass+".java");
+    Class<?> subclassObj = findClassInstance(subClass, allClasses);
+    Class<?> superClassObj = findExtensibleSuperClass(superClass);
 
-    System.out.println(superClassPath);
+  try {
+        if (subclassObj == null || subclassObj == null){
+            throw new NullPointerException();
+        }
 
-    if (Files.exists(superClasspath)) 
-    {
-      classObject = oldFindClassInstance(subClass);
-      if (classObject != null)
-      {
 
-        try {
-            URL url = superClasspath.toUri().toURL();
-            URLClassLoader classLoader = new URLClassLoader(new URL[]{url});
-            
-            String packageName = "com.example.StudentFile."; //Can be made a parameter
-            Class<?> deviceClass = classLoader.loadClass(packageName + superClass);
-            // System.out.println(deviceClass1.getClasses());
-            classLoader.close();
-            try {
-                assertTrue(deviceClass.isAssignableFrom(classObject.getClass()));
-                testMarks.setTestPassed(true);
-                testMarks.setTestComment(classObject.getClass().getSimpleName() + " is subclassed from " + deviceClass.getSimpleName());
-                return classObject.getClass().getSimpleName() + " is subclassed from " + deviceClass.getSimpleName();
-            }
-            catch (AssertionError e)
-            {   
-                testMarks.setTestComment(classObject.getClass().getSimpleName() + " is not subclassed from " + deviceClass.getSimpleName());
-                return classObject.getClass().getSimpleName() + " is not subclassed from " + deviceClass.getSimpleName();
-            }
-            } 
-            catch (MalformedURLException e) 
-            {
-                // fail("MalformedURLException: " + e.getMessage());
-                return "MalformedURLException: " + e.getMessage();
-            } 
-            catch (ClassNotFoundException e) 
-            {
-                // fail("ClassNotFoundException: " + e.getMessage());
-                return "ClassNotFoundException: " + e.getMessage();
-            }
-            catch(IOException e){
-                return "IOException: " + e.getMessage();
-            }
-       }
-    }
-    return "Test Failed";
+      assertTrue(superClassObj.isAssignableFrom(subclassObj));
+      testMarks.setTestPassed(true);
+      testMarks.setTestComment(subclassObj.getSimpleName() + " extends " + superClassObj.getSimpleName());
+      return subclassObj.getSimpleName() + " extends " + superClassObj.getSimpleName();
+  }
+  catch (AssertionError| NullPointerException e)
+  {
+      testMarks.setTestComment(subClass + " does not extends " + superClass);
+      return subClass + " does not extends " + superClass;
+  }
+
 }
 
     
     public static void main (String[] args)
     {
         // Object hi = getSuperClass("Fan");
-        SubClassTest t = new SubClassTest("StandingFan", "Fan",1);
+        SubClassTest t = new SubClassTest("CeilingFan", "Fan",1);
         
         // System.out.println(t.test());
         System.out.println(t.test());
