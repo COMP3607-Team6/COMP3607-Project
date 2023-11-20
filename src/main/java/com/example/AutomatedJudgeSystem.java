@@ -1,11 +1,29 @@
 package com.example;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
+import com.example.BasicTest.AttributeBasicTest;
+import com.example.BasicTest.ClassBasicTest;
+import com.example.BasicTest.MethodBasicTest;
+import com.example.BehaviourTests.MethodTypeTest;
+import com.example.BehaviourTests.MethodValueTest;
+import com.example.HierarchyTests.SubClassTest;
+import com.example.HierarchyTests.SubTypeTest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 public class AutomatedJudgeSystem {
     
@@ -25,22 +43,17 @@ public class AutomatedJudgeSystem {
     
 
     public static void main (String[] args) throws IOException{
-        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
-    }
-
-    public static void doTest () throws IOException{
-
-        //System.out.println(asSpec.toString());
-        
+        // initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
+        System.out.println("zipFilePathugui");
         int num = 0;
 
         pdfManager = new PDFManager(asSpec);
 
-        ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
+        ArrayList<TestCase> testCases = new ArrayList<>();//ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
         ArrayList <String> assignmentNames = new ArrayList<>();
         ArrayList <String> studentIds = new ArrayList<>();
 
-        String zipFilePath = asSpec.getFolderPath();
+        String zipFilePath = "ZipFolder.zip" ; //asSpec.getFolderPath();
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
@@ -62,9 +75,16 @@ public class AutomatedJudgeSystem {
           
         //System.out.println(assignmentNames.size());
           for(String a : assignmentNames){
-            String[] parts = a.split("_");
-            studentIds.add(parts[0]);
-            System.out.println(parts[0]);
+            Pattern pattern = Pattern.compile("\\d+");
+            Matcher matcher = pattern.matcher(a);
+
+            if (matcher.find()) {
+                System.out.println((matcher.group())); //(return Integer.parseInt(matcher.group());
+                studentIds.add((matcher.group()));
+            } else {
+                studentIds.add(a);
+                throw new IllegalArgumentException("No number found in filename.");
+            }
           }
 
         
@@ -113,16 +133,16 @@ public class AutomatedJudgeSystem {
                 }
                
                 //Contains all tests to be executed for the assignment
-                // testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
-                // testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
-                // testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
-                // testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
-                // testCases.add(new SubTypeTest("AC", "Device", 1)); //5
-                // testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
-                // ArrayList<Object> paras = new ArrayList<>();
-                // // paras.add(5);
-                // // paras.add("{}");
-                // testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
+                testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
+                testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
+                testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
+                testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
+                testCases.add(new SubTypeTest("AC", "Device", 1)); //5
+                testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
+                ArrayList<Object> paras = new ArrayList<>();
+                // paras.add(5);
+                // paras.add("{}");
+                testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
 
                 for(TestCase t: testCases){
                     t.init();
@@ -133,7 +153,7 @@ public class AutomatedJudgeSystem {
                 System.out.println("HIHI");
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
-                pdfManager.notify(testCases, studentIds.get(num));
+                pdfManager.notify(testCases, studentIds.get(num), submission_location.toString());
                 num++;
                   System.out.println(num);
                 
@@ -147,6 +167,16 @@ public class AutomatedJudgeSystem {
                   
                 
                   try {
+                    copyFile(submission_location.toString(), "src\\main\\java\\com\\example\\GradedSubmissions\\");
+                    try {
+                    // Pause for 5 seconds
+                    Thread.sleep (5000);
+                } catch (Exception e) {
+                    // Handle the interruption
+                    e.printStackTrace ();
+                }
+                // System.out.println(submission_location.toString());
+                    // FileToZipCopier.copyFile(new File("src\\main\\java\\com\\example\\GradedSubmissions"), submission_location.toFile());
                   Delete.deleteFilesInFolder(outputFolder);
                   }
                   catch (Exception e)
@@ -164,7 +194,7 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        pdfManager.endOfAssignmentCheck(testCases,true);
+        // pdfManager.endOfAssignmentCheck(testCases,true, "src\\main\\java\\com\\example\\tobeDeleted\\FancyTable.pdf");
 
         zipFileComposite.removeAll();
 
@@ -172,8 +202,8 @@ public class AutomatedJudgeSystem {
         {
             a.printInfo();
         }
-
-       // Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
+// 
+       Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
 
         try {
                     // Pause for 5 seconds
@@ -183,9 +213,71 @@ public class AutomatedJudgeSystem {
                     e.printStackTrace ();
                 }
 
+                Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
+                System.out.println("zipFilePath");
+                System.out.println("zipFilePath");
+
     }
 
+    public static void doTest () throws IOException{
+
+        //System.out.println(asSpec.toString());
+        
+        
+    }
+
+    private static void copyFile(String sourceFilePath, String destinationFilePath) {
+        
+        try{
+            ZipFile zipFile = new ZipFile(sourceFilePath);
+            Enumeration<? extends ZipEntry> entries = zipFile.entries();
+
+            while (entries.hasMoreElements()) {
+                // Get the next entry
+                ZipEntry entry = entries.nextElement();
+                System.out.println("Entryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy " + entry.getName());
+
+                try (InputStream is = zipFile.getInputStream(entry)) {
+                File entryFile = unzipEntry(entry, is, "src\\main\\java\\com\\example\\GradedSubmissions");
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            } 
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    // This is a private static method that unzips a zip entry into a file
+    private static File unzipEntry(ZipEntry entry, InputStream input, String outputFolder) throws IOException {
+        // Create a file in the destination directory with the same name as the zip entry
+        File file = new File("src\\main\\java\\com\\example\\StudentFiles", entry.getName());
+        // Check if the entry is a directory
+        if (entry.isDirectory()) {
+            // Create the directory
+            file.mkdirs();
+        } else {
+            // Create the parent directories if they do not exist
+            file.getParentFile().mkdirs();
+
+            // Create an output stream to write the file and copy the input stream to the output stream
+            OutputStream output = new FileOutputStream(file);
+ 
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = input.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+            // Close the output stream
+            output.close();
+        }
     
+        return file;
+    }
 
     //  // method which calls helper methods to execute the whole process of marking a student assignment
     // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification asSpec){

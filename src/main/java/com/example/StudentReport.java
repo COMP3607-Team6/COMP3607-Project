@@ -1,6 +1,11 @@
 package com.example;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -10,6 +15,7 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
+import java.io.IOException;
 
 public class StudentReport implements PDFReport {
   
@@ -27,17 +33,20 @@ public class StudentReport implements PDFReport {
         totalMarksForTests = 0;
     }
 
-    public void update(ArrayList<TestCase> cases, String StudentID,boolean assignmentsEnd){
+    public void update(ArrayList<TestCase> cases, String StudentID,boolean assignmentsEnd, String submission_location){
 
         int countTestcases = 0;
 
         if(StudentID != null){
 
          try {
-            writer = new PdfWriter(StudentID +".pdf");
+            System.out.println("Student id is here " + StudentID);
+            writer = new PdfWriter("src\\main\\java\\com\\example\\GradedSubmissions\\" + StudentID + ".pdf");
+            
         } catch (FileNotFoundException e) {
 
             e.printStackTrace();
+            return;
         }
 
 
@@ -91,8 +100,44 @@ public class StudentReport implements PDFReport {
 
         }
 
+        File student_pdf = new File(StudentID + ".pdf");
+        System.out.println("ADDED " + student_pdf.getName());
+        FileToZipCopier.copyFile(new File(submission_location), student_pdf);
     }
 
+    private static void zipSingleFile(File file, String zipFileName) {
+        try {
+            // Create ZipOutputStream to write to the zip file
+            FileOutputStream fos = new FileOutputStream(zipFileName);
+            ZipOutputStream zos = new ZipOutputStream(fos);
+
+            // Add a new ZipEntry to the ZipOutputStream
+            ZipEntry ze = new ZipEntry(file.getName());
+            zos.putNextEntry(ze);
+
+            // Read the file and write to ZipOutputStream
+            FileInputStream fis = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fis.read(buffer)) > 0) {
+                zos.write(buffer, 0, len);
+            }
+
+            // Close the zip entry to write to zip file
+            zos.closeEntry();
+
+            // Close resources
+            zos.close();
+            fis.close();
+            fos.close();
+
+            System.out.println(file.getCanonicalPath() + " is zipped to " + zipFileName);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     // Function to create a cell with content and alignment
     private static Cell createCell(String content, TextAlignment alignment) {
         Cell cell = new Cell().add(new Paragraph(content));

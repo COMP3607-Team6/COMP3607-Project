@@ -60,7 +60,7 @@ public class ClassReport implements PDFReport {
   }
 
 
-    public void update(ArrayList<TestCase> cases, String StudentID, boolean assignmentsEnd){
+    public void update(ArrayList<TestCase> cases, String StudentID, boolean assignmentsEnd, String submission_location){
 
          double percentage;
 
@@ -109,6 +109,7 @@ public class ClassReport implements PDFReport {
         percentage = 0.00;
     
         System.out.println("PDF updated successfully.");
+        // return "Need to update return in ClassReport.java";
 
     }
 
