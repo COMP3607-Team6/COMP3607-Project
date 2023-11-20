@@ -12,6 +12,7 @@ import com.example.AssignmentSpecificationPortal.Tests.HierarchyTest;
 import com.example.AssignmentSpecificationPortal.Tests.NamingConventionTest;
 import com.example.AssignmentSpecificationPortal.Tests.StaticTest;
 import com.example.AssignmentSpecificationPortal.Tests.ValueTest;
+import com.example.AssignmentSpecificationPortal.Tests.TypeTest;
 
 public class Section4_Tests extends JPanel{
 
@@ -50,8 +51,8 @@ public class Section4_Tests extends JPanel{
                 section4TabbedPane.addTab(name, new AccessorTypeTest(description));
             } else if (name == "Value Test") {
                 section4TabbedPane.addTab(name, new ValueTest(description));
-            // } else if (name == "Type Test") {
-            //     section4TabbedPane.addTab(name, new TypeTest(description));
+            } else if (name == "Type Test") {
+                 section4TabbedPane.addTab(name, new TypeTest(description));
             } else if (name == "Final Test") {
                 section4TabbedPane.addTab(name, new FinalTest(description));
             } else if (name == "Static Test") {
