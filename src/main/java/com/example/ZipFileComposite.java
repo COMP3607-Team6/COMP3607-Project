@@ -111,7 +111,7 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
     @Override
     public InputStream getInputStream() throws IOException {
         // Return the input stream of the zip file
-        return Files.newInputStream(Path.of(zipFile.getName()));
+        return new FileInputStream(zipFile.getName());
     }
 
     @Override

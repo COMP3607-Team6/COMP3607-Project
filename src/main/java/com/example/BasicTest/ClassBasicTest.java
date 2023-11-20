@@ -23,7 +23,7 @@ public class ClassBasicTest extends BasicTests {
             testMarks.setTestComment("Class " + className + testTypeObject.getSuccessMessage());
             return "Class Name: " + className + testTypeObject.getSuccessMessage();
         }
-        catch(AssertionError e){
+        catch(AssertionError | NullPointerException n){
             testMarks.setTestComment("Class " + className + testTypeObject.getErrorMessage());
             return "Class Name:" + className + testTypeObject.getErrorMessage();
         }

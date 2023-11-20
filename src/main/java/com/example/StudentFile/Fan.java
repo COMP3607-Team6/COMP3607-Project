@@ -1,7 +1,9 @@
-package com.example.TestAssignment;
-//816029635
+package com.example.StudentFile;
 
-public class AC implements Device 
+//816029635
+import java.util.ArrayList;
+
+public abstract class Fan implements Device
 {
    protected String id;
    protected boolean breezy;
@@ -9,18 +11,21 @@ public class AC implements Device
    protected int coolBy;
    protected int breeziness;
    protected int noisiness;
-   protected boolean isPort;
    protected boolean on;
-   private static int counter = 0;
+   protected boolean isPort; 
+   private static int ceilCounter = 1;
+   private static int standCounter = 1;
    
-   public AC (){
-       this.id = "AC" + String.valueOf(counter);
-       this.breeziness = 0;
-       this.coolBy = 5;
-       this.noisiness = 0;
-       this.isPort = false;
-       this.on = false;
-       counter++;
+   public Fan (int noise){
+       if(noise == 0){
+            this.id = String.valueOf(ceilCounter);
+            ceilCounter++;
+       }
+       else{
+            this.id = String.valueOf(standCounter);
+            standCounter++;
+       }
+       this.noisiness = noise;
    }
    
    public String getID(){
@@ -58,4 +63,6 @@ public class AC implements Device
     public int getNoisiness(){
        return this.noisiness;
    }
+   
 }
+
