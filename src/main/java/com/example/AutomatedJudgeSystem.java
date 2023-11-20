@@ -16,7 +16,7 @@ public class AutomatedJudgeSystem {
     private static StringBuilder assertionResults = new StringBuilder();
     
     //Instance of PDFManager to activate PDF observer
-    private static PDFManager pdfManager = new PDFManager();
+    private static PDFManager pdfManager;
 
     // Demo of Assignment Specification, data suppposed to be entered from frontend
     private static AssignmentSpecification asSpec = new AssignmentSpecification("", "", "", "", "",0);
@@ -33,6 +33,8 @@ public class AutomatedJudgeSystem {
         //System.out.println(asSpec.toString());
         
         int num = 1;
+
+        pdfManager = new PDFManager(asSpec);
 
         ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
 
@@ -59,6 +61,7 @@ public class AutomatedJudgeSystem {
         try {
       
             // Iterate student submissions
+            SystemNotification testExecutionNotification = new SystemNotification("Test Suite is processing assignments :)");
             for (ZipComponent z : zipFileComposite.getComponents()) 
             {
                  
@@ -119,7 +122,7 @@ public class AutomatedJudgeSystem {
                 System.out.println("HIHI");
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
-                pdfManager.notify(testCases, "816029005" + num, asSpec);
+                pdfManager.notify(testCases, "816029005" + num);
                 num++;
                   System.out.println(num);
                 
@@ -150,7 +153,7 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        pdfManager.endOfAssignmentCheck(testCases,asSpec,true);
+        pdfManager.endOfAssignmentCheck(testCases,true);
 
         zipFileComposite.removeAll();
 
@@ -194,7 +197,6 @@ public class AutomatedJudgeSystem {
 
 
     public static void executeAssignmentTest(ArrayList<TestCase> testCases){
-
         for(TestCase test: testCases){
             String assertionResultString = test.test();
          }
