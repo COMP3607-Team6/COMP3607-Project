@@ -32,12 +32,13 @@ public class AutomatedJudgeSystem {
 
         //System.out.println(asSpec.toString());
         
-        int num = 1;
+        int num = 0;
 
         pdfManager = new PDFManager(asSpec);
 
         ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
-
+        ArrayList <String> assignmentNames = new ArrayList<>();
+        ArrayList <String> studentIds = new ArrayList<>();
 
         String zipFilePath = asSpec.getFolderPath();
         // Create a File object from the zip file path
@@ -50,12 +51,22 @@ public class AutomatedJudgeSystem {
             //Adds all student assignments in student files
             zipComponent = new ZipFileComposite(zipFile); 
             zipFileComposite = (Composite) zipComponent;
+            assignmentNames = ((ZipFileComposite) zipComponent).getFileNames();
         }
         catch(Exception e)
         {
             e.printStackTrace();
             return;
         }
+
+          
+        //System.out.println(assignmentNames.size());
+          for(String a : assignmentNames){
+            String[] parts = a.split("_");
+            studentIds.add(parts[0]);
+            System.out.println(parts[0]);
+          }
+
         
         
         try {
@@ -122,7 +133,7 @@ public class AutomatedJudgeSystem {
                 System.out.println("HIHI");
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
-                pdfManager.notify(testCases, "816029005" + num);
+                pdfManager.notify(testCases, studentIds.get(num));
                 num++;
                   System.out.println(num);
                 
@@ -136,7 +147,7 @@ public class AutomatedJudgeSystem {
                   
                 
                   try {
-                    Delete.deleteFilesInFolder(outputFolder);
+                  Delete.deleteFilesInFolder(outputFolder);
                   }
                   catch (Exception e)
                   {
@@ -162,7 +173,7 @@ public class AutomatedJudgeSystem {
             a.printInfo();
         }
 
-        Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
+       // Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
 
         try {
                     // Pause for 5 seconds
