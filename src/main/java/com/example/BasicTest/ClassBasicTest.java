@@ -13,6 +13,8 @@ public class ClassBasicTest extends BasicTests {
         this.testName = testTypeObject.classTestNameSwap() + className;
     }
 
+    
+
     public String test(){
 
         classObject = findClassInstance(className,allClasses);
