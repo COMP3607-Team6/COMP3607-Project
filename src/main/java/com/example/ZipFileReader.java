@@ -4,7 +4,10 @@ import java.nio.file.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class ZipFileReader {
+
+
+public class ZipFileReader implements Unzip{
+
     public String unzip(String zipFilePath, String outputFolder) {
         try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(Paths.get(zipFilePath)))) {
             ZipEntry zipEntry;
@@ -67,74 +70,5 @@ public class ZipFileReader {
         }
         return "";
     }
-
-    // A custom method to delete a folder recursively
-public static void deleteFolder(String folderPath) {
-    // Create a File object for the folder
-    File folder = new File(folderPath);
-    // Get all the files and subfolders in the folder
-    File[] files = folder.listFiles();
-    // If the folder is not empty, delete each file/subfolder
-    if (files != null) {
-        for (File file : files) {
-            // If the file is a directory, call the method recursively
-            if (file.isDirectory()) {
-                deleteFolder(file.getPath());
-            }
-            // Delete the file
-            file.delete();
-        }
-    }
-    // Delete the folder
-    folder.delete();
-}
-
-// A custom method to delete a folder recursively
-public static void deleteFolder(File folder) {
-    // Get all the files and subfolders in the folder
-    File[] files = folder.listFiles();
-    // If the folder is not empty, delete each file/subfolder
-    if (files != null) {
-        for (File file : files) {
-            // If the file is a directory, call the method recursively
-            if (file.isDirectory()) {
-                deleteFolder(file);
-            }
-            // Delete the file
-            file.delete();
-        }
-    }
-    // Delete the folder
-    folder.delete();
-}
-
-// A custom method to delete all the files within a folder but not the folder itself
-public static void deleteFilesInFolder(String folderPath) {
-    // Create a File object for the folder
-    File folder = new File(folderPath);
-    // Get all the files and subfolders in the folder
-    File[] files = folder.listFiles();
-    // If the folder is not empty, delete each file/subfolder
-    if (files != null) {
-        for (File file : files) {
-            // Delete the file or subfolder
-            file.delete();
-        }
-    }
-}
-
-// A custom method to delete all the files within a folder but not the folder itself
-public static void deleteFilesInFolder(File folder) {
-    
-    // Get all the files and subfolders in the folder
-    File[] files = folder.listFiles();
-    // If the folder is not empty, delete each file/subfolder
-    if (files != null) {
-        for (File file : files) {
-            // Delete the file or subfolder
-            file.delete();
-        }
-    }
-}
 
 }

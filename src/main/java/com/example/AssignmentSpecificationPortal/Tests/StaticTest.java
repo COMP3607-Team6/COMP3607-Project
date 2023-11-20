@@ -38,9 +38,9 @@ import com.example.BasicTest.MethodBasicTest;
 
 public class StaticTest extends BaseTest {
 
-    public StaticTest() {
+    public StaticTest(String description) {
         super(); 
-        this.testDescription.setText("static test description. short one line description of test");
+        this.testDescription.setText(description);
         this.testType = "static";
     }
 

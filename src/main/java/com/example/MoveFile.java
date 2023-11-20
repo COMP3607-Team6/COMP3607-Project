@@ -4,10 +4,10 @@ import java.nio.file.*;
 import java.util.stream.Stream;
 
 public class MoveFile {
-    public static void main(String[] args) {
+    public static void move(String sourceFolderPath, String destinationPath) {
         // Define the source folder and destination folder within the project
-        String sourceFolderPath = "C:\\Users\\Avinash Roopnarine\\Desktop\\OOP 2\\COMP3607-Project\\target\\classes\\com\\example\\Avinash_Roopnarine_816029635_A2"; // Update with the actual source folder path
-        String destinationPath = "C:\\Users\\Avinash Roopnarine\\Desktop\\OOP 2\\COMP3607-Project\\src\\main\\java\\com\\example"; // Update with the desired destination path
+        //String sourceFolderPath = "C:\\Users\\Avinash Roopnarine\\Desktop\\OOP 2\\COMP3607-Project\\target\\classes\\com\\example\\Avinash_Roopnarine_816029635_A2"; // Update with the actual source folder path
+        // String destinationPath = "C:\\Users\\Avinash Roopnarine\\Desktop\\OOP 2\\COMP3607-Project\\src\\main\\java\\com\\example"; // Update with the desired destination path
 
         try {
             // Resolve the full paths

@@ -17,6 +17,7 @@ public abstract class TestCase{
     protected String testName;
 
 
+
     public TestCase(int allocatedMarks){
         instances = new Instances(); // Initialize the instances variable with a new Instances object
         testResult = instances.getInstances();
@@ -27,6 +28,27 @@ public abstract class TestCase{
         this.testMarks = new TestResult(allocatedMarks);
 
     }
+
+
+    public void init(){
+        instances = new Instances(); // Initialize the instances variable with a new Instances object
+        testResult = instances.getInstances();
+        allClasses = instances.getAllClasses();
+        allAbstractClasses = instances.getAbstractClasses();
+        allInterfaceClasses= instances.getInterfaceClasses();
+        allConcreteClasses = instances.getInterfaceClasses();
+
+        System.out.println("Instances " + instances.toString());
+        System.out.println("NUMMMM " + testResult.size());
+
+    }
+
+    public void reset(){
+       testMarks.setTestPassed(false);
+       testMarks.setTestComment("");
+    }
+
+
 
     public String getTestName(){
         return testName;

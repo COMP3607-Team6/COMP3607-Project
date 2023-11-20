@@ -8,7 +8,8 @@ public class ZipEntryLeaf implements ZipComponent {
     private ZipEntry zipEntry;
     // This is the input stream of the zip entry
     private InputStream inputStream;
-    private String storedFilePath;
+    public String storedFilePath;
+    public String rel_path;
 
 
     // This is the constructor that takes a ZipEntry object and an input stream as parameters
@@ -16,7 +17,8 @@ public class ZipEntryLeaf implements ZipComponent {
         // Assign the ZipEntry object and the input stream to the fields
         this.zipEntry = zipEntry;
         this.inputStream = inputStream;
-        storedFilePath = (zipEntry.getName()).toString().replace("/", "\\");;
+        storedFilePath = "src\\main\\java\\com\\example\\StudentFiles\\" + (zipEntry.getName()).toString().replace("/", "\\");
+        rel_path = (zipEntry.getName()).toString().replace("/", "\\");;
     }
 
     @Override
@@ -28,6 +30,15 @@ public class ZipEntryLeaf implements ZipComponent {
     public InputStream getInputStream() {
         // Return the input stream of the zip entry
         return inputStream;
+    }
+
+    public String getPath(){
+        return this.storedFilePath;
+    }
+
+    public String get_rel_path()
+    {
+        return this.rel_path;
     }
 
 }

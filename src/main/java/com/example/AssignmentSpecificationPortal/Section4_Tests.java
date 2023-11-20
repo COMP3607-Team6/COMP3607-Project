@@ -21,7 +21,7 @@ public class Section4_Tests extends JPanel{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
     
-    public void updateSelectedTests(ArrayList<String> selectedTests) {
+    public void updateSelectedTests(TestInfo selectedTests) {
         System.out.println("Received Updated Selected Tests: " + selectedTests);
 
         if (section4TabbedPane != null) {
@@ -34,23 +34,22 @@ public class Section4_Tests extends JPanel{
         section2a = new Section2A_Classes(cardLayout);
         section2TabbedPane.addTab("Classes", section2a); */
         
-        for (String test : selectedTests) {
+        for (int i = 0; i < selectedTests.getSize(); i++) {
+            String name = selectedTests.getTestName(i);
+            String description = selectedTests.getTestDescription(i);
 
-            // need to do like an if to decide which test gui to add
-            if (test == "Naming Convention Test") {
-                section4TabbedPane.addTab(test, new NamingConventionTest());
-             } else if (test == "Hierarchy Test") {
-                 section4TabbedPane.addTab(test, new HierarchyTest());
-             } else if(test == "Value Test"){
-                section4TabbedPane.addTab(test, new ValueTest());
-             } else if (test == "AccessorType Test") {
-                section4TabbedPane.addTab(test, new AccessorTypeTest());
-            } else if (test == "Final Test") {
-                section4TabbedPane.addTab(test, new FinalTest());
-            } else if (test == "Static Test") {
-                section4TabbedPane.addTab(test, new StaticTest());  
+            if (name == "Naming Convention Test") {
+                section4TabbedPane.addTab(name, new NamingConventionTest(description));
+            // } else if (name == "Hierarchy Test") {
+            //     section4TabbedPane.addTab(name, new HierarchyTest(description));
+            } else if (name == "AccessorType Test") {
+                section4TabbedPane.addTab(name, new AccessorTypeTest(description));
+            } else if (name == "Final Test") {
+                section4TabbedPane.addTab(name, new FinalTest(description));
+            } else if (name == "Static Test") {
+                section4TabbedPane.addTab(name, new StaticTest(description));
             } else { // default for now
-                section4TabbedPane.addTab(test, new BaseTest());
+                section4TabbedPane.addTab(name, new NamingConventionTest(description));
             }
         }
 

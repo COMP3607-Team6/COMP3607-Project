@@ -36,9 +36,9 @@ import com.example.BasicTest.MethodBasicTest;
 public class AccessorTypeTest extends BaseTest {
     private String classAccessType;
 
-    public AccessorTypeTest() {
+    public AccessorTypeTest(String description) {
         super(); 
-        this.testDescription.setText("AccessorType test description. short one line description of test");
+        this.testDescription.setText(description);
         classAccessType="";
         String ans = (String) selectedClassComboBox.getSelectedItem();
         for(ClassInformation c : ClassesManager.getClasses()){

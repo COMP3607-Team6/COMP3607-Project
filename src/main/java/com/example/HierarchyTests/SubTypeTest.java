@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 
 public class SubTypeTest extends HierarchyTest {
     private Object classObject;
-    private String superClassPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
+    private String superClassPath = "src\\main\\java\\com\\example\\StudentFile";
     String subClass; String superClass;
 
     public SubTypeTest(String subClass, String superClass, int allocatedMarks)
@@ -39,7 +39,7 @@ public class SubTypeTest extends HierarchyTest {
             URL url = superClasspath.toUri().toURL();
             URLClassLoader classLoader = new URLClassLoader(new URL[]{url});
             
-            String packageName = "com.example.Avinash_Roopnarine_816029635_A2."; //Can be made a parameter
+            String packageName = "com.example.StudentFile."; //Can be made a parameter
             
             Class<?> deviceClass = classLoader.loadClass(packageName + superClass);
             classLoader.close();
