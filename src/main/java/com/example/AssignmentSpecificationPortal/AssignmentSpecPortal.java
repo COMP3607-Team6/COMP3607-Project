@@ -16,6 +16,7 @@ public class AssignmentSpecPortal {
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel cardPanel;
+    private String currentCard; 
     private Section1 section1;
     private Section2A_Classes section2a;
     private Section2B_Attributes section2b;
@@ -53,11 +54,13 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         section2TabbedPane.addTab("Methods", section2c);
 
         cardPanel.add(section1, "Section 1");
+
         cardPanel.add(section2TabbedPane, "Section 2");
         cardPanel.add(section3, "Section 3");
         cardPanel.add(section4, "Section 4");
         cardPanel.add(section5, "Section 5");
         // cardPanel.add(section3, "Section 3");
+       
 
         // Add padding around the contents of the frame
         cardPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -70,12 +73,21 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         backButton.setPreferredSize(new Dimension(100, 30));
         nextButton.setPreferredSize(new Dimension(100, 30));
 
-        
+        // Panel to hold the buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(backButton);
+        buttonPanel.add(nextButton);
+
+        currentCard = "Section 1";
+        updateButtonVisibility(buttonPanel);
 
         // ActionListener for the back button
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.previous(cardPanel);
+                currentCard = getLastCardName(currentCard);
+                updateButtonVisibility( buttonPanel);
+                
             }
         });
 
@@ -83,19 +95,15 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.next(cardPanel);
+                currentCard = getNextCardName(currentCard);
+                updateButtonVisibility( buttonPanel);
                 // System.out.println("tc manager:");
                 // System.out.println(TestCaseManager.getTestCases());
             }
         });
 
-        
-
-        // Panel to hold the buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.add(backButton);
-        buttonPanel.add(nextButton);
-
         frame.add(buttonPanel, BorderLayout.SOUTH);
+        updateButtonVisibility( buttonPanel);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 600);
@@ -109,5 +117,49 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         frame.setLocation(x, y); 
         frame.setVisible(true);
     }
+
+    private void updateButtonVisibility(JPanel buttonPanel) {
+        Component[] components = buttonPanel.getComponents();
+        JButton button1 = (JButton) components[0];
+        JButton button2 = (JButton) components[1];
+
+        button1.setVisible(!"Section 1".equals(currentCard));
+        button2.setVisible(!"Section 5".equals(currentCard)); 
+    }
+
+    private String getNextCardName(String currentCard) {
+        switch (currentCard) {
+            case "Section 1":
+                return "Section 2";
+            case "Section 2":
+                return "Section 3";
+            case "Section 3":
+                return "Section 4";
+            case "Section 4":
+                return "Section 5";
+            case "Section 5":
+                return "Section 1";
+            default:
+                return currentCard;
+        }
+    }
+
+    private String getLastCardName(String currentCard) {
+        switch (currentCard) {
+            case "Section 1":
+                return "Section 5";
+            case "Section 5":
+                return "Section 4";
+            case "Section 4":
+                return "Section 3";
+            case "Section 3":
+                return "Section 2";
+            case "Section 2":
+                return "Section 1";
+            default:
+                return currentCard;
+        }
+    }
+    
 
 }
