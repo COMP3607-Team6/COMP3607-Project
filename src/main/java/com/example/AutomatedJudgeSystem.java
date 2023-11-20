@@ -6,10 +6,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
-import com.example.AssignmentSpecificationPortal.ClassInformation;
-
-
-
 
 public class AutomatedJudgeSystem {
     
@@ -20,26 +16,31 @@ public class AutomatedJudgeSystem {
     private static StringBuilder assertionResults = new StringBuilder();
     
     //Instance of PDFManager to activate PDF observer
-    private static PDFManager pdfManager = new PDFManager();
+    private static PDFManager pdfManager;
 
     // Demo of Assignment Specification, data suppposed to be entered from frontend
-    private static AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
+    private static AssignmentSpecification asSpec = new AssignmentSpecification("", "", "", "", "",0);
     private static AssignmentSpecPortal assignmentSpecPortal;
 
     
 
     public static void main (String[] args) throws IOException{
-        initializeAssignmentSpecPortal(new AutomatedJudgeSystem());
+        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
     }
 
     public static void doTest () throws IOException{
+
+        //System.out.println(asSpec.toString());
         
-        int num = 1;
+        int num = 0;
+
+        pdfManager = new PDFManager(asSpec);
 
         ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
+        ArrayList <String> assignmentNames = new ArrayList<>();
+        ArrayList <String> studentIds = new ArrayList<>();
 
-
-        String zipFilePath = "ZipFolder.zip";
+        String zipFilePath = asSpec.getFolderPath();
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
@@ -50,17 +51,28 @@ public class AutomatedJudgeSystem {
             //Adds all student assignments in student files
             zipComponent = new ZipFileComposite(zipFile); 
             zipFileComposite = (Composite) zipComponent;
+            assignmentNames = ((ZipFileComposite) zipComponent).getFileNames();
         }
         catch(Exception e)
         {
             e.printStackTrace();
             return;
         }
+
+          
+        //System.out.println(assignmentNames.size());
+          for(String a : assignmentNames){
+            String[] parts = a.split("_");
+            studentIds.add(parts[0]);
+            System.out.println(parts[0]);
+          }
+
         
         
         try {
       
             // Iterate student submissions
+            SystemNotification testExecutionNotification = new SystemNotification("Test Suite is processing assignments :)");
             for (ZipComponent z : zipFileComposite.getComponents()) 
             {
                  
@@ -121,7 +133,7 @@ public class AutomatedJudgeSystem {
                 System.out.println("HIHI");
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
-                pdfManager.notify(testCases, "816029005" + num, specs);
+                pdfManager.notify(testCases, studentIds.get(num));
                 num++;
                   System.out.println(num);
                 
@@ -135,7 +147,7 @@ public class AutomatedJudgeSystem {
                   
                 
                   try {
-                    Delete.deleteFilesInFolder(outputFolder);
+                  Delete.deleteFilesInFolder(outputFolder);
                   }
                   catch (Exception e)
                   {
@@ -152,7 +164,7 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        pdfManager.endOfAssignmentCheck(testCases,specs,true);
+        pdfManager.endOfAssignmentCheck(testCases,true);
 
         zipFileComposite.removeAll();
 
@@ -161,7 +173,7 @@ public class AutomatedJudgeSystem {
             a.printInfo();
         }
 
-        Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
+       // Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
 
         try {
                     // Pause for 5 seconds
@@ -176,7 +188,7 @@ public class AutomatedJudgeSystem {
     
 
     //  // method which calls helper methods to execute the whole process of marking a student assignment
-    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
+    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification asSpec){
 
     //     // 1) some method to read the data from the frontend and create all tests for it based on the spec
 
@@ -190,13 +202,12 @@ public class AutomatedJudgeSystem {
     //             executeAssignmentTest();
 
     //         //4) method to generate pdf output for a student assignment
-    //             pdfManager.notify(testCases, studentId, specs);
+    //             pdfManager.notify(testCases, studentId, asSpec);
 
     // }
 
 
     public static void executeAssignmentTest(ArrayList<TestCase> testCases){
-
         for(TestCase test: testCases){
             String assertionResultString = test.test();
          }
@@ -205,11 +216,11 @@ public class AutomatedJudgeSystem {
     
     // the following 2 initializeAssignmentSpecPortal methods were made to get around error: Cannot use this in a static context
     public void initializeAssignmentSpecPortal() {
-        assignmentSpecPortal = new AssignmentSpecPortal(this);
+        assignmentSpecPortal = new AssignmentSpecPortal(this, asSpec);
     }
 
-    public static void initializeAssignmentSpecPortal(AutomatedJudgeSystem instance) {
-        assignmentSpecPortal = new AssignmentSpecPortal(instance);
+    public static void initializeAssignmentSpecPortal(AutomatedJudgeSystem instance, AssignmentSpecification asSpec) {
+        assignmentSpecPortal = new AssignmentSpecPortal(instance,asSpec);
     }
 
     // on the last frame of the gui, there is a run tests button. when that is pressed it calls back to this method

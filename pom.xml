@@ -25,6 +25,12 @@
       <version>4.13.2</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.8.0</version> <!-- Use the latest version available -->
+      <scope>test</scope>
+    </dependency>
      <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
@@ -94,6 +100,7 @@
                 <target>1.8</target>
                 <excludes>
                   <exclude>**/com/example/StudentFiles/**</exclude>
+                  <exclude>**/com/example/TestAssignment/**</exclude>
                 </excludes>
             </configuration>
         </plugin>

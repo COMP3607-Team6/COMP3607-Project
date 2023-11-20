@@ -1,14 +1,14 @@
-package com.example.TestAssignment;
+
 //816029635
 
-public final class StandingFan extends Fan implements PortableDevice
+public class CeilingFan extends Fan 
 {
-    public StandingFan (){
-       super(2);
-       super.id = "SFAN" + super.getID();
+    public CeilingFan (){
+       super(0);
+       super.id = "CFAN" + super.getID();
        super.breeziness = 2;
-       super.coolBy = 1;
-       super.isPort = true;
+       super.coolBy = 3;
+       super.isPort = false;
        super.on = false;
     }
     
@@ -19,4 +19,5 @@ public final class StandingFan extends Fan implements PortableDevice
         "Cooling power: " + super.coolsBy();
         return info;
     }
+    
 }

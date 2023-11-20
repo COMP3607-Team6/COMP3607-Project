@@ -66,5 +66,19 @@ public class AssignmentSpecification {
     public void setAssignmentWeighting(float assignmentWeighting){
         this.assignmentWeighting = assignmentWeighting;
     }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " courseCode='" + getCourseCode() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", folderPath='" + getFolderPath() + "'" +
+            ", deadlineDate='" + getDeadlineDate() + "'" +
+            ", assignmentWeighting='" + getAssignmentWeighting() + "'" +
+            "}";
+    }
+
         
 }
