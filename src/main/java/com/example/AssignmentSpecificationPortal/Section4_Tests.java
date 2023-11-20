@@ -12,13 +12,11 @@ import com.example.AssignmentSpecificationPortal.Tests.*;
 public class Section4_Tests extends JPanel{
 
     private JTabbedPane section4TabbedPane;
-    private ArrayList<ClassInformation> classes;
     private CardLayout cardLayout;
     // private JPanel mainPanel;
 
-    public Section4_Tests(CardLayout cardLayout, ArrayList<ClassInformation> classes) {
+    public Section4_Tests(CardLayout cardLayout) {
         this.cardLayout = cardLayout;
-        this.classes = classes;
         
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
@@ -31,22 +29,26 @@ public class Section4_Tests extends JPanel{
         }
 
         section4TabbedPane = new JTabbedPane();
+
+        /*private Section2A_Classes section2a;
+        section2a = new Section2A_Classes(cardLayout);
+        section2TabbedPane.addTab("Classes", section2a); */
         
         for (String test : selectedTests) {
 
             // need to do like an if to decide which test gui to add
             if (test == "Naming Convention Test") {
-                section4TabbedPane.addTab(test, new NamingConventionTest(classes));
-            } else if (test == "Hierarchy Test") {
-                section4TabbedPane.addTab(test, new HierarchyTest(classes));
-            } else if (test == "AccessorType Test") {
-                section4TabbedPane.addTab(test, new AccessorTypeTest(classes));
+                section4TabbedPane.addTab(test, new NamingConventionTest());
+            // } else if (test == "Hierarchy Test") {
+            //     section4TabbedPane.addTab(test, new HierarchyTest());
+             } else if (test == "AccessorType Test") {
+                section4TabbedPane.addTab(test, new AccessorTypeTest());
             } else if (test == "Final Test") {
-                section4TabbedPane.addTab(test, new FinalTest(classes));
+                section4TabbedPane.addTab(test, new FinalTest());
             } else if (test == "Static Test") {
-                section4TabbedPane.addTab(test, new StaticTest(classes));
+                section4TabbedPane.addTab(test, new StaticTest());  
             } else { // default for now
-                section4TabbedPane.addTab(test, new NamingConventionTest(classes));
+                section4TabbedPane.addTab(test, new BaseTest());
             }
         }
 

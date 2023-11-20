@@ -34,14 +34,12 @@ public class Section2A_Classes extends JPanel {
     private int classCount;
     // private JButton nextButton;
     // ArrayList<ClassInformation> allClasses;
-    private ArrayList<ClassInformation> classes;
+    // private ArrayList<ClassInformation> classes;
 
-    public Section2A_Classes(CardLayout cardLayout, ArrayList<ClassInformation> classes) {
+    public Section2A_Classes(CardLayout cardLayout) {
         this.cardLayout = cardLayout;
-        this.classes = classes;
         // backButton = new JButton("Back");
         // nextButton = new JButton("Next");
-        // allClasses = new ArrayList<ClassInformation>();
 
         // backButton.addActionListener(new ActionListener() {
         //     public void actionPerformed(ActionEvent e) {
@@ -60,11 +58,9 @@ public class Section2A_Classes extends JPanel {
 
         // Setting Up Class/Input Panel
         classPanel = new JPanel();
-        classPanel.setLayout(new GridLayout(2, 1));
+        classPanel.setLayout(new BoxLayout(classPanel, BoxLayout.Y_AXIS));
         inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
-        testPanel = new JPanel();
-        testPanel.setLayout(new GridLayout(2, 1));
 
         accessComboBox = new JComboBox<>(new String[] { "public", "private", "protected" });
         isAbstractComboBox = new JComboBox<>(new String[] { "abstract", "concrete","final" });
@@ -74,16 +70,14 @@ public class Section2A_Classes extends JPanel {
 
         classNameField = new JTextField(10);
         classNameField.setText("");
-       // markField = new JTextField(6);
-       // markField.setDocument(new IntegerDocument());
-       // markField.setText("0");
+
         NameField = new JTextField(10);
         NameField.setVisible(false);
+        
 
-        prompt = new JLabel("Classes");
-        prompt.setFont(new Font("Arial", Font.ITALIC, 22));
-        prompt.setAlignmentX(Component.CENTER_ALIGNMENT);
-       // markslabel = new JLabel("Marks: \n");
+        prompt = new JLabel("  Add classes to be tested here.");
+        // prompt.setFont(new Font("Arial", Font.ITALIC, 22));
+        prompt.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         extendsCheckBox = new JCheckBox("extends/implements");
 
@@ -100,20 +94,23 @@ public class Section2A_Classes extends JPanel {
         inputPanel.add(extendsCheckBox);
         inputPanel.add(EIComboBox);
         inputPanel.add(NameField);
-       // inputPanel.add(markslabel);
-       // inputPanel.add(markField);
         inputPanel.add(addClassButton);
         inputPanel.add(removeButton);
     
         classPanel.add(inputPanel);
         classPanel.add(new JScrollPane(classList));
+        classPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
 
         add(prompt);
+        add(Box.createRigidArea(new Dimension(0, 10)));
         add(classPanel);
-        add(testPanel);
       
-        isInterfaceComboBox.addActionListener(new ActionListener() {
+        attachListeners();
+    }
 
+    private void attachListeners() {
+        isInterfaceComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ("interface".equals(isInterfaceComboBox.getSelectedItem())) {
@@ -153,7 +150,7 @@ public class Section2A_Classes extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 classCount++;
                 addClassToList();
-                // getAllClasses();
+                getAllClasses();
             }
         });
 
@@ -165,7 +162,8 @@ public class Section2A_Classes extends JPanel {
                     // String selectedClass = classListModel.getElementAt(index);
                     classListModel.remove(index);
                     // allClasses.remove(index);
-                    classes.remove(index);
+                    // classes.remove(index);
+                    ClassesManager.removeClass(index);
                     // removeAttributePanel(selectedClass);
                     classCount--;
                 }
@@ -173,7 +171,6 @@ public class Section2A_Classes extends JPanel {
         });
 
     }
-
     
     private void addClassToList() {
         String accessType = (String) accessComboBox.getSelectedItem();
@@ -182,7 +179,6 @@ public class Section2A_Classes extends JPanel {
         String className = (String) classNameField.getText();
         String extendsOrImplements = (String) EIComboBox.getSelectedItem();
         String extendedOrImplementedClass = (String) NameField.getText();
-       // String marks = (String) markField.getText();
         boolean extendsOrImplementedIsChecked = extendsCheckBox.isSelected();
 
         if (className.equals("")) {
@@ -201,21 +197,24 @@ public class Section2A_Classes extends JPanel {
         classListModel.addElement(classInfo.toString());
 
         // allClasses.add(classInfo);
-        classes.add(classInfo);
+        // classes.add(classInfo);
+        ClassesManager.addClass(classInfo);
 
 
         classNameField.setText("");
         NameField.setText("");
-        //markField.setText("0");
     }
 
     private ArrayList<ClassInformation> getAllClasses() {
-        for (ClassInformation classInfo : classes) {
-            System.out.println(classInfo.toString());
-            System.out.println("-----------------------------------------");
-        }
+        System.out.println(ClassesManager.getClasses());
+        return ClassesManager.getClasses();
+
+        // for (ClassInformation classInfo : classes) {
+        //     System.out.println(classInfo.toString());
+        //     System.out.println("-----------------------------------------");
+        // }
     
-        return classes;
+        // return classes;
     }
 
     // Restricts input to integers only

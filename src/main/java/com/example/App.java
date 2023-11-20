@@ -28,7 +28,7 @@ public class App
         File zipFile = new File(zipFilePath);
 
         try {
-            
+
             // Create a ZipFileComposite object from the File object
             ZipComponent zipComponent = new ZipFileComposite(zipFile);
     
@@ -56,4 +56,3 @@ public class App
         }
 }
 }
-
