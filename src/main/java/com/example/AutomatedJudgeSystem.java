@@ -29,7 +29,7 @@ public class AutomatedJudgeSystem {
     
 
     public static void main (String[] args) throws IOException{
-        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
+        initializeAssignmentSpecPortal(new AutomatedJudgeSystem());
     }
 
     public static void doTest () throws IOException{

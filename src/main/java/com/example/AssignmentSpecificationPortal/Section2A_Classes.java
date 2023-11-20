@@ -128,7 +128,6 @@ public class Section2A_Classes extends JPanel {
         });
 
         extendsCheckBox.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (true == extendsCheckBox.isSelected()) {

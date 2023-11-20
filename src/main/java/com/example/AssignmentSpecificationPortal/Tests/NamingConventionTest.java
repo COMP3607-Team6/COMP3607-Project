@@ -31,9 +31,9 @@ import com.example.BasicTest.MethodBasicTest;
 
 public class NamingConventionTest extends BaseTest {
 
-    public NamingConventionTest() {
+    public NamingConventionTest(String description) {
         super(); 
-        this.testDescription.setText("naming convention test description. short one line description of test");
+        this.testDescription.setText(description);
         this.testType = "name";
     }
 }

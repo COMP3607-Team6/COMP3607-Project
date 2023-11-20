@@ -8,10 +8,31 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class JavaFileCopier {
     
-    public static void javaFileCopierToLeaf(String entryName, ZipEntryLeaf f)
+    public static void javaFileCopierToLeaf (String entryName, ZipEntryLeaf f)
     {
         if (entryName.endsWith(".java"))
         {
@@ -77,4 +98,58 @@ public class JavaFileCopier {
                 
             }
     }
+
+    public static void copyFiles(String javaFilePath)
+    {
+
+        try
+        {
+            // JavaFileCopier
+            List<Path> p = JavaFileCopier.getJavaFilePaths (javaFilePath);
+            // System.out.println(p);
+
+            for (Path sourcePath : p) {
+                System.out.println(sourcePath);
+            
+                String output = sourcePath.getFileName().toString();
+                Path destinationPath = Paths.get("src", "main", "java", "com", "example", "StudentFile", output);
+            
+                try {
+                    Files.createDirectories(destinationPath.getParent());
+            
+                    try (BufferedWriter writer = Files.newBufferedWriter(destinationPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                        FileInputStream fis = new FileInputStream(sourcePath.toFile())) {
+            
+                        writer.write("package com.example.StudentFile;");
+                        writer.newLine();
+            
+                        byte[] buffer = new byte[1024];
+                        int len;
+                        while ((len = fis.read(buffer)) > 0) {
+                            writer.write(new String(buffer, 0, len));
+                        }
+                    }
+            
+                    System.out.println("File created successfully: " + destinationPath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+    
+    }
+    catch (Exception e)
+    {
+        e.printStackTrace();
+    }
 }
+
+    private  static List<Path> getJavaFilePaths(String dirPath) throws IOException {
+        try (Stream<Path> paths = Files.walk(Paths.get(dirPath))) {
+            return paths
+                .filter(Files::isRegularFile) // ignore directories
+                .filter(path -> path.toString().endsWith(".java")) // filter Java files
+                .collect(Collectors.toCollection(ArrayList::new)); // collect into an ArrayList
+        }
+}
+}
+

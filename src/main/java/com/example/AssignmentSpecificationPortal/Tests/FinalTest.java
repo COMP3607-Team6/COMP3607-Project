@@ -41,9 +41,9 @@ import com.example.BasicTest.MethodBasicTest;
 
 public class FinalTest extends BaseTest {
 
-    public FinalTest() {
+    public FinalTest(String description) {
         super(); 
-        this.testDescription.setText("Final test description. short one line description of test");
+        this.testDescription.setText(description);
         this.testType = "final";
     }
 }
