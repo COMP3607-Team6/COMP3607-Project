@@ -167,17 +167,17 @@ public class AutomatedJudgeSystem {
                   
                 
                   try {
-                    copyFile(submission_location.toString(), "src\\main\\java\\com\\example\\GradedSubmissions\\");
+                    // copyFile(submission_location.toString(), "src\\main\\java\\com\\example\\GradedSubmissions\\");
+                    Path destination = Paths.get("src\\main\\java\\com\\example\\GradedSubmissions\\");
+                    ZipToFolderCopier.copyFile(submission_location);//, destination);
                     try {
                     // Pause for 5 seconds
                     Thread.sleep (5000);
-                } catch (Exception e) {
-                    // Handle the interruption
-                    e.printStackTrace ();
-                }
-                // System.out.println(submission_location.toString());
-                    // FileToZipCopier.copyFile(new File("src\\main\\java\\com\\example\\GradedSubmissions"), submission_location.toFile());
-                  Delete.deleteFilesInFolder(outputFolder);
+                    } catch (Exception e) {
+                        // Handle the interruption
+                        e.printStackTrace ();
+                    }
+                     Delete.deleteFilesInFolder(outputFolder);
                   }
                   catch (Exception e)
                   {
@@ -224,59 +224,6 @@ public class AutomatedJudgeSystem {
         //System.out.println(asSpec.toString());
         
         
-    }
-
-    private static void copyFile(String sourceFilePath, String destinationFilePath) {
-        
-        try{
-            ZipFile zipFile = new ZipFile(sourceFilePath);
-            Enumeration<? extends ZipEntry> entries = zipFile.entries();
-
-            while (entries.hasMoreElements()) {
-                // Get the next entry
-                ZipEntry entry = entries.nextElement();
-                System.out.println("Entryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy " + entry.getName());
-
-                try (InputStream is = zipFile.getInputStream(entry)) {
-                File entryFile = unzipEntry(entry, is, "src\\main\\java\\com\\example\\GradedSubmissions");
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            } 
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    // This is a private static method that unzips a zip entry into a file
-    private static File unzipEntry(ZipEntry entry, InputStream input, String outputFolder) throws IOException {
-        // Create a file in the destination directory with the same name as the zip entry
-        File file = new File("src\\main\\java\\com\\example\\StudentFiles", entry.getName());
-        // Check if the entry is a directory
-        if (entry.isDirectory()) {
-            // Create the directory
-            file.mkdirs();
-        } else {
-            // Create the parent directories if they do not exist
-            file.getParentFile().mkdirs();
-
-            // Create an output stream to write the file and copy the input stream to the output stream
-            OutputStream output = new FileOutputStream(file);
- 
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = input.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
-            }
-            // Close the output stream
-            output.close();
-        }
-    
-        return file;
     }
 
     //  // method which calls helper methods to execute the whole process of marking a student assignment

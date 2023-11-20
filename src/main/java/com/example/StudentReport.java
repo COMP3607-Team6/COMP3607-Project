@@ -41,7 +41,7 @@ public class StudentReport implements PDFReport {
 
          try {
             System.out.println("Student id is here " + StudentID);
-            writer = new PdfWriter("src\\main\\java\\com\\example\\GradedSubmissions\\" + StudentID + ".pdf");
+            writer = new PdfWriter(StudentID + ".pdf");
             
         } catch (FileNotFoundException e) {
 
