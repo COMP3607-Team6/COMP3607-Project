@@ -11,7 +11,7 @@ import java.nio.file.StandardOpenOption;
 
 public class JavaFileCopier {
     
-    public static void javaFileCopier(String entryName, ZipEntryLeaf f)
+    public static void javaFileCopierToLeaf(String entryName, ZipEntryLeaf f)
     {
         if (entryName.endsWith(".java"))
         {
