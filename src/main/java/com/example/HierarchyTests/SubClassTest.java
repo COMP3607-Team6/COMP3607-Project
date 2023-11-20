@@ -1,9 +1,6 @@
 package com.example.HierarchyTests;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import java.lang.reflect.Modifier;
 
 
 // import com.example.Avinash_Roopnarine_816029635_A2.Fan;
@@ -12,11 +9,7 @@ import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
-import org.junit.Test;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,14 +18,15 @@ import java.net.URL;
 public class SubClassTest extends HierarchyTest{
 
     private Object classObject;
-    private String superClassPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
+    private String superClassPath = "src\\main\\java\\com\\example\\StudentFile";
     String subClass; String superClass;
 
-    public SubClassTest(String subClass, String superClass)
+    public SubClassTest(String subClass, String superClass, int allocatedMarks)
     {
-        super();
+        super(allocatedMarks);
         this.subClass = subClass;
         this.superClass = superClass;
+        this.testName = "Subclass Test for relationship between subclass: "+ subClass + " and superclass " + superClass ;
     }
 
 // @Test
@@ -41,6 +35,7 @@ public class SubClassTest extends HierarchyTest{
     //Specify folder with java files
     Path superClasspath = Paths.get(superClassPath, superClass+".java");
 
+    System.out.println(superClassPath);
 
     if (Files.exists(superClasspath)) 
     {
@@ -52,16 +47,19 @@ public class SubClassTest extends HierarchyTest{
             URL url = superClasspath.toUri().toURL();
             URLClassLoader classLoader = new URLClassLoader(new URL[]{url});
             
-            String packageName = "com.example.Avinash_Roopnarine_816029635_A2."; //Can be made a parameter
+            String packageName = "com.example.StudentFile."; //Can be made a parameter
             Class<?> deviceClass = classLoader.loadClass(packageName + superClass);
             // System.out.println(deviceClass1.getClasses());
             classLoader.close();
             try {
                 assertTrue(deviceClass.isAssignableFrom(classObject.getClass()));
+                testMarks.setTestPassed(true);
+                testMarks.setTestComment(classObject.getClass().getSimpleName() + " is subclassed from " + deviceClass.getSimpleName());
                 return classObject.getClass().getSimpleName() + " is subclassed from " + deviceClass.getSimpleName();
             }
             catch (AssertionError e)
-            {
+            {   
+                testMarks.setTestComment(classObject.getClass().getSimpleName() + " is not subclassed from " + deviceClass.getSimpleName());
                 return classObject.getClass().getSimpleName() + " is not subclassed from " + deviceClass.getSimpleName();
             }
             } 
@@ -87,7 +85,7 @@ public class SubClassTest extends HierarchyTest{
     public static void main (String[] args)
     {
         // Object hi = getSuperClass("Fan");
-        SubClassTest t = new SubClassTest("StandingFan", "Fan");
+        SubClassTest t = new SubClassTest("StandingFan", "Fan",1);
         
         // System.out.println(t.test());
         System.out.println(t.test());

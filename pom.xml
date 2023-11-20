@@ -25,6 +25,12 @@
       <version>4.13.2</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.8.0</version> <!-- Use the latest version available -->
+      <scope>test</scope>
+    </dependency>
      <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
@@ -35,6 +41,12 @@
         <artifactId>pdfbox</artifactId>
         <version>2.0.29</version> <!-- Use the latest version available -->
     </dependency>
+    <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itext7-core</artifactId>
+    <version>7.1.16</version>
+    <type>pom</type>
+</dependency>
   </dependencies>
 
   <build>
@@ -86,7 +98,21 @@
             <configuration>
                 <source>1.8</source>
                 <target>1.8</target>
+                <excludes>
+                  <exclude>**/com/example/StudentFiles/**</exclude>
+                  <exclude>**/com/example/TestAssignment/**</exclude>
+                </excludes>
             </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.2.0</version> <!-- Specify the correct version -->
+          <configuration>
+              <source>1.8</source> <!-- Set the appropriate source version -->
+              <target>1.8</target> <!-- Set the appropriate target version -->
+              <!-- Other configuration settings as needed -->
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>

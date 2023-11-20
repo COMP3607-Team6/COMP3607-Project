@@ -4,7 +4,7 @@ import com.example.TestCase;
 
 public abstract class BehaviourTest extends TestCase {
 
-    public BehaviourTest(){
-        super();
+    public BehaviourTest(int allocatedMarks){
+        super(allocatedMarks);
     }
 } 

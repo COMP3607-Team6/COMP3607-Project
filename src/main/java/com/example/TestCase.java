@@ -13,9 +13,24 @@ public abstract class TestCase{
     protected ArrayList<Class<?>> allAbstractClasses;
     protected ArrayList<Class<?>> allInterfaceClasses;
     protected ArrayList<Class<?>> allConcreteClasses;
+    protected TestResult testMarks;
+    protected String testName;
 
 
-    public TestCase(){
+
+    public TestCase(int allocatedMarks){
+        instances = new Instances(); // Initialize the instances variable with a new Instances object
+        testResult = instances.getInstances();
+        allClasses = instances.getAllClasses();
+        allAbstractClasses = instances.getAbstractClasses();
+        allInterfaceClasses= instances.getInterfaceClasses();
+        allConcreteClasses = instances.getInterfaceClasses();
+        this.testMarks = new TestResult(allocatedMarks);
+
+    }
+
+
+    public void init(){
         instances = new Instances(); // Initialize the instances variable with a new Instances object
         testResult = instances.getInstances();
         allClasses = instances.getAllClasses();
@@ -23,6 +38,24 @@ public abstract class TestCase{
         allInterfaceClasses= instances.getInterfaceClasses();
         allConcreteClasses = instances.getInterfaceClasses();
 
+        System.out.println("Instances " + instances.toString());
+        System.out.println("NUMMMM " + testResult.size());
+
+    }
+
+    public void reset(){
+       testMarks.setTestPassed(false);
+       testMarks.setTestComment("");
+    }
+
+
+
+    public String getTestName(){
+        return testName;
+    }
+
+    public TestResult getTestMarksObject(){
+        return testMarks;
     }
     
     
@@ -66,7 +99,8 @@ public abstract class TestCase{
                 return method;
             } 
             catch (NoSuchMethodException e) {
-                e.printStackTrace(); // Handle the exceptions according to your use case
+                return null;
+               // e.printStackTrace(); // Handle the exceptions according to your use case
             }
         }
         

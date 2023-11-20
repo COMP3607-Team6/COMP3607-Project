@@ -12,14 +12,16 @@ import java.nio.file.Paths;
 
 public class SubTypeTest extends HierarchyTest {
     private Object classObject;
-    private String superClassPath = "src\\main\\java\\com\\example\\Avinash_Roopnarine_816029635_A2";
+    private String superClassPath = "src\\main\\java\\com\\example\\StudentFile";
     String subClass; String superClass;
 
-    public SubTypeTest(String subClass, String superClass)
+    public SubTypeTest(String subClass, String superClass, int allocatedMarks)
     {
-        super();
+        super(allocatedMarks);
         this.subClass = subClass;
         this.superClass = superClass;
+        this.testName = "SubType Test for relationship between subtype class: "+ subClass + " and superclass " + superClass ;
+  
     }
 
     public String test() {
@@ -37,7 +39,7 @@ public class SubTypeTest extends HierarchyTest {
             URL url = superClasspath.toUri().toURL();
             URLClassLoader classLoader = new URLClassLoader(new URL[]{url});
             
-            String packageName = "com.example.Avinash_Roopnarine_816029635_A2."; //Can be made a parameter
+            String packageName = "com.example.StudentFile."; //Can be made a parameter
             
             Class<?> deviceClass = classLoader.loadClass(packageName + superClass);
             classLoader.close();
@@ -46,10 +48,13 @@ public class SubTypeTest extends HierarchyTest {
             try {
                 // assertTrue(deviceClass.isInterface());
                 assertTrue(deviceClass.isAssignableFrom(classObject.getClass()));
+                testMarks.setTestPassed(true);
+                testMarks.setTestComment(classObject.getClass().getSimpleName() + " implements " + deviceClass.getSimpleName());
                 return classObject.getClass().getSimpleName() + " implements " + deviceClass.getSimpleName();
             }
             catch (AssertionError e)
-            {
+            {   
+                testMarks.setTestComment(classObject.getClass().getSimpleName() + " does not implement " + deviceClass.getSimpleName());
                 return classObject.getClass().getSimpleName() + " does not implement " + deviceClass.getSimpleName();
             }
             } 
@@ -77,7 +82,7 @@ public class SubTypeTest extends HierarchyTest {
     public static void main (String[] args)
     {
         // Object hi = getSuperClass("Fan");
-        SubTypeTest t = new SubTypeTest("AC", "Device");
+        SubTypeTest t = new SubTypeTest("AC", "Device",1);
         
         // System.out.println(t.test());
         System.out.println(t.test());
