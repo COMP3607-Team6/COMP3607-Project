@@ -6,10 +6,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
-import com.example.AssignmentSpecificationPortal.ClassInformation;
-
-
-
 
 public class AutomatedJudgeSystem {
     
@@ -23,23 +19,25 @@ public class AutomatedJudgeSystem {
     private static PDFManager pdfManager = new PDFManager();
 
     // Demo of Assignment Specification, data suppposed to be entered from frontend
-    private static AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
+    private static AssignmentSpecification asSpec = new AssignmentSpecification("", "", "", "", "",0);
     private static AssignmentSpecPortal assignmentSpecPortal;
 
     
 
     public static void main (String[] args) throws IOException{
-        initializeAssignmentSpecPortal(new AutomatedJudgeSystem());
+        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
     }
 
     public static void doTest () throws IOException{
+
+        //System.out.println(asSpec.toString());
         
         int num = 1;
 
         ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
 
 
-        String zipFilePath = "ZipFolder.zip";
+        String zipFilePath = asSpec.getFolderPath();
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
@@ -121,7 +119,7 @@ public class AutomatedJudgeSystem {
                 System.out.println("HIHI");
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
-                pdfManager.notify(testCases, "816029005" + num, specs);
+                pdfManager.notify(testCases, "816029005" + num, asSpec);
                 num++;
                   System.out.println(num);
                 
@@ -152,7 +150,7 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        pdfManager.endOfAssignmentCheck(testCases,specs,true);
+        pdfManager.endOfAssignmentCheck(testCases,asSpec,true);
 
         zipFileComposite.removeAll();
 
@@ -176,7 +174,7 @@ public class AutomatedJudgeSystem {
     
 
     //  // method which calls helper methods to execute the whole process of marking a student assignment
-    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
+    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification asSpec){
 
     //     // 1) some method to read the data from the frontend and create all tests for it based on the spec
 
@@ -190,7 +188,7 @@ public class AutomatedJudgeSystem {
     //             executeAssignmentTest();
 
     //         //4) method to generate pdf output for a student assignment
-    //             pdfManager.notify(testCases, studentId, specs);
+    //             pdfManager.notify(testCases, studentId, asSpec);
 
     // }
 
@@ -205,11 +203,11 @@ public class AutomatedJudgeSystem {
     
     // the following 2 initializeAssignmentSpecPortal methods were made to get around error: Cannot use this in a static context
     public void initializeAssignmentSpecPortal() {
-        assignmentSpecPortal = new AssignmentSpecPortal(this);
+        assignmentSpecPortal = new AssignmentSpecPortal(this, asSpec);
     }
 
-    public static void initializeAssignmentSpecPortal(AutomatedJudgeSystem instance) {
-        assignmentSpecPortal = new AssignmentSpecPortal(instance);
+    public static void initializeAssignmentSpecPortal(AutomatedJudgeSystem instance, AssignmentSpecification asSpec) {
+        assignmentSpecPortal = new AssignmentSpecPortal(instance,asSpec);
     }
 
     // on the last frame of the gui, there is a run tests button. when that is pressed it calls back to this method

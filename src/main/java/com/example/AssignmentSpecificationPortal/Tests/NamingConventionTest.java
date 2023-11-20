@@ -27,6 +27,8 @@ import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 
+
+
 public class NamingConventionTest extends BaseTest {
 
     public NamingConventionTest(String description) {
