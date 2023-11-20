@@ -6,10 +6,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
-import com.example.AssignmentSpecificationPortal.ClassInformation;
-
-
-
 
 public class AutomatedJudgeSystem {
     
@@ -23,7 +19,7 @@ public class AutomatedJudgeSystem {
     private static PDFManager pdfManager = new PDFManager();
 
     // Demo of Assignment Specification, data suppposed to be entered from frontend
-    private static AssignmentSpecification asSpec = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
+    private static AssignmentSpecification asSpec = new AssignmentSpecification("", "", "", "", "",0);
     private static AssignmentSpecPortal assignmentSpecPortal;
 
     
@@ -33,13 +29,15 @@ public class AutomatedJudgeSystem {
     }
 
     public static void doTest () throws IOException{
+
+        //System.out.println(asSpec.toString());
         
         int num = 1;
 
         ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
 
 
-        String zipFilePath = "ZipFolder.zip";
+        String zipFilePath = asSpec.getFolderPath();
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
