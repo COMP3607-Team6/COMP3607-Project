@@ -5,6 +5,9 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
+import com.example.AssignmentSpecification;
+import com.example.AutomatedJudgeSystem;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +40,9 @@ public class Section1 extends JPanel {
 
     private JLabel filePathLabel;
     private JLabel actualFilePathLabel;
+    
     private JButton browseButton;
+    private JButton specButton;
 
     private String dates[]
 		= { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -50,8 +55,9 @@ public class Section1 extends JPanel {
 		= { "2020", "2021", "2022", "2023", "2024", "2025" };
     
 
-    public Section1(CardLayout layout) {
+    public Section1(CardLayout layout,AssignmentSpecification asSpec,AutomatedJudgeSystem system) {
         cardLayout = layout;
+        
         // nextButton = new JButton("Next");
 
         // nextButton.addActionListener(new ActionListener() {
@@ -117,8 +123,16 @@ public class Section1 extends JPanel {
         descriptionTextArea.setWrapStyleWord(true);
         descriptionTextArea.setBorder(BorderFactory.createLineBorder(Color.gray));
 
+        
+
         // JScrollPane descriptionScrollPane = new JScrollPane(descriptionTextArea,
         // JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        JPanel savePanel = new JPanel();
+        savePanel.setLayout(new BoxLayout(savePanel, BoxLayout.Y_AXIS));
+        savePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        
 		
         
         descriptionPanel.add(descriptionLabel);
@@ -141,10 +155,14 @@ public class Section1 extends JPanel {
         deadlinePanel.add(month);
         deadlinePanel.add(year);
 
+        
+
         JPanel filePathPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         filePathLabel = new JLabel("Folder:");
 		filePathLabel.setPreferredSize(new Dimension(120, 20));
+
+        
 		
         browseButton = new JButton("Browse");
         browseButton.setPreferredSize(new Dimension(100, 20));
@@ -163,12 +181,46 @@ public class Section1 extends JPanel {
             }
         });
 
+        specButton = new JButton("Add Assignment Specification");
+        
+        // ActionListener for the spec button
+        specButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               String courseCode = (String) courseCodeField.getText();
+               asSpec.setCourseCode(courseCode);
+
+               String title = (String) titleField.getText();
+               asSpec.setTitle(title);
+
+               String weightingFieldValue = weightingField.getText(); 
+               int weighting = Integer.parseInt(weightingFieldValue);
+               asSpec.setAssignmentWeighting(weighting);
+
+               String desc = (String) descriptionTextArea.getText();
+               asSpec.setDescription(desc);
+
+               String a = (String) date.getSelectedItem();
+               String b = (String) month.getSelectedItem();
+               String c = (String) year.getSelectedItem();
+               String deadline = a + " " + b + " " + c;
+               asSpec.setDeadlineDate(deadline);
+
+               String filepath = (String) actualFilePathLabel.getText();
+               asSpec.setFolderPath(filepath);
+               System.out.println("Assignment Specification Saved");
+            }
+        });
+        
+        savePanel.add(specButton);
+        
         actualFilePathLabel = new JLabel("no file added");
 		actualFilePathLabel.setPreferredSize(new Dimension(200, 20));
 		
         filePathPanel.add(filePathLabel);
         filePathPanel.add(browseButton);
         filePathPanel.add(actualFilePathLabel);
+
+        
 
 
         // JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -190,7 +242,8 @@ public class Section1 extends JPanel {
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mainPanel.add(filePathPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
-        // mainPanel.add(buttonPanel);
+        mainPanel.add(savePanel);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
 		centerAlignPanel.add(mainPanel);
         add(welcomePanel);

@@ -16,6 +16,8 @@ public class AutomatedJudgeSystem {
     // //Contains all tests to be executed for the assignment
     // private static ArrayList<TestCase> testCases = new ArrayList<>();
 
+    //private static AssignmentSpecification asSpec;
+
     //No longer used and should be removed eventually
     private static StringBuilder assertionResults = new StringBuilder();
     
@@ -23,21 +25,33 @@ public class AutomatedJudgeSystem {
     private static PDFManager pdfManager = new PDFManager();
 
     // Demo of Assignment Specification, data suppposed to be entered from frontend
-    private static AssignmentSpecification specs = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
+    private static AssignmentSpecification asSpec = new AssignmentSpecification("COMP 3607", "Assignment 1", "Mango", "folderpathwhereever", "04/11.23",5);
     private static AssignmentSpecPortal assignmentSpecPortal;
 
     
 
     public static void main (String[] args) throws IOException{
+       // System.out.println("HI1");
         initializeAssignmentSpecPortal(new AutomatedJudgeSystem());
-    }
-
-    public static void doTest () throws IOException{
+        //System.out.println("HI");
+        testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
+        testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
+        testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
+        testCases.add(new SubClassTest("StandingFan", "Fan",1));
+        testCases.add(new SubTypeTest("AC", "Device",1));
+        testCases.add(new MethodTypeTest(1, "AC", "coolzBy", int.class ));
+        ArrayList<Object> paras = new ArrayList<>();
+        paras.add(5);
+        paras.add("{}");
+        testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 13));
         
         int num = 1;
 
         ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
 
+        pdfManager.notify(testCases, "816029005", asSpec);
+        pdfManager.notify(testCases, "816029002", asSpec);
+        pdfManager.notify(testCases, "816029007", asSpec);
 
         String zipFilePath = "ZipFolder.zip";
         // Create a File object from the zip file path
@@ -152,7 +166,7 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        pdfManager.endOfAssignmentCheck(testCases,specs,true);
+        pdfManager.endOfAssignmentCheck(testCases,asSpec,true);
 
         zipFileComposite.removeAll();
 
@@ -175,8 +189,8 @@ public class AutomatedJudgeSystem {
 
     
 
-    //  // method which calls helper methods to execute the whole process of marking a student assignment
-    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
+     // method which calls helper methods to execute the whole process of marking a student assignment
+    public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification asSpec){
 
     //     // 1) some method to read the data from the frontend and create all tests for it based on the spec
 
@@ -189,8 +203,8 @@ public class AutomatedJudgeSystem {
     //         //3) some method to run the test and generate associated comments for each test
     //             executeAssignmentTest();
 
-    //         //4) method to generate pdf output for a student assignment
-    //             pdfManager.notify(testCases, studentId, specs);
+            //4) method to generate pdf output for a student assignment
+                pdfManager.notify(testCases, studentId, asSpec);
 
     // }
 
@@ -205,11 +219,15 @@ public class AutomatedJudgeSystem {
     
     // the following 2 initializeAssignmentSpecPortal methods were made to get around error: Cannot use this in a static context
     public void initializeAssignmentSpecPortal() {
-        assignmentSpecPortal = new AssignmentSpecPortal(this);
+        
+        assignmentSpecPortal = new AssignmentSpecPortal(this,asSpec);
+        
     }
 
     public static void initializeAssignmentSpecPortal(AutomatedJudgeSystem instance) {
-        assignmentSpecPortal = new AssignmentSpecPortal(instance);
+        
+        assignmentSpecPortal = new AssignmentSpecPortal(instance,asSpec);
+    
     }
 
     // on the last frame of the gui, there is a run tests button. when that is pressed it calls back to this method
