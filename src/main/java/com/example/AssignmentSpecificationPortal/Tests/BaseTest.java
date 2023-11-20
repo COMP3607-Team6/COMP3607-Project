@@ -76,7 +76,7 @@ public class BaseTest extends JPanel {
 
         testDescription = new JLabel(" description. short one line description of test");
         testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
-        testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
+        testDescription.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         selectedClassPanel = new JPanel();
         selectedClassPanel.setLayout(new FlowLayout());
