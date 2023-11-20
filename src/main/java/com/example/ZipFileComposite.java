@@ -1,18 +1,16 @@
 package com.example;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 
 // This is the ZipFileComposite class that represents a zip file
@@ -22,8 +20,13 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
     // This is the list of child components
     private List<ZipComponent> components;
 
+    private ArrayList <String> assignmentNames;
+
     // This is the constructor that takes a File object as a parameter
     public ZipFileComposite(File file) throws IOException {
+
+        assignmentNames = new ArrayList<>();
+
         // Create a ZipFile object from the File object
         this.zipFile = new ZipFile(file);
         // Initialize the list of child components
@@ -42,6 +45,9 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
             
             // Check if the entry is another zip file
             if (entry.getName().endsWith(".zip")) {
+                
+                assignmentNames.add(entry.getName());
+              
                 // Create a ZipFileComposite object from the file and add it to the list of child components
                 try (ZipFileComposite zfc = new ZipFileComposite(entryFile)) {
                     components.add(zfc);
@@ -111,7 +117,7 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
     @Override
     public InputStream getInputStream() throws IOException {
         // Return the input stream of the zip file
-        return Files.newInputStream(Path.of(zipFile.getName()));
+         return new FileInputStream(zipFile.getName());
     }
 
     @Override
@@ -157,6 +163,10 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
     public String getPath()
     {
         return this.zipFile.getName();
+    }
+
+    public ArrayList <String> getFileNames(){
+        return assignmentNames;
     }
 
 }

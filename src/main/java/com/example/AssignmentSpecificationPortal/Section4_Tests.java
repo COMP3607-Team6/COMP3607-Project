@@ -1,13 +1,17 @@
 package com.example.AssignmentSpecificationPortal;
 
 import java.awt.CardLayout;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import com.example.AssignmentSpecificationPortal.Tests.*;
+import com.example.AssignmentSpecificationPortal.Tests.AccessorTypeTest;
+import com.example.AssignmentSpecificationPortal.Tests.FinalTest;
+import com.example.AssignmentSpecificationPortal.Tests.HierarchyTest;
+import com.example.AssignmentSpecificationPortal.Tests.NamingConventionTest;
+import com.example.AssignmentSpecificationPortal.Tests.StaticTest;
+import com.example.AssignmentSpecificationPortal.Tests.ValueTest;
 
 public class Section4_Tests extends JPanel{
 
@@ -40,10 +44,14 @@ public class Section4_Tests extends JPanel{
 
             if (name == "Naming Convention Test") {
                 section4TabbedPane.addTab(name, new NamingConventionTest(description));
-            // } else if (name == "Hierarchy Test") {
-            //     section4TabbedPane.addTab(name, new HierarchyTest(description));
+            } else if (name == "Hierarchy Test") {
+                section4TabbedPane.addTab(name, new HierarchyTest(description));
             } else if (name == "AccessorType Test") {
                 section4TabbedPane.addTab(name, new AccessorTypeTest(description));
+            } else if (name == "Value Test") {
+                section4TabbedPane.addTab(name, new ValueTest(description));
+            // } else if (name == "Type Test") {
+            //     section4TabbedPane.addTab(name, new TypeTest(description));
             } else if (name == "Final Test") {
                 section4TabbedPane.addTab(name, new FinalTest(description));
             } else if (name == "Static Test") {

@@ -34,11 +34,11 @@ public class HierarchyTest extends JPanel {
 
     private ArrayList<ClassInformation> classes;
     private JLabel testDescription;
-    private JPanel selectedClassPanel;
-    private JLabel selectedClassLabel;
-    private JButton loadClassesButton;
-    private JComboBox<String> selectedClassComboBox;
-    private int selectedClassIndex;
+    // private JPanel selectedClassPanel;
+    // private JLabel selectedClassLabel;
+    // private JButton loadClassesButton;
+    // private JComboBox<String> selectedClassComboBox;
+    // private int selectedClassIndex;
 
     private JPanel grid;
     private JPanel extendsSection;
@@ -70,7 +70,7 @@ public class HierarchyTest extends JPanel {
     private JCheckBox extendsCheckBox;
     private JCheckBox implementsCheckBox;
 
-    public HierarchyTest() {
+    public HierarchyTest(String description) {
     // public HierarchyTest(ArrayList<ClassInformation> classes) {
         // this.classes = classes;
 
@@ -80,33 +80,33 @@ public class HierarchyTest extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        testDescription = new JLabel("hierarchy test description");
+        testDescription = new JLabel(description);
         testDescription.setFont(new Font("Arial", Font.ITALIC, 22));
         testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        selectedClassPanel = new JPanel();
-        selectedClassPanel.setLayout(new FlowLayout());
-        selectedClassLabel = new JLabel("Class:");
-        loadClassesButton = new JButton("Load classes");
+        // selectedClassPanel = new JPanel();
+        // selectedClassPanel.setLayout(new FlowLayout());
+        // selectedClassLabel = new JLabel("Class:");
+        // loadClassesButton = new JButton("Load classes");
         // selectedClassComboBox = new JComboBox<String>(new String[]{"choose class"});
-        selectedClassComboBox = new JComboBox<String>();
+        // selectedClassComboBox = new JComboBox<String>();
 
-        for (ClassInformation c : ClassesManager.getClasses()) {
-        // for (ClassInformation c : classes) {
-            String className = c.getClassName();
-            selectedClassComboBox.addItem(className);
-        }
+        // for (ClassInformation c : ClassesManager.getClasses()) {
+        // // for (ClassInformation c : classes) {
+        //     String className = c.getClassName();
+        //     selectedClassComboBox.addItem(className);
+        // }
 
-        selectedClassPanel.add(selectedClassLabel);
-        selectedClassPanel.add(selectedClassComboBox);
-        selectedClassPanel.add(loadClassesButton);
+        // selectedClassPanel.add(selectedClassLabel);
+        // selectedClassPanel.add(selectedClassComboBox);
+        // selectedClassPanel.add(loadClassesButton);
 
-        if (selectedClassComboBox.getItemCount() == 0) {
-            selectedClassComboBox.setVisible(false);
-        }
+        // if (selectedClassComboBox.getItemCount() == 0) {
+        //     selectedClassComboBox.setVisible(false);
+        // }
 
         add(testDescription);
-        add(selectedClassPanel);
+        // add(selectedClassPanel);
 
 
         grid = new JPanel();
@@ -230,32 +230,32 @@ public class HierarchyTest extends JPanel {
 
 
 
-        loadClassesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateSelectedClassComboBox();
-                selectedClassComboBox.setVisible(true);
-            }
-        });
+        // loadClassesButton.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         updateSelectedClassComboBox();
+        //         selectedClassComboBox.setVisible(true);
+        //     }
+        // });
 
-        selectedClassComboBox.addActionListener(new ActionListener() {
-            // private int selectedClassIndex;
+        // selectedClassComboBox.addActionListener(new ActionListener() {
+        //     // private int selectedClassIndex;
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectedClassIndex = selectedClassComboBox.getSelectedIndex();
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         selectedClassIndex = selectedClassComboBox.getSelectedIndex();
 
-                if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
-                    ClassInformation selectedClass = ClassesManager.getClasses().get(selectedClassIndex);
+        //         if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
+        //             ClassInformation selectedClass = ClassesManager.getClasses().get(selectedClassIndex);
 
-                    // for (AttributeInformation attribute : selectedClass.getAttributes()) {
-                    //     attributeListModel.addElement(attribute.toString());
-                    // }
-                } else {
-                    System.out.println("Invalid selected index or class not found.");
-                }
-            }
-        });
+        //             // for (AttributeInformation attribute : selectedClass.getAttributes()) {
+        //             //     attributeListModel.addElement(attribute.toString());
+        //             // }
+        //         } else {
+        //             System.out.println("Invalid selected index or class not found.");
+        //         }
+        //     }
+        // });
 
         deleteBtn.addActionListener(new ActionListener() {
             @Override
@@ -275,21 +275,24 @@ public class HierarchyTest extends JPanel {
         
     }
 
-    private void updateSelectedClassComboBox() {
-        selectedClassComboBox.removeAllItems();
-        for (ClassInformation c : ClassesManager.getClasses()) {
-            String className = c.getClassName();
-            selectedClassComboBox.addItem(className);
-        }
-    }
+    // private void updateSelectedClassComboBox() {
+    //     selectedClassComboBox.removeAllItems();
+    //     for (ClassInformation c : ClassesManager.getClasses()) {
+    //         String className = c.getClassName();
+    //         selectedClassComboBox.addItem(className);
+    //     }
+    // }
 
     //method to add extends
     public void populateExtendsList(){
         extendsList.removeAll();
         for(ClassInformation c: ClassesManager.getClasses()){
-            if(c.getExtendsOrImplements().equals("extends")){
-                extendsCheckBox = new JCheckBox(c.getClassName() + " extends " + c.getExtendedOrImplementedClass());
-                System.out.println(c.getClassName() + " extends " + c.getExtendedOrImplementedClass());
+            String extendedOrImplementedClass = c.getExtendedOrImplementedClass();
+            String name = c.getClassName();
+            if (!extendedOrImplementedClass.isEmpty() && extendedOrImplementedClass != null 
+                && c.getExtendsOrImplements().equals("extends")){
+                extendsCheckBox = new JCheckBox(name + " extends " + extendedOrImplementedClass);
+                System.out.println(name + " extends " + extendedOrImplementedClass);
                 extendsList.add(extendsCheckBox);
             }
         }
@@ -301,75 +304,90 @@ public class HierarchyTest extends JPanel {
     public void populateImplementsList(){
         implementsList.removeAll();
         for(ClassInformation c: ClassesManager.getClasses()){
-            if(c.getExtendsOrImplements().equals("implements")){
-                implementsCheckBox = new JCheckBox(c.getClassName() + " implements " + c.getExtendedOrImplementedClass());
-                System.out.println(c.getClassName() + " implements " + c.getExtendedOrImplementedClass());
+            String extendedOrImplementedClass = c.getExtendedOrImplementedClass();
+            String name = c.getClassName();
+            if (!extendedOrImplementedClass.isEmpty() && extendedOrImplementedClass != null 
+                && c.getExtendsOrImplements().equals("implements")){
+                implementsCheckBox = new JCheckBox(name + " implements " + extendedOrImplementedClass);
+                System.out.println(name + " implements " + extendedOrImplementedClass);
                 implementsList.add(implementsCheckBox);
             }
         }
     }
+
+    // method to get checked extends test checkboxes
+    public void getCheckedExtends() {
+        String cName = "";
+        String superClassName = "";
+        String inheritance = "";
+        String marks = extendsMarksField.getText();
+        int markNum = Integer.parseInt(marks);
+        
+        for (Component comp : extendsList.getComponents()) {
+            if (comp instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) comp;
+                if (checkBox.isSelected()) {
+                    String text = checkBox.getText();
+                    String[] parts = text.split(" extends ");
+                    if (parts.length > 1) {
+                        cName = parts[0];
+                        superClassName = parts[1];
+                        subClassTests.add(new SubClassTest(cName,superClassName,markNum));
+
+                        inheritance = cName + " extends " + superClassName + " [" + markNum + " Marks]";
+                        inheritance = inheritance + "\n";
+                        allTests.append(inheritance);
+
+                        System.out.println(cName + " " + superClassName + " " + markNum);
+                    }
+                }
+            }
+        }
+    }
+
+    // method to get checked implements test checkboxes
+    public void getCheckedImplements() {
+        String cName = "";
+        String superClassName = "";
+        String inheritance = "";
+        String marks = implementsMarksField.getText();
+        int markNum = Integer.parseInt(marks);
+        
+        for (Component comp : implementsList.getComponents()) {
+            if (comp instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) comp;
+                if (checkBox.isSelected()) {
+                    String text = checkBox.getText();
+                    String[] parts = text.split(" implements ");
+                    if (parts.length > 1) {
+                        cName = parts[0];
+                        superClassName = parts[1];
+                        subTypeTests.add(new SubTypeTest(cName,superClassName,markNum));
+
+                        inheritance = cName + " implements " + superClassName + " [" + markNum + " Marks]";
+                        inheritance = inheritance + "\n";
+                        allTests.append(inheritance);
+
+                        System.out.println(cName + " " + superClassName + " " + markNum);
+                    }
+                }
+            }
+        }
+    }
+    
 
     //adds methods to tests and prints to screen
     public void printTests(){
         TestCaseManager.getTestCases().removeAll(subClassTests);
         TestCaseManager.getTestCases().removeAll(subTypeTests);
 
-
-        String cName = "";
-        String superClassName = "";
-        String inheritance = "";
-
         subClassTests.clear();
         subTypeTests.clear();
-        String idk = "";
-        String marks = extendsMarksField.getText();
-        int markNum = Integer.parseInt(marks);
 
+        allTests.setText("");
 
-        if(extendsCheckBox.isSelected()){
-            String something = (String) extendsCheckBox.getText();
-            //System.out.println(ass);
-            for(ClassInformation c: ClassesManager.getClasses()){
-                String test = c.getClassName() + " extends " + c.getExtendedOrImplementedClass();
-                if(test.equals(something)){
-                    cName = c.getClassName();
-                    superClassName = c.getExtendedOrImplementedClass();
-                    break;
-                }
-            }
-
-            subClassTests.add(new SubClassTest(cName,superClassName,markNum));
-            inheritance = cName + " extends " + superClassName + " [" + markNum + " Marks]";
-
-            System.out.println(cName + " " + superClassName + " " + markNum);
-        }
-
-
-        
-
-        if(implementsCheckBox.isSelected()){
-            marks = implementsMarksField.getText();
-            markNum = Integer.parseInt(marks);
-            String something = (String) implementsCheckBox.getText();
-
-            for(ClassInformation c: ClassesManager.getClasses()){
-                String test = c.getClassName() + " implements " + c.getExtendedOrImplementedClass();
-                if(test.equals(something)){
-                    cName = c.getClassName();
-                    superClassName = c.getExtendedOrImplementedClass();
-                    break;
-                }
-
-            }
-            subTypeTests.add(new SubTypeTest(cName,superClassName,markNum));
-            inheritance = cName + " implements " + superClassName + " [" + markNum + " Marks]";
-
-            System.out.println(cName + " " + superClassName + " " + markNum);
-
-        }
-        inheritance = inheritance + "\n";
-        allTests.append(inheritance);
-
+        getCheckedExtends();
+        getCheckedImplements();
 
         testCases.addAll(subClassTests);
         testCases.addAll(subTypeTests);

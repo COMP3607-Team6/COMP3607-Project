@@ -1,4 +1,5 @@
-package com.example.TestAssignment;
+package com.example.StudentFile;
+
 //816029635
 
 public class CeilingFan extends Fan 

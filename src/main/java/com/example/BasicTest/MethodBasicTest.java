@@ -26,7 +26,7 @@ public class MethodBasicTest extends BasicTests {
             return "Method: " + methodName + testTypeObject.getSuccessMessage() + " in " + className;
 
         }
-        catch(AssertionError a){
+        catch(AssertionError| NullPointerException a){
             testMarks.setTestComment("Method " + methodName + testTypeObject.getErrorMessage()+ " in " + className+ ".java");
             return "Method: " + methodName + testTypeObject.getErrorMessage() + " in " + className;
         }

@@ -31,6 +31,10 @@ public class AttributeBasicTest extends BasicTests {
             testMarks.setTestComment("Attribute name " + attributeName + testTypeObject.getErrorMessage()+ " in " + className+ ".java");
             return "Attribute: " + attributeName + testTypeObject.getErrorMessage()+ " in " + className;
         }
+        catch (NullPointerException n){
+            testMarks.setTestComment("Attribute: " + attributeName + "not found " + " in " + className);
+            return "Attribute: " + attributeName + "not found " + " in " + className;
+        }
     }
     @Override
     public String toString() {

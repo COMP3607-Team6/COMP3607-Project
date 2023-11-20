@@ -5,29 +5,21 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import javax.management.AttributeValueExp;
-import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
 
 import com.example.TestCase;
 import com.example.TestCaseManager;
@@ -35,8 +27,6 @@ import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
-import com.example.BasicTest.AttributeBasicTest;
-import com.example.BasicTest.MethodBasicTest;
 import com.example.BehaviourTests.AttributeValueTest;
 import com.example.BehaviourTests.MethodValueTest;
 
@@ -78,14 +68,14 @@ public class ValueTest extends JPanel{
     private ArrayList<TestCase> testCases;
 
 
-    public ValueTest(){
+    public ValueTest(String description){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         methodTests = new ArrayList<MethodValueTest>();
         attributeTests = new ArrayList<AttributeValueTest>();
         testCases = new ArrayList<TestCase>();
 
-        testDescription = new JLabel("naming convention test description. short one line description of test");
+        testDescription = new JLabel(description);
         testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
         testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
 
