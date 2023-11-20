@@ -261,11 +261,11 @@ public class Section2C_Methods extends JPanel {
                 String methodPars = "";
                 for(String element: methodParameters){
                     System.out.println(element);
-                    methodPars += element + ",";
+                    methodPars += element + ", ";
                 }
 
                 if(methodPars.length() > 0){
-                    methodPars = methodPars.substring(0, methodPars.length() - 1);
+                    methodPars = methodPars.substring(0, methodPars.length() - 2);
                 }
                 if(methodNameS.equals("")){
                     return;
