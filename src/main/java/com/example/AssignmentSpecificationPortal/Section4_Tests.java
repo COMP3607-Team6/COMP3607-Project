@@ -40,8 +40,8 @@ public class Section4_Tests extends JPanel{
 
             if (name == "Naming Convention Test") {
                 section4TabbedPane.addTab(name, new NamingConventionTest(description));
-            // } else if (name == "Hierarchy Test") {
-            //     section4TabbedPane.addTab(name, new HierarchyTest(description));
+            } else if (name == "Hierarchy Test") {
+                section4TabbedPane.addTab(name, new HierarchyTest(description));
             } else if (name == "AccessorType Test") {
                 section4TabbedPane.addTab(name, new AccessorTypeTest(description));
             } else if (name == "Final Test") {
