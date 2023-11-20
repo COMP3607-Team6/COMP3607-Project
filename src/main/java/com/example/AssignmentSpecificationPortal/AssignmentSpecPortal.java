@@ -1,24 +1,26 @@
 package com.example.AssignmentSpecificationPortal;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 import com.example.AutomatedJudgeSystem;
-import com.example.TestCaseManager;
 
 public class AssignmentSpecPortal {
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel cardPanel;
     private Section1 section1;
-    // private Section2A_Classes section2a;
-    // private Section2B_Attributes section2b;
-    // private Section2C_Methods section2c;
     private JTabbedPane section2TabbedPane;
     private JButton backButton;
     private JButton nextButton;
@@ -42,9 +44,6 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system) {
         section2new = new Section2A_ClassesNew(cardLayout);
         section2bnew = new Section2B_AttributesNew(cardLayout);
         section2cnew = new Section2C_MethodsNew(cardLayout);
-        // section2a = new Section2A_Classes(cardLayout);
-        // section2b = new Section2B_Attributes(cardLayout);
-        // section2c = new Section2C_Methods(cardLayout);
         section4 = new Section4_Tests(cardLayout);
         section3 = new Section3_TestSelection(cardLayout, section4);
         section5 = new Section5_TestRun(cardLayout, system);
@@ -52,9 +51,6 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system) {
         section2TabbedPane.addTab("Classes", section2new);
         section2TabbedPane.addTab("Attributes", section2bnew);
         section2TabbedPane.addTab("Methods", section2cnew);
-        // section2TabbedPane.addTab("Classes", section2a);
-        // section2TabbedPane.addTab("Attributes", section2b);
-        // section2TabbedPane.addTab("Methods", section2c);
 
         cardPanel.add(section1, "Section 1");
         cardPanel.add(section2TabbedPane, "Section 2");

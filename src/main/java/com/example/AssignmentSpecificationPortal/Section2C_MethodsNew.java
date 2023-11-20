@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -56,6 +55,10 @@ public class Section2C_MethodsNew extends Section2_Input {
     private JButton addMethodParameterObj;
     private ArrayList<String> methodParameters;
     private ArrayList<String> ObjParameters;
+    // private JRadioButton staticRadioButton;
+    // private JRadioButton finalRadioButton;
+    private JCheckBox staticCheckButton;
+    private JCheckBox finalCheckButton;
 
     public Section2C_MethodsNew(CardLayout layout) {
         super(layout);
@@ -119,7 +122,7 @@ public class Section2C_MethodsNew extends Section2_Input {
         
         parameterInputLObj = new JLabel("input parameter for object:");
         parameterTypeObj = new JComboBox<>(new String[]{"String", "int", "double","float", "boolean", "char"});
-        objExpectedInputLabel = new JLabel("Expected Input:");
+        objExpectedInputLabel = new JLabel("Parameter Name:");
         parameterInputObj = new JTextField(5);
         addMethodParameterObj = new JButton("add parameter to object");
         
@@ -162,6 +165,8 @@ public class Section2C_MethodsNew extends Section2_Input {
         mPanel.setLayout(new FlowLayout());
 
         accessTypeCB = new JComboBox<>(new String[]{"public", "private", "protected"});
+        staticCheckButton = new JCheckBox("static");
+        finalCheckButton = new JCheckBox("final");
         isAbstract = new JComboBox<>(new String[]{"concrete", "abstract"});
         methodType = new JComboBox<>(new String[]{"String", "int", "double","float", "boolean", "char", "void", "object"});
         objMethodType = new JTextField(10);
@@ -172,11 +177,13 @@ public class Section2C_MethodsNew extends Section2_Input {
         methodNameLabel = new JLabel("Method Name:");
         methodName = new JTextField(15);
         methodName.setText("");
-
+       
         test = new JButton("view all classes");
 
-        mPanel.add(test);
+        // mPanel.add(test);
         mPanel.add(accessTypeCB);
+        mPanel.add(staticCheckButton);
+        mPanel.add(finalCheckButton);
         mPanel.add(isAbstract);
         mPanel.add(methodType);
         mPanel.add(objMethodTypeLabel);
@@ -196,6 +203,8 @@ public class Section2C_MethodsNew extends Section2_Input {
         outputPanel2.add(new JScrollPane(list));
     }
 
+    
+
     @Override
     public void attachSaveAndRemoveListeners(JButton saveBtn, JButton removeBtn) {
          saveBtn.addActionListener(new ActionListener() {
@@ -204,6 +213,21 @@ public class Section2C_MethodsNew extends Section2_Input {
                 String methodInfo = "";
                 String accessType = (String) accessTypeCB.getSelectedItem();
                 String isAbstractS = (String) isAbstract.getSelectedItem();
+                String sendStatic = "";
+                String sendFinal = "";
+
+                
+                if(staticCheckButton.isSelected()){
+                    sendStatic = "static";
+                    sendFinal = "";
+                    //finalCheckButton.setVisible(false);
+                }
+
+                if(finalCheckButton.isSelected()){
+                    sendFinal = "final";
+                    sendStatic = "";
+                }
+
                 if(isAbstractS.equals("concrete")){
                     isAbstractS = "";
                 }
@@ -230,24 +254,23 @@ public class Section2C_MethodsNew extends Section2_Input {
                     return;
                 }
 
-                if(isAbstractS.equals("abstract")){
-                    methodInfo = accessType + " " + isAbstractS + " " + returnType + " " + methodNameS + "(" + methodPars + ")";
-                    
-                } else {
-                    methodInfo = accessType + " " + returnType + " " + methodNameS + "(" + methodPars + ")";
-                }
-            
-                listModel.addElement(methodInfo);
-
-                MethodInformation method = new MethodInformation(accessType, isAbstractS, returnType, methodNameS, methodPars, "markPH");
+                MethodInformation method = new MethodInformation(accessType, isAbstractS, returnType, methodNameS, methodPars, sendStatic ,sendFinal);
                 ClassesManager.getClass(selectedClassIndex).addMethod(method);
+
+                System.out.println(method.toString());
+
+                listModel.addElement(method.toString());
 
                 methodPars = "";
                 methodParameters.clear();
-                //idk
 
                 methodName.setText("");
                 objMethodType.setText("");
+
+                staticCheckButton.setVisible(true);
+                finalCheckButton.setVisible(true);
+                staticCheckButton.setSelected(false);
+                finalCheckButton.setSelected(false);
             }
         });
 
@@ -297,6 +320,33 @@ public class Section2C_MethodsNew extends Section2_Input {
                 }
             }
         });
+
+        staticCheckButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if (true == staticCheckButton.isSelected()) {
+                    finalCheckButton.setVisible(false);
+                    finalCheckButton.setSelected(false);
+                }
+                else {
+                    finalCheckButton.setVisible(true);
+                }
+            }
+        });
+
+        finalCheckButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if (true == finalCheckButton.isSelected()) {
+                    staticCheckButton.setVisible(false);
+                    staticCheckButton.setSelected(false);
+                }
+                else {
+                    staticCheckButton.setVisible(true);
+                }
+            }
+        });
+
 
         test.addActionListener(new ActionListener() {
             @Override

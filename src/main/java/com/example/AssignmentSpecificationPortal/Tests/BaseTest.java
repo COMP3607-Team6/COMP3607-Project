@@ -65,6 +65,7 @@ public class BaseTest extends JPanel {
     
 
     protected String testType;
+    private JPanel testDescriptionPanel;
 
     public BaseTest() {
         classTests = new ArrayList<ClassBasicTest>();
@@ -74,26 +75,14 @@ public class BaseTest extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        testDescription = new JLabel(" description. short one line description of test");
-        testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
-        testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
+        createDescriptionPanel(); // descriptionPanel
 
-        selectedClassPanel = new JPanel();
-        selectedClassPanel.setLayout(new FlowLayout());
+        createSelectedClassPanel(); // selectedClassPanel
 
-        selectedClassLabel = new JLabel("Class:");
-        loadClassesButton = new JButton("Load classes");
-        
-        selectedClassComboBox = new JComboBox<String>();
-        for (ClassInformation c : ClassesManager.getClasses()) {
-            selectedClassComboBox.addItem(c.getClassName());
-        }
-        selectedClassPanel.add(selectedClassLabel);
-        selectedClassPanel.add(selectedClassComboBox);
-        selectedClassPanel.add(loadClassesButton);
 
+        // CLASS CHECKBOX & MARKS
         selectedClassPanel2 = new JPanel();
-        selectedClassPanel2.setLayout(new FlowLayout());
+        selectedClassPanel2.setLayout(new FlowLayout(FlowLayout.LEADING));
         
         String ans = (String) selectedClassComboBox.getSelectedItem();
         classCheckB = new JCheckBox("Class - " + ans);
@@ -108,6 +97,8 @@ public class BaseTest extends JPanel {
         selectedClassPanel2.add(markslab1);
         selectedClassPanel2.add(marksTextField1);
 
+
+        // ATTRIBUTES MAIN CHECKBOX
         selectedClassPanel3 = new JPanel();
         selectedClassPanel3.setLayout(new FlowLayout());
 
@@ -116,14 +107,13 @@ public class BaseTest extends JPanel {
        	
 		selectedClassPanel3.add(attCheckB);
        
+        // ATTRIBUTES INDIVIDUAL CHECKBOXES
         attributePanel = new JPanel();
         attributePanel.setLayout(new GridLayout(3, 3));
         updateAttributeList(ans);
 
-        methodPanel = new JPanel();
-        methodPanel.setLayout(new GridLayout(3, 3));
-        updateMethodList(ans);
 
+        // METHODS MAIN CHECKBOX
         selectedClassPanel4 = new JPanel();
         selectedClassPanel4.setLayout(new FlowLayout());
      
@@ -131,7 +121,14 @@ public class BaseTest extends JPanel {
         methCheckB.setFont(new Font("Arial", Font.PLAIN, 15));
       
 		selectedClassPanel4.add(methCheckB);
+
+        // METHODS INDIVIDUAL CHECKBOXES
+        methodPanel = new JPanel();
+        methodPanel.setLayout(new GridLayout(3, 3));
+        updateMethodList(ans);
+
      	
+        // PANEL TO DISPLAY TESTS
         testPanel = new JPanel();
         testPanel.setLayout(new FlowLayout());
 
@@ -141,24 +138,58 @@ public class BaseTest extends JPanel {
 
         testPanel.add(scrollPane);
 
+        createSaveTestAndClearTestsButtonPanel();
+
+        add(testDescription);
+        add(selectedClassPanel);
+        // add(selectedClassPanel2); // class name and marks
+        // add(selectedClassPanel3); // atts main checkbox
+        // add(attributePanel); // att checkboxes
+        // add(selectedClassPanel4); // methods main checkbox
+        // add(methodPanel); // met checkboxes
+        // add(testPanel); // white box to print tests
+        // add(savePanel);
+
+        attachListeners();
+    }
+
+    protected void createDescriptionPanel() {
+        testDescription = new JLabel();
+        testDescriptionPanel = new JPanel(); 
+        testDescriptionPanel.setLayout(new BoxLayout(testDescriptionPanel, BoxLayout.X_AXIS));
+        testDescriptionPanel.add(testDescription);
+        testDescriptionPanel.add(Box.createHorizontalGlue());
+        // testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
+        // testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
+    }
+
+    public JPanel createSelectedClassPanel() {
+        selectedClassPanel = new JPanel();
+        selectedClassPanel.setLayout(new FlowLayout());
+        selectedClassLabel = new JLabel("Class:");
+        loadClassesButton = new JButton("Load classes");
+        selectedClassComboBox = new JComboBox<String>();
+
+        selectedClassPanel.add(selectedClassLabel);
+        selectedClassPanel.add(selectedClassComboBox);
+        selectedClassPanel.add(loadClassesButton);
+
+        updateSelectedClassComboBox();
+
+        if (selectedClassComboBox.getItemCount() == 0) {
+            selectedClassComboBox.setVisible(false);
+        }
+
+        return selectedClassPanel;
+    }
+
+    protected void createSaveTestAndClearTestsButtonPanel() {
         savePanel = new JPanel();
         savePanel.setLayout(new FlowLayout());
         saveTestsButton = new JButton("Save Test");
         savePanel.add(saveTestsButton);
         clearTestsButton = new JButton("Clear Tests");
         savePanel.add(clearTestsButton);
-
-        add(testDescription);
-        add(selectedClassPanel);
-        add(selectedClassPanel2);
-        add(selectedClassPanel3);
-        add(attributePanel);
-        add(selectedClassPanel4);
-        add(methodPanel);
-        add(testPanel);
-        add(savePanel);
-
-        attachListeners();
     }
 
     protected void attachListeners() {
@@ -201,42 +232,42 @@ public class BaseTest extends JPanel {
 
     protected void updateAttributeList(String ans) {
         for(ClassInformation c : ClassesManager.getClasses()){
-                    if(c.getClassName().equals(ans)){
-                        attributePanel.removeAll();
-                        ArrayList<AttributeInformation> attributes = c.getAttributes();
-                        for(AttributeInformation a:attributes){
-                         
-                            JPanel panel = new JPanel();
-                            JCheckBox aCheckBox = new JCheckBox(a.getAttributeName());
-                            panel.add(aCheckBox);
-                            
-                            JTextField textField = new JTextField(3);
-                            textField.setDocument(new IntegerDocument());
-                            panel.add(textField);
-                           
-                            attributePanel.add(panel);
-                        }    
-                    }
+            if(c.getClassName().equals(ans)){
+                attributePanel.removeAll();
+                ArrayList<AttributeInformation> attributes = c.getAttributes();
+                for(AttributeInformation a:attributes){
+                    
+                    JPanel panel = new JPanel();
+                    JCheckBox aCheckBox = new JCheckBox(a.getAttributeName());
+                    panel.add(aCheckBox);
+                    
+                    JTextField textField = new JTextField(3);
+                    textField.setDocument(new IntegerDocument());
+                    panel.add(textField);
+                    
+                    attributePanel.add(panel);
+                }    
+            }
         }  
     }
 
     protected void updateMethodList(String ans) {
         for(ClassInformation c : ClassesManager.getClasses()){
-                    if(c.getClassName().equals(ans)){
-                        methodPanel.removeAll();
-                        ArrayList<MethodInformation> methods = c.getMethods();
-                        for(MethodInformation m:methods){
-                            JPanel panel = new JPanel();
-                            JCheckBox mCheckBox = new JCheckBox(m.getMethodName());
-                            panel.add(mCheckBox);
-                            
-                            JTextField textField = new JTextField(3);
-                            textField.setDocument(new IntegerDocument());
-                            panel.add(textField);
-                            
-                            methodPanel.add(panel);
-                        }    
-                    }
+            if(c.getClassName().equals(ans)){
+                methodPanel.removeAll();
+                ArrayList<MethodInformation> methods = c.getMethods();
+                for(MethodInformation m:methods){
+                    JPanel panel = new JPanel();
+                    JCheckBox mCheckBox = new JCheckBox(m.getMethodName());
+                    panel.add(mCheckBox);
+                    
+                    JTextField textField = new JTextField(3);
+                    textField.setDocument(new IntegerDocument());
+                    panel.add(textField);
+                    
+                    methodPanel.add(panel);
+                }    
+            }
         }  
     }
 
@@ -330,6 +361,10 @@ public class BaseTest extends JPanel {
         return name; 
     }
 
+    // Restricts input to integers only
+    // use like: 
+    //     JTextField marksTextField = new JTextField();
+    //     marksTextField.setDocument(new IntegerDocument());
     static class IntegerDocument extends PlainDocument {
         private final Pattern pattern = Pattern.compile("-?\\d*");
 

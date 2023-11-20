@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,22 +12,19 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import org.apache.commons.io.serialization.ClassNameMatcher;
-
+import com.example.TestCase;
+import com.example.TestCaseManager;
 // import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
-import com.example.TestCase;
-import com.example.TestCaseManager;
 
 public class HierarchyTest extends JPanel {
 
@@ -128,6 +124,7 @@ public class HierarchyTest extends JPanel {
         extendsSectionTitle = new JLabel("Inheritance Tests: ");
         extendsMarksLabel = new JLabel("Marks: ");
         extendsMarksField = new JTextField(3);
+        extendsMarksField.setText("0");
         // extendsMarksField.setDocument(new IntegerDocument());
         // extendsMarksField.setPreferredSize(new Dimension(50, 30));
 
@@ -165,6 +162,7 @@ public class HierarchyTest extends JPanel {
 
         implementsMarksLabel = new JLabel("Marks");
         implementsMarksField = new JTextField(3);
+        implementsMarksField.setText("0");
         
 
         implementsList = new JPanel();
@@ -240,14 +238,11 @@ public class HierarchyTest extends JPanel {
 
         // selectedClassComboBox.addActionListener(new ActionListener() {
         //     // private int selectedClassIndex;
-
         //     @Override
         //     public void actionPerformed(ActionEvent e) {
         //         selectedClassIndex = selectedClassComboBox.getSelectedIndex();
-
         //         if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
         //             ClassInformation selectedClass = ClassesManager.getClasses().get(selectedClassIndex);
-
         //             // for (AttributeInformation attribute : selectedClass.getAttributes()) {
         //             //     attributeListModel.addElement(attribute.toString());
         //             // }
@@ -321,7 +316,11 @@ public class HierarchyTest extends JPanel {
         String superClassName = "";
         String inheritance = "";
         String marks = extendsMarksField.getText();
-        int markNum = Integer.parseInt(marks);
+        int markNum = 0;
+
+        if (!marks.isEmpty()) {
+            markNum = Integer.parseInt(marks);
+        }
         
         for (Component comp : extendsList.getComponents()) {
             if (comp instanceof JCheckBox) {
@@ -351,7 +350,11 @@ public class HierarchyTest extends JPanel {
         String superClassName = "";
         String inheritance = "";
         String marks = implementsMarksField.getText();
-        int markNum = Integer.parseInt(marks);
+        int markNum = 0;
+
+        if (!marks.isEmpty()) {
+            markNum = Integer.parseInt(marks);
+        }
         
         for (Component comp : implementsList.getComponents()) {
             if (comp instanceof JCheckBox) {
