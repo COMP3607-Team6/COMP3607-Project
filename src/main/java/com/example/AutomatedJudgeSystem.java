@@ -29,7 +29,7 @@ public class AutomatedJudgeSystem {
     
 
     public static void main (String[] args) throws IOException{
-        initializeAssignmentSpecPortal(new AutomatedJudgeSystem());
+        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
     }
 
     public static void doTest () throws IOException{
@@ -121,7 +121,7 @@ public class AutomatedJudgeSystem {
                 System.out.println("HIHI");
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
-                pdfManager.notify(testCases, "816029005" + num, specs);
+                pdfManager.notify(testCases, "816029005" + num, asSpec);
                 num++;
                   System.out.println(num);
                 
@@ -152,7 +152,7 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        pdfManager.endOfAssignmentCheck(testCases,specs,true);
+        pdfManager.endOfAssignmentCheck(testCases,asSpec,true);
 
         zipFileComposite.removeAll();
 
@@ -176,7 +176,7 @@ public class AutomatedJudgeSystem {
     
 
     //  // method which calls helper methods to execute the whole process of marking a student assignment
-    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification specs){
+    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification asSpec){
 
     //     // 1) some method to read the data from the frontend and create all tests for it based on the spec
 
@@ -190,7 +190,7 @@ public class AutomatedJudgeSystem {
     //             executeAssignmentTest();
 
     //         //4) method to generate pdf output for a student assignment
-    //             pdfManager.notify(testCases, studentId, specs);
+    //             pdfManager.notify(testCases, studentId, asSpec);
 
     // }
 
