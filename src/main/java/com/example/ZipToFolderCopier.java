@@ -7,7 +7,7 @@ import java.nio.file.StandardCopyOption;
 
 public class ZipToFolderCopier implements FileCopier {
     
-    public static Path copyFile(Path source)
+    public static Path copyFile(Path source, String destinationFolder)
     {
         // Path source = Paths.get(w.getPath());
         // Create a Path object for the target file
@@ -15,7 +15,7 @@ public class ZipToFolderCopier implements FileCopier {
         // Copy the source file to the target file
         int index = source.toString().lastIndexOf("\\");
         String output = source.toString().substring(index + 1);
-        Path target = Paths.get("src\\main\\java\\com\\example\\GradedSubmissions\\" + output);
+        Path target = Paths.get(destinationFolder + output);
         
 
         try {

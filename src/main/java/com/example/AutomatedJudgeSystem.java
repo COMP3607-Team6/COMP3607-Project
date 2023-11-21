@@ -43,6 +43,7 @@ public class AutomatedJudgeSystem {
     
 
     public static void main (String[] args) throws IOException{
+        Delete.deleteFolder("GradedSubmissions.zip");
         // initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
         System.out.println("zipFilePathugui");
         int num = 0;
@@ -86,24 +87,18 @@ public class AutomatedJudgeSystem {
                 throw new IllegalArgumentException("No number found in filename.");
             }
           }
-
-        
-        
+      
         try {
       
             // Iterate student submissions
             SystemNotification testExecutionNotification = new SystemNotification("Test Suite is processing assignments :)");
+
             for (ZipComponent z : zipFileComposite.getComponents()) 
             {
-                 
-                
-
-                // System.out.println("VYVIVUVAIUXVIUVSXIPVSCIYVSPVCUPYVWSCPYVWSCPYVWSYVCPYWVC*UVW(UGC(UW(UCV(WUVCU(W)))))");
                String outputFolder = "src\\main\\java\\com\\example\\StudentFile";
                ZipFileComposite c = (ZipFileComposite)z;
                Path submission_location = SubmissionCopier.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
-            //    System.out.println("JIJINISIISJSIJSIJSIJIPSJSPJPSIS " + c.getPath());
-               Delete.deleteFolder(c.getPath());
+            //    Delete.deleteFolder(c.getPath());
                 
 
                 
@@ -121,7 +116,7 @@ public class AutomatedJudgeSystem {
 
 
                         }
-    } //End of java file iteration
+                } //End of java file iteration
                  
                 //Needed so files have time to be created and recognized
                 try {
@@ -148,19 +143,11 @@ public class AutomatedJudgeSystem {
                     t.init();
                 }
 
-                
-
-                System.out.println("HIHI");
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
                 pdfManager.notify(testCases, studentIds.get(num), submission_location.toString());
                 num++;
-                  System.out.println(num);
                 
-                 
-                 // testCases.clear();
-                //   paras.clear();
-
                 for(TestCase t: testCases){
                     t.reset();
                 }
@@ -168,8 +155,8 @@ public class AutomatedJudgeSystem {
                 
                   try {
                     // copyFile(submission_location.toString(), "src\\main\\java\\com\\example\\GradedSubmissions\\");
-                    Path destination = Paths.get("src\\main\\java\\com\\example\\GradedSubmissions\\");
-                    ZipToFolderCopier.copyFile(submission_location);//, destination);
+                    String destination = "src\\main\\java\\com\\example\\GradedSubmissions\\";
+                    ZipToFolderCopier.copyFile(submission_location, destination);
                     try {
                     // Pause for 5 seconds
                     Thread.sleep (5000);
@@ -182,9 +169,7 @@ public class AutomatedJudgeSystem {
                   catch (Exception e)
                   {
                     e.printStackTrace();
-                  }
-
-                 
+                  }             
                   
             } //End of student for loop
             
@@ -198,26 +183,21 @@ public class AutomatedJudgeSystem {
 
         zipFileComposite.removeAll();
 
-        for (ZipComponent a : zipFileComposite.getComponents())
-        {
-            a.printInfo();
-        }
-// 
        Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
 
         try {
-                    // Pause for 5 seconds
-                    Thread.sleep (5000);
-                } catch (Exception e) {
-                    // Handle the interruption
-                    e.printStackTrace ();
-                }
+                // Pause for 5 seconds
+                Thread.sleep (5000);
+        } 
+        catch (Exception e) 
+        {
+                // Handle the interruption
+                e.printStackTrace ();
+        }
 
-                ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\GradedSubmissions", "GradedSubmissions.zip");
-                Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
-                System.out.println("zipFilePath");
-                System.out.println("zipFilePath");
-
+        ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\GradedSubmissions", "GradedSubmissions.zip");
+        Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
+        Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\GradedSubmissions");
     }
 
     public static void doTest () throws IOException{
@@ -226,26 +206,6 @@ public class AutomatedJudgeSystem {
         
         
     }
-
-    //  // method which calls helper methods to execute the whole process of marking a student assignment
-    // public static void processAssignment(ArrayList<TestCase> testCases, String studentId, AssignmentSpecification asSpec){
-
-    //     // 1) some method to read the data from the frontend and create all tests for it based on the spec
-
-    //     //LOOP for every Assignment:
-
-    //         //2) method to retrieve student zip file from folder and unzip that assignment
-    //             //Retrieve studentID and possibly Name??
-    //             // If file not following naming convention then A flagged folder is generated where that report is saved??
-            
-    //         //3) some method to run the test and generate associated comments for each test
-    //             executeAssignmentTest();
-
-    //         //4) method to generate pdf output for a student assignment
-    //             pdfManager.notify(testCases, studentId, asSpec);
-
-    // }
-
 
     public static void executeAssignmentTest(ArrayList<TestCase> testCases){
         for(TestCase test: testCases){

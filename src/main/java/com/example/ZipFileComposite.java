@@ -36,7 +36,7 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
         while (entries.hasMoreElements()) {
             // Get the next entry
             ZipEntry entry = entries.nextElement();
-            System.out.println("ENTRYYY " + entry.getName());
+ 
             // Unzip the entry into a file
             try (InputStream is = zipFile.getInputStream(entry)) {
                 File entryFile = unzipEntry(entry, is, "src\\main\\java\\com\\example\\StudentFiles");
