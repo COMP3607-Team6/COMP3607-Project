@@ -1,7 +1,9 @@
 package com.example;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import com.example.FileCopy.FileToZipCopier;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -38,7 +40,7 @@ public class ClassReport implements PDFReport {
         totalMarksForTests = 0;
 
         try {
-            writer = new PdfWriter("FancyTable.pdf");
+            writer = new PdfWriter("ClassReport.pdf");
         } catch (FileNotFoundException e) {
 
             e.printStackTrace();
@@ -95,6 +97,9 @@ public class ClassReport implements PDFReport {
           table.setHorizontalAlignment(HorizontalAlignment.CENTER);
           document.add(table);
           document.close();
+          File class_report_pdf = new File("ClassReport.pdf");
+          System.out.println("ADDED " + class_report_pdf.getName());
+          FileToZipCopier.copy(class_report_pdf, new File(submission_location));
           SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!", "GradedSubmissions.zip");
 
         }
