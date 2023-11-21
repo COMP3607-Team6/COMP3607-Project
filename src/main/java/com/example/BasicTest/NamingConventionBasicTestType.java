@@ -3,6 +3,9 @@ package com.example.BasicTest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+ /**
+ * Concrete Strategy of BasicTestTypes that handles Naming Convention test for classes,methods,attributes
+*/
 public class NamingConventionBasicTestType implements BasicTestTypes {
 
     public boolean classTest(Class<?> classObject){

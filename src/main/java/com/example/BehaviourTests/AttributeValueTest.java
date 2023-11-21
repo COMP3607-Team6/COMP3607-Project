@@ -3,15 +3,18 @@ package com.example.BehaviourTests;
 import static org.junit.Assert.assertEquals;
 import java.lang.reflect.Field;
 
-import com.example.TestCase;
-
+/**
+ * Concrete Class of ValueTest that handles the declared type test and value test for attributes
+*/
 public class AttributeValueTest extends ValueTest {
     
     private Object actualValue;
     private String attributeName;
     private String className;
    
-
+     /**
+    * Expected value is passed into the constructor along with test parameters
+    */
     public AttributeValueTest(String attributeName, String className, int allocatedMarks, Object value) {
         super(allocatedMarks);
         this.attributeName = attributeName;
@@ -25,14 +28,10 @@ public class AttributeValueTest extends ValueTest {
     public String test(){
         Object value = getValue();
 
-        //System.out.println(value);
-
-
         if(value.equals(className + " class not found !!")){
              System.out.println(value);
             return className + " class not found !!";
         }
-
 
         else if(value.equals(attributeName + " not found in " + className + "!!")){
            return attributeName + " not found in " + className + " !!";
@@ -53,18 +52,16 @@ public class AttributeValueTest extends ValueTest {
         }
     }
 
-
+     /**
+    * Returns a Field object's type and value based on its name
+    */
     public Object getValue(){
 
         Class<?> clazz = findClassInstance(className,allClasses);
-      
-        
         if(clazz == null){
             return className + " class not found !!";
         }
-
-
-        Field field = findAttributeInstance(className, attributeName, allClasses); 
+        Field field = findAttributeInstance(className, attributeName, allClasses);
 
         if(field == null){
             return attributeName + " not found in " + className + "!!";
@@ -93,12 +90,5 @@ public class AttributeValueTest extends ValueTest {
 
     return null; // Return an empty string if there's any issue
 }
-
-
-    public static void main (String[] args){
-        TestCase t = new AttributeValueTest("coolBy", "AC",1, 5);
-        String r = t.test();
-        System.out.println(r);
-    }
 
 }

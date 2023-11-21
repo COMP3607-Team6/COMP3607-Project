@@ -1,5 +1,8 @@
 package com.example;
 
+/**
+ * Class which stores the marks and results of a Test;
+*/
 public class TestResult {
     
     private int testMarks;

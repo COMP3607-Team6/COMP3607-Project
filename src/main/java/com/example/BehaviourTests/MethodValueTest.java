@@ -9,8 +9,9 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.TestCase;
-
+/**
+ * Concrete Class of ValueTest that handles the declared type test and value test for methods
+*/
 public class MethodValueTest extends ValueTest {
 
     private String methodName;
@@ -31,78 +32,7 @@ public class MethodValueTest extends ValueTest {
         this.testName = "Method Value Test for " + methodName + " belonging to class: " + className;
 
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " methodName='" + getMethodName() + "'" +
-            ", className='" + getClassName() + "'" +
-            ", paras='" + getParas() + "'" +
-            ", methodparas='" + getMethodparas() + "'" +
-            ", expectedValue='" + getExpectedValue() + "'" +
-            ", actualValue='" + getActualValue() + "'" +
-            ", method='" + getMethod() + "'" +
-            "}";
-    }
-
-    public String getMethodName() {
-        return this.methodName;
-    }
-
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
-    }
-
-    public String getClassName() {
-        return this.className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    public ArrayList<Object> getParas() {
-        return this.paras;
-    }
-
-    public void setParas(ArrayList<Object> paras) {
-        this.paras = paras;
-    }
-
-    public ArrayList<Object> getMethodparas() {
-        return this.methodparas;
-    }
-
-    public void setMethodparas(ArrayList<Object> methodparas) {
-        this.methodparas = methodparas;
-    }
-
-    public Object getExpectedValue() {
-        return this.expectedValue;
-    }
-
-    public void setExpectedValue(Object expectedValue) {
-        this.expectedValue = expectedValue;
-    }
-
-    public Object getActualValue() {
-        return this.actualValue;
-    }
-
-    public void setActualValue(Object actualValue) {
-        this.actualValue = actualValue;
-    }
-
-    public Method getMethod() {
-        return this.method;
-    }
-
-    public void setMethod(Method method) {
-        this.method = method;
-    }
-    
-
-    // Needs more error handling code
+  
     public String test(){
 
         actualValue = getValue();
@@ -134,14 +64,13 @@ public class MethodValueTest extends ValueTest {
 
     }
     
+    /**
+     * Retruns the value returned by the method (actual value)
+    */
     
     public Object getValue(){
 
-
-       
         Class<?> clazz = findClassInstance(className,allClasses);
-      
-        
         if(clazz == null){
             return className + " class not found !!";
         }
@@ -159,14 +88,10 @@ public class MethodValueTest extends ValueTest {
             return  methodName + " method not found in " + className + " !!";
         }
 
-    
         Object instance = oldFindClassInstance(className);
 
-        
-        
         Parameter[] parameters = method.getParameters();
         
-
         int pointer = 0;
 
         if(parameters.length == 0){
@@ -203,16 +128,14 @@ public class MethodValueTest extends ValueTest {
                 e.printStackTrace();
             }
            
-
-
-       
         }
-
-
 
        return null;
     }
 
+    /**
+     * convert parameters from string to actual parameter types.
+    */
     public void getParametersForMethod(Class<?>parameterType, int pointer){
 
         if((parameterType == int.class) && (paras.get(pointer)instanceof Integer)){
@@ -245,6 +168,9 @@ public class MethodValueTest extends ValueTest {
         System.out.println("Reach here");
     }
 
+    /**
+     * Add instance of a Parameter specified in String
+    */
     public void addInstancePara(String paras, String p){
 
         List<Object> ConstructorParameterValues = new ArrayList<>();
@@ -313,7 +239,10 @@ public class MethodValueTest extends ValueTest {
             } 
       }  
     }
-
+    
+    /**
+    * Check Class<?> Object and add cast the Object accordingly to add to params arrayList
+    */
     public void CheckTypeAndAdd(Class<?> type, List<Object> ConstructorParameterValues, int pointer, String [] values){
         if (type == int.class) {
           ConstructorParameterValues.add(Integer.parseInt(values[pointer]));
@@ -336,6 +265,9 @@ public class MethodValueTest extends ValueTest {
 
     }
 
+    /**
+     * Returns name of a class without path extensions
+    */
     public String getSimpleClassName(String fullyQualifiedClassName) {
         int lastDotIndex = fullyQualifiedClassName.lastIndexOf('.');
 
@@ -346,20 +278,5 @@ public class MethodValueTest extends ValueTest {
             return fullyQualifiedClassName;
         }
     }
-
-     public static void main (String[] args){
-        ArrayList<Object> paras = new ArrayList<>();
-        paras.add(5);
-        paras.add("{}");
-        // paras.add("{10}");
-        // paras.add(5);
-        // paras.add("{5,5}");
-        //paras.add((float)3.2 );
-
-        TestCase t = new MethodValueTest("coolsBy", "AC",1,paras, 13);
-        String r = t.test();
-        System.out.println(r);
-    }
-
 
 }

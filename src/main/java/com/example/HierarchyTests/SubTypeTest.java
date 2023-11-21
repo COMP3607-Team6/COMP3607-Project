@@ -1,18 +1,10 @@
 package com.example.HierarchyTests;
 
 import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
+/**
+ * Concrete Class of Hierarchy Test which checks if a subclass implements a superclass.
+*/
 public class SubTypeTest extends HierarchyTest {
-    private Object classObject;
-    private String superClassPath = "src\\main\\java\\com\\example\\StudentFile";
     String subClass; String superClass;
 
     public SubTypeTest(String subClass, String superClass, int allocatedMarks)
@@ -48,13 +40,4 @@ public class SubTypeTest extends HierarchyTest {
             }
        }
     
-    public static void main (String[] args)
-    {
-        // Object hi = getSuperClass("Fan");
-        SubTypeTest t = new SubTypeTest("CeilingFan", "Fan",1);
-        
-        // System.out.println(t.test());
-        System.out.println(t.test());
-        // t.test1();
-    }
 }
