@@ -58,7 +58,7 @@ public class AutomatedJudgeSystem {
         ArrayList <String> assignmentNames = new ArrayList<>();
         ArrayList <String> studentIds = new ArrayList<>();
 
-        String zipFilePath = "ZipFolder.zip" ; //asSpec.getFolderPath();
+        String zipFilePath = asSpec.getFolderPath();
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;

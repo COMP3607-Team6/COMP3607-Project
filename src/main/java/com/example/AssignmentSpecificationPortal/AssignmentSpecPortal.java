@@ -165,12 +165,12 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         }
     }
 
-    // public void onGUISaveSpecButtonPressed(String msg) {
-    //     if (msg.equals("Assignment Specification Saved"))
-    //         nextButton.setEnabled(true);
-    //     else
-    //         nextButton.setEnabled(false);
-    // }
+    public void onGUISaveSpecButtonPressed(String msg) {
+        if (msg.equals("Assignment Specification Saved"))
+            nextButton.setEnabled(true);
+        else
+            nextButton.setEnabled(false);
+    }
     
 
 }
