@@ -81,9 +81,6 @@ public class ClassReport implements PDFReport {
             classTotal = classTotal + totalMarks;
             classAverage = (float)(classTotal / (1.0 * numStudent));
 
-            //System.out.println(totalMarks);
-
-
             // Adding cells to the table
             table.addCell(createCell(StudentID, TextAlignment.CENTER));
             

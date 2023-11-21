@@ -99,9 +99,7 @@ public class AutomatedJudgeSystem {
                ZipFileComposite c = (ZipFileComposite)z;
                Path submission_location = SubmissionCopier.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
             //    Delete.deleteFolder(c.getPath());
-                
-
-                
+           
                 //Iterate student files
                 for (ZipComponent i : c.getComponents())
                     {
