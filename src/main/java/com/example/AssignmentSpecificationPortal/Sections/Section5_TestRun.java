@@ -3,10 +3,8 @@ package com.example.AssignmentSpecificationPortal.Sections;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 
-import javax.security.auth.callback.Callback;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.example.AutomatedJudgeSystem;

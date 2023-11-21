@@ -206,14 +206,6 @@ public class Section1 extends JPanel {
 
         specButton = new JButton("Add Assignment Specification");
         specButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // NOTE: BEFORE SUBMISSION
-        // -- REPLACE OLD specButton action listener WITH NEW ONE
-        // -- UNCOMMENT onGUISaveSpecButtonPressed IN AssignmentSpecPortal.java
-        // -- UNCOMMENT nextButton.setEnabled(false) AssignmentSpecPortal.java
-
-        // NEW
-        // ActionListener for the spec button
         
         specButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -243,8 +235,8 @@ public class Section1 extends JPanel {
                 String filepath = (String) actualFilePathLabel.getText();
 
                 if (courseCode.isEmpty() 
-                // || title.isEmpty() || weightingFieldValue.isEmpty() || desc.isEmpty() ||
-                //         (filepath.isEmpty() || filepath == "no file added")
+                || title.isEmpty() || weightingFieldValue.isEmpty() || desc.isEmpty() ||
+                        (filepath.isEmpty() || filepath == "no file added")
                         ) {
                     specNotCompleteLabel.setText("Please fill all fields.");
                 } else {
@@ -256,8 +248,8 @@ public class Section1 extends JPanel {
                         specNotCompleteLabel.setText("Invalid: Weighting received exceeds 100%");
                     } else if (weighting < 0) {
                         specNotCompleteLabel.setText("Invalid: Weighting received is less than 0%");
-                    // } else if (!zipFile.exists()) {
-                    //     specNotCompleteLabel.setText("No zip file exists at this location.");
+                    } else if (!zipFile.exists()) {
+                        specNotCompleteLabel.setText("No zip file exists at this location.");
                     } else {
                         asSpec.setCourseCode(courseCode);
                         asSpec.setTitle(title);
@@ -276,35 +268,6 @@ public class Section1 extends JPanel {
             }
         });
         
-
-        // OLD
-        /* 
-        specButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-               String courseCode = (String) courseCodeField.getText();
-               asSpec.setCourseCode(courseCode);
-
-               String title = (String) titleField.getText();
-               asSpec.setTitle(title);
-
-               String weightingFieldValue = weightingField.getText(); 
-               int weighting = Integer.parseInt(weightingFieldValue);
-               asSpec.setAssignmentWeighting(weighting);
-
-               String desc = (String) descriptionTextArea.getText();
-               asSpec.setDescription(desc);
-
-               String a = (String) date.getSelectedItem();
-               String b = (String) month.getSelectedItem();
-               String c = (String) year.getSelectedItem();
-               String deadline = a + " " + b + " " + c;
-               asSpec.setDeadlineDate(deadline);
-
-               String filepath = (String) actualFilePathLabel.getText();
-               asSpec.setFolderPath(filepath);
-               System.out.println("Assignment Specification Saved");
-            }
-        }); */
 
         specNotCompleteLabel = new JLabel("");
         specNotCompleteLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

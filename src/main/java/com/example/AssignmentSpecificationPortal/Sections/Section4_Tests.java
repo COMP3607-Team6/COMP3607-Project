@@ -21,7 +21,6 @@ public class Section4_Tests extends JPanel{
 
     private JTabbedPane section4TabbedPane;
     private CardLayout cardLayout;
-    // private JPanel mainPanel;
 
     public Section4_Tests(CardLayout cardLayout) {
         this.cardLayout = cardLayout;
@@ -33,14 +32,10 @@ public class Section4_Tests extends JPanel{
         System.out.println("Received Updated Selected Tests: " + selectedTests);
 
         if (section4TabbedPane != null) {
-            remove(section4TabbedPane); // Remove the existing tabbed pane
+            remove(section4TabbedPane);
         }
 
         section4TabbedPane = new JTabbedPane();
-
-        /*private Section2A_Classes section2a;
-        section2a = new Section2A_Classes(cardLayout);
-        section2TabbedPane.addTab("Classes", section2a); */
         
         for (int i = 0; i < selectedTests.getSize(); i++) {
             String name = selectedTests.getTestName(i);

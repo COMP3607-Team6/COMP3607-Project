@@ -68,7 +68,6 @@ public class BaseTest extends JPanel {
     
 
     protected String testType;
-    private JPanel testDescriptionPanel;
 
     public BaseTest() {
         classTests = new ArrayList<ClassBasicTest>();
@@ -168,12 +167,6 @@ public class BaseTest extends JPanel {
 
     //Creates the description for the Specific test
     protected void createDescriptionPanel() {
-        // testDescription = new JLabel();
-        // testDescriptionPanel = new JPanel(); 
-        // testDescriptionPanel.setLayout(new BoxLayout(testDescriptionPanel, BoxLayout.X_AXIS));
-        // testDescriptionPanel.add(testDescription);
-        // testDescriptionPanel.add(Box.createHorizontalGlue());
-        
         testDescription = new JLabel();
         testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
         testDescription.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -386,7 +379,6 @@ public class BaseTest extends JPanel {
                             classCompName = parts[1];
                         }
 
-                        System.out.println("text: " + text);
                         if (checkBox.isSelected()) {
                             currentComponent = iterator.next();
                             currentComponent = iterator.next(); // skip marks label
@@ -397,7 +389,6 @@ public class BaseTest extends JPanel {
                                 marks = Integer.parseInt(textFieldValue); 
                                 name = name + text + " ["+marks+" mks], \n";
                             }
-                            // name = name + checkBoxText + " ["+marks+" mks], ";
                             if(check == 0){
                                 attributeTests.add(new AttributeBasicTest(marks,className, classCompName, testType));
                             }

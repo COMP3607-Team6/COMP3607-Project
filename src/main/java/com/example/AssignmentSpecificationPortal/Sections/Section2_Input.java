@@ -109,32 +109,4 @@ public abstract class Section2_Input extends JPanel {
         }
     }
 
-    public void getAllMethods() {
-        for (ClassInformation classInfo : ClassesManager.getClasses()) {
-            System.out.println(classInfo.toString());
-            System.out.println("Methods:");
-
-            for (MethodInformation methodInfo : classInfo.getMethods()) {
-                System.out.println(methodInfo.toString());
-                System.out.println("-----------------------------------------");
-            }
-        }
-    }
-
-    public void getAllAttributes() {
-        for (ClassInformation classInfo : ClassesManager.getClasses()) {
-            System.out.println(classInfo.toString());
-            System.out.println("Attributes:");
-
-            for (AttributeInformation attributeInfo : classInfo.getAttributes()) {
-                System.out.println(attributeInfo.toString());
-                System.out.println("-----------------------------------------");
-            }
-        }
-    }
-
-    public void getAllClasses() {
-        System.out.println(ClassesManager.getClasses());
-    }
-
 }
