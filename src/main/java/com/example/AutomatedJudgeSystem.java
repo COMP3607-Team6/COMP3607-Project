@@ -78,7 +78,6 @@ public class AutomatedJudgeSystem {
         Delete.deleteFolder("GradedSubmissions.zip");
         System.out.println("zipFilePathugui");
 
-
         int num = 0;
 
         pdfManager = new PDFManager(asSpec);
@@ -92,6 +91,7 @@ public class AutomatedJudgeSystem {
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
         Composite zipFileComposite = null;
+
         try 
         {
             // Create a ZipFileComposite object from the File object
@@ -106,21 +106,6 @@ public class AutomatedJudgeSystem {
             return;
         }
 
-          
-        //System.out.println(assignmentNames.size());
-          for(String a : assignmentNames){
-            Pattern pattern = Pattern.compile("\\d+");
-            Matcher matcher = pattern.matcher(a);
-
-            System.out.println("Assignment name is " +a);
-            if (matcher.find()) {
-                System.out.println((matcher.group())); //(return Integer.parseInt(matcher.group());
-                studentIds.add((matcher.group()));
-            } else {
-                studentIds.add(a);
-                throw new IllegalArgumentException("No number found in filename.");
-            }
-          }
       
         try {
       
@@ -132,7 +117,6 @@ public class AutomatedJudgeSystem {
                String outputFolder = Constants.STUDENT_SUBMISSION_TESTING_FOLDER;
                ZipFileComposite c = (ZipFileComposite)z;
                Path submission_location = SubmissionCopier.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
-            //    Delete.deleteFolder(c.getPath());
            
                 //Iterate student files
                 for (ZipComponent i : c.getComponents())
@@ -140,11 +124,8 @@ public class AutomatedJudgeSystem {
                         if (i instanceof ZipEntryLeaf)
                         {
                             ZipEntryLeaf f = (ZipEntryLeaf)i;
-                            
 
-                            String entryName = f.getPath();
-
-                            JavaFileCopier.javaFileCopierToLeaf (entryName, f);
+                            JavaFileCopier.javaFileCopierToLeaf (f.getPath(), f);
                         }
                 } //End of java file iteration
                  
@@ -173,22 +154,22 @@ public class AutomatedJudgeSystem {
                   
                 
                   try {
-                    // copyFile(submission_location.toString(), "src\\main\\java\\com\\example\\GradedSubmissions\\");
-                    String destination = "src\\main\\java\\com\\example\\GradedSubmissions\\";
-                    ZipToFolderCopier.copyFile(submission_location, destination);
+                    ZipToFolderCopier.copyFile(submission_location, Constants.GRADED_SUBMISSIONS);
+                    
+                    //
                     try {
-                    // Pause for 5 seconds
-                    Thread.sleep (5000);
-                    } catch (Exception e) {
-                        // Handle the interruption
-                        e.printStackTrace ();
+                        // Pause for 5 seconds
+                        Thread.sleep (5000);
+                        } catch (Exception e) {
+                            // Handle the interruption
+                            e.printStackTrace ();
+                        }
+                        Delete.deleteFilesInFolder(outputFolder);
                     }
-                     Delete.deleteFilesInFolder(outputFolder);
-                  }
-                  catch (Exception e)
-                  {
-                    e.printStackTrace();
-                  }             
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }             
                   
             } //End of student for loop
             
@@ -198,7 +179,7 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        ZipDirectory.zipDirectory(Constants.GRADED_SUBMISSIONS, "GradedSubmissions.zip");
+        ZipDirectory.zipDirectory(Constants.GRADED_SUBMISSIONS, Constants.GRADED_SUBMISSIONS_ZIP);
 
          try {
                 // Pause for 5 seconds

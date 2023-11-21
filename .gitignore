@@ -13,7 +13,13 @@
 
 # Maven
 log/
-target/
+
+#Include this for java api doc
+target/*
+!target/site/
+target/site/*
+!target/site/apidocs/
+
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -49,5 +55,4 @@ buildNumber.properties
 hs_err_pid*
 
 # Files
-assignment.zip
 *.pdf

@@ -35,4 +35,9 @@ public final class Constants {
      */
     public static final String TEST_ASSIGNMENTS = "src\\main\\java\\com\\example\\TestingAssignment";
 
+    /*
+     * Constant for the zip folder that stores graded submissions
+     */
+    public static final String GRADED_SUBMISSIONS_ZIP = "GradedSubmissions.zip";
+
 }
