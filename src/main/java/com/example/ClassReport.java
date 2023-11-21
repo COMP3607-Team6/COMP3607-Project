@@ -60,7 +60,7 @@ public class ClassReport implements PDFReport {
   }
 
 
-    public void update(ArrayList<TestCase> cases, String StudentID, boolean assignmentsEnd){
+    public void update(ArrayList<TestCase> cases, String StudentID, boolean assignmentsEnd, String submission_location){
 
          double percentage;
 
@@ -81,9 +81,6 @@ public class ClassReport implements PDFReport {
             classTotal = classTotal + totalMarks;
             classAverage = (float)(classTotal / (1.0 * numStudent));
 
-            //System.out.println(totalMarks);
-
-
             // Adding cells to the table
             table.addCell(createCell(StudentID, TextAlignment.CENTER));
             
@@ -98,7 +95,7 @@ public class ClassReport implements PDFReport {
           table.setHorizontalAlignment(HorizontalAlignment.CENTER);
           document.add(table);
           document.close();
-          SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!");
+          SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!", "src\\main\\java\\com\\example\\StudentFiles");
 
         }
 
@@ -109,6 +106,7 @@ public class ClassReport implements PDFReport {
         percentage = 0.00;
     
         System.out.println("PDF updated successfully.");
+        // return "Need to update return in ClassReport.java";
 
     }
 
@@ -118,4 +116,6 @@ public class ClassReport implements PDFReport {
         cell.setTextAlignment(alignment);
         return cell;
     }
+
+
 }

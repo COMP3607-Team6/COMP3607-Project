@@ -101,8 +101,6 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
                 cardLayout.next(cardPanel);
                 currentCard = getNextCardName(currentCard);
                 updateButtonVisibility( buttonPanel);
-                // System.out.println("tc manager:");
-                // System.out.println(TestCaseManager.getTestCases());
             }
         });
 

@@ -40,6 +40,18 @@ public class ClassInformation {
         return isInterface;
     }
 
+    public String getType() {
+        String result="";
+        if(isInterface=="interface"){
+            result =  isInterface;
+        }
+        else{
+           result =  isAbstract;
+        }
+        
+        return result;
+    }
+
     public String getClassName() {
         return className;
     }

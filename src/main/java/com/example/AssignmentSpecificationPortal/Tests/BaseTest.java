@@ -154,13 +154,15 @@ public class BaseTest extends JPanel {
     }
 
     protected void createDescriptionPanel() {
-        testDescription = new JLabel();
-        testDescriptionPanel = new JPanel(); 
-        testDescriptionPanel.setLayout(new BoxLayout(testDescriptionPanel, BoxLayout.X_AXIS));
-        testDescriptionPanel.add(testDescription);
-        testDescriptionPanel.add(Box.createHorizontalGlue());
-        // testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
-        // testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
+        // testDescription = new JLabel();
+        // testDescriptionPanel = new JPanel(); 
+        // testDescriptionPanel.setLayout(new BoxLayout(testDescriptionPanel, BoxLayout.X_AXIS));
+        // testDescriptionPanel.add(testDescription);
+        // testDescriptionPanel.add(Box.createHorizontalGlue());
+        
+        testDescription = new JLabel(" description. short one line description of test");
+        testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
+        testDescription.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     public JPanel createSelectedClassPanel() {

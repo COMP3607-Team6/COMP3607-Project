@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
 import com.example.TestCase;
 import com.example.TestCaseManager;
@@ -69,6 +73,7 @@ public class ValueTest extends JPanel{
 
 
     public ValueTest(String description){
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         methodTests = new ArrayList<MethodValueTest>();
@@ -102,111 +107,127 @@ public class ValueTest extends JPanel{
         add(testDescription);
         add(selectedClassPanel);
 
+        //whole panel for work
         grid = new JPanel();
         grid.setLayout(new GridLayout(1, 2));
 
+        //right side of panel
         displaySection = new JPanel();
         displaySection.setLayout(new BoxLayout(displaySection, BoxLayout.Y_AXIS));
 
-
-
-
+        //left side of panel
         inputSection = new JPanel();
         inputSection.setLayout(new BoxLayout(inputSection, BoxLayout.Y_AXIS));
 
 
-
-
+        //top part of input section
         attributesSection = new JPanel();
         attributesSection.setLayout(new BoxLayout(attributesSection, BoxLayout.Y_AXIS));
 
-
-
-
+        //bottom part of input section
         methodsSection = new JPanel();
         methodsSection.setLayout(new BoxLayout(methodsSection, BoxLayout.Y_AXIS));
 
+        //adds title and marks input to attributes section
         JPanel placeholder = new JPanel();
         placeholder.setLayout(new FlowLayout());
+
         attributesLabel = new JLabel("Attributes");
         attributesMarkLabel = new JLabel("Marks: ");
         attributesMarkField = new JTextField(3);
-attributesMarkField.setText("0");
+        attributesMarkField.setText("1");
+        attributesMarkField.setDocument(new IntegerDocument());
+
         placeholder.add(attributesLabel);
         placeholder.add(attributesMarkLabel);
         placeholder.add(attributesMarkField);
 
         attributesSection.add(placeholder);
 
+        //list that displays all the attributes from the class
         attributeList = new JPanel();
         attributeList.setLayout(new BoxLayout(attributeList, BoxLayout.Y_AXIS));
 
+
+        //instanciates the attribute and method checkboxes
+        aCheckBox = new JCheckBox();
+        mCheckBox = new JCheckBox();
         
-        // for(int i = 0; i < 20; i++){
-        //     attributeList.add(new JCheckBox("somethign extends somethng"));
-        // }
+        //populate the attributeList panel
         populateAttributeList(currentClassName);
+
+        //creates the scrollable panel for attribute list
         JScrollPane attributesListScrollPane = new JScrollPane(attributeList);
         attributesListScrollPane.setPreferredSize(new Dimension(200, 100));
         attributesSection.add(attributesListScrollPane);
 
+
+        //creates the label titles for method section
         JPanel placeholder1 = new JPanel();
         placeholder1.setLayout(new FlowLayout());
         methodsLabel = new JLabel("Methods ");
         methodsMarkLabel = new JLabel("Marks: ");
         methodsMarkField = new JTextField(3);
-        methodsMarkField.setText("0");
-        
-
+        methodsMarkField.setText("1");
+        methodsMarkField.setDocument(new IntegerDocument());
+    
         placeholder1.add(methodsLabel);
         placeholder1.add(methodsMarkLabel);
         placeholder1.add(methodsMarkField);
 
         methodsSection.add(placeholder1);
 
-
+        //creates panel to display all methods of class
         methodList = new JPanel();
         methodList.setLayout(new BoxLayout(methodList, BoxLayout.Y_AXIS));
 
-        // for(int i = 0; i < 20; i++){
-        //     methodList.add(new JCheckBox("somethign extends somethng"));
-        // }
+        //populate method list panel
         populateMethodsList(currentClassName);
 
+        //makes method list panel scrollable
         JScrollPane methodsListScrollPane = new JScrollPane(methodList);
         methodsListScrollPane.setPreferredSize(new Dimension(200, 100));
         methodsSection.add(methodsListScrollPane);
 
+        // add top and bottom sections to the left section
         inputSection.add(attributesSection);
         inputSection.add(methodsSection);
 
 
+        //textarea to display the information on the attr and methods of the class
         allTests = new JTextArea(20, 10);
         allTests.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(allTests);
 
+        // panel for add and clear buttons
         saveBtnPanel = new JPanel();
         saveBtnPanel.setLayout(new FlowLayout());
 
         saveBtn = new JButton("Save Tests");
-        deleteBtn = new JButton("Remove Tests");
+        deleteBtn = new JButton("Clear Tests");
 
         saveBtnPanel.add(saveBtn);
         saveBtnPanel.add(deleteBtn);
 
+        //adds sections to display section
         displaySection.add(scrollPane);
         displaySection.add(saveBtnPanel);
 
+        //add grid panel to panel
         add(grid);
         grid.add(inputSection);
         grid.add(displaySection);
+
+
 
         deleteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 allTests.setText("");
+                clearTestCases();//BIG CHANGE
             }
         });
+
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -223,28 +244,27 @@ attributesMarkField.setText("0");
         });
 
         selectedClassComboBox.addActionListener(new ActionListener() {
-            // private int selectedClassIndex;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 String currentClassName = (String) selectedClassComboBox.getSelectedItem();
                 populateAttributeList(currentClassName);
+                attributeList.revalidate();
+                attributeList.repaint();//BIG CHANGE
+
                 populateMethodsList(currentClassName);
+                methodList.revalidate();
+                methodList.repaint();//BIG CHANGE
+                
             }
         });
-        selectedClassComboBox.addActionListener(new ActionListener() {
-            // private int selectedClassIndex;
 
+        selectedClassComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectedClassIndex = selectedClassComboBox.getSelectedIndex();
 
                 if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
                     ClassInformation selectedClass = ClassesManager.getClasses().get(selectedClassIndex);
-
-                    // for (AttributeInformation attribute : selectedClass.getAttributes()) {
-                    //     attributeListModel.addElement(attribute.toString());
-                    // }
                 } else {
                     System.out.println("Invalid selected index or class not found.");
                 }
@@ -258,30 +278,19 @@ attributesMarkField.setText("0");
     private void populateAttributeList(String currentClassName){
         for(ClassInformation c : ClassesManager.getClasses()){
             if(c.getClassName().equals(currentClassName)){
+
                 attributeList.removeAll();
                 ArrayList<AttributeInformation> attributes = c.getAttributes();
+
                 for(AttributeInformation a: attributes){
                     JPanel panel = new JPanel();
-                    aCheckBox = new JCheckBox(a.getAttributeType() + " " + a.getAttributeName());
-                    panel.add(aCheckBox);
-
-
-                    // NumberFormat format = NumberFormat.getIntegerInstance();
-                    // NumberFormatter formatter = new NumberFormatter(format);
-                    // formatter.setValueClass(Integer.class);
-                    // formatter.setMinimum(0); 
-
-                    // JFormattedTextField integerTextField = new JFormattedTextField(formatter); 
-                    // integerTextField.setColumns(3);
-
-
                     JTextField attrInput = new JTextField(5);
-                    
+
+                    aCheckBox = new JCheckBox(a.getAttributeType() + " " + a.getAttributeName());
+
+                    panel.add(aCheckBox);
                     panel.add(attrInput);
-             
                     attributeList.add(panel);
-
-
                 }
             }
         }
@@ -289,41 +298,31 @@ attributesMarkField.setText("0");
 
 
     private void populateMethodsList(String currentClassName){
-        // String methodSig = "";
         for(ClassInformation c : ClassesManager.getClasses()){
             if(c.getClassName().equals(currentClassName)){
                 
                 methodList.removeAll();
                 ArrayList<MethodInformation> method = c.getMethods();
+
                 for(MethodInformation m: method){
-                    JPanel panel = new JPanel();
+                    if(!m.getMethodType().equals("void")){
+                        JPanel panel = new JPanel();
+                        
+                        if(m.getIsAbstract().equals("abstract")){
+                            String methodSig = m.getAccessType() + "  " + m.getIsAbstract() + "  " + m.getMethodType() + "  " + m.getMethodName() + "  " + "(" + m.getMethodParameters() + ")";
+                            mCheckBox = new JCheckBox(methodSig);
+                        } else {
+                            String methodSig = m.getAccessType() + "  " + m.getMethodType() + "  " + m.getMethodName() + "  " + "(" + m.getMethodParameters() + ")";
+                            mCheckBox = new JCheckBox(methodSig);
+                        }
+                        JTextField methodOutput = new JTextField(5);
+                        
+                        panel.add(mCheckBox);
+                        panel.add(methodOutput);
 
-                    if(m.getIsAbstract().equals("abstract")){
-                        String methodSig = m.getAccessType() + "  " + m.getIsAbstract() + "  " + m.getMethodType() + "  " + m.getMethodName() + "  " + "(" + m.getMethodParameters() + ")";
-
-                        mCheckBox = new JCheckBox(methodSig);
-                    } else {
-                        String methodSig = m.getAccessType() + "  " + m.getMethodType() + "  " + m.getMethodName() + "  " + "(" + m.getMethodParameters() + ")";
-
-                        mCheckBox = new JCheckBox(methodSig);
+                        methodList.add(panel);
                     }
-                    JTextField methodOutput = new JTextField(5);
                     
-                    
-                    panel.add(mCheckBox);
-                    panel.add(methodOutput);
-
-                    // NumberFormat format = NumberFormat.getIntegerInstance();
-                    // NumberFormatter formatter = new NumberFormatter(format);
-                    // formatter.setValueClass(Integer.class);
-                    // formatter.setMinimum(0); 
-
-                    // JFormattedTextField integerTextField = new JFormattedTextField(formatter); 
-                    // integerTextField.setColumns(3);
-                    // panel.add(integerTextField);
-                    methodList.add(panel);
-
-
                 }
             }
         }
@@ -339,18 +338,15 @@ attributesMarkField.setText("0");
     }
 
     private void addTestCases() {
-
         testCases.addAll(attributeTests);
         testCases.addAll(methodTests);
-
 
         TestCaseManager.getTestCases().addAll(attributeTests);
         TestCaseManager.getTestCases().addAll(methodTests);
     }
 
-
+    
     public void printTest(){
-        System.out.println("in here");
         clearTestCases();
 
         String nameCon = (String) selectedClassComboBox.getSelectedItem();
@@ -363,12 +359,11 @@ attributesMarkField.setText("0");
         int marksM = Integer.parseInt(markM);
 
         if(aCheckBox.isSelected()){
-            nameCon = nameCon + "-Attributes: ";
-            //nameCon = checkAttributeCheckboxes(attributeList, nameCon, cName);
+            nameCon = "Class: " + nameCon + "\n-Attributes:\n";
             nameCon = checkCheckboxesA(attributeList, nameCon, cName, 0, marks);
         }
          if(mCheckBox.isSelected()){
-             nameCon = nameCon + "-Methods: ";
+             nameCon = nameCon + "\n-Methods:\n";
              nameCon = checkCheckboxesM(methodList, nameCon, cName, 1, marksM);
         }
         
@@ -379,9 +374,10 @@ attributesMarkField.setText("0");
     }
 
     public String checkCheckboxesA(JPanel Panel, String name, String className, int check, int mark){
-        
+        System.out.println("inside checkA method");
         for(Component component : Panel.getComponents()){
             String input = "";
+
             if(component instanceof JPanel){
                 JPanel innerPanel = (JPanel) component;
                 Component[] Comps = innerPanel.getComponents();
@@ -389,36 +385,36 @@ attributesMarkField.setText("0");
 
                 while(iterator.hasNext()){
                     Component currentComponent = iterator.next();
+
                     if(currentComponent instanceof JCheckBox){
                         JCheckBox checkBox = (JCheckBox) currentComponent;
                         String checkBoxText = checkBox.getText();
-                        
 
                         String[] tempArray = checkBoxText.split(" ");
                         String attrName = tempArray[1];
                         String attrType = tempArray[0];
-                        
 
                         if(checkBox.isSelected()){
                             currentComponent = iterator.next();
 
                             if (currentComponent instanceof JTextField){
                                 JTextField textfield =(JTextField) currentComponent;
-                                input = textfield.getText();
-                                
+                                input = (String) textfield.getText();  
                             }
-                            Object test = setAttributeType(attrType, input);
+
+                            Object attrTypeObject = setAttributeType(attrType, input);
                             if(check == 0){
-                                name = name + checkBoxText + "[ " + mark + " ], ";
-                                attributeTests.add(new AttributeValueTest(attrName, className, mark, test));
+                                name = name + checkBoxText + " - Expected input: " + input + " [" + mark + "]\n";
+                                attributeTests.add(new AttributeValueTest(attrName, className, mark, attrTypeObject));
                             }
                         }
                     }
                 }
             }
         }
-        name = name + "\n";
 
+        System.out.println(attributeTests.size());
+        name = name + "\n";
         return name;
     }
 
@@ -430,9 +426,10 @@ attributesMarkField.setText("0");
         String methodReturnType = "";
         String methodName = "";
         String methodParameters = "";
-        ArrayList<String> splitUpMethod = new ArrayList<String>();
+        
         for(Component component : Panel.getComponents()){
             if(component instanceof JPanel){
+
                 JPanel innerPanel = (JPanel) component;
                 Component[] Comps = innerPanel.getComponents();
                 Iterator<Component> iterator = Arrays.asList(Comps).iterator(); 
@@ -448,7 +445,9 @@ attributesMarkField.setText("0");
 
                     
                         if(checkBox.isSelected()){
+
                             currentComponent = iterator.next();
+
                             if(currentComponent instanceof JTextField){
                                 JTextField textfield =(JTextField) currentComponent;
                                 expectedOutput = (String) textfield.getText();
@@ -466,13 +465,20 @@ attributesMarkField.setText("0");
                                 methodName = parts[2];
                                 methodParameters = parts[3];
                             }
-                            System.out.println("test: " + methodParameters);
-                            name = name + methodName + "[ " + mark + "], ";
-                            Object test = getExpectedValue(methodReturnType, expectedOutput);
-                            ArrayList<Object> testing = new ArrayList<>();
-                            testing = setMethodParameters(methodParameters);
-                            methodTests.add(new MethodValueTest(methodName, className, mark, testing, test));
+                            name = name + checkBoxText + " -Expected Output: " + expectedOutput + " [" + mark + "]\n";
 
+                            Object expectedOutputValue = getExpectedValue(methodReturnType, expectedOutput);
+                            ArrayList<Object> methodParametersObjectTypes = new ArrayList<>();
+
+                            if(methodParameters.length() == 2){
+                                methodTests.add(new MethodValueTest(methodName, className, mark, methodParametersObjectTypes, expectedOutputValue));
+                            } else {
+                                methodParametersObjectTypes = setMethodParameters(methodParameters);
+                                methodTests.add(new MethodValueTest(methodName, className, mark, methodParametersObjectTypes, expectedOutputValue));
+                            }
+
+                            
+                            // methodParametersObjectTypes.clear();
                         }
 
                     }
@@ -481,30 +487,31 @@ attributesMarkField.setText("0");
         }
         name = name + "\n";
         System.out.println("size of ting: " + methodTests.size());
-
+        
         return name;
     }
 
     public ArrayList<Object> setMethodParameters(String methodParameters){
-        ArrayList<Object> test = new ArrayList<>();
+
+        ArrayList<Object> methodParametersObject = new ArrayList<>();
         String [] parts = methodParameters.split(", ");
-        System.out.println(parts);
-        int trial = parts.length - 1;
+        
+        int trial = parts.length - 1;// get last element in array
+        parts[0] = parts[0].substring(1);
         parts[trial] = parts[trial].substring(0, parts[trial].length() - 1);
-        ArrayList temp = new ArrayList<>();
-
-
+        for(String parting : parts){
+            System.out.println(parting);
+        }
+        
         for(int i = 0; i < parts.length;i++){
-            String idk = parts[i];
-            String[] parts2 = idk.split(" ");
-            System.out.println(parts2);
+            String placeholder = parts[i];
+            String[] parts2 = placeholder.split(" ");
 
             Object tempObj = setParamType(parts2[0], parts2[1]);
-            test.add(tempObj);
-            
+            methodParametersObject.add(tempObj);
         }
-        System.out.println(test);
-        return test;
+
+        return methodParametersObject;
     }
 
     public Object getExpectedValue(String methodReturnType, String expectedOutput){
@@ -515,20 +522,20 @@ attributesMarkField.setText("0");
         if(methodReturnType.equals(returnTypes[0])){
             return expectedOutput;
         } else if(methodReturnType.equals(returnTypes[1])){
-            int test = Integer.parseInt(expectedOutput);
-            return test;
+            int requiredObject = Integer.parseInt(expectedOutput);
+            return requiredObject;
         } else if(methodReturnType.equals(returnTypes[2])){
-            double test = Double.parseDouble(expectedOutput);
-            return test;
+            double requiredObject = Double.parseDouble(expectedOutput);
+            return requiredObject;
         } else if(methodReturnType.equals(returnTypes[3])){
-            float test = Float.parseFloat(expectedOutput);
-            return test;
+            float requiredObject = Float.parseFloat(expectedOutput);
+            return requiredObject;
         } else if(methodReturnType.equals(returnTypes[4])){
-            boolean test = Boolean.parseBoolean(expectedOutput);
-            return test;
+            boolean requiredObject = Boolean.parseBoolean(expectedOutput);
+            return requiredObject;
         } else if(methodReturnType.equals(returnTypes[5])){
-            char test = expectedOutput.charAt(0);
-            return test;
+            char requiredObject = expectedOutput.charAt(0);
+            return requiredObject;
         }
         return placeholder;
     }
@@ -543,20 +550,20 @@ attributesMarkField.setText("0");
         if(type.equals(returnTypes[0])){
             return input;
         } else if(type.equals(returnTypes[1])){
-            int test = Integer.parseInt(input);
-            return test;
+            int requiredAttributeType = Integer.parseInt(input);
+            return requiredAttributeType;
         } else if(type.equals(returnTypes[2])){
-            double test = Double.parseDouble(input);
-            return test;
+            double requiredAttributeType = Double.parseDouble(input);
+            return requiredAttributeType;
         } else if(type.equals(returnTypes[3])){
-            float test = Float.parseFloat(input);
-            return test;
+            float requiredAttributeType = Float.parseFloat(input);
+            return requiredAttributeType;
         } else if(type.equals(returnTypes[4])){
-            boolean test = Boolean.parseBoolean(input);
-            return test;
+            boolean requiredAttributeType = Boolean.parseBoolean(input);
+            return requiredAttributeType;
         } else if(type.equals(returnTypes[5])){
-            char test = input.charAt(0);
-            return test;
+            char requiredAttributeType = input.charAt(0);
+            return requiredAttributeType;
         }
 
         return placeholder;
@@ -570,23 +577,23 @@ attributesMarkField.setText("0");
         if(type.equals(returnTypes[0])){
             return input;
         } else if(type.equals(returnTypes[1])){
-            int test = Integer.parseInt(input);
-            return test;
+            int parameterTypes = Integer.parseInt(input);
+            return parameterTypes;
         } else if(type.equals(returnTypes[2])){
-            double test = Double.parseDouble(input);
-            return test;
+            double parameterTypes = Double.parseDouble(input);
+            return parameterTypes;
         } else if(type.equals(returnTypes[3])){
-            float test = Float.parseFloat(input);
-            return test;
+            float parameterTypes = Float.parseFloat(input);
+            return parameterTypes;
         } else if(type.equals(returnTypes[4])){
-            boolean test = Boolean.parseBoolean(input);
-            return test;
+            boolean parameterTypes = Boolean.parseBoolean(input);
+            return parameterTypes;
         } else if(type.equals(returnTypes[5])){
-            char test = input.charAt(0);
-            return test;
+            char parameterTypes = input.charAt(0);
+            return parameterTypes;
         } else {
-            String test = input;
-            return test;
+            String parameterTypes = input;
+            return parameterTypes;
         }
     }
 
@@ -600,5 +607,15 @@ attributesMarkField.setText("0");
         }
     }
 
+    static class IntegerDocument extends PlainDocument {
+        private final Pattern pattern = Pattern.compile("-?\\d*");
 
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            String text = getText(0, getLength()) + str;
+            if (pattern.matcher(text).matches()) {
+                super.insertString(offs, str, a);
+            }
+        }
+    }
 }

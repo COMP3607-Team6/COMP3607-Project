@@ -16,15 +16,16 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Instances {
-        private ArrayList<Object> a = new ArrayList<>();
-        ArrayList<Class<?>> abstractClasses = new ArrayList<>();
-        ArrayList<Class<?>> interfaceClasses = new ArrayList<>();
-        ArrayList<Class<?>> concreteClasses = new ArrayList<>();
-        ArrayList<Class<?>> allClasses = new ArrayList<>();
+
+    private ArrayList<Object> a = new ArrayList<>();
+    ArrayList<Class<?>> abstractClasses = new ArrayList<>();
+    ArrayList<Class<?>> interfaceClasses = new ArrayList<>();
+    ArrayList<Class<?>> concreteClasses = new ArrayList<>();
+    ArrayList<Class<?>> allClasses = new ArrayList<>();
 
     public Instances()
     {
-        this.setClasses();
+       this.setClasses();
     }
         
     public void createInstances(){
@@ -43,7 +44,7 @@ public class Instances {
                 String className = javaFile.getName().replace(".java", "");
                 try {
                     // Load the class using reflection
-                    // System.out.println("HIHIHIdvdsvrd: " + className);
+
                     Class<?> clazz = Class.forName("com.example.StudentFile." + className);
                     
                     // Get the constructor of the class (assuming it has a default constructor)
@@ -55,8 +56,6 @@ public class Instances {
                         if(constructor.getParameterCount() == 0){
                            Object obj = constructor.newInstance();
                            a.add(obj);
-                          // System.out.println(obj.toString());
-                           //break;
                         }
 
                         if (constructor.getParameterCount() > 0) {
@@ -69,15 +68,13 @@ public class Instances {
                             }
                             Object instance = constructor.newInstance(parameterValues.toArray());
                             a.add(instance);
-                            // System.out.println(instance.toString());
-                            //break;
                         }
                     }
                     
                 } catch (ClassNotFoundException e) {
-                    System.out.println("Class not found: " + className);
+                    //System.out.println("Class not found: " + className);
                 } catch (Exception e) {
-                    System.out.println("Error instantiating class " + className + ": " + e.getMessage());
+                   //System.out.println("Error instantiating class " + className + ": " + e.getMessage());
                 }
             }
         } else {
@@ -164,44 +161,4 @@ public class Instances {
         return this.allClasses;
     }
 
-    public static void main(String[] args) {
-        // Instances i = new Instances();
-        // i.abstractClasses = i.getAbstractClasses();
-        
-        // System.out.println("Abstract Classes");
-        // for (Class<?> j : i.getAbstractClasses()){
-        //     System.out.println("Abstract " + j.getSimpleName());
-        //     Field[] fields = j.getDeclaredFields();
-        //     for (Field field : fields) {
-        //         System.out.println("Attribute: " + field.getName());
-        //     }
-        // }
-
-        // System.out.println("Interface Classes");
-        // for (Class<?> j : i.getInterfaceClasses()){
-        //     System.out.println("Interface " + j.getSimpleName());
-        //     Field[] fields = j.getDeclaredFields();
-        //     for (Field field : fields) {
-        //         System.out.println("Attribute: " + field.getName());
-        //     }
-        // }
-
-        // System.out.println("Concrete Classes");
-        // for (Class<?> j : i.getConcreteClasses()){
-        //     System.out.println("Concrete " + j.getSimpleName());
-        //     Field[] fields = j.getDeclaredFields();
-        //     for (Field field : fields) {
-        //         System.out.println("Attribute: " + field.getName());
-        //     }
-        // }
-
-        // System.out.println("All Classes");
-        // for (Class<?> j : i.getAllClasses()){
-        //     System.out.println("All " + j.getSimpleName());
-        //   Field[] fields = j.getDeclaredFields();
-        //     for (Field field : fields) {
-        //         System.out.println("Attribute: " + field.getName());
-        //     }
-        // }
-    }
 }

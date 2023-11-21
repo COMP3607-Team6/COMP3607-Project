@@ -106,10 +106,8 @@ public class JavaFileCopier {
         {
             // JavaFileCopier
             List<Path> p = JavaFileCopier.getJavaFilePaths (javaFilePath);
-            // System.out.println(p);
 
             for (Path sourcePath : p) {
-                System.out.println(sourcePath);
             
                 String output = sourcePath.getFileName().toString();
                 Path destinationPath = Paths.get("src", "main", "java", "com", "example", "StudentFile", output);

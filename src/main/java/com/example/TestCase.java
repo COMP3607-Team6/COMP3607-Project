@@ -24,7 +24,7 @@ public abstract class TestCase{
         allClasses = instances.getAllClasses();
         allAbstractClasses = instances.getAbstractClasses();
         allInterfaceClasses= instances.getInterfaceClasses();
-        allConcreteClasses = instances.getInterfaceClasses();
+        allConcreteClasses = instances.getConcreteClasses();
         this.testMarks = new TestResult(allocatedMarks);
 
     }
@@ -37,9 +37,6 @@ public abstract class TestCase{
         allAbstractClasses = instances.getAbstractClasses();
         allInterfaceClasses= instances.getInterfaceClasses();
         allConcreteClasses = instances.getInterfaceClasses();
-
-        System.out.println("Instances " + instances.toString());
-        System.out.println("NUMMMM " + testResult.size());
 
     }
 
@@ -117,11 +114,10 @@ public abstract class TestCase{
                 // Get the field with the specified name
                 Field field = clazz.getDeclaredField(attributeName);
     
-                // System.out.println("Attribute found: " + field.getName());
                 return field;
             } 
             catch (NoSuchFieldException e) {
-                // System.out.println("Attribute not found: " + attributeName);
+                e.printStackTrace();
             }
         }
  
