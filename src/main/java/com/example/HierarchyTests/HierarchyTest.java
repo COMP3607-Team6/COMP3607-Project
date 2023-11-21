@@ -2,6 +2,9 @@ package com.example.HierarchyTests;
 
 import com.example.TestCase;
 
+/**
+ * Abstract Class of TestCase which handles tests relating to relationships of classes.
+*/
 public abstract class HierarchyTest extends TestCase {
 
     public HierarchyTest(int allocatedMarks)

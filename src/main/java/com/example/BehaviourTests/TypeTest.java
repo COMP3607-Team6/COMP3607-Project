@@ -3,6 +3,10 @@ package com.example.BehaviourTests;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Abstract Class of Behaviour Test which handles tests relating to testing the type of attribute.
+*/
 public abstract class TypeTest extends BehaviourTest {
     
     
@@ -16,6 +20,10 @@ public abstract class TypeTest extends BehaviourTest {
 
     }
 
+
+    /**
+     * Takes a string and return its Class<?> type.
+    */
     public Class<?> convertKeywordToObject(String keyword){
         initMap();
         Class<?> type = primitiveTypesMap.get(keyword);

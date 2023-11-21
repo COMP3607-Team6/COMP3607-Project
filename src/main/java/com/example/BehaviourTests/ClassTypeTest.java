@@ -2,7 +2,9 @@ package com.example.BehaviourTests;
 
 import static org.junit.Assert.assertTrue;
 
-
+/**
+ * Concrete Class of TypeTest that handles the declared type test for class
+*/
 public class ClassTypeTest extends BehaviourTest {
 
     private Class<?> classObject;
@@ -56,11 +58,4 @@ public class ClassTypeTest extends BehaviourTest {
             return "Class Name: " + className + " expected to be of type " + classType + " but found otherwise";
         }
     }
-
-
-    public static void main(String[] args) {
-        ClassTypeTest c = new ClassTypeTest("Fan", 1, "abstract");
-        System.out.println(c.test());
-    }
-    
 }
