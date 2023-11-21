@@ -1,4 +1,4 @@
-package com.example.AssignmentSpecificationPortal;
+package com.example.AssignmentSpecificationPortal.Sections;
 
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
@@ -9,6 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import com.example.AssignmentSpecificationPortal.AttributeInformation;
+import com.example.AssignmentSpecificationPortal.ClassInformation;
+import com.example.AssignmentSpecificationPortal.ClassesManager;
+import com.example.AssignmentSpecificationPortal.MethodInformation;
 
 public abstract class Section2_Input extends JPanel {
 

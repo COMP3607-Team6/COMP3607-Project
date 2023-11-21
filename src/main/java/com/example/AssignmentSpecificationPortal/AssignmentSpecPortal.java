@@ -17,6 +17,13 @@ import javax.swing.border.EmptyBorder;
 
 import com.example.AssignmentSpecification;
 import com.example.AutomatedJudgeSystem;
+import com.example.AssignmentSpecificationPortal.Sections.Section1;
+import com.example.AssignmentSpecificationPortal.Sections.Section2A_ClassesNew;
+import com.example.AssignmentSpecificationPortal.Sections.Section2B_AttributesNew;
+import com.example.AssignmentSpecificationPortal.Sections.Section2C_MethodsNew;
+import com.example.AssignmentSpecificationPortal.Sections.Section3_TestSelection;
+import com.example.AssignmentSpecificationPortal.Sections.Section4_Tests;
+import com.example.AssignmentSpecificationPortal.Sections.Section5_TestRun;
 
 public class AssignmentSpecPortal {
     private JFrame frame;

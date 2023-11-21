@@ -1,4 +1,4 @@
-package com.example.AssignmentSpecificationPortal;
+package com.example.AssignmentSpecificationPortal.Sections;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -28,6 +28,7 @@ import javax.swing.text.PlainDocument;
 
 import com.example.AssignmentSpecification;
 import com.example.AutomatedJudgeSystem;
+import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
 
 public class Section1 extends JPanel {
     // private JButton nextButton;

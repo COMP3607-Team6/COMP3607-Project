@@ -1,4 +1,4 @@
-package com.example.AssignmentSpecificationPortal;
+package com.example.AssignmentSpecificationPortal.Sections;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -17,6 +17,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import com.example.AssignmentSpecificationPortal.ClassInformation;
+import com.example.AssignmentSpecificationPortal.ClassesManager;
+import com.example.AssignmentSpecificationPortal.MethodInformation;
 
 public class Section2C_MethodsNew extends Section2_Input {
 
