@@ -33,6 +33,7 @@ public class App
         // Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
         // Delete.deleteFolder("src\\main\\java\\com\\example\\StudentFiles");
 
+        System.out.println(getNameFromSubmission("816029001_Avinash_Roopnarine_Comp_2603_A2.zip", "comp"));
         System.out.println(getNameFromSubmission("ZipFolder/name_345678_comp.zip", "comp"));
 
     }
@@ -44,8 +45,8 @@ public class App
             str = str.substring(index + 1);
         }
 
-        // Remove any numbers, '_', and 'assignment_name'
-        str = str.replaceAll("(?i)[0-9_]*" + assignmentName, "");
+
+        str = str.replaceAll("_A\\d", "_");
 
         // Remove the file extension
         index = str.lastIndexOf('.');
@@ -53,7 +54,18 @@ public class App
             str = str.substring(0, index);
         }
 
-        return str;
+        // Split the string by '_'
+        String[] parts = str.split("_");
+
+        // Concatenate the parts of the name
+        String name = "";
+        for (String part : parts) {
+            if (!part.matches("\\d+") && !part.equalsIgnoreCase(assignmentName)) {
+                name += part;
+            }
+        }
+
+        return name;
     }
     
 }
