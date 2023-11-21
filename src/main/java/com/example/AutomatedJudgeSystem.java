@@ -51,13 +51,36 @@ public class AutomatedJudgeSystem {
     
 
     public static void main (String[] args) throws IOException{
+
+        Path path = Paths.get("src\\main\\java\\com\\example\\GradedSubmissions");
+
+        try {
+            Files.createDirectories(path);
+            System.out.println("Directory is created!");
+        } catch (IOException e) {
+            System.err.println("Failed to create directory!" + e.getMessage());
+        }
+
+        Path path2 = Paths.get("src\\main\\java\\com\\example\\StudentFile");
+
+        try {
+            Files.createDirectories(path2);
+            System.out.println("Directory is created!");
+        } catch (IOException e) {
+            System.err.println("Failed to create directory!" + e.getMessage());
+        }
+
         initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
+
+
     }
 
     public static void doTest () throws IOException{
         
         Delete.deleteFolder("GradedSubmissions.zip");
         System.out.println("zipFilePathugui");
+
+
         int num = 0;
 
         pdfManager = new PDFManager(asSpec);
