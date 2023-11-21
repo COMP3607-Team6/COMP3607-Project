@@ -2,7 +2,9 @@ package com.example.BasicTest;
 import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Method;
 
-
+ /**
+ * Concrete Class of BasicTests that handles test for classes
+*/
 public class MethodBasicTest extends BasicTests {
     
     private Method methodObject;
@@ -41,12 +43,5 @@ public class MethodBasicTest extends BasicTests {
                 ", marks='" +  testMarks.getTestMarks() + "'" +
                 ", Test pass='" +  testMarks.getTestPassed() + "'" +
                 "}";
-    }
-    public static void main(String[] args) {
-        MethodBasicTest m = new MethodBasicTest(1,"AC","coolsBy","final");
-        System.out.println(m.test());
-
-        MethodBasicTest p = new MethodBasicTest(1,"AC","getID","public");
-        System.out.println(p.test());
     }
 }

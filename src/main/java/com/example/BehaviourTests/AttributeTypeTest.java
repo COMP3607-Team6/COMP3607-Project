@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
 
-import com.example.TestCase;
-
-
+/**
+ * Concrete Class of TypeTest that handles the declared type test for attributes
+*/
 public class AttributeTypeTest extends TypeTest {
 
     private String className;
@@ -28,7 +28,7 @@ public class AttributeTypeTest extends TypeTest {
     public String test(){
         try{
             if(expectedValue == null){
-                throw new Exception();
+                throw new IllegalStateException("Attribute" + attributeName + " does not exist");
             }
 
             actualValue = getType();
@@ -49,18 +49,12 @@ public class AttributeTypeTest extends TypeTest {
     }
        
     
-
+    /**
+    * Returns a Field object's type based on its name
+    */
     public Object getType(){
         field = findAttributeInstance(className, attributeName, allClasses);
         return field.getType();
     }
 
-
-     public static void main (String[] args){
-     
-
-        TestCase t = new AttributeTypeTest(1, "AC", "coolBy", "int" );
-        String r = t.test();
-        System.out.println(r);
-    }
 }

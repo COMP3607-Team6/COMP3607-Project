@@ -3,7 +3,9 @@ package com.example.BasicTest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-
+ /**
+ * Concrete Strategy of BasicTestTypes that handles Static test for classes,methods,attributes
+*/
 public class StaticBasicTestType implements BasicTestTypes {
 
       @Override

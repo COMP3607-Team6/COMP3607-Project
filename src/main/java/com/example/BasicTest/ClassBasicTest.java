@@ -1,7 +1,9 @@
 package com.example.BasicTest;
 import static org.junit.Assert.assertTrue;
 
-
+/**
+ * Concrete Class of BasicTests that handles test for classes
+*/
 public class ClassBasicTest extends BasicTests {
 
     private Class<?> classObject;
@@ -44,10 +46,4 @@ public class ClassBasicTest extends BasicTests {
                 "}";
         }
     
-    public static void main(String[] args) {
-        ClassBasicTest c  = new ClassBasicTest(3,"Device","naming convention");
-        String value = c.test();
-        System.out.println("   -----------------------------");
-        System.out.println(value);
-    }
 }

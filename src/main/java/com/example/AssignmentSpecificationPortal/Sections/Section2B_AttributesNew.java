@@ -1,4 +1,4 @@
-package com.example.AssignmentSpecificationPortal;
+package com.example.AssignmentSpecificationPortal.Sections;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -17,6 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import com.example.AssignmentSpecificationPortal.AttributeInformation;
+import com.example.AssignmentSpecificationPortal.ClassInformation;
+import com.example.AssignmentSpecificationPortal.ClassesManager;
+
 public class Section2B_AttributesNew extends Section2_Input {
 
     private JPanel promptPanel;
@@ -28,14 +32,17 @@ public class Section2B_AttributesNew extends Section2_Input {
     private DefaultListModel listModel;
     private JList list;
     protected int classCount;
-    private JCheckBox instanceCheckBox;
-    private JCheckBox finalCheckBox;
+    private JCheckBox staticCheckButton;
+    private JCheckBox finalCheckButton;
     private JTextField attributeNameField;
     private JTextField objNameField;
     private JComboBox attributeTypeComboBox;
     private JComboBox attAccessComboBox;
     private JLabel selectedClassLabel;
     private JButton loadClassesButton;
+    // private JRadioButton staticRadioButton;
+    // private JRadioButton finalRadioButton;
+    // private ButtonGroup buttonGroup;
 
     public Section2B_AttributesNew(CardLayout layout) {
         super(layout);
@@ -73,12 +80,20 @@ public class Section2B_AttributesNew extends Section2_Input {
         return selectedClassPanel;
     }
 
+
     @Override
     public void setupInputPanel(JPanel inputPanel2) {
         inputPanel = inputPanel2;
 
-        instanceCheckBox = new JCheckBox("static");
-        finalCheckBox = new JCheckBox("final");
+        staticCheckButton = new JCheckBox("static");
+        finalCheckButton = new JCheckBox("final");
+        // staticRadioButton = new JRadioButton("Static");
+        // finalRadioButton = new JRadioButton("Final");
+
+        // Create a ButtonGroup and add radio buttons to it
+        // buttonGroup = new ButtonGroup();
+        // buttonGroup.add(staticRadioButton);
+        // buttonGroup.add(finalRadioButton);
 
         attributeNameField = new JTextField(20);
         attributeNameField.setText("");
@@ -91,11 +106,45 @@ public class Section2B_AttributesNew extends Section2_Input {
         attAccessComboBox = new JComboBox<>(new String[] { "public", "private", "protected" });
       //  isFinalComboBox = new JComboBox<>(new String[] { "final", "-"});
 
+
+       staticCheckButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if (true == staticCheckButton.isSelected()) {
+                    finalCheckButton.setVisible(false);
+                    finalCheckButton.setSelected(false);
+                }
+                else {
+                    finalCheckButton.setVisible(true);
+                }
+            }
+        });
+
+        finalCheckButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if (true == finalCheckButton.isSelected()) {
+                    staticCheckButton.setVisible(false);
+                    staticCheckButton.setSelected(false);
+                }
+                else {
+                    staticCheckButton.setVisible(true);
+                }
+            }
+        });
+ 
+ 
+
+       
+
         buttonPanel = createButtonPanel("Add Attribute", "Remove Selected Attribute");
        
         inputPanel.add(attAccessComboBox);
-        inputPanel.add(instanceCheckBox);
-        inputPanel.add(finalCheckBox);
+        inputPanel.add(staticCheckButton);
+        inputPanel.add(finalCheckButton);
+        // inputPanel.add(staticRadioButton);
+        // inputPanel.add(finalRadioButton);
+        // // inputPanel.add(buttonGroup);
         inputPanel.add(attributeTypeComboBox);
         inputPanel.add(objNameField);
         inputPanel.add(attributeNameField);
@@ -110,6 +159,7 @@ public class Section2B_AttributesNew extends Section2_Input {
         list.setFixedCellHeight(30);
         outputPanel2.add(new JScrollPane(list));
     }
+     
 
     @Override
     public void attachSaveAndRemoveListeners(JButton saveBtn, JButton removeBtn) {
@@ -119,50 +169,18 @@ public class Section2B_AttributesNew extends Section2_Input {
                 String attributeName = attributeNameField.getText();
                 String objName = objNameField.getText();
                 //String finalv = (String) isFinalComboBox.getSelectedItem();
-                boolean finalv = finalCheckBox.isSelected();
+                //boolean finalv = finalCheckBox.isSelected();
+                boolean finalv = finalCheckButton.isSelected();
+                boolean isSelected = staticCheckButton.isSelected();
                 String attributeType = (String) attributeTypeComboBox.getSelectedItem();
                 String attAccessType = (String) attAccessComboBox.getSelectedItem();
-                boolean isSelected = instanceCheckBox.isSelected();
-                // String attributeInfo = "";
+                //boolean isSelected = instanceCheckBox.isSelected();
 
                 if (attributeName.isEmpty()) {
                     return;
                 } else if ("object".equals(attributeType) && objName.isEmpty()) {
                     return;
                 } 
-                
-                // if(finalv==false){
-                //     if(isSelected==true){
-                //         if ("object".equals(attributeType)) {
-                //             attributeInfo = attAccessType +" " +objName + " " + attributeName;
-                //         } else {
-                //             attributeInfo = attAccessType + " " + attributeType + " " + attributeName;
-                //         } 
-                //     }
-                //     else{
-                //         if ("object".equals(attributeType)) {
-                //             attributeInfo = attAccessType + " static " + objName + " " + attributeName;
-                //         }else {
-                //             attributeInfo = attAccessType + " static " + attributeType + " " + attributeName;  
-                //         }
-                //     }
-                // } else{
-                //     if(isSelected==true){
-                //         if ("object".equals(attributeType)) {
-                //             attributeInfo = attAccessType +" final " +objName + " " + attributeName;
-                //         } else {
-                //             attributeInfo = attAccessType + " final " + attributeType + " " + attributeName;
-                //         } 
-                //     }
-                //     else{
-                //         if ("object".equals(attributeType)) {
-                //             attributeInfo = attAccessType + " final static " + objName + " " + attributeName;
-                //         }else {
-                //             attributeInfo = attAccessType + "  final static " + attributeType + " " + attributeName;  
-                //         }
-                //     }
-                // }
-             
                 
                 AttributeInformation attribute = new AttributeInformation(attAccessType, isSelected ? "static" : "",finalv ? "final" : "",attributeType, attributeName, objName);
                 ClassesManager.getClass(selectedClassIndex).addAttribute(attribute);
@@ -171,7 +189,16 @@ public class Section2B_AttributesNew extends Section2_Input {
 
                 attributeNameField.setText("");
                 objNameField.setText("");
-                instanceCheckBox.setSelected(false);
+
+
+                staticCheckButton.setVisible(true);
+                finalCheckButton.setVisible(true);
+                staticCheckButton.setSelected(false);
+                finalCheckButton.setSelected(false);
+
+                // buttonGroup.clearSelection();
+                // finalRadioButton.setSelected(false);
+                // staticRadioButton.setSelected(false);
             }
         });
 
@@ -192,6 +219,8 @@ public class Section2B_AttributesNew extends Section2_Input {
             }
         });
     }
+
+    
     
     public void attachListeners() {
         loadClassesButton.addActionListener(new ActionListener() {

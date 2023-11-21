@@ -1,36 +1,38 @@
 package com.example.BasicTest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.example.TestCase;
 
+/**
+ * Abstract class based on simple tests for class,methods,attributes. (Context for Strategy Design Pattern)
+*/
 public abstract class BasicTests extends TestCase {
 
     protected BasicTestTypes testTypeObject;
+    private Map<String, BasicTestTypes> testTypes;
 
     public BasicTests(int allocatedMarks, String testType) {
         super(allocatedMarks);
+        testTypes = initializeTestTypes();
         setBasicTestType(testType);
     }
 
+
+    private Map<String, BasicTestTypes> initializeTestTypes() {
+        Map<String, BasicTestTypes> types = new HashMap<>();
+        types.put("final", new FinalBasicTestType());
+        types.put("static", new StaticBasicTestType());
+        types.put("name", new NamingConventionBasicTestType());
+        types.put("public", new PublicBasicTestType());
+        types.put("private", new PrivateBasicTestType());
+        types.put("protected", new ProtectedBasicTestType());
+        return types;
+    }
+
     public void setBasicTestType(String testType){
-        if (testType == "final"){
-            this.testTypeObject = new FinalBasicTestType();
-        }
-        else if(testType == "static"){
-            this.testTypeObject = new StaticBasicTestType();
-        }
-        else if(testType == "name"){
-            this.testTypeObject = new NamingConventionBasicTestType();
-        }
-        else if(testType == "public"){
-            this.testTypeObject = new PublicBasicTestType();
-        }
-        else if(testType == "private"){
-            this.testTypeObject = new PrivateBasicTestType();
-        }
-        else if(testType == "protected"){
-            this.testTypeObject = new ProtectedBasicTestType();
-        }
-        
+        this.testTypeObject = testTypes.get(testType);
     }
     
 }

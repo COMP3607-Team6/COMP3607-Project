@@ -1,5 +1,8 @@
 package com.example;
 
+/**
+* Stores assignment specification provided by user of the system
+*/
 public class AssignmentSpecification {
 
     private String courseCode;
@@ -8,7 +11,25 @@ public class AssignmentSpecification {
     private String folderPath;
     private String deadlineDate;
     private float assignmentWeighting;
+    private int assignmentNumber;
 
+    /**
+    * Assignment Specification with Assignment number
+    */
+    public AssignmentSpecification(String courseCode, String title, String description,String folderPath, String deadlineDate, float assignmentWeighting, int assignmentNumber) {
+
+        this.courseCode = courseCode;
+        this.title = title;
+        this.description = description;
+        this.folderPath  = folderPath;
+        this.deadlineDate = deadlineDate;
+        this.assignmentWeighting = assignmentWeighting;
+        this.assignmentNumber = assignmentNumber;
+    }
+    
+    /**
+    * Assignment Specification without Assignment number
+    */
     public AssignmentSpecification(String courseCode, String title, String description,String folderPath, String deadlineDate, float assignmentWeighting) {
 
         this.courseCode = courseCode;
@@ -19,6 +40,14 @@ public class AssignmentSpecification {
         this.assignmentWeighting = assignmentWeighting;
     }
     
+
+    public int getAssignmentNumber() {
+        return this.assignmentNumber;
+    }
+
+    public void setAssignmentNumber(int assignmentNumber) {
+        this.assignmentNumber = assignmentNumber;
+    }
 
     public String getCourseCode() {
         return this.courseCode;
