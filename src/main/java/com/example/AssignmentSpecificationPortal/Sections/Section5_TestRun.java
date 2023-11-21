@@ -1,4 +1,4 @@
-package com.example.AssignmentSpecificationPortal;
+package com.example.AssignmentSpecificationPortal.Sections;
 
 import java.awt.CardLayout;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.example.AutomatedJudgeSystem;
+import com.example.AssignmentSpecificationPortal.ClassInformation;
 
 public class Section5_TestRun extends JPanel {
 
