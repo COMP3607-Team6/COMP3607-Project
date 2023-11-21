@@ -17,10 +17,10 @@ public class PDFManager {
         subscribe(new StudentReport(spec));
     }
 
-    public void notify (ArrayList<TestCase> cases, String StudentID){
+    public void notify (ArrayList<TestCase> cases, String StudentID, String submission_location){
 
         for(PDFReport p : observers){
-            p.update(cases, StudentID, assignmentsEnd);
+            p.update(cases, StudentID, assignmentsEnd, submission_location);
         }
 
         //calls update();
@@ -37,9 +37,9 @@ public class PDFManager {
         this.observers.remove(observer);
     }
 
-    public void endOfAssignmentCheck(ArrayList<TestCase> cases, boolean check){
+    public void endOfAssignmentCheck(ArrayList<TestCase> cases, boolean check, String submission_location){
         this.assignmentsEnd = check;
-        notify(cases,null);
+        notify(cases,null, submission_location);
     }
-
+ 
 }

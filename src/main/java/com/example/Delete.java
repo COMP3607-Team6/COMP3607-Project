@@ -33,7 +33,6 @@ public static void deleteFolder(String folderPath) {
                 if(file.exists()){
                     System.out.println("Didn't remove file");
                 }
-                System.out.println("AFTERRRRRRRRRRRRRRRRRRRRRRRRRR");
             }
         }
         // Delete the folder itself
