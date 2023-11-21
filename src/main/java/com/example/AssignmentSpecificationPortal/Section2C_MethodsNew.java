@@ -175,7 +175,7 @@ public class Section2C_MethodsNew extends Section2_Input {
 
         
 
-        mPanel.add(test);
+        
         mPanel.add(accessTypeCB);
         mPanel.add(isAbstract);
         mPanel.add(methodType);
