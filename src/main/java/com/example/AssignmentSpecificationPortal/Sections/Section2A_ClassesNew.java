@@ -2,7 +2,6 @@ package com.example.AssignmentSpecificationPortal.Sections;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +10,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -102,7 +100,6 @@ public class Section2A_ClassesNew extends Section2_Input {
             public void actionPerformed(ActionEvent e) {
                 classCount++;
                 addClassToList();
-                getAllClasses();
             }
         });
 
@@ -111,12 +108,8 @@ public class Section2A_ClassesNew extends Section2_Input {
             public void actionPerformed(ActionEvent e) {
                 int index = list.getSelectedIndex();
                 if (index != -1) {
-                    // String selectedClass = classListModel.getElementAt(index);
                     listModel.remove(index);
-                    // allClasses.remove(index);
-                    // classes.remove(index);
                     ClassesManager.removeClass(index);
-                    // removeAttributePanel(selectedClass);
                     classCount--;
                 }
             }
@@ -147,8 +140,6 @@ public class Section2A_ClassesNew extends Section2_Input {
 
         listModel.addElement(classInfo.toString());
 
-        // allClasses.add(classInfo);
-        // classes.add(classInfo);
         ClassesManager.addClass(classInfo);
 
 
