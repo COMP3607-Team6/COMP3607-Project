@@ -37,8 +37,8 @@ public class App
         //     e.printStackTrace();
         // }
 
-        // Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
-        // Delete.deleteFolder("src\\main\\java\\com\\example\\StudentFiles");
+        // Delete.deleteFilesInFolder(Constants.STUDENT_SUBMISSION_TESTING_FOLDER);
+        // Delete.deleteFolder(Constants.STUDENT_SUBMISSIONS_FOLDER);
 
         Map<String, String> result = getNameFromSubmission("816029001_Avinash_Roopnarine_Comp_2603_A2.zip", "comp");
         System.out.println("Name: " + result.toString());

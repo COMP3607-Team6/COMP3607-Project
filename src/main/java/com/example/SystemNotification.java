@@ -71,7 +71,7 @@ public class SystemNotification {
     }
 
     // public static void main(String[] args) {
-    //     SystemNotification s = new SystemNotification("This is a test", "src\\main\\java\\com\\example\\StudentFiles");
+    //     SystemNotification s = new SystemNotification("This is a test", STUDENT_SUBMISSIONS_FOLDER);
     // }
 
 }

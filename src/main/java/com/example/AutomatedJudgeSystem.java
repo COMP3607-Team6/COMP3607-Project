@@ -21,17 +21,15 @@ import com.example.BehaviourTests.MethodValueTest;
 import com.example.FileCopy.JavaFileCopier;
 import com.example.FileCopy.SubmissionCopier;
 import com.example.FileCopy.ZipToFolderCopier;
-import com.example.HierarchyTests.SubClassTest;
-import com.example.HierarchyTests.SubTypeTest;
 import com.example.ZipFileEntries.ZipComponent;
 import com.example.ZipFileEntries.ZipDirectory;
 import com.example.ZipFileEntries.ZipEntryLeaf;
 import com.example.ZipFileEntries.ZipFileComposite;
+import com.example.Constants;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+
 
 public class AutomatedJudgeSystem {
     
@@ -52,7 +50,7 @@ public class AutomatedJudgeSystem {
 
     public static void main (String[] args) throws IOException{
 
-        Path path = Paths.get("src\\main\\java\\com\\example\\GradedSubmissions");
+        Path path = Paths.get(Constants.GRADED_SUBMISSIONS);
 
         try {
             Files.createDirectories(path);
@@ -61,7 +59,7 @@ public class AutomatedJudgeSystem {
             System.err.println("Failed to create directory!" + e.getMessage());
         }
 
-        Path path2 = Paths.get("src\\main\\java\\com\\example\\StudentFile");
+        Path path2 = Paths.get(Constants.STUDENT_SUBMISSION_TESTING_FOLDER);
 
         try {
             Files.createDirectories(path2);
@@ -80,7 +78,6 @@ public class AutomatedJudgeSystem {
         Delete.deleteFolder("GradedSubmissions.zip");
         System.out.println("zipFilePathugui");
 
-
         int num = 0;
 
         pdfManager = new PDFManager(asSpec);
@@ -94,6 +91,7 @@ public class AutomatedJudgeSystem {
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
         Composite zipFileComposite = null;
+
         try 
         {
             // Create a ZipFileComposite object from the File object
@@ -108,21 +106,6 @@ public class AutomatedJudgeSystem {
             return;
         }
 
-          
-        //System.out.println(assignmentNames.size());
-          for(String a : assignmentNames){
-            Pattern pattern = Pattern.compile("\\d+");
-            Matcher matcher = pattern.matcher(a);
-
-            System.out.println("Assignment name is " +a);
-            if (matcher.find()) {
-                System.out.println((matcher.group())); //(return Integer.parseInt(matcher.group());
-                studentIds.add((matcher.group()));
-            } else {
-                studentIds.add(a);
-                throw new IllegalArgumentException("No number found in filename.");
-            }
-          }
       
         try {
       
@@ -131,10 +114,9 @@ public class AutomatedJudgeSystem {
 
             for (ZipComponent z : zipFileComposite.getComponents()) 
             {
-               String outputFolder = "src\\main\\java\\com\\example\\StudentFile";
+               String outputFolder = Constants.STUDENT_SUBMISSION_TESTING_FOLDER;
                ZipFileComposite c = (ZipFileComposite)z;
                Path submission_location = SubmissionCopier.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
-            //    Delete.deleteFolder(c.getPath());
            
                 //Iterate student files
                 for (ZipComponent i : c.getComponents())
@@ -142,11 +124,8 @@ public class AutomatedJudgeSystem {
                         if (i instanceof ZipEntryLeaf)
                         {
                             ZipEntryLeaf f = (ZipEntryLeaf)i;
-                            
 
-                            String entryName = f.getPath();
-
-                            JavaFileCopier.javaFileCopierToLeaf (entryName, f);
+                            JavaFileCopier.javaFileCopierToLeaf (f.getPath(), f);
                         }
                 } //End of java file iteration
                  
@@ -158,18 +137,7 @@ public class AutomatedJudgeSystem {
                     // Handle the interruption
                     e.printStackTrace ();
                 }
-               
-                //Contains all tests to be executed for the assignment
-                // testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
-                // testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
-                // testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
-                // testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
-                // testCases.add(new SubTypeTest("AC", "Device", 1)); //5
-                // testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
-                // ArrayList<Object> paras = new ArrayList<>();
-                // paras.add(5);
-                // paras.add("{}");
-                //testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
+            
 
                 for(TestCase t: testCases){
                     t.init();
@@ -186,22 +154,22 @@ public class AutomatedJudgeSystem {
                   
                 
                   try {
-                    // copyFile(submission_location.toString(), "src\\main\\java\\com\\example\\GradedSubmissions\\");
-                    String destination = "src\\main\\java\\com\\example\\GradedSubmissions\\";
-                    ZipToFolderCopier.copyFile(submission_location, destination);
+                    ZipToFolderCopier.copyFile(submission_location, Constants.GRADED_SUBMISSIONS);
+                    
+                    //
                     try {
-                    // Pause for 5 seconds
-                    Thread.sleep (5000);
-                    } catch (Exception e) {
-                        // Handle the interruption
-                        e.printStackTrace ();
+                        // Pause for 5 seconds
+                        Thread.sleep (5000);
+                        } catch (Exception e) {
+                            // Handle the interruption
+                            e.printStackTrace ();
+                        }
+                        Delete.deleteFilesInFolder(outputFolder);
                     }
-                     Delete.deleteFilesInFolder(outputFolder);
-                  }
-                  catch (Exception e)
-                  {
-                    e.printStackTrace();
-                  }             
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }             
                   
             } //End of student for loop
             
@@ -211,7 +179,7 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\GradedSubmissions", "GradedSubmissions.zip");
+        ZipDirectory.zipDirectory(Constants.GRADED_SUBMISSIONS, Constants.GRADED_SUBMISSIONS_ZIP);
 
          try {
                 // Pause for 5 seconds
@@ -227,7 +195,7 @@ public class AutomatedJudgeSystem {
 
         zipFileComposite.removeAll();
 
-       Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
+       Delete.deleteFolder(new File(Constants.STUDENT_SUBMISSIONS_FOLDER));
 
         try {
                 // Pause for 5 seconds
@@ -240,8 +208,8 @@ public class AutomatedJudgeSystem {
         }
 
         
-        Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
-        Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\GradedSubmissions");
+        Delete.deleteFilesInFolder(Constants.STUDENT_SUBMISSION_TESTING_FOLDER);
+        Delete.deleteFolder(Constants.GRADED_SUBMISSIONS);
 
 
         

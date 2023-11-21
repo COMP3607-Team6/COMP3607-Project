@@ -13,6 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import com.example.Composite;
+import com.example.Constants;
 
 /*
  * This is the ZipFileComposite class that represents a zip file
@@ -44,7 +45,7 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
  
             // Unzip the entry into a file
             try (InputStream is = zipFile.getInputStream(entry)) {
-                File entryFile = unzipEntry(entry, is, "src\\main\\java\\com\\example\\StudentFiles");
+                File entryFile = unzipEntry(entry, is, Constants.STUDENT_SUBMISSIONS_FOLDER);
                 // rest of your code
             
             
@@ -87,7 +88,7 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
      */
     private static File unzipEntry(ZipEntry entry, InputStream input, String outputFolder) throws IOException {
         // Create a file in the destination directory with the same name as the zip entry
-        File file = new File("src\\main\\java\\com\\example\\StudentFiles", entry.getName());
+        File file = new File(Constants.STUDENT_SUBMISSIONS_FOLDER, entry.getName());
         // Check if the entry is a directory
         if (entry.isDirectory()) {
             // Create the directory
