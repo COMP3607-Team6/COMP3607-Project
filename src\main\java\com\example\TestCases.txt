@@ -1,3 +1,0 @@
-Test Case: Class Name:CeilingFan not found.
-Test Case: Method: toString Not Found!
-Test Case: Attribute: devices not Found!
