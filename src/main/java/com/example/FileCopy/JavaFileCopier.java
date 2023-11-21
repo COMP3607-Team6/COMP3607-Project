@@ -11,9 +11,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import com.example.ZipFileEntries.ZipEntryLeaf;
-
+import com.example.Constants;
 
 import java.util.List;
 
@@ -33,9 +32,9 @@ public class JavaFileCopier implements FileCopier{
             int index = f.get_rel_path().lastIndexOf("\\");
             // Get the substring after the last \ character
             String output = f.get_rel_path().substring(index + 1);   
-            File destinationFile = new File("src\\main\\java\\com\\example\\StudentFile\\" + output);  
+            File destinationFile = new File(Constants.STUDENT_SUBMISSION_TESTING_FOLDER + output);  
             // destinationFile.deleteOnExit();    
-            String studentJavaFileName = "src\\main\\java\\com\\example\\StudentFile\\" + output;
+            String studentJavaFileName = Constants.STUDENT_SUBMISSION_TESTING_FOLDER + output;
             Path filePath = Paths.get(studentJavaFileName);
             try{
                 Files.createDirectories(filePath.getParent());

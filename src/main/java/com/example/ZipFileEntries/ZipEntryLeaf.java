@@ -1,6 +1,7 @@
 package com.example.ZipFileEntries;
 import java.util.zip.ZipEntry;
 import java.io.InputStream;
+import com.example.Constants;
 
 /*
  * This is the ZipEntryLeaf class that represents a zip entry
@@ -22,7 +23,7 @@ public class ZipEntryLeaf implements ZipComponent {
         // Assign the ZipEntry object and the input stream to the fields
         this.zipEntry = zipEntry;
         this.inputStream = inputStream;
-        storedFilePath = "src\\main\\java\\com\\example\\StudentFiles\\" + (zipEntry.getName()).toString().replace("/", "\\");
+        storedFilePath = Constants.STUDENT_SUBMISSIONS_FOLDER + (zipEntry.getName()).toString().replace("/", "\\");
         rel_path = (zipEntry.getName()).toString().replace("/", "\\");;
     }
 

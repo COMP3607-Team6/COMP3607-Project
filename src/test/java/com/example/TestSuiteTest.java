@@ -17,6 +17,7 @@ import com.example.BehaviourTests.MethodValueTest;
 import com.example.FileCopy.JavaFileCopier;
 import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
+import com.example.Constants;
 
 public class TestSuiteTest {
     
@@ -29,9 +30,8 @@ public class TestSuiteTest {
     @BeforeClass
     public static void copyTestFile(){
         System.out.println("run");
-        String dirPath = "src\\main\\java\\com\\example\\TestAssignment"; // replace with your directory
 
-        JavaFileCopier.copyFiles(dirPath);
+        JavaFileCopier.copyFiles(Constants.TEST_ASSIGNMENTS);
         System.out.println("copy");
 
         try {
@@ -46,7 +46,7 @@ public class TestSuiteTest {
     @AfterClass
     public static void deleteTestFile(){
 
-        Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
+        Delete.deleteFilesInFolder(Constants.STUDENT_SUBMISSION_TESTING_FOLDER);
 
     }
 
