@@ -43,11 +43,11 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         section2TabbedPane = new JTabbedPane();
 
         
-        section1 = new Section1(cardLayout,asSpec,system);
         
         //section2new = new Section2A_ClassesNew(cardLayout);
         //section2bnew = new Section2B_AttributesNew(cardLayout);
         //section2cnew = new Section2C_MethodsNew(cardLayout);
+        section1 = new Section1(cardLayout,asSpec,system);
          section2a = new Section2A_Classes(cardLayout);
          section2b = new Section2B_Attributes(cardLayout);
          section2c = new Section2C_Methods(cardLayout);
