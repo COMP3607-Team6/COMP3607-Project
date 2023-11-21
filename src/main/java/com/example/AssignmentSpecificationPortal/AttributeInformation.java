@@ -87,6 +87,7 @@ public class AttributeInformation {
         // return accessType;
     }
 
+    //accessors
     public String getAccessType() {
         return accessType;
     }

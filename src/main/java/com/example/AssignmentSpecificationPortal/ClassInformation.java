@@ -31,6 +31,7 @@ public class ClassInformation {
         this.attributes = new ArrayList<AttributeInformation>();
     }
 
+    //accessors
     public String getAccessType() {
         return accessType;
     }
