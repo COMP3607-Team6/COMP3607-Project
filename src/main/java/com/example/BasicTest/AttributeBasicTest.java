@@ -2,7 +2,9 @@ package com.example.BasicTest;
 import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Field;
 
-
+/**
+ * Handles accessorTypeTest, NamingConventionTest and Static/Final Tests for Attributes
+*/
 public class AttributeBasicTest extends BasicTests {
 
     private String className;
@@ -13,9 +15,6 @@ public class AttributeBasicTest extends BasicTests {
         this.className = className;
         this.attributeName = attributeName;
         this.testName = testTypeObject.attributeTestNameSwap() + attributeName + " belonging to class " + className;
-
-       
-        
     }
 
      public String test() {
@@ -31,7 +30,7 @@ public class AttributeBasicTest extends BasicTests {
             testMarks.setTestComment("Attribute name " + attributeName + testTypeObject.getErrorMessage()+ " in " + className+ ".java");
             return "Attribute: " + attributeName + testTypeObject.getErrorMessage()+ " in " + className;
         }
-        catch (NullPointerException n){
+        catch (Exception n){
             testMarks.setTestComment("Attribute: " + attributeName + "not found " + " in " + className);
             return "Attribute: " + attributeName + "not found " + " in " + className;
         }
@@ -46,10 +45,5 @@ public class AttributeBasicTest extends BasicTests {
                 ", test Pass='" +  testMarks.getTestPassed() + "'" +
                 "}";
     }
-    public static void main(String[] args) {
-        AttributeBasicTest a = new AttributeBasicTest(1,"Fan", "id","static");
-        System.out.println(a.test());
-    }
-
     
 }

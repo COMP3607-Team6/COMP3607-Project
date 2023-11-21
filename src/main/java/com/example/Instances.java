@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+* Reads submission assignment file and extract classes to create instance and class objects.
+*/
 public class Instances {
 
     private ArrayList<Object> a = new ArrayList<>();
@@ -27,7 +30,10 @@ public class Instances {
     {
        this.setClasses();
     }
-        
+    
+    /**
+    * Initializes  all arrayLists, instances, TestResult
+    */
     public void createInstances(){
         String folderPath = "src\\main\\java\\com\\example\\StudentFile"; // Replace this with the path to your folder containing .java files
 
@@ -63,8 +69,8 @@ public class Instances {
                             Parameter[] parameters = constructor.getParameters();
                             for (Parameter parameter : parameters) {
                                 Class<?> parameterType = parameter.getType();
-                                Object defaultValue = getDefaultValueForType(parameterType); 
-                                parameterValues.add(defaultValue);    
+                                Object defaultValue = getDefaultValueForType(parameterType);
+                                parameterValues.add(defaultValue);
                             }
                             Object instance = constructor.newInstance(parameterValues.toArray());
                             a.add(instance);
@@ -98,14 +104,14 @@ public class Instances {
         }
     }
 
-    public String testText(){
-        return "Hello";
-    }
     public ArrayList<Object> getInstances(){
         createInstances();
         return this.a;
     }
 
+    /**
+    * Creates Class<?> arraylists
+    */
     public void setClasses()
     {
         // Create a URLClassLoader with the folder path
@@ -124,10 +130,11 @@ public class Instances {
                 allClasses.add(clazz);
                 // Check if the class is abstract
                 if (Modifier.isAbstract(clazz.getModifiers()) && !Modifier.isInterface(clazz.getModifiers())) {
+                    
                     // Print the file name and the abstract modifier
                     abstractClasses.add(clazz);
-                    // System.out.println(fileName + " is abstract");
-                } 
+                
+                }
                 else if (Modifier.isInterface(clazz.getModifiers()))
                     interfaceClasses.add(clazz);
                 else{
@@ -135,14 +142,14 @@ public class Instances {
                     
                 }
                 } catch (ClassNotFoundException e) {
-                System.out.println("Class not found: " + fileName);
+                // System.out.println("Class not found: " + fileName);
                 }
             });
         }
         } catch (IOException e) {
         System.out.println("Error creating class loader: " + e.getMessage());
         }
-        // return abstractClasses;      
+        // return abstractClasses;
     }
 
     public ArrayList<Class<?>> getAbstractClasses(){

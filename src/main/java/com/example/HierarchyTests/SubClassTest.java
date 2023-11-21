@@ -2,24 +2,13 @@ package com.example.HierarchyTests;
 
 import static org.junit.Assert.assertTrue;
 
-
-// import com.example.Avinash_Roopnarine_816029635_A2.Fan;
-
-import java.net.URLClassLoader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-
+/**
+ * Concrete Class of Hierarchy Test which checks if a subclass extends a superclass.
+*/
 public class SubClassTest extends HierarchyTest{
 
-    private Object classObject;
-    private String superClassPath = "src\\main\\java\\com\\example\\StudentFile";
-    String subClass; String superClass;
+    private String subClass;
+    private String superClass;
 
     public SubClassTest(String subClass, String superClass, int allocatedMarks)
     {
@@ -53,16 +42,4 @@ public String test() {
 
 }
 
-    
-    public static void main (String[] args)
-    {
-        // Object hi = getSuperClass("Fan");
-        SubClassTest t = new SubClassTest("CeilingFan", "Fan",1);
-        
-        // System.out.println(t.test());
-        System.out.println(t.test());
-        // t.test1();
-
-        
-    }
 }

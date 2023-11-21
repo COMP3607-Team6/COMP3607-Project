@@ -4,42 +4,68 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.lang.reflect.Field;
 
+/**
+ * Abstraction of Test classes
+*/
 public abstract class TestCase{
 
     
     private Instances instances;
+    /**
+    * Arrayist of Instantiated Concrete class objects
+    */
     protected ArrayList<Object> testResult;
+    /**
+    * Arrayist of All class objects
+    */
     protected ArrayList<Class<?>> allClasses;
+    /**
+    * Arraylist Abstract class objects
+    */
     protected ArrayList<Class<?>> allAbstractClasses;
+    /**
+    * Arrayist Interface class objects
+    */
     protected ArrayList<Class<?>> allInterfaceClasses;
+    /**
+    * Arrayist Concrete class objects
+    */
     protected ArrayList<Class<?>> allConcreteClasses;
+    /**
+    * Object which stores test results
+    */
     protected TestResult testMarks;
+    /**
+    * Stores the name of test to be produced
+    */
     protected String testName;
 
 
-
+    /**
+    * Initializes  all arrayLists, instances, TestResult
+    */
     public TestCase(int allocatedMarks){
-        instances = new Instances(); // Initialize the instances variable with a new Instances object
-        testResult = instances.getInstances();
-        allClasses = instances.getAllClasses();
-        allAbstractClasses = instances.getAbstractClasses();
-        allInterfaceClasses= instances.getInterfaceClasses();
-        allConcreteClasses = instances.getConcreteClasses();
+        init();
         this.testMarks = new TestResult(allocatedMarks);
 
     }
 
-
+    /**
+    * Initializes  arraylists
+    */
     public void init(){
         instances = new Instances(); // Initialize the instances variable with a new Instances object
         testResult = instances.getInstances();
         allClasses = instances.getAllClasses();
         allAbstractClasses = instances.getAbstractClasses();
         allInterfaceClasses= instances.getInterfaceClasses();
-        allConcreteClasses = instances.getInterfaceClasses();
+        allConcreteClasses = instances.getConcreteClasses();
 
     }
 
+    /**
+    *  Resets the testResult Object
+    */
     public void reset(){
        testMarks.setTestPassed(false);
        testMarks.setTestComment("");
@@ -55,7 +81,9 @@ public abstract class TestCase{
         return testMarks;
     }
     
-    
+    /**
+    * Finds an instantiated Object
+    */
     public Object oldFindClassInstance(String name){
 
         for(Object o : testResult){
@@ -69,7 +97,10 @@ public abstract class TestCase{
         return null;
 
     }
-       public Class<?> findClassInstance(String name, ArrayList<Class<?>> classes){
+    /**
+    * Finds class objects
+    */
+    public Class<?> findClassInstance(String name, ArrayList<Class<?>> classes){
 
         for(Class<?> c : classes){
             String className = c.getSimpleName();
@@ -83,27 +114,27 @@ public abstract class TestCase{
 
     }
 
+    /**
+    * Finds Method Object
+    */
     public Method findMethodInstance(String className, String methodName, ArrayList<Class<?>> classes){
         Class<?> clazz = findClassInstance(className,classes);
         if (clazz != null){
-            // Class<?> clazz = classObject.getClass();
-
             try {
                 Method method = clazz.getMethod(methodName);
-                
-                // Object result = method.invoke(classObject); //Note: This method allows you to call the found method, with parameters etc.
-                
                 return method;
-            } 
+            }
             catch (NoSuchMethodException e) {
                 return null;
-               // e.printStackTrace(); // Handle the exceptions according to your use case
             }
         }
         
         return null;
     }
 
+    /**
+    * Find Attribute Object
+    */
     public Field findAttributeInstance(String className,String attributeName,ArrayList<Class<?>> classes){
         
         Class<?> clazz = findClassInstance(className,classes);
@@ -115,7 +146,7 @@ public abstract class TestCase{
                 Field field = clazz.getDeclaredField(attributeName);
     
                 return field;
-            } 
+            }
             catch (NoSuchFieldException e) {
                 e.printStackTrace();
             }
@@ -124,5 +155,8 @@ public abstract class TestCase{
         return null;
     }
 
+    /**
+    * Runs a jUnit test based on th type of test 
+    */
     public abstract String test();
 }

@@ -4,6 +4,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+ /**
+ * Concrete Strategy of BasicTestTypes that handles Private test for classes,methods,attributes
+*/
 public class PrivateBasicTestType implements BasicTestTypes {
     
     @Override

@@ -83,6 +83,7 @@ public class AutomatedJudgeSystem {
             Pattern pattern = Pattern.compile("\\d+");
             Matcher matcher = pattern.matcher(a);
 
+            System.out.println("Assignment name is " +a);
             if (matcher.find()) {
                 System.out.println((matcher.group())); //(return Integer.parseInt(matcher.group());
                 studentIds.add((matcher.group()));
