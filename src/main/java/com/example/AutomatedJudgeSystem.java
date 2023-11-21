@@ -213,6 +213,7 @@ public class AutomatedJudgeSystem {
                     e.printStackTrace ();
                 }
 
+                ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\GradedSubmissions", "GradedSubmissions.zip");
                 Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
                 System.out.println("zipFilePath");
                 System.out.println("zipFilePath");

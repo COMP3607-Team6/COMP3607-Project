@@ -5,14 +5,14 @@ import java.util.zip.*;
 
 public class ZipDirectory {
 
-    public static void main(String[] args) {
-        String sourceDirectoryPath = "src\\main\\java\\com\\example\\GradedSubmissions";
-        String zipFilePath = "GradedSubmissions.zip";
+    // public static void main(String[] args) {
+    //     String sourceDirectoryPath = "src\\main\\java\\com\\example\\GradedSubmissions";
+    //     String zipFilePath = "GradedSubmissions.zip";
 
-        zipDirectory(sourceDirectoryPath, zipFilePath);
-    }
+    //     zipDirectory(sourceDirectoryPath, zipFilePath);
+    // }
 
-    private static void zipDirectory(String sourceDirectoryPath, String zipFilePath) {
+    public static void zipDirectory(String sourceDirectoryPath, String zipFilePath) {
         try {
             FileOutputStream fos = new FileOutputStream(zipFilePath);
             ZipOutputStream zos = new ZipOutputStream(fos);
