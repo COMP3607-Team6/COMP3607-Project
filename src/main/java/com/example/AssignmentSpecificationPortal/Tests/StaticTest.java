@@ -37,6 +37,8 @@ import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest; 
 
 public class StaticTest extends BaseTest {
+    /* This class gives the layout and behaviour specific to Static Test
+     */
 
     public StaticTest(String description) {
         super(); 
