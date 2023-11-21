@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import com.example.FileCopy.FileToZipCopier;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -106,7 +107,7 @@ public class StudentReport implements PDFReport {
 
         File student_pdf = new File(StudentID + name + ".pdf");
         System.out.println("ADDED " + student_pdf.getName());
-        FileToZipCopier.copyFile(new File(submission_location), student_pdf);
+        FileToZipCopier.copy(student_pdf, new File(submission_location));
 
         try {
             // Pause for 5 seconds

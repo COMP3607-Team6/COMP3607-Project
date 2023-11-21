@@ -20,8 +20,16 @@ import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 import com.example.BehaviourTests.MethodTypeTest;
 import com.example.BehaviourTests.MethodValueTest;
+import com.example.FileCopy.JavaFileCopier;
+import com.example.FileCopy.SubmissionCopier;
+import com.example.FileCopy.ZipToFolderCopier;
 import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
+import com.example.ZipFileEntries.ZipComponent;
+import com.example.ZipFileEntries.ZipDirectory;
+import com.example.ZipFileEntries.ZipEntryLeaf;
+import com.example.ZipFileEntries.ZipFileComposite;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -45,13 +53,36 @@ public class AutomatedJudgeSystem {
     
 
     public static void main (String[] args) throws IOException{
+
+        Path path = Paths.get("src\\main\\java\\com\\example\\GradedSubmissions");
+
+        try {
+            Files.createDirectories(path);
+            System.out.println("Directory is created!");
+        } catch (IOException e) {
+            System.err.println("Failed to create directory!" + e.getMessage());
+        }
+
+        Path path2 = Paths.get("src\\main\\java\\com\\example\\StudentFile");
+
+        try {
+            Files.createDirectories(path2);
+            System.out.println("Directory is created!");
+        } catch (IOException e) {
+            System.err.println("Failed to create directory!" + e.getMessage());
+        }
+
         initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
+
+
     }
 
     public static void doTest () throws IOException{
         
         Delete.deleteFolder("GradedSubmissions.zip");
         System.out.println("zipFilePathugui");
+
+
         int num = 0;
 
         pdfManager = new PDFManager(asSpec);
@@ -131,8 +162,6 @@ public class AutomatedJudgeSystem {
                             String entryName = f.getPath();
 
                             JavaFileCopier.javaFileCopierToLeaf (entryName, f);
-
-
                         }
                 } //End of java file iteration
                  
