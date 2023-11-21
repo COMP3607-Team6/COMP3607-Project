@@ -349,9 +349,6 @@ public class Section1 extends JPanel {
     }
 
     // Restricts input to integers only
-    // use like:
-    // JTextField marksTextField = new JTextField();
-    // marksTextField.setDocument(new IntegerDocument());
     class IntegerDocument extends PlainDocument {
         private final Pattern pattern = Pattern.compile("-?\\d*");
 

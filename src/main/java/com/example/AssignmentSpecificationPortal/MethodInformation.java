@@ -6,11 +6,14 @@ public class MethodInformation {
      */
     private final String accessType;
     private final String isAbstract;
+     private final String isStatic;
+    private final String isFinal;
     private final String methodType;
     private final String methodName;
     private final String methodParameters;//or maybe send the arraylist?
-    private final String marks;
+   // private final String marks;
 
+   
     public MethodInformation(String accessType, String isAbstract, String methodType, String methodName, String methodParameters, String isStatic, String isFinal){
         this.accessType = accessType;
         this.isAbstract = isAbstract;
@@ -19,7 +22,6 @@ public class MethodInformation {
         this.methodParameters = methodParameters;
         this.isStatic = isStatic;
         this.isFinal = isFinal;
-        
         //this.marks = marks;
     }
 
@@ -44,7 +46,7 @@ public class MethodInformation {
     }
     public String getIsFinal(){
         return this.isFinal;
-    }
+    } 
     
     // public String getMarks(){
     //     return marks;
@@ -59,8 +61,8 @@ public class MethodInformation {
             methodSignature += " " + getIsAbstract();
         }
 
-        methodSignature += " " + getIsStatic() + " " +  getIsFinal() + " " +  getMethodType() + " " + getMethodName() + "("+ getMethodParameters() + ")";
-        
+       methodSignature += " " + getIsStatic() + " " +  getIsFinal() + " " +  getMethodType() + " " + getMethodName() + "("+ getMethodParameters() + ")";
+       
         methodSignature = methodSignature.replaceAll("\\s{2,}", " ");
         // System.out.println(methodSignature);
         

@@ -16,7 +16,7 @@ import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 
 public abstract class Section2_Input extends JPanel {
-    //
+    
     /* This class creates the Panel that holds the TabbedPane for Classes/Attribute/Methods of the GUI
      */
 

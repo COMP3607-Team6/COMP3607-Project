@@ -67,6 +67,7 @@ public class Section2C_MethodsNew extends Section2_Input {
     private JCheckBox staticCheckButton;
     private JCheckBox finalCheckButton;
 
+    
     public Section2C_MethodsNew(CardLayout layout) {
         super(layout);
 

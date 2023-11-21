@@ -16,7 +16,7 @@ import com.example.AssignmentSpecificationPortal.Tests.ValueTest;
 import com.example.AssignmentSpecificationPortal.Tests.TypeTest;
 
 public class Section4_Tests extends JPanel{
-    /* This class creates the Panel that holds the Test Tabbed Panes selected
+    /* This class creates the Panel that holds the Test Tabbed Panes selected in Section (3)
      */
 
     private JTabbedPane section4TabbedPane;
