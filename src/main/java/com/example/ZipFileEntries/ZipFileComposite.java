@@ -1,4 +1,4 @@
-package com.example;
+package com.example.ZipFileEntries;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import com.example.Composite;
 
-// This is the ZipFileComposite class that represents a zip file
+/*
+ * This is the ZipFileComposite class that represents a zip file
+ */
 public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite {
     // This is the ZipFile object that wraps the actual zip file
     private ZipFile zipFile;
@@ -22,7 +25,9 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
 
     private ArrayList <String> assignmentNames;
 
-    // This is the constructor that takes a File object as a parameter
+    /*
+     * This is the constructor that takes a File object as a parameter
+     */
     public ZipFileComposite(File file) throws IOException {
 
         assignmentNames = new ArrayList<>();
@@ -77,7 +82,9 @@ public class ZipFileComposite implements ZipComponent, AutoCloseable, Composite 
         }
     }
 
-    // This is a private static method that unzips a zip entry into a file
+    /*
+     * This is a private static method that unzips a zip entry into a file
+     */
     private static File unzipEntry(ZipEntry entry, InputStream input, String outputFolder) throws IOException {
         // Create a file in the destination directory with the same name as the zip entry
         File file = new File("src\\main\\java\\com\\example\\StudentFiles", entry.getName());

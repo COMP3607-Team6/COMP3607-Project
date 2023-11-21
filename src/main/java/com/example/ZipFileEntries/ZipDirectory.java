@@ -1,17 +1,15 @@
-package com.example;
+package com.example.ZipFileEntries;
 
 import java.io.*;
 import java.util.zip.*;
 
+/*
+ * Responsible for creating zip files
+ */
 public class ZipDirectory {
-
-    // public static void main(String[] args) {
-    //     String sourceDirectoryPath = "src\\main\\java\\com\\example\\GradedSubmissions";
-    //     String zipFilePath = "GradedSubmissions.zip";
-
-    //     zipDirectory(sourceDirectoryPath, zipFilePath);
-    // }
-
+    /** 
+     * Responsible for creating a zip file from a directory
+     */
     public static void zipDirectory(String sourceDirectoryPath, String zipFilePath) {
         try {
             FileOutputStream fos = new FileOutputStream(zipFilePath);
@@ -29,7 +27,10 @@ public class ZipDirectory {
             e.printStackTrace();
         }
     }
-
+   
+    /** 
+     * Helper function that recursively compresses files and directories into a zip archive.
+     */
     private static void zipFile(File fileToZip, String fileName, ZipOutputStream zos) throws IOException {
         if (fileToZip.isHidden()) {
             return;

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.FileCopy;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,9 +9,14 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+/*
+ * Responsible for copying files into a zip file
+ */
 public class FileToZipCopier implements FileCopier {
-    
-    public static void copyFile(File zipFile, File fileToAdd)
+    /** 
+     * This function copies a specified file to a zip file
+     */
+    public static void copy(File fileToAdd, File zipFile)
     {
         try
         {

@@ -84,7 +84,12 @@ public class StaticTest extends BaseTest {
                 ArrayList<MethodInformation> methods = c.getMethods();
                 for(MethodInformation m:methods){
                     JPanel panel = new JPanel();
-                    JCheckBox mCheckBox = new JCheckBox("static " + m.getMethodName());
+                    String text = "";
+                    if (m.getIsStatic().equals("static")) 
+                        text = "static" + " " + m.getMethodName();
+                    else
+                        text = m.getMethodName();
+                    JCheckBox mCheckBox = new JCheckBox(text);
 
                     mCheckBox.setPreferredSize(new Dimension(100, 20));
                     mCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
@@ -114,7 +119,13 @@ public class StaticTest extends BaseTest {
                 for(AttributeInformation a:attributes){
                     
                     JPanel panel = new JPanel();
-                    JCheckBox aCheckBox = new JCheckBox("static " + a.getAttributeName());
+                    String text = "";
+                    if (a.getIsStatic().equals("static")) 
+                        text = "static" + " " + a.getAttributeName();
+                    else
+                        text = a.getAttributeName();
+                        
+                    JCheckBox aCheckBox = new JCheckBox(text);
                     aCheckBox.setPreferredSize(new Dimension(100, 20));
                     aCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
                     panel.add(aCheckBox);
@@ -133,6 +144,5 @@ public class StaticTest extends BaseTest {
         }  
     }
 
-   
       
 }
