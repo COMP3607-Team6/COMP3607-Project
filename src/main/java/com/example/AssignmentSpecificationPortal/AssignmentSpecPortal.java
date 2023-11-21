@@ -45,7 +45,7 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         cardPanel.setLayout(cardLayout);
         section2TabbedPane = new JTabbedPane();
 
-        section1 = new Section1(cardLayout, asSpec, system);
+        section1 = new Section1(cardLayout, asSpec, system, this);
         section2new = new Section2A_ClassesNew(cardLayout);
         section2bnew = new Section2B_AttributesNew(cardLayout);
         section2cnew = new Section2C_MethodsNew(cardLayout);
@@ -76,6 +76,8 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
        
         backButton.setPreferredSize(new Dimension(100, 30));
         nextButton.setPreferredSize(new Dimension(100, 30));
+
+        nextButton.setEnabled(false);
 
         // Panel to hold the buttons
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -162,6 +164,13 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
                 return currentCard;
         }
     }
+
+    // public void onGUISaveSpecButtonPressed(String msg) {
+    //     if (msg.equals("Assignment Specification Saved"))
+    //         nextButton.setEnabled(true);
+    //     else
+    //         nextButton.setEnabled(false);
+    // }
     
 
 }
