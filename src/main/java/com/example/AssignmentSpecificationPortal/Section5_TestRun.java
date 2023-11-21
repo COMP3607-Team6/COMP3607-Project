@@ -16,6 +16,7 @@ public class Section5_TestRun extends JPanel {
     private CardLayout cardLayout;
     private ArrayList<ClassInformation> classes;
     private JButton runTestsButton;
+    private JButton folderButton;
     // private AutomatedJudgeSystem system;
 
     public Section5_TestRun(CardLayout layout, AutomatedJudgeSystem system) {
@@ -27,10 +28,23 @@ public class Section5_TestRun extends JPanel {
         runTestsButton = new JButton("Run Tests");
         add (runTestsButton);
 
+        folderButton = new JButton("Open Result Folder");
+        add (folderButton);
+        folderButton.setVisible(false);
+
+
         runTestsButton.addActionListener(e -> {
             AutomatedJudgeSystem.onGUIRunTestsButtonPressed();
+            folderButton.setVisible(true);
             
         });
+
+        
+        folderButton.addActionListener(e -> {
+            AutomatedJudgeSystem.onGUIFolderButtonPressed();
+            
+        });
+
 
     }
 

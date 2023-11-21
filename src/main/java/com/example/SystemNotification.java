@@ -1,19 +1,33 @@
 package com.example;
 import java.awt.AWTException;
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
+import java.io.File;
+import java.io.IOException;
 
 public class SystemNotification {
 
     public String message;
+    public String filePath;
+
+    public SystemNotification(){
+        
+    }
 
     public SystemNotification(String message){
         this.message = message;
         callNotification();
+    }
+
+    public SystemNotification(String message,String filePath){
+        this.message = message;
+        callNotification();
+        openFolderInExplorer(filePath);
     }
 
     public void callNotification(){
@@ -41,4 +55,25 @@ public class SystemNotification {
             System.out.println("SystemTray is not supported");
         }
     }
+
+     public void openFolderInExplorer(String folderPath) {
+        File folder = new File(folderPath);
+
+        if (Desktop.isDesktopSupported() && folder.exists()) {
+            try {
+                Desktop.getDesktop().open(folder);
+            } catch (IOException e) {
+                System.out.println("Error opening folder: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Folder does not exist or is not supported.");
+        }
+    }
+
+    // public static void main(String[] args) {
+    //     SystemNotification s = new SystemNotification("This is a test", "src\\main\\java\\com\\example\\StudentFiles");
+    // }
+
 }
+
+
