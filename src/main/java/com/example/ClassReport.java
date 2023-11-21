@@ -95,7 +95,7 @@ public class ClassReport implements PDFReport {
           table.setHorizontalAlignment(HorizontalAlignment.CENTER);
           document.add(table);
           document.close();
-          SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!", "src\\main\\java\\com\\example\\StudentFiles");
+          SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!", "GradedSubmissions.zip");
 
         }
 

@@ -352,17 +352,21 @@ public class ValueTest extends JPanel{
         String nameCon = (String) selectedClassComboBox.getSelectedItem();
         String cName = (String) selectedClassComboBox.getSelectedItem();
 
-        String mark = (String) attributesMarkField.getText();
-        String markM = (String) methodsMarkField.getText();
+        
+       
 
-        int marks = Integer.parseInt(mark);
-        int marksM = Integer.parseInt(markM);
+       
+       
 
         if(aCheckBox.isSelected()){
+            String mark = (String) attributesMarkField.getText();
+            int marks = Integer.parseInt(mark);
             nameCon = "Class: " + nameCon + "\n-Attributes:\n";
             nameCon = checkCheckboxesA(attributeList, nameCon, cName, 0, marks);
         }
          if(mCheckBox.isSelected()){
+             String markM = (String) methodsMarkField.getText();
+             int marksM = Integer.parseInt(markM);
              nameCon = nameCon + "\n-Methods:\n";
              nameCon = checkCheckboxesM(methodList, nameCon, cName, 1, marksM);
         }
@@ -419,6 +423,9 @@ public class ValueTest extends JPanel{
     }
 
     public String checkCheckboxesM(JPanel Panel, String name, String className, int check, int mark){
+
+        System.out.println("inside checkM method");
+
         String expectedOutput = "";
 
         String methodAccessType = "";
@@ -515,30 +522,34 @@ public class ValueTest extends JPanel{
     }
 
     public Object getExpectedValue(String methodReturnType, String expectedOutput){
+
+        
         Object placeholder = "";
 
         String[] returnTypes = new String[]{"String", "int", "double", "float", "boolean", "char"};
+        
 
         if(methodReturnType.equals(returnTypes[0])){
             return expectedOutput;
         } else if(methodReturnType.equals(returnTypes[1])){
-            int requiredObject = Integer.parseInt(expectedOutput);
+            Object requiredObject = Integer.valueOf(expectedOutput);
             return requiredObject;
         } else if(methodReturnType.equals(returnTypes[2])){
-            double requiredObject = Double.parseDouble(expectedOutput);
+            Object requiredObject = Double.valueOf(expectedOutput);
             return requiredObject;
         } else if(methodReturnType.equals(returnTypes[3])){
-            float requiredObject = Float.parseFloat(expectedOutput);
+            Object requiredObject = Float.valueOf(expectedOutput);
             return requiredObject;
         } else if(methodReturnType.equals(returnTypes[4])){
-            boolean requiredObject = Boolean.parseBoolean(expectedOutput);
+            Object requiredObject = Boolean.valueOf(expectedOutput);
             return requiredObject;
         } else if(methodReturnType.equals(returnTypes[5])){
-            char requiredObject = expectedOutput.charAt(0);
+            Object requiredObject = expectedOutput.charAt(0);
             return requiredObject;
         }
         return placeholder;
     }
+
 
 
     public Object setAttributeType(String type, String input){

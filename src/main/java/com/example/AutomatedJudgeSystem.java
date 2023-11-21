@@ -43,14 +43,18 @@ public class AutomatedJudgeSystem {
     
 
     public static void main (String[] args) throws IOException{
+        initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
+    }
+
+    public static void doTest () throws IOException{
+        
         Delete.deleteFolder("GradedSubmissions.zip");
-        // initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
         System.out.println("zipFilePathugui");
         int num = 0;
 
         pdfManager = new PDFManager(asSpec);
 
-        ArrayList<TestCase> testCases = new ArrayList<>();//ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
+        ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
         ArrayList <String> assignmentNames = new ArrayList<>();
         ArrayList <String> studentIds = new ArrayList<>();
 
@@ -126,16 +130,16 @@ public class AutomatedJudgeSystem {
                 }
                
                 //Contains all tests to be executed for the assignment
-                testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
-                testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
-                testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
-                testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
-                testCases.add(new SubTypeTest("AC", "Device", 1)); //5
-                testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
-                ArrayList<Object> paras = new ArrayList<>();
+                // testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
+                // testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
+                // testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
+                // testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
+                // testCases.add(new SubTypeTest("AC", "Device", 1)); //5
+                // testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
+                // ArrayList<Object> paras = new ArrayList<>();
                 // paras.add(5);
                 // paras.add("{}");
-                testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
+                //testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
 
                 for(TestCase t: testCases){
                     t.init();
@@ -177,7 +181,19 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        // pdfManager.endOfAssignmentCheck(testCases,true, "src\\main\\java\\com\\example\\tobeDeleted\\FancyTable.pdf");
+        ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\GradedSubmissions", "GradedSubmissions.zip");
+
+         try {
+                // Pause for 5 seconds
+                Thread.sleep (5000);
+        } 
+        catch (Exception e) 
+        {
+                // Handle the interruption
+                e.printStackTrace ();
+        }
+
+        pdfManager.endOfAssignmentCheck(testCases,true, "src\\main\\java\\com\\example\\tobeDeleted\\FancyTable.pdf");
 
         zipFileComposite.removeAll();
 
@@ -193,14 +209,12 @@ public class AutomatedJudgeSystem {
                 e.printStackTrace ();
         }
 
-        ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\GradedSubmissions", "GradedSubmissions.zip");
+        
         Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
         Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\GradedSubmissions");
-    }
 
-    public static void doTest () throws IOException{
 
-        //System.out.println(asSpec.toString());
+        
         
         
     }
@@ -243,6 +257,6 @@ public class AutomatedJudgeSystem {
     public static void onGUIFolderButtonPressed() {
        
        SystemNotification e = new SystemNotification();
-       e.openFolderInExplorer("src\\main\\java\\com\\example\\StudentFiles");
+       e.openFolderInExplorer("GradedSubmissions.zip");
     }
 }
