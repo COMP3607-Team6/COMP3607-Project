@@ -13,13 +13,15 @@ public class MethodTypeTest extends TypeTest {
     private String methodName;
     private Method method;
     private Object expectedValue;
+    private String expectedValueString;
     private Object actualValue;
     
-    public MethodTypeTest(int allocatedMarks, String className, String methodName, Object expectedValue){
+    public MethodTypeTest(int allocatedMarks, String className, String methodName, String expectedValue){
         super(allocatedMarks);
         this.methodName = methodName;
-        this.className = className;  
-        this.expectedValue = expectedValue;
+        this.className = className;
+        this.expectedValueString = expectedValue;
+        this.expectedValue = convertKeywordToObject(expectedValue);
         this.testName = "Method Type Test for " + methodName + " belonging to class: " + className;
 
     }
@@ -47,8 +49,8 @@ public class MethodTypeTest extends TypeTest {
      
         }
         catch(AssertionError e){
-            testMarks.setTestComment("Method " + methodName + " was expected to be of returntype " + expectedValue + " but was of return type " + actualValue);
-            return "Method " + methodName + " was expected to be of return type " + expectedValue + " but was of return type " + actualValue;
+            testMarks.setTestComment("Method " + methodName + " was expected to be of returntype " + expectedValueString + " but was of return type " + actualValue);
+            return "Method " + methodName + " was expected to be of return type " + expectedValueString + " but was of return type " + actualValue;
     
         }
         catch(Exception e){
@@ -82,7 +84,7 @@ public class MethodTypeTest extends TypeTest {
      public static void main (String[] args){
      
 
-        TestCase t = new MethodTypeTest(1, "AC", "coolsBy", int.class );
+        TestCase t = new MethodTypeTest(1, "AC", "coolsBy", "float" );
         String r = t.test();
         System.out.println(r);
     }

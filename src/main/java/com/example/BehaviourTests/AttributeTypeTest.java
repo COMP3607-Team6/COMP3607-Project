@@ -13,28 +13,34 @@ public class AttributeTypeTest extends TypeTest {
     private String attributeName;
     private Field field;
     private Object expectedValue;
+    private String expectedValueString;
     private Object actualValue;
     
-    public AttributeTypeTest(int allocatedMarks, String className, String attributeName, Object expectedValue){
+    public AttributeTypeTest(int allocatedMarks, String className, String attributeName, String expectedValue){
         super(allocatedMarks);
         this.attributeName = attributeName;
-        this.className = className;  
-        this.expectedValue = expectedValue;
+        this.className = className;
+        this.expectedValueString = expectedValue;
+        this.expectedValue = convertKeywordToObject(expectedValue);
         this.testName = "Attribute Type Test for " + attributeName + " belonging to class: " + className;
     }
 
     public String test(){
         try{
+            if(expectedValue == null){
+                throw new Exception();
+            }
+
             actualValue = getType();
             assertEquals(actualValue, expectedValue);
             testMarks.setTestPassed(true);
             
-            testMarks.setTestComment("Attribute " + attributeName + "is of the correct type" + actualValue + ".");
-            return "Attribute " + attributeName + " is of the correct type "+ actualValue + ".";
+            testMarks.setTestComment("Attribute " + attributeName + "is of the correct type" + expectedValueString + ".");
+            return "Attribute " + attributeName + " is of the correct type "+ expectedValueString + ".";
         }
         catch(AssertionError e){
-            testMarks.setTestComment("Attribute " + attributeName + " was expected to be of type " + expectedValue + " but was of type " + actualValue);
-            return "Attribute " + attributeName + " was expected to be of type " + expectedValue + " but was of type " + actualValue;
+            testMarks.setTestComment("Attribute " + attributeName + " was expected to be of type " + expectedValueString + " but was of type " + actualValue);
+            return "Attribute " + attributeName + " was expected to be of type " + expectedValueString + " but was of type " + actualValue;
         }
         catch(Exception e){
             testMarks.setTestComment("Attribute " + attributeName + " does not exist in class "+ className + ".");
@@ -53,7 +59,7 @@ public class AttributeTypeTest extends TypeTest {
      public static void main (String[] args){
      
 
-        TestCase t = new AttributeTypeTest(1, "AC", "coolBy", int.class );
+        TestCase t = new AttributeTypeTest(1, "AC", "coolBy", "int" );
         String r = t.test();
         System.out.println(r);
     }

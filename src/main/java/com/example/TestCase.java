@@ -24,7 +24,7 @@ public abstract class TestCase{
         allClasses = instances.getAllClasses();
         allAbstractClasses = instances.getAbstractClasses();
         allInterfaceClasses= instances.getInterfaceClasses();
-        allConcreteClasses = instances.getInterfaceClasses();
+        allConcreteClasses = instances.getConcreteClasses();
         this.testMarks = new TestResult(allocatedMarks);
 
     }
