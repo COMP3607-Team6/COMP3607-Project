@@ -1,17 +1,20 @@
-package com.example;
+package com.example.FileCopy;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+/*
+ * Responsible for copying zip files into folders
+ */
 public class ZipToFolderCopier implements FileCopier {
-    
-    public static Path copyFile(Path source, String destinationFolder)
+     
+    /** 
+     * This method copies a zip file to a folder
+     */
+    public static void copyFile(Path source, String destinationFolder)
     {
-        // Path source = Paths.get(w.getPath());
-        // Create a Path object for the target file
-
         // Copy the source file to the target file
         int index = source.toString().lastIndexOf("\\");
         String output = source.toString().substring(index + 1);
@@ -27,6 +30,5 @@ public class ZipToFolderCopier implements FileCopier {
             e.printStackTrace();
         }
 
-        return target;
     }
 }

@@ -79,6 +79,7 @@ public class App
                 // Otherwise, if it's not the assignment name, it's part of the name
                 else if (!part.equalsIgnoreCase(assignmentName)) {
                     name += part;
+
                 }
             }
 

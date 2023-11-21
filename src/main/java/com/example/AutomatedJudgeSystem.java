@@ -18,8 +18,16 @@ import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 import com.example.BehaviourTests.MethodTypeTest;
 import com.example.BehaviourTests.MethodValueTest;
+import com.example.FileCopy.JavaFileCopier;
+import com.example.FileCopy.SubmissionCopier;
+import com.example.FileCopy.ZipToFolderCopier;
 import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
+import com.example.ZipFileEntries.ZipComponent;
+import com.example.ZipFileEntries.ZipDirectory;
+import com.example.ZipFileEntries.ZipEntryLeaf;
+import com.example.ZipFileEntries.ZipFileComposite;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -58,7 +66,7 @@ public class AutomatedJudgeSystem {
         ArrayList <String> assignmentNames = new ArrayList<>();
         ArrayList <String> studentIds = new ArrayList<>();
 
-        String zipFilePath = "ZipFolder.zip" ; //asSpec.getFolderPath();
+        String zipFilePath = asSpec.getFolderPath();
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
@@ -116,8 +124,6 @@ public class AutomatedJudgeSystem {
                             String entryName = f.getPath();
 
                             JavaFileCopier.javaFileCopierToLeaf (entryName, f);
-
-
                         }
                 } //End of java file iteration
                  

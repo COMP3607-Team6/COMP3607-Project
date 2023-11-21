@@ -1,12 +1,21 @@
-package com.example;
+package com.example.FileCopy;
 
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+
+import com.example.ZipFileEntries.ZipComponent;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/*
+ * Responsible for copying student submissions for Testing
+ */
 public class SubmissionCopier implements FileCopier{
 
+    /** 
+     * This method copies a file to a target directory and returns its path.
+     */
     public static Path copySubmission(ZipComponent w)
     {
         Path source = Paths.get(w.getPath());

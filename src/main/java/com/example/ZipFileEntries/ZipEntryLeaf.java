@@ -1,8 +1,11 @@
-package com.example;
+package com.example.ZipFileEntries;
 import java.util.zip.ZipEntry;
 import java.io.InputStream;
 
-// This is the ZipEntryLeaf class that represents a zip entry
+/*
+ * This is the ZipEntryLeaf class that represents a zip entry
+ * Apart of the Composite Design Pattern
+ */
 public class ZipEntryLeaf implements ZipComponent {
     // This is the ZipEntry object that wraps the actual zip entry
     private ZipEntry zipEntry;
@@ -12,7 +15,9 @@ public class ZipEntryLeaf implements ZipComponent {
     public String rel_path;
 
 
-    // This is the constructor that takes a ZipEntry object and an input stream as parameters
+    /*
+     * // This is the constructor that takes a ZipEntry object and an input stream as parameters
+     */
     public ZipEntryLeaf(ZipEntry zipEntry, InputStream inputStream) {
         // Assign the ZipEntry object and the input stream to the fields
         this.zipEntry = zipEntry;
@@ -32,6 +37,7 @@ public class ZipEntryLeaf implements ZipComponent {
         return inputStream;
     }
 
+    @Override
     public String getPath(){
         return this.storedFilePath;
     }
