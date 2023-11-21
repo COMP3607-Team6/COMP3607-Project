@@ -11,13 +11,7 @@ public class MethodInformation {
     //private final String marks;
 
     public MethodInformation(String accessType, String isAbstract, String methodType, String methodName, String methodParameters, String isStatic, String isFinal){
-        System.out.println(isStatic);
-        System.out.println(isFinal);
-        System.out.println(accessType);
-        System.out.println(isAbstract);
         this.accessType = accessType;
-        System.out.println(this.accessType);
-        System.out.println(getAccessType());
         this.isAbstract = isAbstract;
         this.methodType = methodType;
         this.methodName = methodName;

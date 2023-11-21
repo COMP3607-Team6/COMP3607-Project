@@ -63,7 +63,7 @@ public class Section2C_MethodsNew extends Section2_Input {
     public Section2C_MethodsNew(CardLayout layout) {
         super(layout);
 
-        promptPanel = createPromptPanel("Add methods (for inputted classes) to be tested here.");
+        promptPanel = createPromptPanel("Add methods (for inputted classes) to be tested here. Enter method signature:");
         selectedClassPanel = createSelectedClassPanel();
         mainPanel = createMainPanel();
 

@@ -92,7 +92,7 @@ public class AttributeInformation {
         return isStatic;
     }
 
-    public String getIsFInal() {
+    public String getIsFinal() {
         return isFinal;
     }
 

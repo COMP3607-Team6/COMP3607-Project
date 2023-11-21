@@ -110,7 +110,7 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         updateButtonVisibility( buttonPanel);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 600);
+        frame.setSize(900, 700);
         frame.setResizable(false);
 
         // center the frame on the screen

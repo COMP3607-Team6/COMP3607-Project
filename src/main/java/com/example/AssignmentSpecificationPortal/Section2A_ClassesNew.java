@@ -37,7 +37,7 @@ public class Section2A_ClassesNew extends Section2_Input {
     public Section2A_ClassesNew(CardLayout layout) {
         super(layout);
 
-        promptPanel = createPromptPanel("Add classes to be tested here.");
+        promptPanel = createPromptPanel("Add classes to be tested here. Enter class signature:");
         mainPanel = createMainPanel();
 
         add(promptPanel);
@@ -83,7 +83,10 @@ public class Section2A_ClassesNew extends Section2_Input {
         list = new JList<>(listModel);
         list.setFixedCellWidth(600);
         list.setFixedCellHeight(40);
-        outputPanel2.add(new JScrollPane(list));
+
+        JScrollPane listScrollPane = new JScrollPane(list);
+        listScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        outputPanel2.add(listScrollPane);
     }
 
     @Override
@@ -145,6 +148,10 @@ public class Section2A_ClassesNew extends Section2_Input {
 
         classNameField.setText("");
         nameField.setText("");
+        extendsCheckBox.setSelected(false);
+        EIComboBox.setVisible(false);
+        nameField.setVisible(false);
+        extendsCheckBox.setText("extends/implements");
     }
 
     public void attachListeners() {

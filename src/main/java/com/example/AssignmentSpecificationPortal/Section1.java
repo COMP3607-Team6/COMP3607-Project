@@ -71,6 +71,10 @@ public class Section1 extends JPanel {
 
     private JPanel specSavePanel;
 
+    private JLabel numberLabel;
+
+    private JTextField numberField;
+
     public Section1(CardLayout layout, AssignmentSpecification asSpec, AutomatedJudgeSystem system, AssignmentSpecPortal portal) {
         cardLayout = layout;
 
@@ -104,6 +108,15 @@ public class Section1 extends JPanel {
         courseCodeLabel.setPreferredSize(new Dimension(120, 20)); // Set the width of the label
         courseCodePanel.add(courseCodeLabel);
         courseCodePanel.add(courseCodeField);
+
+        
+        numberLabel = new JLabel("Assignment #:");
+        numberField = new JTextField(4);
+        numberField.setDocument(new IntegerDocument());
+        JPanel numberPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        numberLabel.setPreferredSize(new Dimension(120, 20));
+        numberPanel.add(numberLabel);
+        numberPanel.add(numberField);
 
         titleLabel = new JLabel("Title:");
         titleField = new JTextField(30);
@@ -305,6 +318,8 @@ public class Section1 extends JPanel {
         // mainPanel.add(welcomePanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
         mainPanel.add(courseCodePanel);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        mainPanel.add(numberPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mainPanel.add(titlePanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));

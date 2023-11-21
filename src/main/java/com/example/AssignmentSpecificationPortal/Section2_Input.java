@@ -69,7 +69,6 @@ public abstract class Section2_Input extends JPanel {
         outputPanel.setLayout(new FlowLayout());
 
         setupOutputPanel(outputPanel);
-        // inputPanel.add(setupInputPanel());
 
         return outputPanel;
     }
