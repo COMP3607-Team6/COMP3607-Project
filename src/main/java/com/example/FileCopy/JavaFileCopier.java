@@ -1,4 +1,4 @@
-package com.example;
+package com.example.FileCopy;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,30 +8,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+
+import com.example.ZipFileEntries.ZipEntryLeaf;
+
+
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class JavaFileCopier {
-    
+/*
+ * Responsible for copying files into a Directory for Testing
+ */
+public class JavaFileCopier implements FileCopier{   
+    /** 
+     * Adds a file specified by its entryName to a ZipEntryLeaf object 
+     */
     public static void javaFileCopierToLeaf (String entryName, ZipEntryLeaf f)
     {
         if (entryName.endsWith(".java"))
@@ -99,6 +91,10 @@ public class JavaFileCopier {
             }
     }
 
+    
+    /** 
+     * The Java files in the specified path are relocated to a temporary directory, facilitating their testing.
+     */
     public static void copyFiles(String javaFilePath)
     {
 
@@ -141,6 +137,11 @@ public class JavaFileCopier {
     }
 }
 
+
+    
+    /** 
+     * Helper method to get the paths of java files in the given directory
+     */
     private  static List<Path> getJavaFilePaths(String dirPath) throws IOException {
         try (Stream<Path> paths = Files.walk(Paths.get(dirPath))) {
             return paths
@@ -149,5 +150,6 @@ public class JavaFileCopier {
                 .collect(Collectors.toCollection(ArrayList::new)); // collect into an ArrayList
         }
 }
+
 }
 

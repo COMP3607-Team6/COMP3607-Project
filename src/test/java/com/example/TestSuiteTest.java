@@ -14,6 +14,7 @@ import com.example.BehaviourTests.AttributeValueTest;
 import com.example.BehaviourTests.ClassTypeTest;
 import com.example.BehaviourTests.MethodTypeTest;
 import com.example.BehaviourTests.MethodValueTest;
+import com.example.FileCopy.JavaFileCopier;
 import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
 

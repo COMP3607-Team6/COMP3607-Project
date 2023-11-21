@@ -2,17 +2,19 @@ package com.example;
 
 import java.util.List;
 
+import com.example.ZipFileEntries.ZipComponent;
+
+/*
+ * This interface specifies a contract for ZipFileComposite objects
+ */
 public interface Composite {
 
-    // @Override
     void add(ZipComponent component);
 
-    // @Override
     void remove(ZipComponent component);
 
     void removeAll();
 
-    // @Override
     ZipComponent getChild(int index);
 
     List<ZipComponent> getComponents();
