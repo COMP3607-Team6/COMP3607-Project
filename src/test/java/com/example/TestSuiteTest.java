@@ -2,9 +2,6 @@ package com.example;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.Test;
@@ -202,7 +199,7 @@ public class TestSuiteTest {
     @Test
     public void  attributeTypeTest_GoodRequest()
     {
-        TestCase t = new AttributeTypeTest(1, "AC", "coolBy", int.class );
+        TestCase t = new AttributeTypeTest(1, "AC", "coolBy", "int" );
         System.out.println(t.test());
         assertTrue(t.testMarks.getTestPassed());
     }
@@ -210,7 +207,7 @@ public class TestSuiteTest {
     @Test
     public void  attributeTypeTest_BadRequest()
     {
-        TestCase t = new AttributeTypeTest(1, "AC", "notcoolBy", int.class );
+        TestCase t = new AttributeTypeTest(1, "AC", "notcoolBy", "int" );
         System.out.println(t.test());
         assertFalse(t.testMarks.getTestPassed());
     }
@@ -218,7 +215,7 @@ public class TestSuiteTest {
     @Test
     public void  attributeTypeTest_BadClassNameRequest()
     {
-        TestCase t = new AttributeTypeTest(1, "A", "coolBy", int.class );
+        TestCase t = new AttributeTypeTest(1, "A", "coolBy", "int" );
         System.out.println(t.test());
         assertFalse(t.testMarks.getTestPassed());
     }
@@ -284,14 +281,14 @@ public class TestSuiteTest {
     //MethodTypeTest - Test
     @Test
     public void methodTypeTest_GoodRequest(){
-        TestCase t = new MethodTypeTest(1, "AC", "coolsBy", int.class );
+        TestCase t = new MethodTypeTest(1, "AC", "coolsBy", "int" );
         System.out.println(t.test());
         assertTrue(t.testMarks.getTestPassed());
     }
 
     @Test
     public void methodTypeTest_BadRequest(){
-        TestCase t = new MethodTypeTest(1, "AC", "coolsBy", float.class );
+        TestCase t = new MethodTypeTest(1, "AC", "coolsBy", "float" );
         System.out.println(t.test());
         assertFalse(t.testMarks.getTestPassed());
 
@@ -299,7 +296,7 @@ public class TestSuiteTest {
 
      @Test
     public void methodTypeTest_BadClassNameRequest(){
-        TestCase t = new MethodTypeTest(1, "A", "coolsBy", float.class );
+        TestCase t = new MethodTypeTest(1, "A", "coolsBy", "float" );
         System.out.println(t.test());
         assertFalse(t.testMarks.getTestPassed());
 
@@ -307,7 +304,7 @@ public class TestSuiteTest {
 
      @Test
     public void methodTypeTest_BadMethodNameRequest(){
-        TestCase t = new MethodTypeTest(1, "AC", "coolerBy", float.class );
+        TestCase t = new MethodTypeTest(1, "AC", "coolerBy", "float" );
         System.out.println(t.test());
         assertFalse(t.testMarks.getTestPassed());
     }
