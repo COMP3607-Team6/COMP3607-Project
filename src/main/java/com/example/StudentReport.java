@@ -36,6 +36,8 @@ public class StudentReport implements PDFReport {
 
     public void update(ArrayList<TestCase> cases, String StudentID,boolean assignmentsEnd, String submission_location){
 
+       if(assignmentsEnd != true) {
+
         int countTestcases = 0;
 
         if(StudentID != null){
@@ -117,6 +119,7 @@ public class StudentReport implements PDFReport {
 
         student_pdf.delete();
     }
+}
     
     // Function to create a cell with content and alignment
     private static Cell createCell(String content, TextAlignment alignment) {

@@ -28,8 +28,77 @@ public class MethodValueTest extends ValueTest {
         this.paras = paras;
         methodparas = new ArrayList<>();
         this.expectedValue = expectedValue;
-         this.testName = "Method Value Test for " + methodName + " belonging to class: " + className;
+        this.testName = "Method Value Test for " + methodName + " belonging to class: " + className;
 
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " methodName='" + getMethodName() + "'" +
+            ", className='" + getClassName() + "'" +
+            ", paras='" + getParas() + "'" +
+            ", methodparas='" + getMethodparas() + "'" +
+            ", expectedValue='" + getExpectedValue() + "'" +
+            ", actualValue='" + getActualValue() + "'" +
+            ", method='" + getMethod() + "'" +
+            "}";
+    }
+
+    public String getMethodName() {
+        return this.methodName;
+    }
+
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
+    public String getClassName() {
+        return this.className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public ArrayList<Object> getParas() {
+        return this.paras;
+    }
+
+    public void setParas(ArrayList<Object> paras) {
+        this.paras = paras;
+    }
+
+    public ArrayList<Object> getMethodparas() {
+        return this.methodparas;
+    }
+
+    public void setMethodparas(ArrayList<Object> methodparas) {
+        this.methodparas = methodparas;
+    }
+
+    public Object getExpectedValue() {
+        return this.expectedValue;
+    }
+
+    public void setExpectedValue(Object expectedValue) {
+        this.expectedValue = expectedValue;
+    }
+
+    public Object getActualValue() {
+        return this.actualValue;
+    }
+
+    public void setActualValue(Object actualValue) {
+        this.actualValue = actualValue;
+    }
+
+    public Method getMethod() {
+        return this.method;
+    }
+
+    public void setMethod(Method method) {
+        this.method = method;
     }
     
 
@@ -37,7 +106,6 @@ public class MethodValueTest extends ValueTest {
     public String test(){
 
         actualValue = getValue();
-       // System.out.println(actualValue);
 
         if(actualValue.equals(className + " class not found !!")){
             return className + " class not found !!";
@@ -81,23 +149,22 @@ public class MethodValueTest extends ValueTest {
         Method[] methods = clazz.getDeclaredMethods();
 
         for(Method m: methods){
-            if(m.getName() == methodName && m.getParameterCount() == paras.size() ){
+            if(m.getName().equals(methodName) && m.getParameterCount() == paras.size() ){
                 method = m;
             }
         }
+        System.out.println(method.getName());
 
         if(method == null){
             return  methodName + " method not found in " + className + " !!";
         }
 
-       // Method method = findMethodInstance(className, methodName, allClasses);
-        //System.out.println(method);
+    
         Object instance = oldFindClassInstance(className);
 
         
         
         Parameter[] parameters = method.getParameters();
-        //System.out.println(parameters.length);
         
 
         int pointer = 0;
@@ -147,8 +214,7 @@ public class MethodValueTest extends ValueTest {
     }
 
     public void getParametersForMethod(Class<?>parameterType, int pointer){
-        System.out.println(paras.get(pointer).getClass());
-        System.out.println(paras.get(pointer));
+
         if((parameterType == int.class) && (paras.get(pointer)instanceof Integer)){
             methodparas.add(paras.get(pointer));
         }
@@ -180,10 +246,6 @@ public class MethodValueTest extends ValueTest {
     }
 
     public void addInstancePara(String paras, String p){
-
-        System.out.println(paras);
-        System.out.println(p);
-
 
         List<Object> ConstructorParameterValues = new ArrayList<>();
 
@@ -294,7 +356,7 @@ public class MethodValueTest extends ValueTest {
         // paras.add("{5,5}");
         //paras.add((float)3.2 );
 
-        TestCase t = new MethodValueTest("coolsBy", "A",1,paras, 13);
+        TestCase t = new MethodValueTest("coolsBy", "AC",1,paras, 13);
         String r = t.test();
         System.out.println(r);
     }
