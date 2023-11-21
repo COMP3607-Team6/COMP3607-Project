@@ -98,7 +98,7 @@ public class ClassReport implements PDFReport {
           table.setHorizontalAlignment(HorizontalAlignment.CENTER);
           document.add(table);
           document.close();
-          SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!");
+          SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!", "src\\main\\java\\com\\example\\StudentFiles");
 
         }
 
@@ -118,4 +118,6 @@ public class ClassReport implements PDFReport {
         cell.setTextAlignment(alignment);
         return cell;
     }
+
+
 }

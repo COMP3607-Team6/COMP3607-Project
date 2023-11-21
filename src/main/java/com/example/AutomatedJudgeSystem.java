@@ -234,10 +234,17 @@ public class AutomatedJudgeSystem {
         System.out.println(TestCaseManager.getTestCases());
         try {
             doTest();
+            
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         //return TestCaseManager.getTestCases();
+    }
+
+    public static void onGUIFolderButtonPressed() {
+       
+       SystemNotification e = new SystemNotification();
+       e.openFolderInExplorer("src\\main\\java\\com\\example\\StudentFiles");
     }
 }
