@@ -1,8 +1,11 @@
 package com.example;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.example.FileCopy.ZipToFolderCopier;
 
 public class App 
 
@@ -42,6 +45,13 @@ public class App
 
         Map<String, String> result = getNameFromSubmission("wjvwjkevwjevqwdqwfqw111.zip", "comp");
         System.out.println("Name: " + result.toString());
+         String name = result.get("name");
+         String number = result.get("number");
+         System.out.println(number.length() +  "--------------------" + number);
+
+                if(name.isBlank() && number.isBlank()){
+                    System.out.println("Bad Submission Added!!");
+                }
       
 
     }

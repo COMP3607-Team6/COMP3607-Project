@@ -20,6 +20,7 @@ import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 import com.example.BehaviourTests.MethodTypeTest;
 import com.example.BehaviourTests.MethodValueTest;
+import com.example.FileCopy.FileToZipCopier;
 import com.example.FileCopy.JavaFileCopier;
 import com.example.FileCopy.SubmissionCopier;
 import com.example.FileCopy.ZipToFolderCopier;
@@ -72,6 +73,16 @@ public class AutomatedJudgeSystem {
             System.err.println("Failed to create directory!" + e.getMessage());
         }
 
+        Path path3 = Paths.get("src\\main\\java\\com\\example\\UngradedSubmissions");
+
+        try {
+            Files.createDirectories(path3);
+            System.out.println("Directory is created!");
+        } catch (IOException e) {
+            System.err.println("Failed to create directory!" + e.getMessage());
+        }
+
+
         initializeAssignmentSpecPortal(new AutomatedJudgeSystem(), asSpec);
 
 
@@ -80,6 +91,7 @@ public class AutomatedJudgeSystem {
     public static void doTest () throws IOException{
         
         Delete.deleteFolder("GradedSubmissions.zip");
+        Delete.deleteFolder("UngradedSubmissions.zip");
         System.out.println("zipFilePathugui");
 
 
@@ -142,14 +154,17 @@ public class AutomatedJudgeSystem {
             //    Delete.deleteFolder(c.getPath());
 
                 result = getNameFromSubmission(assignmentNames.get(num), "comp");
-                num++;
+               
                 
                 String name = result.get("name");
                 String number = result.get("number");
 
-                if(name.isBlank() && number.isBlank()){
-
+                if(name.length() == 0 || number.length() == 0){
+                    ZipToFolderCopier.copyFile(Paths.get(z.getPath()), "src\\main\\java\\com\\example\\UngradedSubmissions");
+                    System.out.println("Bad Submission Added!!");
+                    break;
                 }
+                num++;
            
                 //Iterate student files
                 for (ZipComponent i : c.getComponents())
@@ -228,6 +243,17 @@ public class AutomatedJudgeSystem {
 
         ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\GradedSubmissions", "GradedSubmissions.zip");
 
+          try {
+                // Pause for 5 seconds
+                Thread.sleep (5000);
+        } 
+        catch (Exception e) 
+        {
+                // Handle the interruption
+                e.printStackTrace ();
+        }
+
+        ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\UngradedSubmissions", "UngradedSubmissions.zip");
          try {
                 // Pause for 5 seconds
                 Thread.sleep (5000);
@@ -257,7 +283,7 @@ public class AutomatedJudgeSystem {
         
         Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
         Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\GradedSubmissions");
-
+        Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\UngradedSubmissions");
 
         
         
@@ -303,6 +329,13 @@ public class AutomatedJudgeSystem {
        
        SystemNotification e = new SystemNotification();
        e.openFolderInExplorer("GradedSubmissions.zip");
+    }
+
+
+    public static void onGUIUnGradedFolderButtonPressed() {
+       
+       SystemNotification e = new SystemNotification();
+       e.openFolderInExplorer("UngradedSubmissions.zip");
     }
 
       public static Map<String,String> getNameFromSubmission(String str, String assignmentName) {

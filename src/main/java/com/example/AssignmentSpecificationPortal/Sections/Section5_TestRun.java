@@ -18,6 +18,7 @@ public class Section5_TestRun extends JPanel {
     private ArrayList<ClassInformation> classes;
     private JButton runTestsButton;
     private JButton folderButton;
+    private JButton ungradedFolderButton;
     // private AutomatedJudgeSystem system;
 
     public Section5_TestRun(CardLayout layout, AutomatedJudgeSystem system) {
@@ -33,16 +34,23 @@ public class Section5_TestRun extends JPanel {
         add (folderButton);
         folderButton.setVisible(false);
 
+        ungradedFolderButton = new JButton("Open Ungraded Folder");
+        add (ungradedFolderButton);
+        ungradedFolderButton.setVisible(false);
 
         runTestsButton.addActionListener(e -> {
             AutomatedJudgeSystem.onGUIRunTestsButtonPressed();
             folderButton.setVisible(true);
-            
+            ungradedFolderButton.setVisible(true);
         });
-
         
         folderButton.addActionListener(e -> {
             AutomatedJudgeSystem.onGUIFolderButtonPressed();
+            
+        });
+
+        ungradedFolderButton.addActionListener(e -> {
+            AutomatedJudgeSystem.onGUIUnGradedFolderButtonPressed();
             
         });
 
