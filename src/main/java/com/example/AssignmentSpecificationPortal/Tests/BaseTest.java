@@ -7,6 +7,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -65,6 +66,7 @@ public class BaseTest extends JPanel {
     
 
     protected String testType;
+    private JPanel testDescriptionPanel;
 
     public BaseTest() {
         classTests = new ArrayList<ClassBasicTest>();
@@ -73,34 +75,24 @@ public class BaseTest extends JPanel {
         testCases = new ArrayList<TestCase>();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        testDescription = new JLabel(" description. short one line description of test");
-        testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
-        testDescription.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        selectedClassPanel = new JPanel();
-        selectedClassPanel.setLayout(new FlowLayout());
-
-        selectedClassLabel = new JLabel("Class:");
-        loadClassesButton = new JButton("Load classes");
         
-        selectedClassComboBox = new JComboBox<String>();
-        for (ClassInformation c : ClassesManager.getClasses()) {
-            selectedClassComboBox.addItem(c.getClassName());
-        }
-        selectedClassPanel.add(selectedClassLabel);
-        selectedClassPanel.add(selectedClassComboBox);
-        selectedClassPanel.add(loadClassesButton);
 
+        createDescriptionPanel(); // descriptionPanel
+
+        createSelectedClassPanel(); // selectedClassPanel
+
+
+        // CLASS CHECKBOX & MARKS
         selectedClassPanel2 = new JPanel();
-        selectedClassPanel2.setLayout(new FlowLayout());
+        selectedClassPanel2.setLayout(new FlowLayout(FlowLayout.LEADING));
         
         String ans = (String) selectedClassComboBox.getSelectedItem();
-        classCheckB = new JCheckBox("Class - " + ans);
+        classCheckB = new JCheckBox("Class: " + ans);
         classCheckB.setFont(new Font("Arial", Font.PLAIN, 15));
+        classCheckB.setPreferredSize(new Dimension(200, 20));
         
         markslab1 = new JLabel("Marks:");
-        markslab1.setFont(new Font("Arial", Font.PLAIN, 10));
+        markslab1.setFont(new Font("Arial", Font.BOLD, 12));
         marksTextField1 = new JTextField(3);
         marksTextField1.setDocument(new IntegerDocument());
 
@@ -108,30 +100,46 @@ public class BaseTest extends JPanel {
         selectedClassPanel2.add(markslab1);
         selectedClassPanel2.add(marksTextField1);
 
+
+        // ATTRIBUTES MAIN CHECKBOX
         selectedClassPanel3 = new JPanel();
-        selectedClassPanel3.setLayout(new FlowLayout());
+        selectedClassPanel3.setLayout(new FlowLayout(FlowLayout.LEADING));
 
         attCheckB = new JCheckBox("Attributes");
         attCheckB.setFont(new Font("Arial", Font.PLAIN, 15));
        	
 		selectedClassPanel3.add(attCheckB);
        
+        // ATTRIBUTES INDIVIDUAL CHECKBOXES
         attributePanel = new JPanel();
-        attributePanel.setLayout(new GridLayout(3, 3));
+        attributePanel.setLayout(new GridLayout(0, 3));
+
+        JScrollPane aScrollPane = new JScrollPane(attributePanel);
+        aScrollPane.setPreferredSize(new Dimension(600, 150));
+        aScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         updateAttributeList(ans);
 
-        methodPanel = new JPanel();
-        methodPanel.setLayout(new GridLayout(3, 3));
-        updateMethodList(ans);
 
+        // METHODS MAIN CHECKBOX
         selectedClassPanel4 = new JPanel();
-        selectedClassPanel4.setLayout(new FlowLayout());
+        selectedClassPanel4.setLayout(new FlowLayout(FlowLayout.LEADING));
      
         methCheckB = new JCheckBox("Methods");
         methCheckB.setFont(new Font("Arial", Font.PLAIN, 15));
       
 		selectedClassPanel4.add(methCheckB);
+
+        // METHODS INDIVIDUAL CHECKBOXES
+        methodPanel = new JPanel();
+        methodPanel.setLayout(new GridLayout(0, 3));
+
+        JScrollPane mScrollPane = new JScrollPane(methodPanel);
+        mScrollPane.setPreferredSize(new Dimension(600, 150));
+        mScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        updateMethodList(ans);
+
      	
+        // PANEL TO DISPLAY TESTS
         testPanel = new JPanel();
         testPanel.setLayout(new FlowLayout());
 
@@ -141,24 +149,60 @@ public class BaseTest extends JPanel {
 
         testPanel.add(scrollPane);
 
+        createSaveTestAndClearTestsButtonPanel();
+
+        add(testDescription);
+        add(selectedClassPanel);
+        add(selectedClassPanel2); // class name and marks
+        add(selectedClassPanel3); // atts main checkbox
+        add(aScrollPane); // att checkboxes
+        add(selectedClassPanel4); // methods main checkbox
+        add(mScrollPane); // met checkboxes
+        add(testPanel); // white box to print tests
+        add(savePanel);
+
+        attachListeners();
+    }
+
+    protected void createDescriptionPanel() {
+        // testDescription = new JLabel();
+        // testDescriptionPanel = new JPanel(); 
+        // testDescriptionPanel.setLayout(new BoxLayout(testDescriptionPanel, BoxLayout.X_AXIS));
+        // testDescriptionPanel.add(testDescription);
+        // testDescriptionPanel.add(Box.createHorizontalGlue());
+        
+        testDescription = new JLabel();
+        testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
+        testDescription.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    public JPanel createSelectedClassPanel() {
+        selectedClassPanel = new JPanel();
+        selectedClassPanel.setLayout(new FlowLayout());
+        selectedClassLabel = new JLabel("Class:");
+        loadClassesButton = new JButton("Load classes");
+        selectedClassComboBox = new JComboBox<String>();
+
+        selectedClassPanel.add(selectedClassLabel);
+        selectedClassPanel.add(selectedClassComboBox);
+        selectedClassPanel.add(loadClassesButton);
+
+        updateSelectedClassComboBox();
+
+        if (selectedClassComboBox.getItemCount() == 0) {
+            selectedClassComboBox.setVisible(false);
+        }
+
+        return selectedClassPanel;
+    }
+
+    protected void createSaveTestAndClearTestsButtonPanel() {
         savePanel = new JPanel();
         savePanel.setLayout(new FlowLayout());
         saveTestsButton = new JButton("Save Test");
         savePanel.add(saveTestsButton);
         clearTestsButton = new JButton("Clear Tests");
         savePanel.add(clearTestsButton);
-
-        add(testDescription);
-        add(selectedClassPanel);
-        add(selectedClassPanel2);
-        add(selectedClassPanel3);
-        add(attributePanel);
-        add(selectedClassPanel4);
-        add(methodPanel);
-        add(testPanel);
-        add(savePanel);
-
-        attachListeners();
     }
 
     protected void attachListeners() {
@@ -179,7 +223,7 @@ public class BaseTest extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String ans = (String) selectedClassComboBox.getSelectedItem();
-                classCheckB.setText("Class - " + ans);
+                classCheckB.setText("Class: " + ans);
                 
                 updateAttributeList(ans);
                 attributePanel.revalidate();
@@ -201,42 +245,57 @@ public class BaseTest extends JPanel {
 
     protected void updateAttributeList(String ans) {
         for(ClassInformation c : ClassesManager.getClasses()){
-                    if(c.getClassName().equals(ans)){
-                        attributePanel.removeAll();
-                        ArrayList<AttributeInformation> attributes = c.getAttributes();
-                        for(AttributeInformation a:attributes){
-                         
-                            JPanel panel = new JPanel();
-                            JCheckBox aCheckBox = new JCheckBox(a.getAttributeName());
-                            panel.add(aCheckBox);
-                            
-                            JTextField textField = new JTextField(3);
-                            textField.setDocument(new IntegerDocument());
-                            panel.add(textField);
-                           
-                            attributePanel.add(panel);
-                        }    
-                    }
+            if(c.getClassName().equals(ans)){
+                attributePanel.removeAll();
+                ArrayList<AttributeInformation> attributes = c.getAttributes();
+                for(AttributeInformation a:attributes){
+                    
+                    JPanel panel = new JPanel();
+                    JCheckBox aCheckBox = new JCheckBox(a.getAttributeName());
+                    
+                    aCheckBox.setPreferredSize(new Dimension(100, 20));
+                    aCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
+                    panel.add(aCheckBox);
+
+                    JLabel marksLabel = new JLabel("Marks:");
+                    marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
+                    panel.add(marksLabel);
+                    
+                    JTextField textField = new JTextField(3);
+                    textField.setDocument(new IntegerDocument());
+                    panel.add(textField);
+                    
+                    attributePanel.add(panel);
+                }    
+            }
         }  
     }
 
     protected void updateMethodList(String ans) {
         for(ClassInformation c : ClassesManager.getClasses()){
-                    if(c.getClassName().equals(ans)){
-                        methodPanel.removeAll();
-                        ArrayList<MethodInformation> methods = c.getMethods();
-                        for(MethodInformation m:methods){
-                            JPanel panel = new JPanel();
-                            JCheckBox mCheckBox = new JCheckBox(m.getMethodName());
-                            panel.add(mCheckBox);
-                            
-                            JTextField textField = new JTextField(3);
-                            textField.setDocument(new IntegerDocument());
-                            panel.add(textField);
-                            
-                            methodPanel.add(panel);
-                        }    
-                    }
+            if(c.getClassName().equals(ans)){
+                methodPanel.removeAll();
+                ArrayList<MethodInformation> methods = c.getMethods();
+                for(MethodInformation m:methods){
+                    JPanel panel = new JPanel();
+                    JCheckBox mCheckBox = new JCheckBox(m.getMethodName());
+
+                    mCheckBox.setPreferredSize(new Dimension(100, 20));
+                    mCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
+
+                    panel.add(mCheckBox);
+
+                    JLabel marksLabel = new JLabel("Marks:");
+                    marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
+                    panel.add(marksLabel);
+                    
+                    JTextField textField = new JTextField(3);
+                    textField.setDocument(new IntegerDocument());
+                    panel.add(textField);
+                    
+                    methodPanel.add(panel);
+                }    
+            }
         }  
     }
 
@@ -248,6 +307,8 @@ public class BaseTest extends JPanel {
         classTests.clear();
         methodTests.clear();
         attributeTests.clear();
+
+        nameTests.setText("");
     }
 
     protected void addTestCases() {
@@ -276,7 +337,7 @@ public class BaseTest extends JPanel {
             nameCon = nameCon + "\n" + "-Class [" + marks + " marks]\n";
         }
         if (attCheckB.isSelected() == true) {
-            nameCon = nameCon + "-Attributes: ";
+            nameCon = nameCon + "-Attributes: \n";
             nameCon = checkCheckboxes(attributePanel, nameCon, cName,0,testType);
         }
         if (methCheckB.isSelected() == true) {
@@ -304,20 +365,35 @@ public class BaseTest extends JPanel {
                     
                         JCheckBox checkBox = (JCheckBox) currentComponent;
                         String checkBoxText = checkBox.getText();
+                        String[] parts = checkBoxText.split(" ");
+                        String text = "";
+                        String classCompName ="";
+                        
+                        if (parts.length == 1) {
+                            text = parts[0]; // Only one word
+                            classCompName = parts[0];
+                        } else if (parts.length >= 2) {
+                            text = parts[0] + " " + parts[1]; // Concatenate the first and second parts
+                            classCompName = parts[1];
+                        }
+
+                        System.out.println("text: " + text);
                         if (checkBox.isSelected()) {
                             currentComponent = iterator.next();
+                            currentComponent = iterator.next(); // skip marks label
                            
                             if (currentComponent instanceof JTextField) {
                                 JTextField textfield =(JTextField) currentComponent;
                                 String textFieldValue = textfield.getText(); 
                                 marks = Integer.parseInt(textFieldValue); 
-                                name = name + checkBoxText + "[ "+marks+" ], ";
+                                name = name + text + " ["+marks+" mks], \n";
                             }
+                            // name = name + checkBoxText + " ["+marks+" mks], ";
                             if(check == 0){
-                                attributeTests.add(new AttributeBasicTest(marks,className, checkBoxText, testType));
+                                attributeTests.add(new AttributeBasicTest(marks,className, classCompName, testType));
                             }
                             else if(check == 1){
-                                methodTests.add(new MethodBasicTest(marks,className, checkBoxText, testType));
+                                methodTests.add(new MethodBasicTest(marks,className, classCompName, testType));
                             }
                         
                             marks=0;                    
@@ -330,6 +406,10 @@ public class BaseTest extends JPanel {
         return name; 
     }
 
+    // Restricts input to integers only
+    // use like: 
+    //     JTextField marksTextField = new JTextField();
+    //     marksTextField.setDocument(new IntegerDocument());
     static class IntegerDocument extends PlainDocument {
         private final Pattern pattern = Pattern.compile("-?\\d*");
 
