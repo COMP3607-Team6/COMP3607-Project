@@ -1,6 +1,9 @@
 package com.example.AssignmentSpecificationPortal;
 
 public class AttributeInformation {
+    //
+    /* This class holds all the information of saved Attributes in the GUI
+     */
     private final String accessType;
     private final String isStatic;
     private final String isFinal;
@@ -84,6 +87,7 @@ public class AttributeInformation {
         // return accessType;
     }
 
+    //accessors
     public String getAccessType() {
         return accessType;
     }

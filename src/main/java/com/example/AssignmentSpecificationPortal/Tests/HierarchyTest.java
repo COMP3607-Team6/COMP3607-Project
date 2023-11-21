@@ -27,6 +27,8 @@ import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
 
 public class HierarchyTest extends JPanel {
+    /* This class gives the layout and behaviour specific to Hierarchy Test
+     */
 
     private ArrayList<ClassInformation> classes;
     private JLabel testDescription;
@@ -67,6 +69,8 @@ public class HierarchyTest extends JPanel {
     private JCheckBox implementsCheckBox;
 
     public HierarchyTest(String description) {
+    
+
     // public HierarchyTest(ArrayList<ClassInformation> classes) {
         // this.classes = classes;
 

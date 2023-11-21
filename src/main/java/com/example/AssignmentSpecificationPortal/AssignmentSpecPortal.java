@@ -26,6 +26,10 @@ import com.example.AssignmentSpecificationPortal.Sections.Section4_Tests;
 import com.example.AssignmentSpecificationPortal.Sections.Section5_TestRun;
 
 public class AssignmentSpecPortal {
+    //
+    /* This class generates the Assignment Spec Portal GUI
+     * by creating the necessary Section Instances and Components
+     */
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel cardPanel;
@@ -129,6 +133,7 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         frame.setVisible(true);
     }
 
+    //disables the back button on first page and next button on last
     private void updateButtonVisibility(JPanel buttonPanel) {
         Component[] components = buttonPanel.getComponents();
         JButton button1 = (JButton) components[0];
@@ -138,6 +143,7 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         button2.setVisible(!"Section 5".equals(currentCard)); 
     }
 
+    //tracks current card going forward
     private String getNextCardName(String currentCard) {
         switch (currentCard) {
             case "Section 1":
@@ -155,6 +161,7 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         }
     }
 
+    //tracks current card going backwards
     private String getLastCardName(String currentCard) {
         switch (currentCard) {
             case "Section 1":

@@ -31,6 +31,10 @@ import com.example.AutomatedJudgeSystem;
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
 
 public class Section1 extends JPanel {
+    //
+    /* This class creates the Layout for Assignment Spec Input Panel (Section 1) of the GUI
+     */
+    
     // private JButton nextButton;
     private CardLayout cardLayout;
 
@@ -345,9 +349,6 @@ public class Section1 extends JPanel {
     }
 
     // Restricts input to integers only
-    // use like:
-    // JTextField marksTextField = new JTextField();
-    // marksTextField.setDocument(new IntegerDocument());
     class IntegerDocument extends PlainDocument {
         private final Pattern pattern = Pattern.compile("-?\\d*");
 

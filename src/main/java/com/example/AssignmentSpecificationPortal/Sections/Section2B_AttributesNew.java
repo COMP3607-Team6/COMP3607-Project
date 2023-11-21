@@ -22,6 +22,9 @@ import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 
 public class Section2B_AttributesNew extends Section2_Input {
+     //
+    /* This class creates the Layout for Attribute Input TabbedPane of the GUI
+     */
 
     private JPanel promptPanel;
     private JPanel selectedClassPanel;

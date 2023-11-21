@@ -23,6 +23,9 @@ import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 
 public class Section2C_MethodsNew extends Section2_Input {
+     //
+    /* This class creates the Layout for Method Input TabbedPane of the GUI
+     */
 
     private JPanel promptPanel;
     private JPanel selectedClassPanel;
@@ -64,6 +67,7 @@ public class Section2C_MethodsNew extends Section2_Input {
     private JCheckBox staticCheckButton;
     private JCheckBox finalCheckButton;
 
+    
     public Section2C_MethodsNew(CardLayout layout) {
         super(layout);
 
