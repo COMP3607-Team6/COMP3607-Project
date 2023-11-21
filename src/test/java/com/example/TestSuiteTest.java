@@ -2,8 +2,8 @@ package com.example;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.example.BasicTest.AttributeBasicTest;
@@ -25,11 +25,13 @@ public class TestSuiteTest {
     * This test ensures classBasicTest outputs a passing result when ideal parameters are passed into the constructor
 
     */
-    @BeforeAll
-    public void copyTestFile(){
+    @BeforeClass
+    public static void copyTestFile(){
+        System.out.println("run");
         String dirPath = "src\\main\\java\\com\\example\\TestAssignment"; // replace with your directory
 
         JavaFileCopier.copyFiles(dirPath);
+        System.out.println("copy");
 
         try {
             // Pause for 5 seconds
@@ -39,8 +41,9 @@ public class TestSuiteTest {
             e.printStackTrace ();
         }
     }
-    @AfterAll
-    public void deleteTestFile(){
+    
+    @AfterClass
+    public static void deleteTestFile(){
 
         Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
 
@@ -50,7 +53,7 @@ public class TestSuiteTest {
 
     @Test
     public void  classBasicTest_GoodRequest()
-    {   
+    {
 
         ClassBasicTest c  = new ClassBasicTest(3,"Device","name");
         String s = c.test();
