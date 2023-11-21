@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
 import com.example.BasicTest.AttributeBasicTest;
@@ -56,9 +58,10 @@ public class AutomatedJudgeSystem {
 
         ArrayList<TestCase> testCases = TestCaseManager.getTestCases();
         ArrayList <String> assignmentNames = new ArrayList<>();
-        ArrayList <String> studentIds = new ArrayList<>();
+        Map<String, String> result = new HashMap<>();
+        // ArrayList <String> studentIds = new ArrayList<>();
 
-        String zipFilePath = "ZipFolder.zip" ; //asSpec.getFolderPath();
+        String zipFilePath = asSpec.getFolderPath();
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
@@ -79,19 +82,21 @@ public class AutomatedJudgeSystem {
 
           
         //System.out.println(assignmentNames.size());
-          for(String a : assignmentNames){
-            Pattern pattern = Pattern.compile("\\d+");
-            Matcher matcher = pattern.matcher(a);
+        //   for(String a : assignmentNames){
+        //     Pattern pattern = Pattern.compile("\\d+");
+        //     Matcher matcher = pattern.matcher(a);
 
-            System.out.println("Assignment name is " +a);
-            if (matcher.find()) {
-                System.out.println((matcher.group())); //(return Integer.parseInt(matcher.group());
-                studentIds.add((matcher.group()));
-            } else {
-                studentIds.add(a);
-                throw new IllegalArgumentException("No number found in filename.");
-            }
-          }
+        //     System.out.println("Assignment name is " +a);
+        //     if (matcher.find()) {
+        //         System.out.println((matcher.group())); //(return Integer.parseInt(matcher.group());
+        //         studentIds.add((matcher.group()));
+        //     } else {
+        //         studentIds.add(a);
+        //         throw new IllegalArgumentException("No number found in filename.");
+        //     }
+        //   }
+
+      
       
         try {
       
@@ -104,6 +109,16 @@ public class AutomatedJudgeSystem {
                ZipFileComposite c = (ZipFileComposite)z;
                Path submission_location = SubmissionCopier.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
             //    Delete.deleteFolder(c.getPath());
+
+                result = getNameFromSubmission(assignmentNames.get(num), "comp");
+                num++;
+                
+                String name = result.get("name");
+                String number = result.get("number");
+
+                if(name.isBlank() && number.isBlank()){
+
+                }
            
                 //Iterate student files
                 for (ZipComponent i : c.getComponents())
@@ -148,8 +163,8 @@ public class AutomatedJudgeSystem {
 
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
-                pdfManager.notify(testCases, studentIds.get(num), submission_location.toString());
-                num++;
+                pdfManager.notify(testCases, result.get("name"), result.get("number"), submission_location.toString());
+                result.clear();
                 
                 for(TestCase t: testCases){
                     t.reset();
@@ -260,4 +275,54 @@ public class AutomatedJudgeSystem {
        SystemNotification e = new SystemNotification();
        e.openFolderInExplorer("GradedSubmissions.zip");
     }
+
+      public static Map<String,String> getNameFromSubmission(String str, String assignmentName) {
+       // Remove everything before the last '/'
+            int index = str.lastIndexOf('/');
+            if (index != -1) {
+                str = str.substring(index + 1);
+            }
+
+            // Remove the assignment name
+            str = str.replaceAll("(?i)" + assignmentName, "");
+
+            // Remove any 'A' followed by a digit
+            str = str.replaceAll("A\\d", "");
+
+            // Remove the file extension
+            index = str.lastIndexOf('.');
+            if (index != -1) {
+                str = str.substring(0, index);
+            }
+
+            // Split the string by '_'
+            String[] parts = str.split("_");
+
+            // Initialize name and number
+            String name = "";
+            String number = "";
+
+            for (String part : parts) {
+                // If part is numeric and has 6 or more digits, it's the number
+                if (part.matches("\\d{6,}")) {
+                    number = part;
+                }
+                // Otherwise, if it's not the assignment name, it's part of the name
+                else if (!part.equalsIgnoreCase(assignmentName)) {
+                    name += part + " ";
+                }
+            }
+
+            name = str.replaceAll("(?i)[0-9_]*", "");
+
+            // Create a map and put the name and number into it
+            Map<String, String> result = new HashMap<>();
+            result.put("name", name);
+            result.put("number", number);
+
+            return result;
+            
+}
+
+
 }

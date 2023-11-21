@@ -40,8 +40,9 @@ public class App
         // Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
         // Delete.deleteFolder("src\\main\\java\\com\\example\\StudentFiles");
 
-        Map<String, String> result = getNameFromSubmission("816029001_Avinash_Roopnarine_Comp_2603_A2.zip", "comp");
+        Map<String, String> result = getNameFromSubmission("wjvwjkevwjevqwdqwfqw111.zip", "comp");
         System.out.println("Name: " + result.toString());
+      
 
     }
 

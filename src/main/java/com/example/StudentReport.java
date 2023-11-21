@@ -34,7 +34,7 @@ public class StudentReport implements PDFReport {
         totalMarksForTests = 0;
     }
 
-    public void update(ArrayList<TestCase> cases, String StudentID,boolean assignmentsEnd, String submission_location){
+    public void update(ArrayList<TestCase> cases, String StudentID, String name, boolean assignmentsEnd, String submission_location){
 
        if(assignmentsEnd != true) {
 
@@ -44,7 +44,7 @@ public class StudentReport implements PDFReport {
 
          try {
 
-            writer = new PdfWriter(StudentID + ".pdf");
+            writer = new PdfWriter(StudentID + name + ".pdf");
             
         } catch (FileNotFoundException e) {
 
@@ -58,7 +58,8 @@ public class StudentReport implements PDFReport {
         document = new Document(pdfDoc, PageSize.A4);
 
         table = new Table(new float[]{4, 4, 4, 4, 4});
-
+         
+        document.add(new Paragraph(String.format("%s %s", StudentID, name)).setTextAlignment(TextAlignment.CENTER).setItalic().setBold());
         document.add(new Paragraph(String.format("%s %s", spec.getCourseCode(), spec.getTitle())).setTextAlignment(TextAlignment.CENTER).setItalic().setBold());
         document.add(new Paragraph(String.format("Weighting : %.2f", spec. getAssignmentWeighting()) + "%").setTextAlignment(TextAlignment.CENTER).setItalic().setBold());
 
@@ -103,7 +104,7 @@ public class StudentReport implements PDFReport {
 
         }
 
-        File student_pdf = new File(StudentID + ".pdf");
+        File student_pdf = new File(StudentID + name + ".pdf");
         System.out.println("ADDED " + student_pdf.getName());
         FileToZipCopier.copyFile(new File(submission_location), student_pdf);
 
