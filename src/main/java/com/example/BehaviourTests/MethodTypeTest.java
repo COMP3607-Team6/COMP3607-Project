@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.lang.reflect.Method;
 
 
-import com.example.TestCase;
+/**
+ * Concrete Class of TypeTest that handles the declared type test for Methods
+*/
 
 public class MethodTypeTest extends TypeTest {
 
@@ -16,6 +18,9 @@ public class MethodTypeTest extends TypeTest {
     private String expectedValueString;
     private Object actualValue;
     
+    /**
+     * Concrete Class of TypeTest that handles the declared type test for method
+    */
     public MethodTypeTest(int allocatedMarks, String className, String methodName, String expectedValue){
         super(allocatedMarks);
         this.methodName = methodName;
@@ -58,9 +63,10 @@ public class MethodTypeTest extends TypeTest {
             return "Method " + methodName + " does not exist in class "+ className + ".";
         }
     }
-       
     
-    //Check NoMethodException for this method.
+    /**
+    * Returns a Method object's type based on its name
+    */
     public Object getType(){
 
         Class<?> clazz = findClassInstance(className,allClasses);
@@ -75,19 +81,9 @@ public class MethodTypeTest extends TypeTest {
             return  methodName + " method not found in " + className + " !!";
         }
         
-
         return method.getReturnType();
-        
     }
 
-
-     public static void main (String[] args){
-     
-
-        TestCase t = new MethodTypeTest(1, "AC", "coolsBy", "float" );
-        String r = t.test();
-        System.out.println(r);
-    }
 }
 
 

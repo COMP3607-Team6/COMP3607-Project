@@ -1,16 +1,29 @@
 package com.example.AssignmentSpecificationPortal;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 import com.example.AssignmentSpecification;
 import com.example.AutomatedJudgeSystem;
-import com.example.TestCaseManager;
+import com.example.AssignmentSpecificationPortal.Sections.Section1;
+import com.example.AssignmentSpecificationPortal.Sections.Section2A_ClassesNew;
+import com.example.AssignmentSpecificationPortal.Sections.Section2B_AttributesNew;
+import com.example.AssignmentSpecificationPortal.Sections.Section2C_MethodsNew;
+import com.example.AssignmentSpecificationPortal.Sections.Section3_TestSelection;
+import com.example.AssignmentSpecificationPortal.Sections.Section4_Tests;
+import com.example.AssignmentSpecificationPortal.Sections.Section5_TestRun;
 
 public class AssignmentSpecPortal {
     private JFrame frame;
@@ -18,9 +31,6 @@ public class AssignmentSpecPortal {
     private JPanel cardPanel;
     private String currentCard; 
     private Section1 section1;
-     private Section2A_Classes section2a;
-     private Section2B_Attributes section2b;
-     private Section2C_Methods section2c;
     private JTabbedPane section2TabbedPane;
     private JButton backButton;
     private JButton nextButton;
@@ -42,25 +52,17 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         cardPanel.setLayout(cardLayout);
         section2TabbedPane = new JTabbedPane();
 
-        
-        
-        //section2new = new Section2A_ClassesNew(cardLayout);
-        //section2bnew = new Section2B_AttributesNew(cardLayout);
-        //section2cnew = new Section2C_MethodsNew(cardLayout);
-        section1 = new Section1(cardLayout,asSpec,system);
-         section2a = new Section2A_Classes(cardLayout);
-         section2b = new Section2B_Attributes(cardLayout);
-         section2c = new Section2C_Methods(cardLayout);
+        section1 = new Section1(cardLayout, asSpec, system, this);
+        section2new = new Section2A_ClassesNew(cardLayout);
+        section2bnew = new Section2B_AttributesNew(cardLayout);
+        section2cnew = new Section2C_MethodsNew(cardLayout);
         section4 = new Section4_Tests(cardLayout);
         section3 = new Section3_TestSelection(cardLayout, section4);
         section5 = new Section5_TestRun(cardLayout, system);
 
-        section2TabbedPane.addTab("Classes", section2a);
-        section2TabbedPane.addTab("Attributes", section2b);
-        section2TabbedPane.addTab("Methods", section2c);
-        // section2TabbedPane.addTab("Classes", section2a);
-        // section2TabbedPane.addTab("Attributes", section2b);
-        // section2TabbedPane.addTab("Methods", section2c);
+        section2TabbedPane.addTab("Classes", section2new);
+        section2TabbedPane.addTab("Attributes", section2bnew);
+        section2TabbedPane.addTab("Methods", section2cnew);
 
         cardPanel.add(section1, "Section 1");
 
@@ -81,6 +83,8 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
        
         backButton.setPreferredSize(new Dimension(100, 30));
         nextButton.setPreferredSize(new Dimension(100, 30));
+
+        nextButton.setEnabled(false);
 
         // Panel to hold the buttons
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -113,7 +117,7 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         updateButtonVisibility( buttonPanel);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 600);
+        frame.setSize(900, 700);
         frame.setResizable(false);
 
         // center the frame on the screen
@@ -166,6 +170,13 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
             default:
                 return currentCard;
         }
+    }
+
+    public void onGUISaveSpecButtonPressed(String msg) {
+        if (msg.equals("Assignment Specification Saved"))
+            nextButton.setEnabled(true);
+        else
+            nextButton.setEnabled(false);
     }
     
 
