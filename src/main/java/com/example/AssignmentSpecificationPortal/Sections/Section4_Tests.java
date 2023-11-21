@@ -1,4 +1,4 @@
-package com.example.AssignmentSpecificationPortal;
+package com.example.AssignmentSpecificationPortal.Sections;
 
 import java.awt.CardLayout;
 
@@ -6,6 +6,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import com.example.AssignmentSpecificationPortal.TestInfo;
 import com.example.AssignmentSpecificationPortal.Tests.AccessorTypeTest;
 import com.example.AssignmentSpecificationPortal.Tests.FinalTest;
 import com.example.AssignmentSpecificationPortal.Tests.HierarchyTest;

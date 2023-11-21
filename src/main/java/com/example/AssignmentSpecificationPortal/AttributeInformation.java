@@ -22,6 +22,25 @@ public class AttributeInformation {
 
     @Override
     public String toString() {
+
+        String result = accessType + " ";
+
+        if (!isStatic.isEmpty())
+            result += isStatic + " ";
+
+        if (!isFinal.isEmpty())
+            result += isFinal + " ";
+
+        if (attributeType.equals("object"))
+            result += objectName + " ";
+        else
+            result += attributeType + " ";
+
+        result += attributeName;
+        
+        result = result.replaceAll("\\s{2,}", " ");
+
+        return result;
       /*   if ("object".equals(attributeType)) {
             if ("true".equals(isStatic)) {
                 return accessType + " static " + objectName + " " + attributeName;
@@ -35,39 +54,37 @@ public class AttributeInformation {
                 return accessType + " " + attributeType + " " + attributeName;
             }
         } */
-        if("false".equals(isFinal)){
-            if("true".equals(isStatic)){
-                if ("object".equals(attributeType)) {
-                    return accessType +" " +objectName + " " + attributeName;
-                } else {
-                    return accessType + " " + attributeType + " " + attributeName;
-                } 
-            }
-            else{
-                if ("object".equals(attributeType)) {
-                    return accessType + " static " + objectName + " " + attributeName;
-                }else {
-                    return accessType + " static " + attributeType + " " + attributeName;  
-                }
-            }
-        }
 
-        else{
-            if("true".equals(isStatic)){
-                if ("object".equals(attributeType)) {
-                    return accessType +" final " +objectName + " " + attributeName;
-                } else {
-                    return accessType + " final " + attributeType + " " + attributeName;
-                } 
-            }
-            else{
-                if ("object".equals(attributeType)) {
-                    return accessType + " final static " + objectName + " " + attributeName;
-                }else {
-                    return accessType + "  final static " + attributeType + " " + attributeName;  
-                }
-            }
-        }
+
+        // if("".equals(isFinal)){
+        //     if("static".equals(isStatic)){
+        //         if ("object".equals(attributeType)) {
+        //             return accessType + "static " +objectName + " " + attributeName;
+        //         } else {
+        //             return accessType + " static " + attributeType + " " + attributeName;
+        //         } 
+        //     }
+        //     else{
+        //         if ("object".equals(attributeType)) {
+        //             return accessType + " " + objectName + " " + attributeName;
+        //         }else {
+        //             return accessType + " " + attributeType + " " + attributeName;  
+        //         }
+        //     }
+        // }
+
+        // else{
+        //     if("".equals(isStatic)){
+        //         if ("object".equals(attributeType)) {
+        //             return accessType +" final " +objectName + " " + attributeName;
+        //         } else {
+        //             return accessType + " final " + attributeType + " " + attributeName;
+        //         } 
+        //     }      
+        // }
+
+        
+        // return accessType;
     }
 
     public String getAccessType() {
@@ -78,7 +95,7 @@ public class AttributeInformation {
         return isStatic;
     }
 
-    public String getIsFInal() {
+    public String getIsFinal() {
         return isFinal;
     }
 

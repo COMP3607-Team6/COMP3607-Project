@@ -11,39 +11,61 @@ public class MethodInformation {
     private final String methodParameters;//or maybe send the arraylist?
     private final String marks;
 
-    public MethodInformation(String accessType, String isAbstract, String methodType, String methodName, String methodParameters, String marks){
+    public MethodInformation(String accessType, String isAbstract, String methodType, String methodName, String methodParameters, String isStatic, String isFinal){
         this.accessType = accessType;
         this.isAbstract = isAbstract;
         this.methodType = methodType;
         this.methodName = methodName;
         this.methodParameters = methodParameters;
-        this.marks = marks;
+        this.isStatic = isStatic;
+        this.isFinal = isFinal;
+        
+        //this.marks = marks;
     }
 
     //accessors
     public String getAccessType(){
-        return accessType;
+        return this.accessType;
     }
     public String getIsAbstract(){
-        return isAbstract;
+        return this.isAbstract;
     }
     public String getMethodType(){
-        return methodType;
+        return this.methodType;
     }
     public String getMethodName(){
-        return methodName;
+        return this.methodName;
     }
     public String getMethodParameters(){
-        return methodParameters;
+        return this.methodParameters;
     }
-    public String getMarks(){
-        return marks;
+    public String getIsStatic(){
+        return this.isStatic;
     }
+    public String getIsFinal(){
+        return this.isFinal;
+    }
+    
+    // public String getMarks(){
+    //     return marks;
+    // }
 
+    ///============================
     @Override
     public String toString(){
-        String methodSignature = getAccessType() + " " + getIsAbstract() + " " + getMethodType() + " " + getMethodName() + "("+ getMethodParameters() + ")";
+        String methodSignature = getAccessType();
+        
+        if(getIsAbstract() != "concrete") {
+            methodSignature += " " + getIsAbstract();
+        }
 
-        return methodSignature;
+        methodSignature += " " + getIsStatic() + " " +  getIsFinal() + " " +  getMethodType() + " " + getMethodName() + "("+ getMethodParameters() + ")";
+        
+        methodSignature = methodSignature.replaceAll("\\s{2,}", " ");
+        // System.out.println(methodSignature);
+        
+     return methodSignature;
     }
+
 }
+

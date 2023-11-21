@@ -1,4 +1,4 @@
-package com.example.AssignmentSpecificationPortal;
+package com.example.AssignmentSpecificationPortal.Sections;
 
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import com.example.AssignmentSpecificationPortal.TestInfo;
 
 public class Section3_TestSelection extends JPanel {
     //

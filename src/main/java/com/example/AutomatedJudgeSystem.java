@@ -58,7 +58,7 @@ public class AutomatedJudgeSystem {
         ArrayList <String> assignmentNames = new ArrayList<>();
         ArrayList <String> studentIds = new ArrayList<>();
 
-        String zipFilePath = "ZipFolder.zip" ; //asSpec.getFolderPath();
+        String zipFilePath = asSpec.getFolderPath();
         // Create a File object from the zip file path
         File zipFile = new File(zipFilePath);
         ZipComponent zipComponent = null;
@@ -239,7 +239,7 @@ public class AutomatedJudgeSystem {
     // on the last frame of the gui, there is a run tests button. when that is pressed it calls back to this method
     // TestCaseManager stores an arraylist of test cases and some methods to add and remove from the arraylist
     public static void onGUIRunTestsButtonPressed() {
-        System.out.println("Run tests button in section 5 pressed; AJS notified.");
+        // System.out.println("Run tests button in section 5 pressed; AJS notified.");
         System.out.println("Num of test cases: " + TestCaseManager.getTestCases().size());
         System.out.println("Test cases: ");
       

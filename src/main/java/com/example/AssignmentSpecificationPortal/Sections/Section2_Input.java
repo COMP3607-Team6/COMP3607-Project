@@ -1,19 +1,19 @@
-package com.example.AssignmentSpecificationPortal;
+package com.example.AssignmentSpecificationPortal.Sections;
 
 import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+
+import com.example.AssignmentSpecificationPortal.AttributeInformation;
+import com.example.AssignmentSpecificationPortal.ClassInformation;
+import com.example.AssignmentSpecificationPortal.ClassesManager;
+import com.example.AssignmentSpecificationPortal.MethodInformation;
 
 public abstract class Section2_Input extends JPanel {
     //
@@ -23,13 +23,9 @@ public abstract class Section2_Input extends JPanel {
     private CardLayout cardLayout;
     private JLabel prompt;
     private JPanel promptPanel;
-    private JPanel selectedClassPanel;
-    private JLabel selectedClassLabel;
-    private JButton loadClassesButton;
     protected JComboBox<String> selectedClassComboBox;
     private JPanel mainPanel;
     private JPanel inputPanel;
-    private JList<String> mainList;
     private JPanel buttonPanel;
     private JButton saveButton;
     private JButton removeButton;
@@ -51,26 +47,6 @@ public abstract class Section2_Input extends JPanel {
 
         return promptPanel;
     }
-    
-    // public JPanel createSelectedClassPanel() {
-    //     selectedClassPanel = new JPanel();
-    //     selectedClassPanel.setLayout(new FlowLayout());
-    //     selectedClassLabel = new JLabel("Class:");
-    //     loadClassesButton = new JButton("Load classes");
-    //     selectedClassComboBox = new JComboBox<String>();
-
-    //     selectedClassPanel.add(selectedClassLabel);
-    //     selectedClassPanel.add(selectedClassComboBox);
-    //     selectedClassPanel.add(loadClassesButton);
-
-    //     updateSelectedClassComboBox();
-
-    //     if (selectedClassComboBox.getItemCount() == 0) {
-    //         selectedClassComboBox.setVisible(false);
-    //     }
-
-    //     return selectedClassPanel;
-    // }
 
     public JPanel createMainPanel() {
         mainPanel = new JPanel();
@@ -101,7 +77,6 @@ public abstract class Section2_Input extends JPanel {
         outputPanel.setLayout(new FlowLayout());
 
         setupOutputPanel(outputPanel);
-        // inputPanel.add(setupInputPanel());
 
         return outputPanel;
     }

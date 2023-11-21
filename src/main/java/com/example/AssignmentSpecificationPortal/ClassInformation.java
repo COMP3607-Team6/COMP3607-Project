@@ -102,6 +102,8 @@ public class ClassInformation {
         }
 
        // result += " [ " + marks + " marks]";
+
+       result = result.replaceAll("\\s{2,}", " ");
         return result;
     }
 }
