@@ -30,6 +30,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class Section2C_Methods extends JPanel {
+    //
+    /* This class creates the Layout for Method Input TabbedPane of the GUI
+     */
     private CardLayout cardLayout;
     private JLabel prompt;
     private JPanel selectedClassPanel;

@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import com.example.AutomatedJudgeSystem;
 
 public class Section5_TestRun extends JPanel {
+    /* This class creates the Layout for the Test Run Panel(Section 5) of the GUI where the user runs desired tests
+     */
 
     private CardLayout cardLayout;
     private ArrayList<ClassInformation> classes;

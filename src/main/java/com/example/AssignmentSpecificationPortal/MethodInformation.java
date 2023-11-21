@@ -1,6 +1,9 @@
 package com.example.AssignmentSpecificationPortal;
 
 public class MethodInformation {
+    //
+    /* This class holds all the information of saved Methods in the GUI
+     */
     private final String accessType;
     private final String isAbstract;
     private final String methodType;

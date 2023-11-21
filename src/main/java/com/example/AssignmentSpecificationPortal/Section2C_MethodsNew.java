@@ -20,6 +20,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class Section2C_MethodsNew extends Section2_Input {
+     //
+    /* This class creates the Layout for Method Input TabbedPane of the GUI
+     */
 
     private JPanel promptPanel;
     private JPanel selectedClassPanel;

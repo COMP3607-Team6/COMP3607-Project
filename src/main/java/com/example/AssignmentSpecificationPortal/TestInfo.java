@@ -3,6 +3,9 @@ package com.example.AssignmentSpecificationPortal;
 import java.util.ArrayList;
 
 public class TestInfo {
+    //
+    /* This class holds the information of the Tests the System can accomplish
+     */
     private ArrayList<String> testNames;
     private ArrayList<String> testDescriptions;
 

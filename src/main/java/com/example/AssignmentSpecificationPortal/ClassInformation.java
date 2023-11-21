@@ -3,6 +3,9 @@ package com.example.AssignmentSpecificationPortal;
 import java.util.ArrayList;
 
 public class ClassInformation {
+    //
+    /* This class holds all the information of saved Classes in the GUI
+     */
     private final String accessType;
     private final String isAbstract;
     private final String isInterface;

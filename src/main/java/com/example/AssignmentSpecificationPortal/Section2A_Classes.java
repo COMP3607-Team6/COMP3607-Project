@@ -11,6 +11,9 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class Section2A_Classes extends JPanel {
+    //
+    /* This class creates the Layout for Class Input TabbedPane of the GUI
+     */
     private DefaultListModel<String> classListModel;
     private JList<String> classList;
     private JTextField classNameField;

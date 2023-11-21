@@ -22,6 +22,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class Section2B_Attributes extends JPanel {
+     //
+    /* This class creates the Layout for Attribute Input TabbedPane of the GUI
+     */
     private DefaultListModel<String> attributeListModel;
     private JList<String> attributeList;
     private JTextField attributeNameField;

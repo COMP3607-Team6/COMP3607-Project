@@ -18,6 +18,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class Section2A_ClassesNew extends Section2_Input {
+     //
+    /* This class creates the Layout for Class Input TabbedPane of the GUI
+     */
 
     private JPanel promptPanel;
     private JPanel inputPanel;

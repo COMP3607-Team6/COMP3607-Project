@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public abstract class Section2_Input extends JPanel {
+    //
+    /* This class creates the Panel that holds the TabbedPane for Classes/Attribute/Methods of the GUI
+     */
 
     private CardLayout cardLayout;
     private JLabel prompt;

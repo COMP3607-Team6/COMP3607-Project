@@ -16,6 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Section3_TestSelection extends JPanel {
+    //
+    /* This class creates the Layout for the Test Selection Panel(Section 3) of the GUI
+     */
 
     private CardLayout cardLayout;
     private JLabel prompt1;

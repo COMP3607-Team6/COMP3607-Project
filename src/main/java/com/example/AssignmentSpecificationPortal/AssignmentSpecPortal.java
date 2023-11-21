@@ -13,6 +13,10 @@ import com.example.AutomatedJudgeSystem;
 import com.example.TestCaseManager;
 
 public class AssignmentSpecPortal {
+    //
+    /* This class generates the Assignment Spec Portal GUI
+     * by creating the necessary instances and Components
+     */
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel cardPanel;
