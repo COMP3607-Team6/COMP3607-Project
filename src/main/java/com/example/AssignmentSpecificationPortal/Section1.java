@@ -213,6 +213,8 @@ public class Section1 extends JPanel {
         specButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String courseCode = (String) courseCodeField.getText();
+                String number = (String) numberField.getText();
+                int num = Integer.parseInt(number);
                 String title = (String) titleField.getText();
 
                 String weightingFieldValue = weightingField.getText();
@@ -258,6 +260,7 @@ public class Section1 extends JPanel {
                         asSpec.setDescription(desc);
                         asSpec.setDeadlineDate(deadline);
                         asSpec.setFolderPath(filepath);
+                        asSpec.setAssignmentNumber(num);
                         
                         specNotCompleteLabel.setText("Assignment Specification Saved");
                         System.out.println("Assignment Specification Saved");
