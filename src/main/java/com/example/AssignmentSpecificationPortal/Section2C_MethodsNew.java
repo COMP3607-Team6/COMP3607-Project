@@ -173,7 +173,7 @@ public class Section2C_MethodsNew extends Section2_Input {
         methodName = new JTextField(15);
         methodName.setText("");
 
-        test = new JButton("view all classes");
+        
 
         mPanel.add(test);
         mPanel.add(accessTypeCB);
@@ -216,7 +216,7 @@ public class Section2C_MethodsNew extends Section2_Input {
 
                 String methodPars = "";
                 for(String element: methodParameters){
-                    System.out.println(element);
+                    
                     methodPars += element + ", ";
                 }
 
@@ -244,7 +244,7 @@ public class Section2C_MethodsNew extends Section2_Input {
 
                 methodPars = "";
                 methodParameters.clear();
-                //idk
+                
 
                 methodName.setText("");
                 objMethodType.setText("");
@@ -298,12 +298,6 @@ public class Section2C_MethodsNew extends Section2_Input {
             }
         });
 
-        test.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                getAllMethods();
-            }
-        });
 
         // ALLOWS OBJECT TYPE TO BE INPUTTED
         methodType.addActionListener(new ActionListener() {
@@ -338,7 +332,7 @@ public class Section2C_MethodsNew extends Section2_Input {
                     String parInput = (String) parameterInput.getText();
                     String type_input = parType + " " + parInput;
                     methodParameters.add(type_input); 
-                    System.out.println(methodParameters);
+                    
                     parameterInput.setText("");
                 }
                  
@@ -353,7 +347,7 @@ public class Section2C_MethodsNew extends Section2_Input {
                 String parInput = (String) parameterInputObj.getText();
                 String type_input = parType + " " + parInput;
                 ObjParameters.add(type_input);
-                System.out.println(ObjParameters);
+                
                 parameterInputObj.setText("");
                 
             }
@@ -383,8 +377,7 @@ public class Section2C_MethodsNew extends Section2_Input {
     }
 
     private String combineObjPars(String parType, ArrayList<String> test){
-        System.out.println("testing method");
-        System.out.println(test);
+        
         String objPars = "";
         for(String element : test){
             objPars += element + ",";
@@ -394,7 +387,7 @@ public class Section2C_MethodsNew extends Section2_Input {
         }
 
         String allTogether = parType + " {" + objPars + "}";
-        System.out.println(allTogether);
+        
         return allTogether;
     }
 
