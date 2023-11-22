@@ -2,10 +2,11 @@ package com.example.AssignmentSpecificationPortal;
 
 import java.util.ArrayList;
 
+/**
+ * This class holds the information of the Tests the System can accomplish
+ */
 public class TestInfo {
-    //
-    /* This class holds the information of the Tests the System can accomplish
-     */
+   
     private ArrayList<String> testNames;
     private ArrayList<String> testDescriptions;
 
@@ -25,14 +26,10 @@ public class TestInfo {
     }
 
     public void addTests(TestInfo tests) {
-        // System.out.println("add tests method before: ");
-        // System.out.println(testNames);
-        // System.out.println(testDescriptions);
+       
         testNames.addAll(tests.getTestNames());
         testDescriptions.addAll(tests.getTestDescriptions());
-        // System.out.println("add tests method after: ");
-        // System.out.println(testNames);
-        // System.out.println(testDescriptions);
+   
     }
 
     public ArrayList<String> getTestNames() {
