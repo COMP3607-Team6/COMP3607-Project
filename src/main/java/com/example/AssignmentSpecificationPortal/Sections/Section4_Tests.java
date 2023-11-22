@@ -1,7 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
-
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -20,10 +18,8 @@ public class Section4_Tests extends JPanel{
      */
 
     private JTabbedPane section4TabbedPane;
-    private CardLayout cardLayout;
 
-    public Section4_Tests(CardLayout cardLayout) {
-        this.cardLayout = cardLayout;
+    public Section4_Tests() {
         
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }

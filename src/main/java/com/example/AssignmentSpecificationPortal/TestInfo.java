@@ -59,10 +59,4 @@ public class TestInfo {
         testNames.clear();
         testDescriptions.clear();
     }
-
-    public void print() {
-        System.out.println("TEST INFO toString(): ");
-        System.out.println(testNames);
-        // System.out.println(testDescriptions);
-    }
 }

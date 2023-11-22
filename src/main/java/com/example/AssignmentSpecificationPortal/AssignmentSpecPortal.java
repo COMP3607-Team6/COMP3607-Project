@@ -56,25 +56,23 @@ public AssignmentSpecPortal(AutomatedJudgeSystem system,AssignmentSpecification 
         cardPanel.setLayout(cardLayout);
         section2TabbedPane = new JTabbedPane();
 
-        section1 = new Section1(cardLayout, asSpec, system, this);
-        section2new = new Section2A_ClassesNew(cardLayout);
-        section2bnew = new Section2B_AttributesNew(cardLayout);
-        section2cnew = new Section2C_MethodsNew(cardLayout);
-        section4 = new Section4_Tests(cardLayout);
-        section3 = new Section3_TestSelection(cardLayout, section4);
-        section5 = new Section5_TestRun(cardLayout, system);
+        section1 = new Section1(asSpec, system, this);
+        section2new = new Section2A_ClassesNew();
+        section2bnew = new Section2B_AttributesNew();
+        section2cnew = new Section2C_MethodsNew();
+        section4 = new Section4_Tests();
+        section3 = new Section3_TestSelection(section4);
+        section5 = new Section5_TestRun(system);
 
         section2TabbedPane.addTab("Classes", section2new);
         section2TabbedPane.addTab("Attributes", section2bnew);
         section2TabbedPane.addTab("Methods", section2cnew);
 
         cardPanel.add(section1, "Section 1");
-
         cardPanel.add(section2TabbedPane, "Section 2");
         cardPanel.add(section3, "Section 3");
         cardPanel.add(section4, "Section 4");
         cardPanel.add(section5, "Section 5");
-        // cardPanel.add(section3, "Section 3");
        
 
         // Add padding around the contents of the frame

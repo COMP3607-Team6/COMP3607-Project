@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -65,8 +64,8 @@ public class Section2C_MethodsNew extends Section2_Input {
     private JCheckBox finalCheckButton;
 
     
-    public Section2C_MethodsNew(CardLayout layout) {
-        super(layout);
+    public Section2C_MethodsNew() {
+        super();
 
         promptPanel = createPromptPanel("Add methods (for inputted classes) to be tested here. Enter method signature:");
         selectedClassPanel = createSelectedClassPanel();
@@ -211,7 +210,6 @@ public class Section2C_MethodsNew extends Section2_Input {
          saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String methodInfo = "";
                 String accessType = (String) accessTypeCB.getSelectedItem();
                 String isAbstractS = (String) isAbstract.getSelectedItem();
                 String sendStatic = "";
@@ -388,7 +386,6 @@ public class Section2C_MethodsNew extends Section2_Input {
                 String parInput = (String) parameterInputObj.getText();
                 String type_input = parType + " " + parInput;
                 ObjParameters.add(type_input);
-                System.out.println(ObjParameters);
                 parameterInputObj.setText("");
                 
             }
