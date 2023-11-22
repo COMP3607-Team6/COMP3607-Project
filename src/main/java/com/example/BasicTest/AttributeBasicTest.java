@@ -1,5 +1,6 @@
 package com.example.BasicTest;
 import static org.junit.Assert.assertTrue;
+
 import java.lang.reflect.Field;
 
 /**
@@ -19,8 +20,11 @@ public class AttributeBasicTest extends BasicTests {
 
      public String test() {
         try{
-
             Field f = findAttributeInstance(className, attributeName, allClasses);
+
+            if( f==null){
+               throw new Exception("Attribute not found in className");
+            }
             assertTrue(testTypeObject.attributeTest(f));
             testMarks.setTestPassed(true);
             testMarks.setTestComment("Attribute name " + attributeName + testTypeObject.getSuccessMessage()+ " in " + className + ".java");

@@ -1,41 +1,26 @@
 package com.example;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
-import com.example.BasicTest.AttributeBasicTest;
-import com.example.BasicTest.ClassBasicTest;
-import com.example.BasicTest.MethodBasicTest;
-import com.example.BehaviourTests.MethodTypeTest;
-import com.example.BehaviourTests.MethodValueTest;
-import com.example.FileCopy.FileToZipCopier;
 import com.example.FileCopy.JavaFileCopier;
 import com.example.FileCopy.SubmissionCopier;
 import com.example.FileCopy.ZipToFolderCopier;
-import com.example.HierarchyTests.SubClassTest;
-import com.example.HierarchyTests.SubTypeTest;
 import com.example.ZipFileEntries.ZipComponent;
 import com.example.ZipFileEntries.ZipDirectory;
 import com.example.ZipFileEntries.ZipEntryLeaf;
 import com.example.ZipFileEntries.ZipFileComposite;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
+/**
+ * Handles the main process of the application
+*/
 public class AutomatedJudgeSystem {
     
     // //Contains all tests to be executed for the assignment
@@ -123,22 +108,6 @@ public class AutomatedJudgeSystem {
             return;
         }
 
-          
-        //System.out.println(assignmentNames.size());
-        //   for(String a : assignmentNames){
-        //     Pattern pattern = Pattern.compile("\\d+");
-        //     Matcher matcher = pattern.matcher(a);
-
-        //     System.out.println("Assignment name is " +a);
-        //     if (matcher.find()) {
-        //         System.out.println((matcher.group())); //(return Integer.parseInt(matcher.group());
-        //         studentIds.add((matcher.group()));
-        //     } else {
-        //         studentIds.add(a);
-        //         throw new IllegalArgumentException("No number found in filename.");
-        //     }
-        //   }
-
       
       
         try {
@@ -160,7 +129,7 @@ public class AutomatedJudgeSystem {
                 String number = result.get("number");
 
                 if(name.length() == 0 || number.length() == 0){
-                    ZipToFolderCopier.copyFile(Paths.get(z.getPath()), "src\\main\\java\\com\\example\\UngradedSubmissions");
+                    ZipToFolderCopier.copyFile(Paths.get(z.getPath()), "src\\main\\java\\com\\example\\UngradedSubmissions\\");
                     System.out.println("Bad Submission Added!!");
                     break;
                 }
@@ -188,18 +157,6 @@ public class AutomatedJudgeSystem {
                     // Handle the interruption
                     e.printStackTrace ();
                 }
-               
-                //Contains all tests to be executed for the assignment
-                // testCases.add(new ClassBasicTest(1,"CeilingFan","name"));
-                // testCases.add(new MethodBasicTest(2,"CeilingFan","toString","name"));
-                // testCases.add(new AttributeBasicTest(3,"Room","devices","name"));
-                // testCases.add(new SubClassTest("StandingFan", "Fan",1)); //4
-                // testCases.add(new SubTypeTest("AC", "Device", 1)); //5
-                // testCases.add(new MethodTypeTest(1, "AC", "coolsBy", int.class ));
-                // ArrayList<Object> paras = new ArrayList<>();
-                // paras.add(5);
-                // paras.add("{}");
-                //testCases.add(new MethodValueTest("coolsBy", "AC",1, paras, 5)); //7
 
                 for(TestCase t: testCases){
                     t.init();
@@ -207,7 +164,7 @@ public class AutomatedJudgeSystem {
 
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
-                pdfManager.notify(testCases, result.get("name"), result.get("number"), submission_location.toString());
+                pdfManager.notify(testCases, result.get("number"), result.get("name"), submission_location.toString());
                 result.clear();
                 
                 for(TestCase t: testCases){
@@ -241,8 +198,7 @@ public class AutomatedJudgeSystem {
             System.out.println("Unable to read folder. " + e.getMessage());
         }
 
-        pdfManager.endOfAssignmentCheck(testCases,true, "src\\main\\java\\com\\example\\GradedSubmissions");
-
+      
         
           try {
                 // Pause for 5 seconds
@@ -277,7 +233,8 @@ public class AutomatedJudgeSystem {
                 e.printStackTrace ();
         }
 
-        pdfManager.endOfAssignmentCheck(testCases,true, "src\\main\\java\\com\\example\\tobeDeleted\\FancyTable.pdf");
+          pdfManager.endOfAssignmentCheck(testCases,true, "GradedSubmissions.zip");
+
 
         zipFileComposite.removeAll();
 

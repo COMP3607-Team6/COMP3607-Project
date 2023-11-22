@@ -89,8 +89,9 @@ public class ClassReport implements PDFReport {
             table.addCell(createCell((Integer.toString(totalMarks)), TextAlignment.CENTER));
 
             percentage = ((float) totalMarks/totalMarksForTests) *  spec.getAssignmentWeighting(); 
+            
 
-            table.addCell(createCell((Double.toString(percentage)), TextAlignment.CENTER));
+            table.addCell(createCell((String.format("%.2f", percentage)), TextAlignment.CENTER));
         }
     
         if(assignmentsEnd == true){
@@ -101,7 +102,7 @@ public class ClassReport implements PDFReport {
           System.out.println("ADDED " + class_report_pdf.getName());
           FileToZipCopier.copy(class_report_pdf, new File(submission_location));
           SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!", "GradedSubmissions.zip");
-
+          class_report_pdf.delete();
         }
 
         totalMarks = 0;
@@ -112,7 +113,7 @@ public class ClassReport implements PDFReport {
     
         System.out.println("PDF updated successfully.");
         // return "Need to update return in ClassReport.java";
-
+        
     }
 
     // Function to create a cell with content and alignment

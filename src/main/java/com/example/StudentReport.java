@@ -61,8 +61,9 @@ public class StudentReport implements PDFReport {
         table = new Table(new float[]{4, 4, 4, 4, 4});
          
         document.add(new Paragraph(String.format("%s %s", StudentID, name)).setTextAlignment(TextAlignment.CENTER).setItalic().setBold());
+        document.add(new Paragraph(String.format("Assignment %d", spec.getAssignmentNumber())).setTextAlignment(TextAlignment.CENTER).setItalic().setBold());
         document.add(new Paragraph(String.format("%s %s", spec.getCourseCode(), spec.getTitle())).setTextAlignment(TextAlignment.CENTER).setItalic().setBold());
-        document.add(new Paragraph(String.format("Weighting : %.2f", spec. getAssignmentWeighting()) + "%").setTextAlignment(TextAlignment.CENTER).setItalic().setBold());
+        document.add(new Paragraph(String.format("Weighting : %.2f", spec.getAssignmentWeighting()) + "%").setTextAlignment(TextAlignment.CENTER).setItalic().setBold());
 
         table.addCell(createCell("Test Case Number", TextAlignment.CENTER));
         table.addCell(createCell("Test Case Name", TextAlignment.CENTER));

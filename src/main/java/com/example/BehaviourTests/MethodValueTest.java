@@ -38,10 +38,12 @@ public class MethodValueTest extends ValueTest {
         actualValue = getValue();
 
         if(actualValue.equals(className + " class not found !!")){
+            testMarks.setTestComment(className + " class not found !!");
             return className + " class not found !!";
         }
 
          if(actualValue.equals(methodName + " method not found in " + className + " !!")){
+            testMarks.setTestComment(methodName + " method not found in " + className + " !!");
             return methodName + " method not found in " + className + " !!";
         }
         

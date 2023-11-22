@@ -148,7 +148,8 @@ public abstract class TestCase{
                 return field;
             }
             catch (NoSuchFieldException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                return null;
             }
         }
  
