@@ -7,6 +7,7 @@ import com.example.ZipFileEntries.ZipComponent;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import com.example.Constants;
 
 /*
  * Responsible for copying student submissions for Testing
@@ -24,7 +25,7 @@ public class SubmissionCopier implements FileCopier{
         // Copy the source file to the target file
         int index = w.getPath().lastIndexOf("\\");
         String output = w.getPath().substring(index + 1);
-        Path target = Paths.get("src\\main\\java\\com\\example\\StudentFile\\" + output);
+        Path target = Paths.get(Constants.STUDENT_SUBMISSION_TESTING_FOLDER + output);
         
 
         try {

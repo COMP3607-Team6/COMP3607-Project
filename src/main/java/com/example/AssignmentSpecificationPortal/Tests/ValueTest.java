@@ -35,6 +35,9 @@ import com.example.BehaviourTests.AttributeValueTest;
 import com.example.BehaviourTests.MethodValueTest;
 
 public class ValueTest extends JPanel{
+    /* This class gives the layout and behaviour specific to Value Test
+     */
+
     private JLabel testDescription;
     private JPanel selectedClassPanel;
     private JLabel selectedClassLabel;

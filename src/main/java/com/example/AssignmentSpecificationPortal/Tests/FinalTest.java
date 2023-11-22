@@ -41,6 +41,9 @@ import com.example.BasicTest.MethodBasicTest;
 
 public class FinalTest extends BaseTest {
 
+    /* This class gives the layout and behaviour specific to Final Test
+     */
+
     public FinalTest(String description) {
         super(); 
         this.testDescription.setText(description);
@@ -85,7 +88,12 @@ public class FinalTest extends BaseTest {
                 ArrayList<MethodInformation> methods = c.getMethods();
                 for(MethodInformation m:methods){
                     JPanel panel = new JPanel();
-                    JCheckBox mCheckBox = new JCheckBox("final " + m.getMethodName());
+                    String text = "";
+                    if (m.getIsFinal().equals("final")) 
+                        text = "final" + " " + m.getMethodName();
+                    else
+                        text = m.getMethodName();
+                    JCheckBox mCheckBox = new JCheckBox(text);
 
                     mCheckBox.setPreferredSize(new Dimension(100, 20));
                     mCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
@@ -115,7 +123,13 @@ public class FinalTest extends BaseTest {
                 for(AttributeInformation a:attributes){
                     
                     JPanel panel = new JPanel();
-                    JCheckBox aCheckBox = new JCheckBox("final " + a.getAttributeName());
+                    String text = "";
+                    if (a.getIsFinal().equals("final")) 
+                        text = "final" + " " + a.getAttributeName();
+                    else
+                        text = a.getAttributeName();
+                        
+                    JCheckBox aCheckBox = new JCheckBox(text);
                     aCheckBox.setPreferredSize(new Dimension(100, 20));
                     aCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
                     panel.add(aCheckBox);

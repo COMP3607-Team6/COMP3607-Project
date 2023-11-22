@@ -160,7 +160,7 @@ public class AutomatedJudgeSystem {
                 String number = result.get("number");
 
                 if(name.length() == 0 || number.length() == 0){
-                    ZipToFolderCopier.copyFile(Paths.get(z.getPath()), "src\\main\\java\\com\\example\\UngradedSubmissions\\");
+                    ZipToFolderCopier.copyFile(Paths.get(z.getPath()), "src\\main\\java\\com\\example\\UngradedSubmissions");
                     System.out.println("Bad Submission Added!!");
                     break;
                 }
@@ -207,7 +207,7 @@ public class AutomatedJudgeSystem {
 
                 //runs all the tests that are added to testcases array
                 executeAssignmentTest(testCases);
-                pdfManager.notify(testCases, result.get("student"), result.get("name"), submission_location.toString());
+                pdfManager.notify(testCases, result.get("name"), result.get("number"), submission_location.toString());
                 result.clear();
                 
                 for(TestCase t: testCases){
@@ -255,8 +255,8 @@ public class AutomatedJudgeSystem {
         }
 
         ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\GradedSubmissions", "GradedSubmissions.zip");
-          
-        try {
+
+          try {
                 // Pause for 5 seconds
                 Thread.sleep (5000);
         } 
@@ -277,7 +277,7 @@ public class AutomatedJudgeSystem {
                 e.printStackTrace ();
         }
 
-        
+        pdfManager.endOfAssignmentCheck(testCases,true, "src\\main\\java\\com\\example\\tobeDeleted\\FancyTable.pdf");
 
         zipFileComposite.removeAll();
 
@@ -294,8 +294,8 @@ public class AutomatedJudgeSystem {
         }
 
         
-        Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\StudentFile");
-        Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\GradedSubmissions");
+        Delete.deleteFilesInFolder(Constants.STUDENT_SUBMISSION_TESTING_FOLDER);
+        Delete.deleteFolder(Constants.GRADED_SUBMISSIONS);
         Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\UngradedSubmissions");
 
         

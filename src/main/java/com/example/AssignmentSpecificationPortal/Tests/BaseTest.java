@@ -30,6 +30,8 @@ import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 
 public class BaseTest extends JPanel {
+    /* This class generalizes the tests and gives the Base Layout of Most Tests 
+     */
 
     protected ArrayList<TestCase> testCases;
     protected ArrayList<ClassBasicTest> classTests;
@@ -164,6 +166,7 @@ public class BaseTest extends JPanel {
         attachListeners();
     }
 
+    //Creates the description for the Specific test
     protected void createDescriptionPanel() {
         // testDescription = new JLabel();
         // testDescriptionPanel = new JPanel(); 
@@ -236,6 +239,7 @@ public class BaseTest extends JPanel {
         });
     }
 
+    //Adds Classes To Class Combo Box
     protected void updateSelectedClassComboBox() {
         selectedClassComboBox.removeAllItems();
         for (ClassInformation c : ClassesManager.getClasses()) {
@@ -243,6 +247,7 @@ public class BaseTest extends JPanel {
         }
     }
 
+    //Updates the Attributes In the List
     protected void updateAttributeList(String ans) {
         for(ClassInformation c : ClassesManager.getClasses()){
             if(c.getClassName().equals(ans)){
@@ -271,6 +276,7 @@ public class BaseTest extends JPanel {
         }  
     }
 
+    //Updates the methods in the List
     protected void updateMethodList(String ans) {
         for(ClassInformation c : ClassesManager.getClasses()){
             if(c.getClassName().equals(ans)){
@@ -299,6 +305,7 @@ public class BaseTest extends JPanel {
         }  
     }
 
+    //Clears the test cases from the ArrayList
     protected void clearTestCases() {
         TestCaseManager.getTestCases().removeAll(classTests);
         TestCaseManager.getTestCases().removeAll(attributeTests);
@@ -321,6 +328,7 @@ public class BaseTest extends JPanel {
         TestCaseManager.getTestCases().addAll(methodTests);
     }
 
+    //Prints Desired Tests To Screen
     public void printTest() {
 
         clearTestCases();
@@ -350,6 +358,7 @@ public class BaseTest extends JPanel {
         addTestCases();
     }
 
+    //Detects Which Checkboxes In the Lists Have Been Selected and Creates Test Case
     public String checkCheckboxes(JPanel Panel, String name, String className,int check,String testType) {
         for (Component component : Panel.getComponents()) {
             if (component instanceof JPanel) {
@@ -407,9 +416,7 @@ public class BaseTest extends JPanel {
     }
 
     // Restricts input to integers only
-    // use like: 
-    //     JTextField marksTextField = new JTextField();
-    //     marksTextField.setDocument(new IntegerDocument());
+    
     static class IntegerDocument extends PlainDocument {
         private final Pattern pattern = Pattern.compile("-?\\d*");
 

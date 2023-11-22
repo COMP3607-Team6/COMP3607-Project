@@ -1,6 +1,7 @@
 package com.example.HierarchyTests;
 
 import static org.junit.Assert.assertTrue;
+
 /**
  * Concrete Class of Hierarchy Test which checks if a subclass implements a superclass.
 */

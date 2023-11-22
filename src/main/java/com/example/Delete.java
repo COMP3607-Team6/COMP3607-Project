@@ -22,12 +22,7 @@ public static void deleteFolder(String folderPath) {
                     System.out.println("IHUHU " + file.toString());
                     deleteFolder(file.toString());
                 }
-                // Delete the file or the empty directory
-                // Create a Path object for the file to be deleted
 
-                //  file.setReadOnly();
-                //  file.deleteOnExit();
-                //  file.setReadable(true);
                  file.delete();
                 
                 if(file.exists()){
