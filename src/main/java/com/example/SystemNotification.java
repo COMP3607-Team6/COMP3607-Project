@@ -10,6 +10,9 @@ import java.awt.TrayIcon;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Class creates system notification upon the creation of an instance
+*/
 public class SystemNotification {
 
     public String message;
@@ -30,6 +33,9 @@ public class SystemNotification {
         openFolderInExplorer(filePath);
     }
 
+    /**
+    * Calls  System notification
+    */
     public void callNotification(){
 
         if (SystemTray.isSupported()) {
@@ -56,6 +62,9 @@ public class SystemNotification {
         }
     }
 
+    /**
+     * Opens file explorer  when given a specified path
+    */
      public void openFolderInExplorer(String folderPath) {
         File folder = new File(folderPath);
 

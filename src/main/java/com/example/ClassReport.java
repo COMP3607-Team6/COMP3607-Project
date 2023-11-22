@@ -12,6 +12,9 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 
+/**
+ * Concrete Observer which generates the Collated PDF report
+*/
 public class ClassReport implements PDFReport {
   
   private  PdfWriter writer;
