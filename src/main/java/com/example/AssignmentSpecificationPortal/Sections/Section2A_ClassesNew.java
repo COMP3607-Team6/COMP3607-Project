@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,8 +37,8 @@ public class Section2A_ClassesNew extends Section2_Input {
     private JList list;
     protected int classCount;
 
-    public Section2A_ClassesNew(CardLayout layout) {
-        super(layout);
+    public Section2A_ClassesNew() {
+        super();
 
         promptPanel = createPromptPanel("Add classes to be tested here. Enter class signature:");
         mainPanel = createMainPanel();

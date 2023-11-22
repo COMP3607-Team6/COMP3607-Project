@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -44,8 +43,8 @@ public class Section2B_AttributesNew extends Section2_Input {
     private JLabel selectedClassLabel;
     private JButton loadClassesButton;
 
-    public Section2B_AttributesNew(CardLayout layout) {
-        super(layout);
+    public Section2B_AttributesNew() {
+        super();
 
         promptPanel = createPromptPanel("Add attributes (for inputted classes) to be tested here.");
         selectedClassPanel = createSelectedClassPanel();

@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.Box;
@@ -10,17 +9,14 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
-import com.example.AssignmentSpecificationPortal.MethodInformation;
 
 public abstract class Section2_Input extends JPanel {
     
     /* This class creates the Panel that holds the TabbedPane for Classes/Attribute/Methods of the GUI
      */
 
-    private CardLayout cardLayout;
     private JLabel prompt;
     private JPanel promptPanel;
     protected JComboBox<String> selectedClassComboBox;
@@ -31,8 +27,7 @@ public abstract class Section2_Input extends JPanel {
     private JButton removeButton;
     private JPanel outputPanel;
 
-    public Section2_Input(CardLayout layout) {
-        this.cardLayout = layout;
+    public Section2_Input() {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
       

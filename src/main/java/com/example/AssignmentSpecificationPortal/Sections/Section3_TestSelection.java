@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -22,7 +21,6 @@ public class Section3_TestSelection extends JPanel {
     /* This class creates the Layout for the Test Selection Panel(Section 3) of the GUI
      */
 
-    private CardLayout cardLayout;
     private JLabel prompt1;
     private JLabel prompt2;
     private Section4_Tests section4;
@@ -32,8 +30,7 @@ public class Section3_TestSelection extends JPanel {
     private static TestInfo selectedTests;
     private static JPanel checkBoxPanel;
 
-    public Section3_TestSelection(CardLayout layout, Section4_Tests section4) {
-        this.cardLayout = layout;
+    public Section3_TestSelection(Section4_Tests section4) {
         this.section4 = section4;
         
         selectedTests = new TestInfo();
@@ -104,7 +101,6 @@ public class Section3_TestSelection extends JPanel {
         addTestsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         addTestsButton.addActionListener(e -> {
             TestInfo testsSelected = getCheckedCheckboxes(checkBoxPanel.getComponents());
-            testsSelected.print();
             
             selectedTests.clearTests();
             selectedTests.addTests(testsSelected);
@@ -163,11 +159,6 @@ public class Section3_TestSelection extends JPanel {
             }
         }
         return addedTests;
-    }
-
-    public void getSelectedTests() {
-        selectedTests.print();
-        // return selectedTests;
     }
     
 }

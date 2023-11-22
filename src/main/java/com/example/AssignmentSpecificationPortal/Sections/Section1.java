@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -34,9 +33,6 @@ public class Section1 extends JPanel {
     //
     /* This class creates the Layout for Assignment Spec Input Panel (Section 1) of the GUI
      */
-    
-    // private JButton nextButton;
-    private CardLayout cardLayout;
 
     private JLabel welcomeLabel;
     private JLabel welcomeMsgLabel;
@@ -80,8 +76,7 @@ public class Section1 extends JPanel {
 
     private JTextField numberField;
 
-    public Section1(CardLayout layout, AssignmentSpecification asSpec, AutomatedJudgeSystem system, AssignmentSpecPortal portal) {
-        cardLayout = layout;
+    public Section1(AssignmentSpecification asSpec, AutomatedJudgeSystem system, AssignmentSpecPortal portal) {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -150,10 +145,6 @@ public class Section1 extends JPanel {
         descriptionTextArea.setWrapStyleWord(true);
         descriptionTextArea.setBorder(BorderFactory.createLineBorder(Color.gray));
 
-        // JScrollPane descriptionScrollPane = new JScrollPane(descriptionTextArea,
-        // JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-        // JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
         descriptionPanel.add(descriptionLabel);
         descriptionPanel.add(descriptionTextArea);
 
@@ -221,7 +212,6 @@ public class Section1 extends JPanel {
                         weighting = Integer.parseInt(weightingFieldValue);
                     } catch (final Exception ex) {
                         weighting = 999;
-                        // ex.printStackTrace();
                     }
                 }
 
@@ -282,11 +272,6 @@ public class Section1 extends JPanel {
         filePathPanel.add(browseButton);
         filePathPanel.add(actualFilePathLabel);
 
-        // JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        // nextButton.setPreferredSize(new Dimension(100, 30));
-        // buttonPanel.add(nextButton);
-
-        // mainPanel.add(welcomePanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
         mainPanel.add(courseCodePanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -308,7 +293,6 @@ public class Section1 extends JPanel {
         centerAlignPanel.add(mainPanel);
         add(welcomePanel);
         add(centerAlignPanel);
-        // add(buttonPanel);
     }
 
     // Restricts input to integers only
