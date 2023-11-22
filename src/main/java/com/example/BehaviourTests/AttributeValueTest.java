@@ -1,6 +1,7 @@
 package com.example.BehaviourTests;
 
 import static org.junit.Assert.assertEquals;
+
 import java.lang.reflect.Field;
 
 /**
@@ -29,11 +30,12 @@ public class AttributeValueTest extends ValueTest {
         Object value = getValue();
 
         if(value.equals(className + " class not found !!")){
-             System.out.println(value);
+            testMarks.setTestComment(className + " class not found !!");
             return className + " class not found !!";
         }
 
         else if(value.equals(attributeName + " not found in " + className + "!!")){
+           testMarks.setTestComment(attributeName + " attribute not found in " + className + " !!");
            return attributeName + " not found in " + className + " !!";
         }
       
@@ -57,16 +59,20 @@ public class AttributeValueTest extends ValueTest {
     */
     public Object getValue(){
 
+        Field field;
+
         Class<?> clazz = findClassInstance(className,allClasses);
         if(clazz == null){
             return className + " class not found !!";
         }
-        Field field = findAttributeInstance(className, attributeName, allClasses);
+     
+        field = findAttributeInstance(className, attributeName, allClasses);
+       
 
+        
         if(field == null){
             return attributeName + " not found in " + className + "!!";
         }
-
     try {
 
         field.setAccessible(true);

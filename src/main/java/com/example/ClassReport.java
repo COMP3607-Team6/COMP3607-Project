@@ -1,7 +1,9 @@
 package com.example;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import com.example.FileCopy.FileToZipCopier;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -41,7 +43,7 @@ public class ClassReport implements PDFReport {
         totalMarksForTests = 0;
 
         try {
-            writer = new PdfWriter("FancyTable.pdf");
+            writer = new PdfWriter("ClassReport.pdf");
         } catch (FileNotFoundException e) {
 
             e.printStackTrace();
@@ -63,7 +65,7 @@ public class ClassReport implements PDFReport {
   }
 
 
-    public void update(ArrayList<TestCase> cases, String StudentID, boolean assignmentsEnd, String submission_location){
+    public void update(ArrayList<TestCase> cases, String StudentID, String name, boolean assignmentsEnd, String submission_location){
 
          double percentage;
 
@@ -90,16 +92,20 @@ public class ClassReport implements PDFReport {
             table.addCell(createCell((Integer.toString(totalMarks)), TextAlignment.CENTER));
 
             percentage = ((float) totalMarks/totalMarksForTests) *  spec.getAssignmentWeighting(); 
+            
 
-            table.addCell(createCell((Double.toString(percentage)), TextAlignment.CENTER));
+            table.addCell(createCell((String.format("%.2f", percentage)), TextAlignment.CENTER));
         }
     
         if(assignmentsEnd == true){
           table.setHorizontalAlignment(HorizontalAlignment.CENTER);
           document.add(table);
           document.close();
+          File class_report_pdf = new File("ClassReport.pdf");
+          System.out.println("ADDED " + class_report_pdf.getName());
+          FileToZipCopier.copy(class_report_pdf, new File(submission_location));
           SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!", "GradedSubmissions.zip");
-
+          class_report_pdf.delete();
         }
 
         totalMarks = 0;
@@ -110,7 +116,7 @@ public class ClassReport implements PDFReport {
     
         System.out.println("PDF updated successfully.");
         // return "Need to update return in ClassReport.java";
-
+        
     }
 
     // Function to create a cell with content and alignment

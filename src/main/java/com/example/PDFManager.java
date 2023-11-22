@@ -24,10 +24,11 @@ public class PDFManager {
     /**
     *  Informs PDFs of Updates
     */
-    public void notify (ArrayList<TestCase> cases, String StudentID, String submission_location){
+    public void notify (ArrayList<TestCase> cases, String StudentID, String name, String submission_location){
+
 
         for(PDFReport p : observers){
-            p.update(cases, StudentID, assignmentsEnd, submission_location);
+            p.update(cases, StudentID, name,  assignmentsEnd, submission_location);
         }
 
         //calls update();
@@ -49,7 +50,7 @@ public class PDFManager {
     */
     public void endOfAssignmentCheck(ArrayList<TestCase> cases, boolean check, String submission_location){
         this.assignmentsEnd = check;
-        notify(cases,null, submission_location);
+        notify(cases,null, null,submission_location);
     }
  
 }

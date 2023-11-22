@@ -1,8 +1,11 @@
 package com.example;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.example.FileCopy.ZipToFolderCopier;
 
 public class App 
 
@@ -40,8 +43,16 @@ public class App
         // Delete.deleteFilesInFolder(Constants.STUDENT_SUBMISSION_TESTING_FOLDER);
         // Delete.deleteFolder(Constants.STUDENT_SUBMISSIONS_FOLDER);
 
-        Map<String, String> result = getNameFromSubmission("816029001_Avinash_Roopnarine_Comp_2603_A2.zip", "comp");
+        Map<String, String> result = getNameFromSubmission("wjvwjkevwjevqwdqwfqw111.zip", "comp");
         System.out.println("Name: " + result.toString());
+         String name = result.get("name");
+         String number = result.get("number");
+         System.out.println(number.length() +  "--------------------" + number);
+
+                if(name.isBlank() && number.isBlank()){
+                    System.out.println("Bad Submission Added!!");
+                }
+      
 
     }
 
