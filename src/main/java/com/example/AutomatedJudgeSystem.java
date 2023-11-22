@@ -17,6 +17,7 @@ import com.example.ZipFileEntries.ZipComponent;
 import com.example.ZipFileEntries.ZipDirectory;
 import com.example.ZipFileEntries.ZipEntryLeaf;
 import com.example.ZipFileEntries.ZipFileComposite;
+import com.example.Constants;
 
 /**
  * Handles the main process of the application
@@ -75,8 +76,8 @@ public class AutomatedJudgeSystem {
 
     public static void doTest () throws IOException{
         
-        Delete.deleteFolder("GradedSubmissions.zip");
-        Delete.deleteFolder("UngradedSubmissions.zip");
+        Delete.deleteFolder(Constants.GRADED_SUBMISSIONS_ZIP);
+        Delete.deleteFolder(Constants.UNGRADED_SUBMISSIONS_ZIP);
         System.out.println("zipFilePathugui");
 
 
@@ -117,7 +118,7 @@ public class AutomatedJudgeSystem {
 
             for (ZipComponent z : zipFileComposite.getComponents()) 
             {
-               String outputFolder = "src\\main\\java\\com\\example\\StudentFile";
+               String outputFolder = Constants.STUDENT_SUBMISSION_TESTING_FOLDER;
                ZipFileComposite c = (ZipFileComposite)z;
                Path submission_location = SubmissionCopier.copySubmission(z); // Adds the student submission to the StudentFile folder to put PDF report
             //    Delete.deleteFolder(c.getPath());
@@ -129,7 +130,7 @@ public class AutomatedJudgeSystem {
                 String number = result.get("number");
 
                 if(name.length() == 0 || number.length() == 0){
-                    ZipToFolderCopier.copyFile(Paths.get(z.getPath()), "src\\main\\java\\com\\example\\UngradedSubmissions\\");
+                    ZipToFolderCopier.copyFile(Paths.get(z.getPath()), Constants.UNGRADED_SUBMISSIONS);
                     System.out.println("Bad Submission Added!!");
                     break;
                 }
@@ -152,7 +153,7 @@ public class AutomatedJudgeSystem {
                 //Needed so files have time to be created and recognized
                 try {
                     // Pause for 5 seconds
-                    Thread.sleep (3000);
+                    Thread.sleep (5000);
                 } catch (InterruptedException e) {
                     // Handle the interruption
                     e.printStackTrace ();
@@ -173,9 +174,7 @@ public class AutomatedJudgeSystem {
                   
                 
                   try {
-                    // copyFile(submission_location.toString(), "src\\main\\java\\com\\example\\GradedSubmissions\\");
-                    String destination = "src\\main\\java\\com\\example\\GradedSubmissions\\";
-                    ZipToFolderCopier.copyFile(submission_location, destination);
+                    ZipToFolderCopier.copyFile(submission_location, Constants.GRADED_SUBMISSIONS);
                     try {
                     // Pause for 5 seconds
                     Thread.sleep (5000);
@@ -210,7 +209,7 @@ public class AutomatedJudgeSystem {
                 e.printStackTrace ();
         }
 
-        ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\GradedSubmissions", "GradedSubmissions.zip");
+        ZipDirectory.zipDirectory(Constants.GRADED_SUBMISSIONS, Constants.GRADED_SUBMISSIONS_ZIP);
 
           try {
                 // Pause for 5 seconds
@@ -222,7 +221,7 @@ public class AutomatedJudgeSystem {
                 e.printStackTrace ();
         }
 
-        ZipDirectory.zipDirectory("src\\main\\java\\com\\example\\UngradedSubmissions", "UngradedSubmissions.zip");
+        ZipDirectory.zipDirectory(Constants.UNGRADED_SUBMISSIONS, Constants.UNGRADED_SUBMISSIONS_ZIP);
          try {
                 // Pause for 5 seconds
                 Thread.sleep (5000);
@@ -233,12 +232,12 @@ public class AutomatedJudgeSystem {
                 e.printStackTrace ();
         }
 
-          pdfManager.endOfAssignmentCheck(testCases,true, "GradedSubmissions.zip");
+          pdfManager.endOfAssignmentCheck(testCases,true, Constants.GRADED_SUBMISSIONS_ZIP);
 
 
         zipFileComposite.removeAll();
 
-       Delete.deleteFolder(new File("src\\main\\java\\com\\example\\StudentFiles"));
+       Delete.deleteFolder(new File(Constants.STUDENT_SUBMISSIONS_FOLDER));
 
         try {
                 // Pause for 5 seconds
@@ -253,7 +252,7 @@ public class AutomatedJudgeSystem {
         
         Delete.deleteFilesInFolder(Constants.STUDENT_SUBMISSION_TESTING_FOLDER);
         Delete.deleteFolder(Constants.GRADED_SUBMISSIONS);
-        Delete.deleteFilesInFolder("src\\main\\java\\com\\example\\UngradedSubmissions");
+        Delete.deleteFilesInFolder(Constants.UNGRADED_SUBMISSIONS);
 
         
         
@@ -298,14 +297,14 @@ public class AutomatedJudgeSystem {
     public static void onGUIFolderButtonPressed() {
        
        SystemNotification e = new SystemNotification();
-       e.openFolderInExplorer("GradedSubmissions.zip");
+       e.openFolderInExplorer(Constants.GRADED_SUBMISSIONS_ZIP);
     }
 
 
     public static void onGUIUnGradedFolderButtonPressed() {
        
        SystemNotification e = new SystemNotification();
-       e.openFolderInExplorer("UngradedSubmissions.zip");
+       e.openFolderInExplorer(Constants.UNGRADED_SUBMISSIONS_ZIP);
     }
 
       public static Map<String,String> getNameFromSubmission(String str, String assignmentName) {

@@ -13,6 +13,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import com.example.Constants;
 
 /**
  * Concrete Observer which generates the Collated PDF report
@@ -104,7 +105,7 @@ public class ClassReport implements PDFReport {
           File class_report_pdf = new File("ClassReport.pdf");
           System.out.println("ADDED " + class_report_pdf.getName());
           FileToZipCopier.copy(class_report_pdf, new File(submission_location));
-          SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!", "GradedSubmissions.zip");
+          SystemNotification endNotification = new SystemNotification("Assignment Files have completed processing!! Check assignment folder for results!!", Constants.GRADED_SUBMISSIONS_ZIP);
           class_report_pdf.delete();
         }
 
