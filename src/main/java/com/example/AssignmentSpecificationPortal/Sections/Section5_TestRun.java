@@ -1,15 +1,13 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.util.ArrayList;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.example.AutomatedJudgeSystem;
 
-//
-/* This class creates the Layout for the Test Run Panel(Section 5) of the GUI where the user runs desired tests
+/**
+* This class creates the Layout for the Test Run Panel(Section 5) of the GUI where the user runs desired tests
 */
 public class Section5_TestRun extends JPanel {
     private JButton runTestsButton;

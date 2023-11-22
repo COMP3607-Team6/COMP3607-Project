@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 
-//
-/* This class creates the Panel that holds the TabbedPane for Classes/Attribute/Methods of the GUI
+/**
+* This class creates the Panel that holds the TabbedPane for Classes/Attribute/Methods of the GUI
 */
 public abstract class Section2_Input extends JPanel {
     private JLabel prompt;
@@ -32,8 +32,8 @@ public abstract class Section2_Input extends JPanel {
       
     }
 
-    //
-    /* This method creates the prompt panel to tell user what to do for section
+    /**
+    * This method creates the prompt panel to tell user what to do for section
     */
     public JPanel createPromptPanel(String promptMsg) {
         prompt = new JLabel("  " + promptMsg);
@@ -58,8 +58,8 @@ public abstract class Section2_Input extends JPanel {
         return mainPanel;
     }
 
-    //
-    /* This method creates the panel to catch user input
+    /**
+    * This method creates the panel to catch user input
     */
     public JPanel createInputPanel() {
         inputPanel = new JPanel();
@@ -70,8 +70,8 @@ public abstract class Section2_Input extends JPanel {
         return inputPanel;
     }
 
-    //
-    /* This method creates the panel to display input received
+    /**
+    * This method creates the panel to display input received
     */
     public JPanel createOutputPanel() {
         outputPanel = new JPanel();
@@ -102,8 +102,8 @@ public abstract class Section2_Input extends JPanel {
 
     public abstract void attachSaveAndRemoveListeners(JButton saveBtn, JButton removeBtn);
 
-    //
-    /* This method updates the class dropdown so the user can select a class
+    /**
+    * This method updates the class dropdown so the user can select a class
     */
     public void updateSelectedClassComboBox() {
         selectedClassComboBox.removeAllItems();

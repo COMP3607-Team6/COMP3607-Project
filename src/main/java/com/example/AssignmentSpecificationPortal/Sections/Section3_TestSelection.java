@@ -16,8 +16,8 @@ import javax.swing.JPanel;
 
 import com.example.AssignmentSpecificationPortal.TestInfo;
 
-//
-/* This class creates the Layout for the Test Selection Panel(Section 3) of the GUI
+/**
+* This class creates the Layout for the Test Selection Panel(Section 3) of the GUI
 */
 public class Section3_TestSelection extends JPanel {
     private JLabel prompt1;

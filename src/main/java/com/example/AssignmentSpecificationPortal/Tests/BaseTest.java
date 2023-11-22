@@ -29,8 +29,8 @@ import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 
-//
-/* This class generalizes the some tests UI and gives the Base Layout and functionality of Most Tests
+/**
+* This class generalizes the some tests UI and gives the Base Layout and functionality of Most Tests
 */
 public class BaseTest extends JPanel {
     protected ArrayList<TestCase> testCases;

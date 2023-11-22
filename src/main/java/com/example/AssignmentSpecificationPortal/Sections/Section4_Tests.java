@@ -13,8 +13,8 @@ import com.example.AssignmentSpecificationPortal.Tests.StaticTest;
 import com.example.AssignmentSpecificationPortal.Tests.ValueTest;
 import com.example.AssignmentSpecificationPortal.Tests.TypeTest;
 
-//
-/* This class prompts user to select tests. Creates the Panel that holds the relevant Test Tabbed Panes selected in Section (3)
+/**
+* This class prompts user to select tests. Creates the Panel that holds the relevant Test Tabbed Panes selected in Section (3)
 */
 public class Section4_Tests extends JPanel{
 

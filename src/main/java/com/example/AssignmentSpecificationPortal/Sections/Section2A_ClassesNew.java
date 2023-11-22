@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 
-//
-/* This class creates the Layout for Class Input TabbedPane of the GUI
+/**
+* This class creates the Layout for Class Input TabbedPane of the GUI
 */
 public class Section2A_ClassesNew extends Section2_Input {
     private JPanel promptPanel;

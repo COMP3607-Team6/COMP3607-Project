@@ -26,10 +26,10 @@ import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
 
+/**
+* This class gives the layout and behaviour specific to Hierarchy Test
+*/
 public class HierarchyTest extends JPanel {
-    /* This class gives the layout and behaviour specific to Hierarchy Test
-     */
-
     private JLabel testDescription;
 
     private JPanel grid;
