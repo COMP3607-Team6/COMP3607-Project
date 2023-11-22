@@ -1,44 +1,25 @@
 package com.example.AssignmentSpecificationPortal.Tests;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
-
-import com.example.TestCase;
-import com.example.TestCaseManager;
 import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.BasicTest.ClassBasicTest;
-import com.example.BasicTest.AttributeBasicTest;
-import com.example.BasicTest.MethodBasicTest; 
+
+/**
+ * This class gives the layout and behaviour specific to Static Test
+ */
 
 public class StaticTest extends BaseTest {
-    /* This class gives the layout and behaviour specific to Static Test
-     */
+    
 
     public StaticTest(String description) {
         super(); 
@@ -56,7 +37,6 @@ public class StaticTest extends BaseTest {
 
         String textFieldValue = marksTextField1.getText(); 
         int marks = Integer.parseInt(textFieldValue); 
-       // String testType = "name";
 
         if (classCheckB.isSelected() == true) {
             classTests.add(new ClassBasicTest(marks, cName, testType));
@@ -83,28 +63,26 @@ public class StaticTest extends BaseTest {
                 methodPanel.removeAll();
                 ArrayList<MethodInformation> methods = c.getMethods();
                 for(MethodInformation m:methods){
-                    JPanel panel = new JPanel();
-                    String text = "";
-                    if (m.getIsStatic().equals("static")) 
-                        text = "static" + " " + m.getMethodName();
-                    else
-                        text = m.getMethodName();
-                    JCheckBox mCheckBox = new JCheckBox(text);
+                    if (m.getIsStatic().equals("static")) {
+                        JPanel panel = new JPanel();
+                        String text = m.getMethodName();
+                        JCheckBox mCheckBox = new JCheckBox(text);
 
-                    mCheckBox.setPreferredSize(new Dimension(100, 20));
-                    mCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
+                        mCheckBox.setPreferredSize(new Dimension(100, 20));
+                        mCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
 
-                    panel.add(mCheckBox);
+                        panel.add(mCheckBox);
 
-                    JLabel marksLabel = new JLabel("Marks:");
-                    marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
-                    panel.add(marksLabel);
-                    
-                    JTextField textField = new JTextField(3);
-                    textField.setDocument(new IntegerDocument());
-                    panel.add(textField);
-                    
-                    methodPanel.add(panel);
+                        JLabel marksLabel = new JLabel("Marks:");
+                        marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
+                        panel.add(marksLabel);
+                        
+                        JTextField textField = new JTextField(3);
+                        textField.setDocument(new IntegerDocument());
+                        panel.add(textField);
+                        
+                        methodPanel.add(panel);
+                    }
                 }    
             }
         }  
@@ -118,27 +96,25 @@ public class StaticTest extends BaseTest {
                 ArrayList<AttributeInformation> attributes = c.getAttributes();
                 for(AttributeInformation a:attributes){
                     
-                    JPanel panel = new JPanel();
-                    String text = "";
-                    if (a.getIsStatic().equals("static")) 
-                        text = "static" + " " + a.getAttributeName();
-                    else
-                        text = a.getAttributeName();
-                        
-                    JCheckBox aCheckBox = new JCheckBox(text);
-                    aCheckBox.setPreferredSize(new Dimension(100, 20));
-                    aCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
-                    panel.add(aCheckBox);
+                    if (a.getIsStatic().equals("static")) {
+                        JPanel panel = new JPanel();
+                        String text = "static" + " " + a.getAttributeName();
+                            
+                        JCheckBox aCheckBox = new JCheckBox(text);
+                        aCheckBox.setPreferredSize(new Dimension(100, 20));
+                        aCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
+                        panel.add(aCheckBox);
 
-                    JLabel marksLabel = new JLabel("Marks:");
-                    marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
-                    panel.add(marksLabel);
-                    
-                    JTextField textField = new JTextField(3);
-                    textField.setDocument(new IntegerDocument());
-                    panel.add(textField);
-                    
-                    attributePanel.add(panel);
+                        JLabel marksLabel = new JLabel("Marks:");
+                        marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
+                        panel.add(marksLabel);
+                        
+                        JTextField textField = new JTextField(3);
+                        textField.setDocument(new IntegerDocument());
+                        panel.add(textField);
+                        
+                        attributePanel.add(panel);
+                    }
                 }    
             }
         }  

@@ -19,6 +19,10 @@ import com.itextpdf.layout.property.TextAlignment;
 import java.io.IOException;
 import java.nio.file.Files;
 
+
+/**
+ * Concrete Observer which generates the Student PDF Files
+*/
 public class StudentReport implements PDFReport {
   
     private  PdfWriter writer;

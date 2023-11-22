@@ -1,9 +1,10 @@
 package com.example.AssignmentSpecificationPortal;
 
+/**
+ * This class holds all the information of saved Attributes in the GUI
+ */
 public class AttributeInformation {
-    //
-    /* This class holds all the information of saved Attributes in the GUI
-     */
+  
     private final String accessType;
     private final String isStatic;
     private final String isFinal;
@@ -41,50 +42,7 @@ public class AttributeInformation {
         result = result.replaceAll("\\s{2,}", " ");
 
         return result;
-      /*   if ("object".equals(attributeType)) {
-            if ("true".equals(isStatic)) {
-                return accessType + " static " + objectName + " " + attributeName;
-            } else {
-                return accessType + " " + objectName + " " + attributeName;
-            }
-        } else {
-            if ("true".equals(isStatic)) {
-                return accessType + " static " + attributeType + " " + attributeName;
-            } else {
-                return accessType + " " + attributeType + " " + attributeName;
-            }
-        } */
 
-
-        // if("".equals(isFinal)){
-        //     if("static".equals(isStatic)){
-        //         if ("object".equals(attributeType)) {
-        //             return accessType + "static " +objectName + " " + attributeName;
-        //         } else {
-        //             return accessType + " static " + attributeType + " " + attributeName;
-        //         } 
-        //     }
-        //     else{
-        //         if ("object".equals(attributeType)) {
-        //             return accessType + " " + objectName + " " + attributeName;
-        //         }else {
-        //             return accessType + " " + attributeType + " " + attributeName;  
-        //         }
-        //     }
-        // }
-
-        // else{
-        //     if("".equals(isStatic)){
-        //         if ("object".equals(attributeType)) {
-        //             return accessType +" final " +objectName + " " + attributeName;
-        //         } else {
-        //             return accessType + " final " + attributeType + " " + attributeName;
-        //         } 
-        //     }      
-        // }
-
-        
-        // return accessType;
     }
 
     //accessors

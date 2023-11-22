@@ -33,7 +33,7 @@ public final class Constants {
     /*
      * Constant for the folder that stores files that are used to test System functionality
      */
-    public static final String TEST_ASSIGNMENTS = "src\\main\\java\\com\\example\\TestingAssignment";
+    public static final String TEST_ASSIGNMENTS = "src\\main\\java\\com\\example\\TestAssignment";
 
     /*
      * Constant for the zip folder that stores graded submissions

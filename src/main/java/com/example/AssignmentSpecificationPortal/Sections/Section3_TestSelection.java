@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -17,25 +16,22 @@ import javax.swing.JPanel;
 
 import com.example.AssignmentSpecificationPortal.TestInfo;
 
+/**
+* This class creates the Layout for the Test Selection Panel(Section 3) of the GUI
+*/
 public class Section3_TestSelection extends JPanel {
-    //
-    /* This class creates the Layout for the Test Selection Panel(Section 3) of the GUI
-     */
-
-    private CardLayout cardLayout;
     private JLabel prompt1;
     private JLabel prompt2;
     private Section4_Tests section4;
     private JButton addTestsButton;
     private TestInfo tests;
-    // private static ArrayList<String> selectedTests;
+    
     private static TestInfo selectedTests;
     private static JPanel checkBoxPanel;
 
-    public Section3_TestSelection(CardLayout layout, Section4_Tests section4) {
-        this.cardLayout = layout;
+    public Section3_TestSelection(Section4_Tests section4) {
         this.section4 = section4;
-        // selectedTests = new ArrayList<String>();
+        
         selectedTests = new TestInfo();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -104,11 +100,9 @@ public class Section3_TestSelection extends JPanel {
         addTestsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         addTestsButton.addActionListener(e -> {
             TestInfo testsSelected = getCheckedCheckboxes(checkBoxPanel.getComponents());
-            testsSelected.print();
-            // System.out.println("Checked Checkboxes:");
+            
             selectedTests.clearTests();
             selectedTests.addTests(testsSelected);
-            // getSelectedTests();
             
             if (section4 != null) {
                 section4.updateSelectedTests(selectedTests);
@@ -137,30 +131,24 @@ public class Section3_TestSelection extends JPanel {
     }
 
     private static TestInfo getCheckedCheckboxes(Component[] components) {
-        // ArrayList<String> addedTestNames = new ArrayList<>();
         TestInfo addedTests = new TestInfo();
         String name = "";
         String description = "";
         for (Component component : components) { // loop through panels
             if (component instanceof JPanel) {
-                // System.out.println("cb panel reached");
                 name = "";
-                for (Component innerComponent : ((JPanel) component).getComponents()) { // loop through panel's kids -
+                for (Component innerComponent : ((JPanel) component).getComponents()) { // loop through panel's children -
                                                                                         // checkbox and label
                     if (innerComponent instanceof JCheckBox) {
-                        // System.out.println("cb reached");
                         JCheckBox checkBox = (JCheckBox) innerComponent;
                         if (checkBox.isSelected()) {
                             name = checkBox.getText();
-                            System.out.println("name:" + name);
                         }
                     }
 
                     if (innerComponent instanceof JLabel && name != "") {
-                        // System.out.println("lb reached");
                         JLabel label = (JLabel) innerComponent;
                         description = label.getText();
-                        System.out.println("desc:" + description);
                     }
                 }
                 
@@ -170,11 +158,6 @@ public class Section3_TestSelection extends JPanel {
             }
         }
         return addedTests;
-    }
-
-    public void getSelectedTests() {
-        selectedTests.print();
-        // return selectedTests;
     }
     
 }

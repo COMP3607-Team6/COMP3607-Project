@@ -1,8 +1,6 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +9,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,11 +17,10 @@ import javax.swing.JTextField;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 
+/**
+* This class creates the Layout for Class Input TabbedPane of the GUI
+*/
 public class Section2A_ClassesNew extends Section2_Input {
-     //
-    /* This class creates the Layout for Class Input TabbedPane of the GUI
-     */
-
     private JPanel promptPanel;
     private JPanel inputPanel;
     private JComboBox accessComboBox;
@@ -40,8 +36,8 @@ public class Section2A_ClassesNew extends Section2_Input {
     private JList list;
     protected int classCount;
 
-    public Section2A_ClassesNew(CardLayout layout) {
-        super(layout);
+    public Section2A_ClassesNew() {
+        super();
 
         promptPanel = createPromptPanel("Add classes to be tested here. Enter class signature:");
         mainPanel = createMainPanel();
@@ -102,7 +98,6 @@ public class Section2A_ClassesNew extends Section2_Input {
             public void actionPerformed(ActionEvent e) {
                 classCount++;
                 addClassToList();
-                getAllClasses();
             }
         });
 
@@ -111,12 +106,8 @@ public class Section2A_ClassesNew extends Section2_Input {
             public void actionPerformed(ActionEvent e) {
                 int index = list.getSelectedIndex();
                 if (index != -1) {
-                    // String selectedClass = classListModel.getElementAt(index);
                     listModel.remove(index);
-                    // allClasses.remove(index);
-                    // classes.remove(index);
                     ClassesManager.removeClass(index);
-                    // removeAttributePanel(selectedClass);
                     classCount--;
                 }
             }
@@ -147,8 +138,6 @@ public class Section2A_ClassesNew extends Section2_Input {
 
         listModel.addElement(classInfo.toString());
 
-        // allClasses.add(classInfo);
-        // classes.add(classInfo);
         ClassesManager.addClass(classInfo);
 
 

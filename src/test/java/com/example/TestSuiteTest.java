@@ -1,6 +1,9 @@
 package com.example;
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -18,6 +21,8 @@ import com.example.FileCopy.JavaFileCopier;
 import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
 import com.example.Constants;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class TestSuiteTest {
     
@@ -30,6 +35,15 @@ public class TestSuiteTest {
     @BeforeClass
     public static void copyTestFile(){
         System.out.println("run");
+
+        Path path2 = Paths.get(Constants.STUDENT_SUBMISSION_TESTING_FOLDER);
+
+        try {
+            Files.createDirectories(path2);
+            System.out.println("Directory is created!");
+        } catch (IOException e) {
+            System.err.println("Failed to create directory!" + e.getMessage());
+        }
 
         JavaFileCopier.copyFiles(Constants.TEST_ASSIGNMENTS);
         System.out.println("copy");

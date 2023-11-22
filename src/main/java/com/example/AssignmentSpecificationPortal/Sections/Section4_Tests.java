@@ -1,7 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
-
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -15,16 +13,14 @@ import com.example.AssignmentSpecificationPortal.Tests.StaticTest;
 import com.example.AssignmentSpecificationPortal.Tests.ValueTest;
 import com.example.AssignmentSpecificationPortal.Tests.TypeTest;
 
+/**
+* This class prompts user to select tests. Creates the Panel that holds the relevant Test Tabbed Panes selected in Section (3)
+*/
 public class Section4_Tests extends JPanel{
-    /* This class creates the Panel that holds the Test Tabbed Panes selected in Section (3)
-     */
 
     private JTabbedPane section4TabbedPane;
-    private CardLayout cardLayout;
-    // private JPanel mainPanel;
 
-    public Section4_Tests(CardLayout cardLayout) {
-        this.cardLayout = cardLayout;
+    public Section4_Tests() {
         
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
@@ -33,14 +29,10 @@ public class Section4_Tests extends JPanel{
         System.out.println("Received Updated Selected Tests: " + selectedTests);
 
         if (section4TabbedPane != null) {
-            remove(section4TabbedPane); // Remove the existing tabbed pane
+            remove(section4TabbedPane);
         }
 
         section4TabbedPane = new JTabbedPane();
-
-        /*private Section2A_Classes section2a;
-        section2a = new Section2A_Classes(cardLayout);
-        section2TabbedPane.addTab("Classes", section2a); */
         
         for (int i = 0; i < selectedTests.getSize(); i++) {
             String name = selectedTests.getTestName(i);

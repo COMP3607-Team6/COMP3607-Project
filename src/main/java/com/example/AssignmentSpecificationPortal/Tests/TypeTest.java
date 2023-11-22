@@ -1,44 +1,31 @@
 package com.example.AssignmentSpecificationPortal.Tests;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.example.TestCase;
 import com.example.TestCaseManager;
 import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
-import com.example.BasicTest.ClassBasicTest;
-import com.example.BasicTest.AttributeBasicTest;
-import com.example.BasicTest.MethodBasicTest;
 import com.example.BehaviourTests.AttributeTypeTest;
 import com.example.BehaviourTests.ClassTypeTest;
 import com.example.BehaviourTests.MethodTypeTest;
 
+/**
+ * This class gives the layout and behaviour specific to Type Test
+ */
 public class TypeTest extends BaseTest {
-    /* This class gives the layout and behaviour specific to Type Test
-     */
+   
 
     private String classType;
     protected ArrayList<ClassTypeTest> classTypeTests;
@@ -102,11 +89,9 @@ public class TypeTest extends BaseTest {
         if (classCheckB.isSelected() == true) {
         
             String textFieldValue = marksTextField1.getText(); 
-            int marks = Integer.parseInt(textFieldValue); 
-            System.out.println("Yeah");
+            int marks = Integer.parseInt(textFieldValue);
             classTypeTests.add(new ClassTypeTest(cName, marks, classType));
             nameCon = nameCon + "\n" + "-Class [" + marks + " marks] - "+ classType;
-            System.out.println("Yeah Yeaaah");
         } 
         if (attCheckB.isSelected() == true) {
             nameCon = nameCon + "\n-Attributes: ";

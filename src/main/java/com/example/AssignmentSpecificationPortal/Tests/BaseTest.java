@@ -29,10 +29,10 @@ import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 
+/**
+* This class generalizes the some tests UI and gives the Base Layout and functionality of Most Tests
+*/
 public class BaseTest extends JPanel {
-    /* This class generalizes the tests and gives the Base Layout of Most Tests 
-     */
-
     protected ArrayList<TestCase> testCases;
     protected ArrayList<ClassBasicTest> classTests;
     protected ArrayList<MethodBasicTest> methodTests;
@@ -68,7 +68,6 @@ public class BaseTest extends JPanel {
     
 
     protected String testType;
-    private JPanel testDescriptionPanel;
 
     public BaseTest() {
         classTests = new ArrayList<ClassBasicTest>();
@@ -78,7 +77,6 @@ public class BaseTest extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
-
         createDescriptionPanel(); // descriptionPanel
 
         createSelectedClassPanel(); // selectedClassPanel
@@ -168,12 +166,6 @@ public class BaseTest extends JPanel {
 
     //Creates the description for the Specific test
     protected void createDescriptionPanel() {
-        // testDescription = new JLabel();
-        // testDescriptionPanel = new JPanel(); 
-        // testDescriptionPanel.setLayout(new BoxLayout(testDescriptionPanel, BoxLayout.X_AXIS));
-        // testDescriptionPanel.add(testDescription);
-        // testDescriptionPanel.add(Box.createHorizontalGlue());
-        
         testDescription = new JLabel();
         testDescription.setFont(new Font("Arial", Font.ITALIC, 15));
         testDescription.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -337,8 +329,7 @@ public class BaseTest extends JPanel {
         String cName = (String) selectedClassComboBox.getSelectedItem();
 
         String textFieldValue = marksTextField1.getText(); 
-        int marks = Integer.parseInt(textFieldValue); 
-       // String testType = "name";
+        int marks = Integer.parseInt(textFieldValue);
 
         if (classCheckB.isSelected() == true) {
             classTests.add(new ClassBasicTest(marks, cName, testType));
@@ -386,7 +377,6 @@ public class BaseTest extends JPanel {
                             classCompName = parts[1];
                         }
 
-                        System.out.println("text: " + text);
                         if (checkBox.isSelected()) {
                             currentComponent = iterator.next();
                             currentComponent = iterator.next(); // skip marks label
@@ -397,7 +387,6 @@ public class BaseTest extends JPanel {
                                 marks = Integer.parseInt(textFieldValue); 
                                 name = name + text + " ["+marks+" mks], \n";
                             }
-                            // name = name + checkBoxText + " ["+marks+" mks], ";
                             if(check == 0){
                                 attributeTests.add(new AttributeBasicTest(marks,className, classCompName, testType));
                             }

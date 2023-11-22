@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -21,11 +20,10 @@ import com.example.AssignmentSpecificationPortal.AttributeInformation;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 
+/**
+* This class creates the Layout for Attribute Input TabbedPane of the GUI
+*/
 public class Section2B_AttributesNew extends Section2_Input {
-     //
-    /* This class creates the Layout for Attribute Input TabbedPane of the GUI
-     */
-
     private JPanel promptPanel;
     private JPanel selectedClassPanel;
     private int selectedClassIndex;
@@ -43,12 +41,9 @@ public class Section2B_AttributesNew extends Section2_Input {
     private JComboBox attAccessComboBox;
     private JLabel selectedClassLabel;
     private JButton loadClassesButton;
-    // private JRadioButton staticRadioButton;
-    // private JRadioButton finalRadioButton;
-    // private ButtonGroup buttonGroup;
 
-    public Section2B_AttributesNew(CardLayout layout) {
-        super(layout);
+    public Section2B_AttributesNew() {
+        super();
 
         promptPanel = createPromptPanel("Add attributes (for inputted classes) to be tested here.");
         selectedClassPanel = createSelectedClassPanel();
@@ -90,13 +85,6 @@ public class Section2B_AttributesNew extends Section2_Input {
 
         staticCheckButton = new JCheckBox("static");
         finalCheckButton = new JCheckBox("final");
-        // staticRadioButton = new JRadioButton("Static");
-        // finalRadioButton = new JRadioButton("Final");
-
-        // Create a ButtonGroup and add radio buttons to it
-        // buttonGroup = new ButtonGroup();
-        // buttonGroup.add(staticRadioButton);
-        // buttonGroup.add(finalRadioButton);
 
         attributeNameField = new JTextField(20);
         attributeNameField.setText("");
@@ -107,7 +95,6 @@ public class Section2B_AttributesNew extends Section2_Input {
         attributeTypeComboBox = new JComboBox<>(
                 new String[] { "String", "int", "double", "boolean", "object", "char" });
         attAccessComboBox = new JComboBox<>(new String[] { "public", "private", "protected" });
-      //  isFinalComboBox = new JComboBox<>(new String[] { "final", "-"});
 
 
        staticCheckButton.addActionListener(new ActionListener() {
@@ -145,9 +132,6 @@ public class Section2B_AttributesNew extends Section2_Input {
         inputPanel.add(attAccessComboBox);
         inputPanel.add(staticCheckButton);
         inputPanel.add(finalCheckButton);
-        // inputPanel.add(staticRadioButton);
-        // inputPanel.add(finalRadioButton);
-        // // inputPanel.add(buttonGroup);
         inputPanel.add(attributeTypeComboBox);
         inputPanel.add(objNameField);
         inputPanel.add(attributeNameField);
@@ -171,13 +155,10 @@ public class Section2B_AttributesNew extends Section2_Input {
             public void actionPerformed(ActionEvent e) {
                 String attributeName = attributeNameField.getText();
                 String objName = objNameField.getText();
-                //String finalv = (String) isFinalComboBox.getSelectedItem();
-                //boolean finalv = finalCheckBox.isSelected();
                 boolean finalv = finalCheckButton.isSelected();
                 boolean isSelected = staticCheckButton.isSelected();
                 String attributeType = (String) attributeTypeComboBox.getSelectedItem();
                 String attAccessType = (String) attAccessComboBox.getSelectedItem();
-                //boolean isSelected = instanceCheckBox.isSelected();
 
                 if (attributeName.isEmpty()) {
                     return;
@@ -193,15 +174,11 @@ public class Section2B_AttributesNew extends Section2_Input {
                 attributeNameField.setText("");
                 objNameField.setText("");
 
-
                 staticCheckButton.setVisible(true);
                 finalCheckButton.setVisible(true);
                 staticCheckButton.setSelected(false);
                 finalCheckButton.setSelected(false);
 
-                // buttonGroup.clearSelection();
-                // finalRadioButton.setSelected(false);
-                // staticRadioButton.setSelected(false);
             }
         });
 
@@ -231,9 +208,6 @@ public class Section2B_AttributesNew extends Section2_Input {
             public void actionPerformed(ActionEvent e) {
                 updateSelectedClassComboBox();
                 selectedClassComboBox.setVisible(true);
-                getAllClasses();
-                getAllAttributes();
-                getAllMethods();
             }
         });
 

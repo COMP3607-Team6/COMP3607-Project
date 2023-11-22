@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -22,11 +21,10 @@ import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 
+/**
+* This class creates the Layout for Method Input TabbedPane of the GUI
+*/
 public class Section2C_MethodsNew extends Section2_Input {
-     //
-    /* This class creates the Layout for Method Input TabbedPane of the GUI
-     */
-
     private JPanel promptPanel;
     private JPanel selectedClassPanel;
     private int selectedClassIndex;
@@ -46,7 +44,6 @@ public class Section2C_MethodsNew extends Section2_Input {
     private JLabel objMethodTypeLabel;
     private JLabel methodNameLabel;
     private JTextField methodName;
-    private JButton test;
     private JPanel paramPanel;
     private JComboBox parameterType;
     private JTextField objParameterType;
@@ -62,14 +59,12 @@ public class Section2C_MethodsNew extends Section2_Input {
     private JButton addMethodParameterObj;
     private ArrayList<String> methodParameters;
     private ArrayList<String> ObjParameters;
-    // private JRadioButton staticRadioButton;
-    // private JRadioButton finalRadioButton;
     private JCheckBox staticCheckButton;
     private JCheckBox finalCheckButton;
 
     
-    public Section2C_MethodsNew(CardLayout layout) {
-        super(layout);
+    public Section2C_MethodsNew() {
+        super();
 
         promptPanel = createPromptPanel("Add methods (for inputted classes) to be tested here. Enter method signature:");
         selectedClassPanel = createSelectedClassPanel();
@@ -185,10 +180,7 @@ public class Section2C_MethodsNew extends Section2_Input {
         methodNameLabel = new JLabel("Method Name:");
         methodName = new JTextField(15);
         methodName.setText("");
-       
-        test = new JButton("view all classes");
 
-        // mPanel.add(test);
         mPanel.add(accessTypeCB);
         mPanel.add(staticCheckButton);
         mPanel.add(finalCheckButton);
@@ -210,7 +202,6 @@ public class Section2C_MethodsNew extends Section2_Input {
         list.setFixedCellHeight(22);
         outputPanel2.add(new JScrollPane(list));
     }
-
     
 
     @Override
@@ -218,7 +209,6 @@ public class Section2C_MethodsNew extends Section2_Input {
          saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String methodInfo = "";
                 String accessType = (String) accessTypeCB.getSelectedItem();
                 String isAbstractS = (String) isAbstract.getSelectedItem();
                 String sendStatic = "";
@@ -228,7 +218,6 @@ public class Section2C_MethodsNew extends Section2_Input {
                 if(staticCheckButton.isSelected()){
                     sendStatic = "static";
                     sendFinal = "";
-                    //finalCheckButton.setVisible(false);
                 }
 
                 if(finalCheckButton.isSelected()){
@@ -248,7 +237,6 @@ public class Section2C_MethodsNew extends Section2_Input {
 
                 String methodPars = "";
                 for(String element: methodParameters){
-                    System.out.println(element);
                     methodPars += element + ", ";
                 }
 
@@ -264,8 +252,6 @@ public class Section2C_MethodsNew extends Section2_Input {
 
                 MethodInformation method = new MethodInformation(accessType, isAbstractS, returnType, methodNameS, methodPars, sendStatic ,sendFinal);
                 ClassesManager.getClass(selectedClassIndex).addMethod(method);
-
-                System.out.println(method.toString());
 
                 listModel.addElement(method.toString());
 
@@ -305,9 +291,6 @@ public class Section2C_MethodsNew extends Section2_Input {
             public void actionPerformed(ActionEvent e) {
                 updateSelectedClassComboBox();
                 selectedClassComboBox.setVisible(true);
-                getAllClasses();
-                getAllAttributes();
-                getAllMethods();
             }
         });
 
@@ -355,14 +338,6 @@ public class Section2C_MethodsNew extends Section2_Input {
             }
         });
 
-
-        test.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                getAllMethods();
-            }
-        });
-
         // ALLOWS OBJECT TYPE TO BE INPUTTED
         methodType.addActionListener(new ActionListener() {
             @Override
@@ -379,7 +354,7 @@ public class Section2C_MethodsNew extends Section2_Input {
         });
 
         //ADDS PARAMETER OF METHOD TO ARRAYLIST
-        addMethodParameter.addActionListener(new ActionListener() {//this is the btn
+        addMethodParameter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 String parType = (String) parameterType.getSelectedItem();
@@ -396,7 +371,6 @@ public class Section2C_MethodsNew extends Section2_Input {
                     String parInput = (String) parameterInput.getText();
                     String type_input = parType + " " + parInput;
                     methodParameters.add(type_input); 
-                    System.out.println(methodParameters);
                     parameterInput.setText("");
                 }
                  
@@ -411,7 +385,6 @@ public class Section2C_MethodsNew extends Section2_Input {
                 String parInput = (String) parameterInputObj.getText();
                 String type_input = parType + " " + parInput;
                 ObjParameters.add(type_input);
-                System.out.println(ObjParameters);
                 parameterInputObj.setText("");
                 
             }
@@ -441,8 +414,7 @@ public class Section2C_MethodsNew extends Section2_Input {
     }
 
     private String combineObjPars(String parType, ArrayList<String> test){
-        System.out.println("testing method");
-        System.out.println(test);
+        
         String objPars = "";
         for(String element : test){
             objPars += element + ",";
@@ -452,7 +424,6 @@ public class Section2C_MethodsNew extends Section2_Input {
         }
 
         String allTogether = parType + " {" + objPars + "}";
-        System.out.println(allTogether);
         return allTogether;
     }
 

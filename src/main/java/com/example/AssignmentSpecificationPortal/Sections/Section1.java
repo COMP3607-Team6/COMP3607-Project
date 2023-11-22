@@ -1,6 +1,5 @@
 package com.example.AssignmentSpecificationPortal.Sections;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -30,14 +29,11 @@ import com.example.AssignmentSpecification;
 import com.example.AutomatedJudgeSystem;
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
 
-public class Section1 extends JPanel {
-    //
-    /* This class creates the Layout for Assignment Spec Input Panel (Section 1) of the GUI
-     */
-    
-    // private JButton nextButton;
-    private CardLayout cardLayout;
 
+/**
+* This class creates the Layout for Assignment Spec Input Panel (Section 1) of the GUI
+*/
+public class Section1 extends JPanel {
     private JLabel welcomeLabel;
     private JLabel welcomeMsgLabel;
 
@@ -80,8 +76,7 @@ public class Section1 extends JPanel {
 
     private JTextField numberField;
 
-    public Section1(CardLayout layout, AssignmentSpecification asSpec, AutomatedJudgeSystem system, AssignmentSpecPortal portal) {
-        cardLayout = layout;
+    public Section1(AssignmentSpecification asSpec, AutomatedJudgeSystem system, AssignmentSpecPortal portal) {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -150,10 +145,6 @@ public class Section1 extends JPanel {
         descriptionTextArea.setWrapStyleWord(true);
         descriptionTextArea.setBorder(BorderFactory.createLineBorder(Color.gray));
 
-        // JScrollPane descriptionScrollPane = new JScrollPane(descriptionTextArea,
-        // JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-        // JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
         descriptionPanel.add(descriptionLabel);
         descriptionPanel.add(descriptionTextArea);
 
@@ -206,14 +197,6 @@ public class Section1 extends JPanel {
 
         specButton = new JButton("Add Assignment Specification");
         specButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // NOTE: BEFORE SUBMISSION
-        // -- REPLACE OLD specButton action listener WITH NEW ONE
-        // -- UNCOMMENT onGUISaveSpecButtonPressed IN AssignmentSpecPortal.java
-        // -- UNCOMMENT nextButton.setEnabled(false) AssignmentSpecPortal.java
-
-        // NEW
-        // ActionListener for the spec button
         
         specButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -229,7 +212,6 @@ public class Section1 extends JPanel {
                         weighting = Integer.parseInt(weightingFieldValue);
                     } catch (final Exception ex) {
                         weighting = 999;
-                        // ex.printStackTrace();
                     }
                 }
 
@@ -243,8 +225,8 @@ public class Section1 extends JPanel {
                 String filepath = (String) actualFilePathLabel.getText();
 
                 if (courseCode.isEmpty() 
-                // || title.isEmpty() || weightingFieldValue.isEmpty() || desc.isEmpty() ||
-                //         (filepath.isEmpty() || filepath == "no file added")
+                || title.isEmpty() || weightingFieldValue.isEmpty() || desc.isEmpty() ||
+                        (filepath.isEmpty() || filepath == "no file added")
                         ) {
                     specNotCompleteLabel.setText("Please fill all fields.");
                 } else {
@@ -256,8 +238,8 @@ public class Section1 extends JPanel {
                         specNotCompleteLabel.setText("Invalid: Weighting received exceeds 100%");
                     } else if (weighting < 0) {
                         specNotCompleteLabel.setText("Invalid: Weighting received is less than 0%");
-                    // } else if (!zipFile.exists()) {
-                    //     specNotCompleteLabel.setText("No zip file exists at this location.");
+                    } else if (!zipFile.exists()) {
+                        specNotCompleteLabel.setText("No zip file exists at this location.");
                     } else {
                         asSpec.setCourseCode(courseCode);
                         asSpec.setTitle(title);
@@ -277,35 +259,6 @@ public class Section1 extends JPanel {
         });
         
 
-        // OLD
-        /* 
-        specButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-               String courseCode = (String) courseCodeField.getText();
-               asSpec.setCourseCode(courseCode);
-
-               String title = (String) titleField.getText();
-               asSpec.setTitle(title);
-
-               String weightingFieldValue = weightingField.getText(); 
-               int weighting = Integer.parseInt(weightingFieldValue);
-               asSpec.setAssignmentWeighting(weighting);
-
-               String desc = (String) descriptionTextArea.getText();
-               asSpec.setDescription(desc);
-
-               String a = (String) date.getSelectedItem();
-               String b = (String) month.getSelectedItem();
-               String c = (String) year.getSelectedItem();
-               String deadline = a + " " + b + " " + c;
-               asSpec.setDeadlineDate(deadline);
-
-               String filepath = (String) actualFilePathLabel.getText();
-               asSpec.setFolderPath(filepath);
-               System.out.println("Assignment Specification Saved");
-            }
-        }); */
-
         specNotCompleteLabel = new JLabel("");
         specNotCompleteLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -319,11 +272,6 @@ public class Section1 extends JPanel {
         filePathPanel.add(browseButton);
         filePathPanel.add(actualFilePathLabel);
 
-        // JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        // nextButton.setPreferredSize(new Dimension(100, 30));
-        // buttonPanel.add(nextButton);
-
-        // mainPanel.add(welcomePanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
         mainPanel.add(courseCodePanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -345,10 +293,12 @@ public class Section1 extends JPanel {
         centerAlignPanel.add(mainPanel);
         add(welcomePanel);
         add(centerAlignPanel);
-        // add(buttonPanel);
     }
 
-    // Restricts input to integers only
+    
+    /**
+     * Restricts input to integers only
+    */
     class IntegerDocument extends PlainDocument {
         private final Pattern pattern = Pattern.compile("-?\\d*");
 

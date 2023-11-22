@@ -34,9 +34,12 @@ import com.example.AssignmentSpecificationPortal.MethodInformation;
 import com.example.BehaviourTests.AttributeValueTest;
 import com.example.BehaviourTests.MethodValueTest;
 
+
+/**
+ * This class gives the layout and behaviour specific to Value Test
+ */
 public class ValueTest extends JPanel{
-    /* This class gives the layout and behaviour specific to Value Test
-     */
+   
 
     private JLabel testDescription;
     private JPanel selectedClassPanel;
@@ -89,7 +92,6 @@ public class ValueTest extends JPanel{
 
         selectedClassPanel = new JPanel();
         selectedClassPanel.setLayout(new FlowLayout());
-        // selectedClassPanel.setPreferredSize(new Dimension(100, 60));
 
         selectedClassLabel = new JLabel("Class:");
         loadClassesButton = new JButton("Load classes");
@@ -381,7 +383,6 @@ public class ValueTest extends JPanel{
     }
 
     public String checkCheckboxesA(JPanel Panel, String name, String className, int check, int mark){
-        System.out.println("inside checkA method");
         for(Component component : Panel.getComponents()){
             String input = "";
 
@@ -420,14 +421,11 @@ public class ValueTest extends JPanel{
             }
         }
 
-        System.out.println(attributeTests.size());
         name = name + "\n";
         return name;
     }
 
     public String checkCheckboxesM(JPanel Panel, String name, String className, int check, int mark){
-
-        System.out.println("inside checkM method");
 
         String expectedOutput = "";
 
@@ -496,7 +494,6 @@ public class ValueTest extends JPanel{
             }
         }
         name = name + "\n";
-        System.out.println("size of ting: " + methodTests.size());
         
         return name;
     }
@@ -509,9 +506,6 @@ public class ValueTest extends JPanel{
         int trial = parts.length - 1;// get last element in array
         parts[0] = parts[0].substring(1);
         parts[trial] = parts[trial].substring(0, parts[trial].length() - 1);
-        for(String parting : parts){
-            System.out.println(parting);
-        }
         
         for(int i = 0; i < parts.length;i++){
             String placeholder = parts[i];

@@ -26,17 +26,11 @@ import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.HierarchyTests.SubClassTest;
 import com.example.HierarchyTests.SubTypeTest;
 
+/**
+* This class gives the layout and behaviour specific to Hierarchy Test
+*/
 public class HierarchyTest extends JPanel {
-    /* This class gives the layout and behaviour specific to Hierarchy Test
-     */
-
-    private ArrayList<ClassInformation> classes;
     private JLabel testDescription;
-    // private JPanel selectedClassPanel;
-    // private JLabel selectedClassLabel;
-    // private JButton loadClassesButton;
-    // private JComboBox<String> selectedClassComboBox;
-    // private int selectedClassIndex;
 
     private JPanel grid;
     private JPanel extendsSection;
@@ -69,10 +63,6 @@ public class HierarchyTest extends JPanel {
     private JCheckBox implementsCheckBox;
 
     public HierarchyTest(String description) {
-    
-
-    // public HierarchyTest(ArrayList<ClassInformation> classes) {
-        // this.classes = classes;
 
         subClassTests = new ArrayList<SubClassTest>();
         subTypeTests = new ArrayList<SubTypeTest>();
@@ -84,29 +74,7 @@ public class HierarchyTest extends JPanel {
         testDescription.setFont(new Font("Arial", Font.ITALIC, 22));
         testDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        // selectedClassPanel = new JPanel();
-        // selectedClassPanel.setLayout(new FlowLayout());
-        // selectedClassLabel = new JLabel("Class:");
-        // loadClassesButton = new JButton("Load classes");
-        // selectedClassComboBox = new JComboBox<String>(new String[]{"choose class"});
-        // selectedClassComboBox = new JComboBox<String>();
-
-        // for (ClassInformation c : ClassesManager.getClasses()) {
-        // // for (ClassInformation c : classes) {
-        //     String className = c.getClassName();
-        //     selectedClassComboBox.addItem(className);
-        // }
-
-        // selectedClassPanel.add(selectedClassLabel);
-        // selectedClassPanel.add(selectedClassComboBox);
-        // selectedClassPanel.add(loadClassesButton);
-
-        // if (selectedClassComboBox.getItemCount() == 0) {
-        //     selectedClassComboBox.setVisible(false);
-        // }
-
         add(testDescription);
-        // add(selectedClassPanel);
 
 
         grid = new JPanel();
@@ -129,8 +97,6 @@ public class HierarchyTest extends JPanel {
         extendsMarksLabel = new JLabel("Marks: ");
         extendsMarksField = new JTextField(3);
         extendsMarksField.setText("0");
-        // extendsMarksField.setDocument(new IntegerDocument());
-        // extendsMarksField.setPreferredSize(new Dimension(50, 30));
 
         test.add(extendsSectionTitle);
         test.add(extendsMarksLabel);
@@ -138,22 +104,12 @@ public class HierarchyTest extends JPanel {
         
         extendsList = new JPanel();
         extendsList.setLayout(new BoxLayout(extendsList, BoxLayout.Y_AXIS));
-        
-
-        // for(int i = 0; i < 20; i++){
-        //     extendsList.add(new JCheckBox("somethign extends somethng"));
-        // }
-
 
         populateExtendsList();  
 
         JScrollPane extendsListScrollPane = new JScrollPane(extendsList);
         extendsListScrollPane.setPreferredSize(new Dimension(200, 100));
-        // extendsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        // extendsSection.add(extendsSectionTitle);
-        // extendsSection.add(extendsMarksLabel);
-        // extendsSection.add(extendsMarksField);
         extendsSection.add(test);
         extendsSection.add(extendsListScrollPane);
 
@@ -172,9 +128,7 @@ public class HierarchyTest extends JPanel {
         implementsList = new JPanel();
         implementsList.setLayout(new BoxLayout(implementsList, BoxLayout.Y_AXIS));
 
-        // for(int i = 0; i < 20; i++){
-        //     implementsList.add(new JCheckBox("somethign extends somethng"));
-        // }
+
         populateImplementsList();
         
 
@@ -187,21 +141,15 @@ public class HierarchyTest extends JPanel {
         test1.add(implementsMarksLabel);
         test1.add(implementsMarksField);
 
-        // implementsSection.add(implementsSectionTitle);
         implementsSection.add(test1);
         implementsSection.add(implementsListScrollPane);
-
 
         testsSection.add(extendsSection);
         testsSection.add(implementsSection);
 
-
-
         allTests = new JTextArea(20, 10);
         allTests.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(allTests);
-
-
 
         displaySection = new JPanel();
         displaySection.setLayout(new BoxLayout(displaySection, BoxLayout.Y_AXIS));
@@ -212,49 +160,15 @@ public class HierarchyTest extends JPanel {
         saveBtn = new JButton("Save Tests");
         deleteBtn = new JButton("Remove Tests");
 
-
-
         saveBtnPanel.add(saveBtn);
         saveBtnPanel.add(deleteBtn);
 
         displaySection.add(scrollPane);
         displaySection.add(saveBtnPanel);
 
-
         add(grid);
         grid.add(testsSection);
         grid.add(displaySection);
-
-
-
-        
-
-
-
-
-        // loadClassesButton.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         updateSelectedClassComboBox();
-        //         selectedClassComboBox.setVisible(true);
-        //     }
-        // });
-
-        // selectedClassComboBox.addActionListener(new ActionListener() {
-        //     // private int selectedClassIndex;
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         selectedClassIndex = selectedClassComboBox.getSelectedIndex();
-        //         if (selectedClassIndex >= 0 && selectedClassIndex < ClassesManager.getClasses().size()) {
-        //             ClassInformation selectedClass = ClassesManager.getClasses().get(selectedClassIndex);
-        //             // for (AttributeInformation attribute : selectedClass.getAttributes()) {
-        //             //     attributeListModel.addElement(attribute.toString());
-        //             // }
-        //         } else {
-        //             System.out.println("Invalid selected index or class not found.");
-        //         }
-        //     }
-        // });
 
         deleteBtn.addActionListener(new ActionListener() {
             @Override
@@ -268,19 +182,8 @@ public class HierarchyTest extends JPanel {
                 printTests();
             }
         });
-
-
-
-        
     }
 
-    // private void updateSelectedClassComboBox() {
-    //     selectedClassComboBox.removeAllItems();
-    //     for (ClassInformation c : ClassesManager.getClasses()) {
-    //         String className = c.getClassName();
-    //         selectedClassComboBox.addItem(className);
-    //     }
-    // }
 
     //method to add extends
     public void populateExtendsList(){
@@ -291,7 +194,6 @@ public class HierarchyTest extends JPanel {
             if (!extendedOrImplementedClass.isEmpty() && extendedOrImplementedClass != null 
                 && c.getExtendsOrImplements().equals("extends")){
                 extendsCheckBox = new JCheckBox(name + " extends " + extendedOrImplementedClass);
-                System.out.println(name + " extends " + extendedOrImplementedClass);
                 extendsList.add(extendsCheckBox);
             }
         }
@@ -308,7 +210,6 @@ public class HierarchyTest extends JPanel {
             if (!extendedOrImplementedClass.isEmpty() && extendedOrImplementedClass != null 
                 && c.getExtendsOrImplements().equals("implements")){
                 implementsCheckBox = new JCheckBox(name + " implements " + extendedOrImplementedClass);
-                System.out.println(name + " implements " + extendedOrImplementedClass);
                 implementsList.add(implementsCheckBox);
             }
         }
@@ -340,8 +241,6 @@ public class HierarchyTest extends JPanel {
                         inheritance = cName + " extends " + superClassName + " [" + markNum + " Marks]";
                         inheritance = inheritance + "\n";
                         allTests.append(inheritance);
-
-                        System.out.println(cName + " " + superClassName + " " + markNum);
                     }
                 }
             }
@@ -374,8 +273,6 @@ public class HierarchyTest extends JPanel {
                         inheritance = cName + " implements " + superClassName + " [" + markNum + " Marks]";
                         inheritance = inheritance + "\n";
                         allTests.append(inheritance);
-
-                        System.out.println(cName + " " + superClassName + " " + markNum);
                     }
                 }
             }

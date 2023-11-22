@@ -2,6 +2,10 @@ package com.example;
 
 import java.util.ArrayList;
 
+
+/**
+ * Manages testcases array
+*/
 public class TestCaseManager {
     private static ArrayList<TestCase> testCases = new ArrayList<>();
 
