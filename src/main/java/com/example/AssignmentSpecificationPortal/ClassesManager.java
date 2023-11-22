@@ -2,13 +2,12 @@ package com.example.AssignmentSpecificationPortal;
 
 import java.util.ArrayList;
 
+/**
+ * This class holds all the saved classes in the GUI in an ArrayList for manipulation
+ */
 public class ClassesManager {
-    //
-    /* This class holds all the saved classes in the GUI 
-       in an ArrayList for manipulation
-    */
-
-    //accessors
+  
+    //accessors  
     private static ArrayList<ClassInformation> classes = new ArrayList<>();
 
     public static ArrayList<ClassInformation> getClasses() {

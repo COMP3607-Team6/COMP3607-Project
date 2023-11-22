@@ -1,17 +1,18 @@
 package com.example.AssignmentSpecificationPortal;
 
+/**
+ * This class holds all the information of saved Methods in the GUI
+ */
 public class MethodInformation {
-    //
-    /* This class holds all the information of saved Methods in the GUI
-     */
+
     private final String accessType;
     private final String isAbstract;
-     private final String isStatic;
+    private final String isStatic;
     private final String isFinal;
     private final String methodType;
     private final String methodName;
-    private final String methodParameters;//or maybe send the arraylist?
-   // private final String marks;
+    private final String methodParameters;
+   
 
    
     public MethodInformation(String accessType, String isAbstract, String methodType, String methodName, String methodParameters, String isStatic, String isFinal){
@@ -22,7 +23,7 @@ public class MethodInformation {
         this.methodParameters = methodParameters;
         this.isStatic = isStatic;
         this.isFinal = isFinal;
-        //this.marks = marks;
+        
     }
 
     //accessors
@@ -48,11 +49,7 @@ public class MethodInformation {
         return this.isFinal;
     } 
     
-    // public String getMarks(){
-    //     return marks;
-    // }
-
-    ///============================
+   
     @Override
     public String toString(){
         String methodSignature = getAccessType();
@@ -64,7 +61,7 @@ public class MethodInformation {
        methodSignature += " " + getIsStatic() + " " +  getIsFinal() + " " +  getMethodType() + " " + getMethodName() + "("+ getMethodParameters() + ")";
        
         methodSignature = methodSignature.replaceAll("\\s{2,}", " ");
-        // System.out.println(methodSignature);
+        
         
      return methodSignature;
     }

@@ -14,9 +14,12 @@ import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.BasicTest.ClassBasicTest;
 
+/**
+ * This class gives the layout and behaviour specific to Static Test
+ */
+
 public class StaticTest extends BaseTest {
-    /* This class gives the layout and behaviour specific to Static Test
-     */
+    
 
     public StaticTest(String description) {
         super(); 

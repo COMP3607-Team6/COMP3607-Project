@@ -2,10 +2,10 @@ package com.example.AssignmentSpecificationPortal;
 
 import java.util.ArrayList;
 
+/**
+ * This class holds all the information of saved Classes in the GUI
+ */
 public class ClassInformation {
-    //
-    /* This class holds all the information of saved Classes in the GUI
-     */
     private final String accessType;
     private final String isAbstract;
     private final String isInterface;
@@ -67,10 +67,6 @@ public class ClassInformation {
     public String getExtendedOrImplementedClass() {
         return extendedOrImplementedClass;
     }
-
-   /*  public String getMarks() {
-        return marks;
-    } */
 
     public ArrayList<AttributeInformation> addAttribute(AttributeInformation attribute) {
         attributes.add(attribute);

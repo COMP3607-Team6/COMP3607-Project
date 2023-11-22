@@ -295,7 +295,10 @@ public class Section1 extends JPanel {
         add(centerAlignPanel);
     }
 
-    // Restricts input to integers only
+    
+    /**
+     * Restricts input to integers only
+    */
     class IntegerDocument extends PlainDocument {
         private final Pattern pattern = Pattern.compile("-?\\d*");
 

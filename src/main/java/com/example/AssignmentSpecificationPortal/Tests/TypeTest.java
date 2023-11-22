@@ -21,9 +21,11 @@ import com.example.BehaviourTests.AttributeTypeTest;
 import com.example.BehaviourTests.ClassTypeTest;
 import com.example.BehaviourTests.MethodTypeTest;
 
+/**
+ * This class gives the layout and behaviour specific to Type Test
+ */
 public class TypeTest extends BaseTest {
-    /* This class gives the layout and behaviour specific to Type Test
-     */
+   
 
     private String classType;
     protected ArrayList<ClassTypeTest> classTypeTests;

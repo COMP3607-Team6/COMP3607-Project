@@ -25,11 +25,12 @@ import com.example.AssignmentSpecificationPortal.Sections.Section3_TestSelection
 import com.example.AssignmentSpecificationPortal.Sections.Section4_Tests;
 import com.example.AssignmentSpecificationPortal.Sections.Section5_TestRun;
 
+ /* This class generates the Assignment Spec Portal GUI
+  * by creating the necessary Section Instances and Components
+ */
 public class AssignmentSpecPortal {
-    //
-    /* This class generates the Assignment Spec Portal GUI
-     * by creating the necessary Section Instances and Components
-     */
+    
+
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel cardPanel;
