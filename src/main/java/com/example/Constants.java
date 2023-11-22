@@ -1,5 +1,9 @@
 package com.example;
 
+/*
+* This is a class that declares constants used throughout the program
+*/
+
 public final class Constants {
     
     /*
@@ -28,7 +32,7 @@ public final class Constants {
     /*
      * Constant for the folder that stores improperly named submissions
      */
-    public static final String UNGRADED_SUBMISSIONS = "src\\main\\java\\com\\example\\UnGradedSubmissions\\";
+    public static final String UNGRADED_SUBMISSIONS = "src\\main\\java\\com\\example\\UngradedSubmissions\\";
 
     /*
      * Constant for the folder that stores files that are used to test System functionality
@@ -39,5 +43,10 @@ public final class Constants {
      * Constant for the zip folder that stores graded submissions
      */
     public static final String GRADED_SUBMISSIONS_ZIP = "GradedSubmissions.zip";
+
+    /*
+     * Constant for the zip folder that stores graded submissions
+     */
+    public static final String UNGRADED_SUBMISSIONS_ZIP = "UngradedSubmissions.zip";
 
 }
