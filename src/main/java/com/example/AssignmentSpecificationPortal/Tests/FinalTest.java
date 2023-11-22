@@ -14,11 +14,10 @@ import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.BasicTest.ClassBasicTest;
 
+//
+/* This class gives the layout and behaviour specific to Final Test
+*/
 public class FinalTest extends BaseTest {
-
-    /* This class gives the layout and behaviour specific to Final Test
-     */
-
     public FinalTest(String description) {
         super(); 
         this.testDescription.setText(description);

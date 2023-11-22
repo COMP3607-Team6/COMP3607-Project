@@ -29,10 +29,10 @@ import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 
+//
+/* This class generalizes the some tests UI and gives the Base Layout and functionality of Most Tests
+*/
 public class BaseTest extends JPanel {
-    /* This class generalizes the tests and gives the Base Layout of Most Tests 
-     */
-
     protected ArrayList<TestCase> testCases;
     protected ArrayList<ClassBasicTest> classTests;
     protected ArrayList<MethodBasicTest> methodTests;
@@ -329,8 +329,7 @@ public class BaseTest extends JPanel {
         String cName = (String) selectedClassComboBox.getSelectedItem();
 
         String textFieldValue = marksTextField1.getText(); 
-        int marks = Integer.parseInt(textFieldValue); 
-       // String testType = "name";
+        int marks = Integer.parseInt(textFieldValue);
 
         if (classCheckB.isSelected() == true) {
             classTests.add(new ClassBasicTest(marks, cName, testType));

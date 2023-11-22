@@ -21,11 +21,10 @@ import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
 import java.awt.Font;
 
+//
+/* This class gives the layout and behaviour specific to AccessorType Test
+*/
 public class AccessorTypeTest extends BaseTest {
-    /*
-     * This class gives the layout and behaviour specific to AccessorType Test
-     */
-
     private String classAccessType;
 
     public AccessorTypeTest(String description) {

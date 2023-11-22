@@ -17,11 +17,10 @@ import javax.swing.JTextField;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 
+//
+/* This class creates the Layout for Class Input TabbedPane of the GUI
+*/
 public class Section2A_ClassesNew extends Section2_Input {
-     //
-    /* This class creates the Layout for Class Input TabbedPane of the GUI
-     */
-
     private JPanel promptPanel;
     private JPanel inputPanel;
     private JComboBox accessComboBox;
