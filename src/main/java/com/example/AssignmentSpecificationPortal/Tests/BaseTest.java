@@ -77,7 +77,6 @@ public class BaseTest extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
-
         createDescriptionPanel(); // descriptionPanel
 
         createSelectedClassPanel(); // selectedClassPanel
