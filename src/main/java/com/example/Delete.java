@@ -4,9 +4,15 @@ import java.io.File;
 import org.apache.commons.io.FileUtils;
 import java.io.IOException;
 
+/**
+ * Contains functions to delete files/folders
+*/
 public class Delete {
 
-        // A custom method to delete a folder recursively
+        
+/**
+ * A custom method to delete a folder recursively
+*/
 public static void deleteFolder(String folderPath) {
 
     File folder = new File(folderPath);
@@ -16,10 +22,9 @@ public static void deleteFolder(String folderPath) {
         if (files != null) {
             // Loop over the files and subfolders and delete them
             for (File file : files) {
-                System.out.println("advsdvsdvs " + file.getName());
+            
                 // If the file is a directory, call the method recursively
                 if (file.isDirectory()) {
-                    System.out.println("IHUHU " + file.toString());
                     deleteFolder(file.toString());
                 }
 
@@ -35,7 +40,9 @@ public static void deleteFolder(String folderPath) {
     }
 
 
-// A custom method to delete a folder recursively
+/**
+ * A custom method to delete a folder recursively
+*/
 public static void deleteFolder(File folder) {
     // Get all the files and subfolders in the folder
     File[] files = folder.listFiles();
@@ -56,7 +63,9 @@ public static void deleteFolder(File folder) {
     folder.delete();
 }
 
-// A custom method to delete all the files within a folder but not the folder itself
+/**
+ * A custom method to delete all the files within a folder but not the folder itself
+*/
 public static void deleteFilesInFolder(String folderPath) {
     // Create a File object for the folder
     File folder = new File(folderPath);
@@ -71,7 +80,10 @@ public static void deleteFilesInFolder(String folderPath) {
     }
 }
 
-// A custom method to delete all the files within a folder but not the folder itself
+
+/**
+ * A custom method to delete all the files within a folder but not the folder itself
+*/
 public static void deleteFilesInFolder(File folder) {
     
     // Get all the files and subfolders in the folder
@@ -85,6 +97,9 @@ public static void deleteFilesInFolder(File folder) {
     }
 }
 
+/**
+ * Finds the subfolders of a folder and deletes it.
+*/
 public static void deleteSubFolders(String folderName)
 {
     File parentFolder = new File(folderName);
