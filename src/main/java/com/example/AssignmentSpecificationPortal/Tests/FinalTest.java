@@ -14,8 +14,8 @@ import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.BasicTest.ClassBasicTest;
 
-//
-/* This class gives the layout and behaviour specific to Final Test
+/**
+* This class gives the layout and behaviour specific to Final Test
 */
 public class FinalTest extends BaseTest {
     public FinalTest(String description) {
