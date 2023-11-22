@@ -60,28 +60,26 @@ public class StaticTest extends BaseTest {
                 methodPanel.removeAll();
                 ArrayList<MethodInformation> methods = c.getMethods();
                 for(MethodInformation m:methods){
-                    JPanel panel = new JPanel();
-                    String text = "";
-                    if (m.getIsStatic().equals("static")) 
-                        text = "static" + " " + m.getMethodName();
-                    else
-                        text = m.getMethodName();
-                    JCheckBox mCheckBox = new JCheckBox(text);
+                    if (m.getIsStatic().equals("static")) {
+                        JPanel panel = new JPanel();
+                        String text = m.getMethodName();
+                        JCheckBox mCheckBox = new JCheckBox(text);
 
-                    mCheckBox.setPreferredSize(new Dimension(100, 20));
-                    mCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
+                        mCheckBox.setPreferredSize(new Dimension(100, 20));
+                        mCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
 
-                    panel.add(mCheckBox);
+                        panel.add(mCheckBox);
 
-                    JLabel marksLabel = new JLabel("Marks:");
-                    marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
-                    panel.add(marksLabel);
-                    
-                    JTextField textField = new JTextField(3);
-                    textField.setDocument(new IntegerDocument());
-                    panel.add(textField);
-                    
-                    methodPanel.add(panel);
+                        JLabel marksLabel = new JLabel("Marks:");
+                        marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
+                        panel.add(marksLabel);
+                        
+                        JTextField textField = new JTextField(3);
+                        textField.setDocument(new IntegerDocument());
+                        panel.add(textField);
+                        
+                        methodPanel.add(panel);
+                    }
                 }    
             }
         }  
@@ -95,27 +93,25 @@ public class StaticTest extends BaseTest {
                 ArrayList<AttributeInformation> attributes = c.getAttributes();
                 for(AttributeInformation a:attributes){
                     
-                    JPanel panel = new JPanel();
-                    String text = "";
-                    if (a.getIsStatic().equals("static")) 
-                        text = "static" + " " + a.getAttributeName();
-                    else
-                        text = a.getAttributeName();
-                        
-                    JCheckBox aCheckBox = new JCheckBox(text);
-                    aCheckBox.setPreferredSize(new Dimension(100, 20));
-                    aCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
-                    panel.add(aCheckBox);
+                    if (a.getIsStatic().equals("static")) {
+                        JPanel panel = new JPanel();
+                        String text = "static" + " " + a.getAttributeName();
+                            
+                        JCheckBox aCheckBox = new JCheckBox(text);
+                        aCheckBox.setPreferredSize(new Dimension(100, 20));
+                        aCheckBox.setLayout(new FlowLayout(FlowLayout.LEADING));
+                        panel.add(aCheckBox);
 
-                    JLabel marksLabel = new JLabel("Marks:");
-                    marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
-                    panel.add(marksLabel);
-                    
-                    JTextField textField = new JTextField(3);
-                    textField.setDocument(new IntegerDocument());
-                    panel.add(textField);
-                    
-                    attributePanel.add(panel);
+                        JLabel marksLabel = new JLabel("Marks:");
+                        marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
+                        panel.add(marksLabel);
+                        
+                        JTextField textField = new JTextField(3);
+                        textField.setDocument(new IntegerDocument());
+                        panel.add(textField);
+                        
+                        attributePanel.add(panel);
+                    }
                 }    
             }
         }  

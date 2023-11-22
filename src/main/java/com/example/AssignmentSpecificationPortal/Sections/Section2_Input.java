@@ -12,11 +12,10 @@ import javax.swing.JPanel;
 import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 
+//
+/* This class creates the Panel that holds the TabbedPane for Classes/Attribute/Methods of the GUI
+*/
 public abstract class Section2_Input extends JPanel {
-    
-    /* This class creates the Panel that holds the TabbedPane for Classes/Attribute/Methods of the GUI
-     */
-
     private JLabel prompt;
     private JPanel promptPanel;
     protected JComboBox<String> selectedClassComboBox;
@@ -33,6 +32,9 @@ public abstract class Section2_Input extends JPanel {
       
     }
 
+    //
+    /* This method creates the prompt panel to tell user what to do for section
+    */
     public JPanel createPromptPanel(String promptMsg) {
         prompt = new JLabel("  " + promptMsg);
         promptPanel = new JPanel();
@@ -51,13 +53,14 @@ public abstract class Section2_Input extends JPanel {
         outputPanel = createOutputPanel();
 
         mainPanel.add(inputPanel);
-        // mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mainPanel.add(outputPanel);
-        // mainPanel.add(new JScrollPane(mainList));
 
         return mainPanel;
     }
 
+    //
+    /* This method creates the panel to catch user input
+    */
     public JPanel createInputPanel() {
         inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
@@ -67,6 +70,9 @@ public abstract class Section2_Input extends JPanel {
         return inputPanel;
     }
 
+    //
+    /* This method creates the panel to display input received
+    */
     public JPanel createOutputPanel() {
         outputPanel = new JPanel();
         outputPanel.setLayout(new FlowLayout());
@@ -96,6 +102,9 @@ public abstract class Section2_Input extends JPanel {
 
     public abstract void attachSaveAndRemoveListeners(JButton saveBtn, JButton removeBtn);
 
+    //
+    /* This method updates the class dropdown so the user can select a class
+    */
     public void updateSelectedClassComboBox() {
         selectedClassComboBox.removeAllItems();
         for (ClassInformation c : ClassesManager.getClasses()) {

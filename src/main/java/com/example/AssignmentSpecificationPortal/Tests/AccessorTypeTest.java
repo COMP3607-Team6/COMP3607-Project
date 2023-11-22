@@ -1,6 +1,7 @@
 package com.example.AssignmentSpecificationPortal.Tests;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,12 +19,12 @@ import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.BasicTest.ClassBasicTest;
 import com.example.BasicTest.AttributeBasicTest;
 import com.example.BasicTest.MethodBasicTest;
+import java.awt.Font;
 
+//
+/* This class gives the layout and behaviour specific to AccessorType Test
+*/
 public class AccessorTypeTest extends BaseTest {
-    /*
-     * This class gives the layout and behaviour specific to AccessorType Test
-     */
-
     private String classAccessType;
 
     public AccessorTypeTest(String description) {
@@ -112,27 +113,35 @@ public class AccessorTypeTest extends BaseTest {
 
                         JCheckBox checkBox = (JCheckBox) currentComponent;
                         String checkBoxText = checkBox.getText();
+                        String[] parts = checkBoxText.split(" ");
+                        String text = "";
+                        String classCompName ="";
+                        
+                        if (parts.length == 1) {
+                            text = parts[0]; // Only one word
+                            classCompName = parts[0];
+                            testType = parts[0];
+                        } else if (parts.length >= 2) {
+                            text = parts[0] + " " + parts[1]; // Concatenate the first and second parts
+                            testType = parts[0];
+                            classCompName = parts[1];
+                        }
+
                         if (checkBox.isSelected()) {
                             currentComponent = iterator.next();
+                            currentComponent = iterator.next(); // skip label
 
                             if (currentComponent instanceof JTextField) {
                                 JTextField textfield = (JTextField) currentComponent;
                                 String textFieldValue = textfield.getText();
                                 marks = Integer.parseInt(textFieldValue);
-                                name = name + checkBoxText + "[ " + marks + " ], ";
-
-                                currentComponent = iterator.next();
-                                if (currentComponent instanceof JLabel) {
-
-                                    JLabel accessType = (JLabel) currentComponent;
-                                    testType = accessType.getText();
-                                }
+                                name = name + text + "[ " + marks + " ], ";
 
                             }
                             if (check == 0) {
-                                attributeTests.add(new AttributeBasicTest(marks, className, checkBoxText, testType));
+                                attributeTests.add(new AttributeBasicTest(marks, className, classCompName, testType));
                             } else if (check == 1) {
-                                methodTests.add(new MethodBasicTest(marks, className, checkBoxText, testType));
+                                methodTests.add(new MethodBasicTest(marks, className, classCompName, testType));
                             }
 
                             marks = 0;
@@ -155,15 +164,17 @@ public class AccessorTypeTest extends BaseTest {
 
                     JPanel panel = new JPanel();
 
-                    JCheckBox aCheckBox = new JCheckBox(a.getAttributeName());
+                    JCheckBox aCheckBox = new JCheckBox(a.getAccessType() + " " + a.getAttributeName());
+                    aCheckBox.setPreferredSize(new Dimension(100, 20));
                     panel.add(aCheckBox);
+
+                    JLabel marksLabel = new JLabel("Marks:");
+                    marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
+                    panel.add(marksLabel);
 
                     JTextField textField = new JTextField(3);
                     textField.setDocument(new IntegerDocument());
                     panel.add(textField);
-
-                    JLabel accessType = new JLabel(a.getAccessType());
-                    panel.add(accessType);
 
                     attributePanel.add(panel);
                 }
@@ -179,15 +190,17 @@ public class AccessorTypeTest extends BaseTest {
                 ArrayList<MethodInformation> methods = c.getMethods();
                 for (MethodInformation m : methods) {
                     JPanel panel = new JPanel();
-                    JCheckBox mCheckBox = new JCheckBox(m.getMethodName());
+                    JCheckBox mCheckBox = new JCheckBox(m.getAccessType() + " " + m.getMethodName());
+                    mCheckBox.setPreferredSize(new Dimension(100, 20));
                     panel.add(mCheckBox);
+
+                    JLabel marksLabel = new JLabel("Marks:");
+                    marksLabel.setFont(new Font("Arial", Font.BOLD, 12));
+                    panel.add(marksLabel);
 
                     JTextField textField = new JTextField(3);
                     textField.setDocument(new IntegerDocument());
                     panel.add(textField);
-
-                    JLabel accessType = new JLabel(m.getAccessType());
-                    panel.add(accessType);
 
                     methodPanel.add(panel);
                 }

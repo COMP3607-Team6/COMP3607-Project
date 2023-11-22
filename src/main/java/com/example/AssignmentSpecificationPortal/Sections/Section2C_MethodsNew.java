@@ -21,11 +21,10 @@ import com.example.AssignmentSpecificationPortal.ClassInformation;
 import com.example.AssignmentSpecificationPortal.ClassesManager;
 import com.example.AssignmentSpecificationPortal.MethodInformation;
 
+//
+/* This class creates the Layout for Method Input TabbedPane of the GUI
+*/
 public class Section2C_MethodsNew extends Section2_Input {
-     //
-    /* This class creates the Layout for Method Input TabbedPane of the GUI
-     */
-
     private JPanel promptPanel;
     private JPanel selectedClassPanel;
     private int selectedClassIndex;

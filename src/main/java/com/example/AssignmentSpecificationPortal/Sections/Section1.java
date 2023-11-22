@@ -29,11 +29,10 @@ import com.example.AssignmentSpecification;
 import com.example.AutomatedJudgeSystem;
 import com.example.AssignmentSpecificationPortal.AssignmentSpecPortal;
 
+//
+/* This class creates the Layout for Assignment Spec Input Panel (Section 1) of the GUI
+*/
 public class Section1 extends JPanel {
-    //
-    /* This class creates the Layout for Assignment Spec Input Panel (Section 1) of the GUI
-     */
-
     private JLabel welcomeLabel;
     private JLabel welcomeMsgLabel;
 
